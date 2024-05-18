@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Operation on Greenery&#39;s Blog Site</title>
-    <link>https://Greenery-S.github.io/zh-cn/tags/operation/</link>
+    <link>http://localhost:1313/zh-cn/tags/operation/</link>
     <description>Recent content in Operation on Greenery&#39;s Blog Site</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
     <lastBuildDate>Sun, 19 May 2024 02:32:21 +0800</lastBuildDate>
-    <atom:link href="https://Greenery-S.github.io/zh-cn/tags/operation/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/zh-cn/tags/operation/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>How to Maintain the Site</title>
-      <link>https://Greenery-S.github.io/zh-cn/posts/hugo/site-building/how-to-maintain-the-site/</link>
+      <link>http://localhost:1313/zh-cn/posts/hugo/site-building/how-to-maintain-the-site/</link>
       <pubDate>Sun, 19 May 2024 02:32:21 +0800</pubDate>
-      <guid>https://Greenery-S.github.io/zh-cn/posts/hugo/site-building/how-to-maintain-the-site/</guid>
+      <guid>http://localhost:1313/zh-cn/posts/hugo/site-building/how-to-maintain-the-site/</guid>
       <description>如何通过hugo和github维护博客 gitpage是一个非常好的博客托管平台,它可以让你通过git的方式来维护你的博客.这样的方式非常适合程序员,因为我们大多数都会使用git.&#xA;hugo是一个非常好的静态网站生成器,它可以让你通过markdown文件来生成静态网站.这样的方式非常适合程序员,因为我们大多数都会使用markdown.&#xA;这篇文章会教你如何通过hugo和github来维护你的博客.&#xA;安装hugo和git 首先你需要安装hugo和git.你可以通过以下方式安装:&#xA;# 安装hugo brew install hugo # 安装git brew install git 在github上创建2个仓库 你需要在github上创建2个仓库,一个用来存放hugo的源文件,一个用来存放hugo生成的静态网站.&#xA;存放hugo生成的静态网站的仓库名字是&amp;lt;yourname.github.io&amp;gt;,这个仓库是一个公开仓库,用来存放你的hugo源文件.&#xA;本地初始化网站项目 # 初始化hugo项目 hugo new site &amp;lt;site-name&amp;gt; # 初始化git项目 git init # 添加远程仓库 git remote add origin &amp;lt;your-site-source-repo&amp;gt; 创建文章,预览,修改 # 创建文章 hugo new posts/my-first-post.md # 预览 hugo server -D 修改主题 # 下载主题 git submodule add &amp;lt;theme-url&amp;gt; themes/&amp;lt;theme-name&amp;gt; # 修改配置文件 cp themes/&amp;lt;theme-name&amp;gt;/exampleSite/config.toml 配置的修改因主题而异,请参考主题的文档.比如我使用的&amp;rsquo;hello-friend-ng&amp;rsquo;主题,使用建议:&#xA;所有的文章都应该放在content/posts目录下 可以配置config.toml文件来修改menu: [[menu.main]] identifier = &amp;#34;about&amp;#34; name = &amp;#34;About&amp;#34; url = &amp;#34;posts/about&amp;#34; weight = 1 [[menu.</description>
     </item>
   </channel>

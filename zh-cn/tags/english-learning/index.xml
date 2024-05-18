@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>English-Learning on Greenery&#39;s Blog Site</title>
-    <link>https://Greenery-S.github.io/zh-cn/tags/english-learning/</link>
+    <link>http://localhost:1313/zh-cn/tags/english-learning/</link>
     <description>Recent content in English-Learning on Greenery&#39;s Blog Site</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
     <lastBuildDate>Sun, 19 May 2024 00:16:38 +0800</lastBuildDate>
-    <atom:link href="https://Greenery-S.github.io/zh-cn/tags/english-learning/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/zh-cn/tags/english-learning/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>English in Action</title>
-      <link>https://Greenery-S.github.io/zh-cn/posts/english-learning/daily/english-in-action/</link>
+      <link>http://localhost:1313/zh-cn/posts/english-learning/daily/english-in-action/</link>
       <pubDate>Sun, 19 May 2024 00:16:38 +0800</pubDate>
-      <guid>https://Greenery-S.github.io/zh-cn/posts/english-learning/daily/english-in-action/</guid>
+      <guid>http://localhost:1313/zh-cn/posts/english-learning/daily/english-in-action/</guid>
       <description>English Learning Daily 我在写博客的时候是先写了中文,之后再翻译成英文的.这样的方式可以让我更好的练习英文,也可以让我更好的理解中文和英文之间的差异.&#xA;我可以在写博客的时候,学习一些新的英文单词,也可以学习一些英文的表达方式.这样的方式对我来说是非常有帮助的.&#xA;我会分析chatgpt给我翻译的英文,记录其中的单词,表达方式,语法等等.这样的方式可以让我更好的学习英文.&#xA;这个专题的文章命名方式是: 20010203-english-in-blog.md,其中的20010203是日期,english-in-blog是文章的标题.</description>
     </item>
   </channel>

@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Golang on Greenery&#39;s Blog Site</title>
-    <link>https://Greenery-S.github.io/tags/golang/</link>
+    <link>http://localhost:1313/tags/golang/</link>
     <description>Recent content in Golang on Greenery&#39;s Blog Site</description>
     <generator>Hugo</generator>
     <language>en</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
     <lastBuildDate>Sat, 18 May 2024 20:49:02 +0800</lastBuildDate>
-    <atom:link href="https://Greenery-S.github.io/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/golang/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Two-Year Old Gopher</title>
-      <link>https://Greenery-S.github.io/posts/go/two-year-old-gopher/</link>
+      <link>http://localhost:1313/posts/go/two-year-old-gopher/</link>
       <pubDate>Sat, 18 May 2024 20:49:02 +0800</pubDate>
-      <guid>https://Greenery-S.github.io/posts/go/two-year-old-gopher/</guid>
+      <guid>http://localhost:1313/posts/go/two-year-old-gopher/</guid>
       <description>A Two-Year Go Language User I started learning Go language in October 2022, and now it has been two years. During this time, I have gained a certain level of understanding of Go and have had some practical experience using it in my work. I&amp;rsquo;d like to share some of my thoughts on Go.&#xA;Why Learn Go? I was choosing a technology that would help me establish myself in China’s internet industry.</description>
     </item>
   </channel>

@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Go on Greenery&#39;s Blog Site</title>
-    <link>https://Greenery-S.github.io/zh-cn/categories/go/</link>
+    <link>http://localhost:1313/zh-cn/categories/go/</link>
     <description>Recent content in Go on Greenery&#39;s Blog Site</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
     <lastBuildDate>Sat, 18 May 2024 20:49:18 +0800</lastBuildDate>
-    <atom:link href="https://Greenery-S.github.io/zh-cn/categories/go/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/zh-cn/categories/go/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Two-Year Old Gopher</title>
-      <link>https://Greenery-S.github.io/zh-cn/posts/go/two-year-old-gopher/</link>
+      <link>http://localhost:1313/zh-cn/posts/go/two-year-old-gopher/</link>
       <pubDate>Sat, 18 May 2024 20:49:18 +0800</pubDate>
-      <guid>https://Greenery-S.github.io/zh-cn/posts/go/two-year-old-gopher/</guid>
+      <guid>http://localhost:1313/zh-cn/posts/go/two-year-old-gopher/</guid>
       <description>一个2年的go语言使用者 我从20222年10月开始接触go语言,到现在已经有2年了. 接触了go语言的我,对go语言有了一定的了解,并且在工作中也有了一定的实践.我想分享一下我对go语言的一些看法.&#xA;为什么学go? 我当时正在选择一门技术来让我在中国的互联网行业有一席之地.当时疫情刚结束,当年毕业的毕业生都说java就业形势不好,工作难找.大三的我选择了留学,离毕业还有2年,非常迷茫.我就去问我的老程序员伯伯,他让我试试golang,他们也在用.&#xA;漫漫学习路 于是我就开始学习这门语言.我必须要感谢他,仅从初级程序员学习来说,go非常舒服.go和rust作为新兴语言,都有着非常清晰的学习路径和几乎不存在的历史包袱.这对于初学者来说是非常友好的.&#xA;于是我学习了go的语法,go的并发,一些数据组件的go sdk,以及go的一些框架.我发现go的并发非常好用,go的sdk也非常丰富,go的框架也非常多.我也在工作中使用go写了一些小工具,也写了一些小服务.&#xA;我还参加了goCN的线下活动,在北京和go学友面基.那是疫情之后的第一届,在北京举行,前一天我还在拉萨,脑子一热,一个晚上我就赶到了北京,还要有江达哥收留,我在北京的这几天非常开心.&#xA;go语言的明星项目是docker和k8s,这两个项目都是用go语言写的.这两个项目的成功也让go语言在云计算领域有了一席之地,成功在老牌强劲语言java和c++的领域站稳了脚跟.&#xA;我后来业学习了云原生技术,但是一直在学习中,我觉得我要系统的学习它,因为我着实入了这一行.go语言成就了我.我在新加坡成为了TikTok Cloud infra的实习生,我也在这里学习了很多东西.&#xA;道阻且长 来到新加坡,并以go语言作为工作内容,这是对我最好的安排.我也许还要继续精进自己的go语言技术,也许还要学习更多的云原生技术,也许还要学习更多的东西.但是我相信,我会一直走下去,直到我不再喜欢这个行业.&#xA;当然,成为实习生和成为正式员工还是有很大的努力需要做出.介于形势,我需要同时学习leetcode算法,通用go后端技术,k8s为核心的云原生技术.我也许还要学习其他语言技术,比如系统学习cpp或pytorch,来保证我的就业广度.&#xA;这个专题会有什么? 目前我想把我之前做过的一些通用的go后端知识点都放在这个专题.这个go专题近期至少会有以下内容:&#xA;数据库专题 消息队列专题 安全与加密专题 网络编程专题 练手项目: 博客系统: 其实是本网站的前身,基于gin框架的单体,全部组件包括mysql和redis都是容器化的.鉴权部分设计了双token机制. 维护成本比较高,于是转向了hugo. 抽奖系统: 这里会是高并发技巧的融合练习. gpc框架: 这是一个基于go的rpc框架,我会在这里实现一个简单的rpc框架. 分布式搜索系统: 一个比较高级的练手项目,会涉及到分布式系统的一些知识. go语言的基础语法和go语言的并发可能近期不会有,因为他们又是一个很大的专题,我需要时间来整理.</description>
     </item>
   </channel>
