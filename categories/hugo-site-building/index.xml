@@ -2,25 +2,25 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Hugo-Site-Building on Greenery&#39;s Blog Site</title>
-    <link>http://localhost:1313/categories/hugo-site-building/</link>
+    <link>https://Greenery-S.github.io/categories/hugo-site-building/</link>
     <description>Recent content in Hugo-Site-Building on Greenery&#39;s Blog Site</description>
     <generator>Hugo</generator>
     <language>en</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
     <lastBuildDate>Sun, 19 May 2024 02:32:11 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/categories/hugo-site-building/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://Greenery-S.github.io/categories/hugo-site-building/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>How to Maintain the Site</title>
-      <link>http://localhost:1313/posts/hugo/site-building/how-to-maintain-the-site/</link>
+      <link>https://Greenery-S.github.io/posts/hugo/site-building/how-to-maintain-the-site/</link>
       <pubDate>Sun, 19 May 2024 02:32:11 +0800</pubDate>
-      <guid>http://localhost:1313/posts/hugo/site-building/how-to-maintain-the-site/</guid>
+      <guid>https://Greenery-S.github.io/posts/hugo/site-building/how-to-maintain-the-site/</guid>
       <description>How to Maintain a Blog with Hugo and GitHub GitHub Pages is an excellent platform for hosting blogs. It allows you to maintain your blog using Git, making it particularly suitable for programmers, as most of us are familiar with Git.&#xA;Hugo is a great static site generator that lets you create static websites using Markdown files. This method is ideal for programmers since most of us are comfortable with Markdown.</description>
     </item>
     <item>
       <title>Classification</title>
-      <link>http://localhost:1313/posts/hugo/site-building/classification/</link>
+      <link>https://Greenery-S.github.io/posts/hugo/site-building/classification/</link>
       <pubDate>Sat, 18 May 2024 21:10:35 +0800</pubDate>
-      <guid>http://localhost:1313/posts/hugo/site-building/classification/</guid>
+      <guid>https://Greenery-S.github.io/posts/hugo/site-building/classification/</guid>
       <description>Article Classification System The classification of articles is managed by two fields: tags and categories. Tags are used for more casual classifications, such as golang and gopher, while categories are used for more formal topic classifications, such as go-dual-token-blog-system.&#xA;The URLs for the lists of tags and categories are /tags/ and /categories/, respectively. These URLs are set in the navigation bar, making it easy to view all tags and categories.</description>
     </item>
   </channel>

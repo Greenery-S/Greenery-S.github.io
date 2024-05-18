@@ -1,20 +1,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Posts on Greenery&#39;s Blog Site</title>
-        <link>http://localhost:1313/zh-cn/posts/</link>
+        <link>https://Greenery-S.github.io/zh-cn/posts/</link>
         <description>Recent content in Posts on Greenery&#39;s Blog Site</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
         <lastBuildDate>Sun, 19 May 2024 02:32:21 +0800</lastBuildDate>
-        <atom:link href="http://localhost:1313/zh-cn/posts/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://Greenery-S.github.io/zh-cn/posts/index.xml" rel="self" type="application/rss+xml" />
         
         <item>
             <title>How to Maintain the Site</title>
-            <link>http://localhost:1313/zh-cn/posts/hugo/site-building/how-to-maintain-the-site/</link>
+            <link>https://Greenery-S.github.io/zh-cn/posts/hugo/site-building/how-to-maintain-the-site/</link>
             <pubDate>Sun, 19 May 2024 02:32:21 +0800</pubDate>
             
-            <guid>http://localhost:1313/zh-cn/posts/hugo/site-building/how-to-maintain-the-site/</guid>
+            <guid>https://Greenery-S.github.io/zh-cn/posts/hugo/site-building/how-to-maintain-the-site/</guid>
             <description>如何通过hugo和github维护博客 gitpage是一个非常好的博客托管平台,它可以让你通过git的方式来维护你的博客.这样的方式非常适合程序员,因为我们大多数都会使用git.
 hugo是一个非常好的静态网站生成器,它可以让你通过markdown文件来生成静态网站.这样的方式非常适合程序员,因为我们大多数都会使用markdown.
 这篇文章会教你如何通过hugo和github来维护你的博客.
@@ -89,10 +89,10 @@ hugo是一个非常好的静态网站生成器,它可以让你通过markdown文�
         
         <item>
             <title>About</title>
-            <link>http://localhost:1313/zh-cn/posts/about/</link>
+            <link>https://Greenery-S.github.io/zh-cn/posts/about/</link>
             <pubDate>Sun, 19 May 2024 01:04:56 +0800</pubDate>
             
-            <guid>http://localhost:1313/zh-cn/posts/about/</guid>
+            <guid>https://Greenery-S.github.io/zh-cn/posts/about/</guid>
             <description>关于本站 本站是一个基于hugo的博客站点,主要用于记录我的学习和生活.
 hugo是一个go语言写的静态网站生成器,它的速度非常快,并且支持markdown语法. 它的基于go-template,所以它的使用方法着实类似于其他生成器,比如helm.
 关于我 Hello,这事是我,严珂宇,Sam,Greenery.
@@ -149,10 +149,10 @@ hugo是一个go语言写的静态网站生成器,它的速度非常快,并且支
         
         <item>
             <title>English in Action</title>
-            <link>http://localhost:1313/zh-cn/posts/english-learning/daily/english-in-action/</link>
+            <link>https://Greenery-S.github.io/zh-cn/posts/english-learning/daily/english-in-action/</link>
             <pubDate>Sun, 19 May 2024 00:16:38 +0800</pubDate>
             
-            <guid>http://localhost:1313/zh-cn/posts/english-learning/daily/english-in-action/</guid>
+            <guid>https://Greenery-S.github.io/zh-cn/posts/english-learning/daily/english-in-action/</guid>
             <description>English Learning Daily 我在写博客的时候是先写了中文,之后再翻译成英文的.这样的方式可以让我更好的练习英文,也可以让我更好的理解中文和英文之间的差异.
 我可以在写博客的时候,学习一些新的英文单词,也可以学习一些英文的表达方式.这样的方式对我来说是非常有帮助的.
 我会分析chatgpt给我翻译的英文,记录其中的单词,表达方式,语法等等.这样的方式可以让我更好的学习英文.
@@ -167,10 +167,10 @@ hugo是一个go语言写的静态网站生成器,它的速度非常快,并且支
         
         <item>
             <title>Classification</title>
-            <link>http://localhost:1313/zh-cn/posts/hugo/site-building/classification/</link>
+            <link>https://Greenery-S.github.io/zh-cn/posts/hugo/site-building/classification/</link>
             <pubDate>Sat, 18 May 2024 20:56:05 +0800</pubDate>
             
-            <guid>http://localhost:1313/zh-cn/posts/hugo/site-building/classification/</guid>
+            <guid>https://Greenery-S.github.io/zh-cn/posts/hugo/site-building/classification/</guid>
             <description>文章的分类系统 文章的分类由tags和categories两个字段管理.tag用来做更加随意的分类,比如golang和gopher,categories用来做更加严格的 专题分类,比如go-dual-token-blog-system.
 tags和categories的列表页面的url分别是/tags/和/categories/.这两个url被设置到了导航栏中,点击后可以查看所有的tags 和categories,非常方便.
 唯一需要注意的是这个列表的排序方式默认是按时间的,所以尽量避免过多的tags和categories,否则会导致列表页面的混乱.
@@ -206,10 +206,10 @@ categories: - go - go-project - go-project-dual-token-blog-system 一篇文章�
         
         <item>
             <title>Two-Year Old Gopher</title>
-            <link>http://localhost:1313/zh-cn/posts/go/two-year-old-gopher/</link>
+            <link>https://Greenery-S.github.io/zh-cn/posts/go/two-year-old-gopher/</link>
             <pubDate>Sat, 18 May 2024 20:49:18 +0800</pubDate>
             
-            <guid>http://localhost:1313/zh-cn/posts/go/two-year-old-gopher/</guid>
+            <guid>https://Greenery-S.github.io/zh-cn/posts/go/two-year-old-gopher/</guid>
             <description>一个2年的go语言使用者 我从20222年10月开始接触go语言,到现在已经有2年了. 接触了go语言的我,对go语言有了一定的了解,并且在工作中也有了一定的实践.我想分享一下我对go语言的一些看法.
 为什么学go? 我当时正在选择一门技术来让我在中国的互联网行业有一席之地.当时疫情刚结束,当年毕业的毕业生都说java就业形势不好,工作难找.大三的我选择了留学,离毕业还有2年,非常迷茫.我就去问我的老程序员伯伯,他让我试试golang,他们也在用.
 漫漫学习路 于是我就开始学习这门语言.我必须要感谢他,仅从初级程序员学习来说,go非常舒服.go和rust作为新兴语言,都有着非常清晰的学习路径和几乎不存在的历史包袱.这对于初学者来说是非常友好的.
