@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Rule on Greenery&#39;s Blog Site</title>
+    <link>https://Greenery-S.github.io/zh-cn/tags/rule/</link>
+    <description>Recent content in Rule on Greenery&#39;s Blog Site</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Sat, 18 May 2024 20:56:05 +0800</lastBuildDate>
+    <atom:link href="https://Greenery-S.github.io/zh-cn/tags/rule/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Classification</title>
+      <link>https://Greenery-S.github.io/zh-cn/posts/hugo/site-building/classification/</link>
+      <pubDate>Sat, 18 May 2024 20:56:05 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/zh-cn/posts/hugo/site-building/classification/</guid>
+      <description>文章的分类系统 文章的分类由tags和categories两个字段管理.tag用来做更加随意的分类,比如golang和gopher,categories用来做更加严格的 专题分类,比如go-dual-token-blog-system.&#xA;tags和categories的列表页面的url分别是/tags/和/categories/.这两个url被设置到了导航栏中,点击后可以查看所有的tags 和categories,非常方便.&#xA;唯一需要注意的是这个列表的排序方式默认是按时间的,所以尽量避免过多的tags和categories,否则会导致列表页面的混乱.&#xA;tags tag值可以随意填写,比如golang和gopher.任何语义的tag都可以填写.它被设置在markdown文件的front matter中,并且可以有多个tag.&#xA;建议填写单数形式的tag,比如rule而不是rules.这样可以避免tag的重复.&#xA;tags: - golang - gopher - hugo categories categories值是专题分类,比如go-project-dual-token-blog-system.它被设置在markdown文件的front matter中.&#xA;这个分类是分级的,比如go是一级分类,go-project是二级分类,go-project-dual-token-blog-system 是三级分类.子分类必须填写父分类,比如,对于在go-project-dual-token-blog-system分类下的文章,categories字段应该填写如下.&#xA;categories: - go - go-project - go-project-dual-token-blog-system 一篇文章可能是处于两个大分类下的,比如本文就可以同时处于hugo和go两个大分类下. 这种一定要谨慎考虑,不要乱填写.</description>
+    </item>
+  </channel>
+</rss>

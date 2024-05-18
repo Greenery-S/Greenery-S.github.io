@@ -1,0 +1,258 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Posts on Greenery&#39;s Blog Site</title>
+        <link>https://Greenery-S.github.io/zh-cn/posts/</link>
+        <description>Recent content in Posts on Greenery&#39;s Blog Site</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+        <lastBuildDate>Sun, 19 May 2024 02:32:21 +0800</lastBuildDate>
+        <atom:link href="https://Greenery-S.github.io/zh-cn/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>How to Maintain the Site</title>
+            <link>https://Greenery-S.github.io/zh-cn/posts/hugo/site-building/how-to-maintain-the-site/</link>
+            <pubDate>Sun, 19 May 2024 02:32:21 +0800</pubDate>
+            
+            <guid>https://Greenery-S.github.io/zh-cn/posts/hugo/site-building/how-to-maintain-the-site/</guid>
+            <description>如何通过hugo和github维护博客 gitpage是一个非常好的博客托管平台,它可以让你通过git的方式来维护你的博客.这样的方式非常适合程序员,因为我们大多数都会使用git.
+hugo是一个非常好的静态网站生成器,它可以让你通过markdown文件来生成静态网站.这样的方式非常适合程序员,因为我们大多数都会使用markdown.
+这篇文章会教你如何通过hugo和github来维护你的博客.
+安装hugo和git 首先你需要安装hugo和git.你可以通过以下方式安装:
+# 安装hugo brew install hugo # 安装git brew install git 在github上创建2个仓库 你需要在github上创建2个仓库,一个用来存放hugo的源文件,一个用来存放hugo生成的静态网站.
+存放hugo生成的静态网站的仓库名字是&amp;lt;yourname.github.io&amp;gt;,这个仓库是一个公开仓库,用来存放你的hugo源文件.
+本地初始化网站项目 # 初始化hugo项目 hugo new site &amp;lt;site-name&amp;gt; # 初始化git项目 git init # 添加远程仓库 git remote add origin &amp;lt;your-site-source-repo&amp;gt; 创建文章,预览,修改 # 创建文章 hugo new posts/my-first-post.md # 预览 hugo server -D 修改主题 # 下载主题 git submodule add &amp;lt;theme-url&amp;gt; themes/&amp;lt;theme-name&amp;gt; # 修改配置文件 cp themes/&amp;lt;theme-name&amp;gt;/exampleSite/config.toml 配置的修改因主题而异,请参考主题的文档.比如我使用的&amp;rsquo;hello-friend-ng&amp;rsquo;主题,使用建议:
+所有的文章都应该放在content/posts目录下 可以配置config.toml文件来修改menu: [[menu.main]] identifier = &amp;#34;about&amp;#34; name = &amp;#34;About&amp;#34; url = &amp;#34;posts/about&amp;#34; weight = 1 [[menu.</description>
+            <content type="html"><![CDATA[<h1 id="如何通过hugo和github维护博客">如何通过hugo和github维护博客</h1>
+<p><a href="https://pages.github.com/">gitpage</a>是一个非常好的博客托管平台,它可以让你通过git的方式来维护你的博客.这样的方式非常适合程序员,因为我们大多数都会使用git.</p>
+<p><a href="https://gohugo.io/">hugo</a>是一个非常好的静态网站生成器,它可以让你通过markdown文件来生成静态网站.这样的方式非常适合程序员,因为我们大多数都会使用markdown.</p>
+<p>这篇文章会教你如何通过hugo和github来维护你的博客.</p>
+<h2 id="安装hugo和git">安装hugo和git</h2>
+<p>首先你需要安装hugo和git.你可以通过以下方式安装:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 安装hugo</span>
+</span></span><span style="display:flex;"><span>brew install hugo
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 安装git</span>
+</span></span><span style="display:flex;"><span>brew install git
+</span></span></code></pre></div><h2 id="在github上创建2个仓库">在github上创建2个仓库</h2>
+<p>你需要在github上创建2个仓库,一个用来存放hugo的源文件,一个用来存放hugo生成的静态网站.</p>
+<p>存放hugo生成的静态网站的仓库名字是<code>&lt;yourname.github.io&gt;</code>,这个仓库是一个公开仓库,用来存放你的hugo源文件.</p>
+<h2 id="本地初始化网站项目">本地初始化网站项目</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 初始化hugo项目</span>
+</span></span><span style="display:flex;"><span>hugo new site &lt;site-name&gt;
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 初始化git项目</span>
+</span></span><span style="display:flex;"><span>git init
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 添加远程仓库</span>
+</span></span><span style="display:flex;"><span>git remote add origin &lt;your-site-source-repo&gt;
+</span></span></code></pre></div><h2 id="创建文章预览修改">创建文章,预览,修改</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 创建文章</span>
+</span></span><span style="display:flex;"><span>hugo new posts/my-first-post.md
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 预览</span>
+</span></span><span style="display:flex;"><span>hugo server -D
+</span></span></code></pre></div><h2 id="修改主题">修改主题</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 下载主题</span>
+</span></span><span style="display:flex;"><span>git submodule add &lt;theme-url&gt; themes/&lt;theme-name&gt;
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 修改配置文件</span>
+</span></span><span style="display:flex;"><span>cp themes/&lt;theme-name&gt;/exampleSite/config.toml 
+</span></span></code></pre></div><p>配置的修改因主题而异,请参考主题的文档.比如我使用的&rsquo;hello-friend-ng&rsquo;主题,使用建议:</p>
+<ul>
+<li>所有的文章都应该放在<code>content/posts</code>目录下</li>
+<li>可以配置<code>config.toml</code>文件来修改menu:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span>[[<span style="color:#a6e22e">menu</span>.<span style="color:#a6e22e">main</span>]]
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">identifier</span> = <span style="color:#e6db74">&#34;about&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">name</span> = <span style="color:#e6db74">&#34;About&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">url</span> = <span style="color:#e6db74">&#34;posts/about&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">weight</span> = <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>[[<span style="color:#a6e22e">menu</span>.<span style="color:#a6e22e">main</span>]]
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">identifier</span> = <span style="color:#e6db74">&#34;site-building&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">name</span> = <span style="color:#e6db74">&#34;Site-building&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">url</span> = <span style="color:#e6db74">&#34;categories/hugo-site-building/&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">weight</span> = <span style="color:#ae81ff">5</span>
+</span></span></code></pre></div></li>
+</ul>
+<h2 id="发布网站到githubio">发布网站到github.io</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 生成静态网站</span>
+</span></span><span style="display:flex;"><span>hugo
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 提交到github</span>
+</span></span><span style="display:flex;"><span>cd public
+</span></span><span style="display:flex;"><span>git add .
+</span></span><span style="display:flex;"><span>git commit -m <span style="color:#e6db74">&#34;add new post&#34;</span>
+</span></span><span style="display:flex;"><span>git push origin master
+</span></span></code></pre></div><p>访问<code>https://&lt;yourname&gt;.github.io</code>就可以看到你的博客了.</p>
+<blockquote>
+<p>参考链接:</p>
+<ul>
+<li><a href="https://cuttontail.blog/blog/create-a-wesite-using-github-pages-and-hugo/">教程</a></li>
+</ul>
+</blockquote>
+]]></content>
+        </item>
+        
+        <item>
+            <title>About</title>
+            <link>https://Greenery-S.github.io/zh-cn/posts/about/</link>
+            <pubDate>Sun, 19 May 2024 01:04:56 +0800</pubDate>
+            
+            <guid>https://Greenery-S.github.io/zh-cn/posts/about/</guid>
+            <description>关于本站 本站是一个基于hugo的博客站点,主要用于记录我的学习和生活.
+hugo是一个go语言写的静态网站生成器,它的速度非常快,并且支持markdown语法. 它的基于go-template,所以它的使用方法着实类似于其他生成器,比如helm.
+关于我 Hello,这事是我,严珂宇,Sam,Greenery.
+我是一位即将毕业的学生.我在NUS就读master,专业是计算机工程.我的本科是985大学的计算机科学与技术专业,排名还蛮靠前的,但是我觉得我还是有很多东西要学习.想出来看看世界,所以就来了新加坡.
+我很幸运在刚来到新加坡就遇见了TikTok,并加入实习.虽然我的英语口语实在太可怜,而且我也不太会社交,但是我还是很开心能在这里工作.因为从leader,mentor到同事,都很nice.
+这是我的简历:
+简历PDF 我的技术栈 编程语言 C/C++: 本科期间用来做课程作业,但不算精通.最近正在对着learncpp.com复习. Python: 用python写过一些数据处理,机器学习,深度学习,强化学习的代码,独立做过一些科研向项目.比较熟悉,不太喜欢python的语法,不太适合构建可靠项目. Go: 第一门掌握的生产级语言,用来写后端服务,工具,脚本,爬虫等.比较喜欢go的语法,并发模型,标准库,工具链等. Java: 本科期间教过java的面向对象,大二购买了how2j,一直晾在哪里,属于有时间两周就能学会的状态. Shell: 用来写一些简单的脚本,比如自动化部署,备份,清理等. JavaScript: 用来写一些简单的ajax,想着以后有时间学一下typescript和react等. Rust: 超级想学的语言,但又怕没工作机会,等稳定了再学吧. 领域知识 计算机后端技术: 主要是web开发,分布式系统,数据库,缓存,消息队列等. 云原生技术: 主要是k8s, docker, helm, argoCD, argo workflow等. 计算机网络: 主要是tcp/ip,http,https,websocket等. 机器学习: 深度学习,强化学习, 写过pytorch, tensorflow, keras等. 数据分析: 数据处理,数据可视化, 会用pandas, numpy, matplotlib, seaborn等. 等待队列 leetcode算法: 一直在刷,根本刷不完&amp;hellip; go项目: 正在做一些项目系统复习一下go的语法和各种数据组件. k8s方方面面: 正在学习中,希望产出一些k8s的文章. C++: 正在看,每周看2章. Model-based Reinforcement Learning for Industrial Applications: 这个项目和教授一起做的,快可以写论文了. 我的生活 忙里偷闲,和朋友一起去马来西亚玩.平时就是吃吃吃,玩玩游戏,看漫画.有谁喜欢看刃牙和拳愿会的吗?</description>
+            <content type="html"><![CDATA[<h1 id="关于本站">关于本站</h1>
+<p>本站是一个基于hugo的博客站点,主要用于记录我的学习和生活.</p>
+<p>hugo是一个go语言写的静态网站生成器,它的速度非常快,并且支持markdown语法. 它的基于go-template,所以它的使用方法着实类似于其他生成器,比如helm.</p>
+<h1 id="关于我">关于我</h1>
+<p>Hello,这事是我,严珂宇,Sam,Greenery.</p>
+
+    <img src="/images/author.png"  alt="Hello Friend"  class="center"  style="border-radius: 20px; width: 200px;"  />
+
+
+<p>我是一位即将毕业的学生.我在NUS就读master,专业是计算机工程.我的本科是985大学的计算机科学与技术专业,排名还蛮靠前的,但是我觉得我还是有很多东西要学习.想出来看看世界,所以就来了新加坡.</p>
+<p>我很幸运在刚来到新加坡就遇见了TikTok,并加入实习.虽然我的英语口语实在太可怜,而且我也不太会社交,但是我还是很开心能在这里工作.因为从leader,mentor到同事,都很nice.</p>
+<p>这是我的简历:</p>
+<ul>
+<li><a href="/zh-cn/cv/cven.pdf">简历PDF</a></li>
+</ul>
+<h2 id="我的技术栈">我的技术栈</h2>
+<h3 id="编程语言">编程语言</h3>
+<ul>
+<li>C/C++: 本科期间用来做课程作业,但不算精通.最近正在对着<a href="https://www.learncpp.com/">learncpp.com</a>复习.</li>
+<li>Python: 用python写过一些数据处理,机器学习,深度学习,强化学习的代码,独立做过一些科研向项目.比较熟悉,不太喜欢python的语法,不太适合构建可靠项目.</li>
+<li>Go: 第一门掌握的生产级语言,用来写后端服务,工具,脚本,爬虫等.比较喜欢go的语法,并发模型,标准库,工具链等.</li>
+<li>Java: 本科期间教过java的面向对象,大二购买了how2j,一直晾在哪里,属于有时间两周就能学会的状态.</li>
+<li>Shell: 用来写一些简单的脚本,比如自动化部署,备份,清理等.</li>
+<li>JavaScript: 用来写一些简单的ajax,想着以后有时间学一下typescript和react等.</li>
+<li>Rust: 超级想学的语言,但又怕没工作机会,等稳定了再学吧.</li>
+</ul>
+<h3 id="领域知识">领域知识</h3>
+<ul>
+<li>计算机后端技术: 主要是web开发,分布式系统,数据库,缓存,消息队列等.</li>
+<li>云原生技术: 主要是k8s, docker, helm, argoCD, argo workflow等.</li>
+<li>计算机网络: 主要是tcp/ip,http,https,websocket等.</li>
+<li>机器学习: 深度学习,强化学习, 写过pytorch, tensorflow, keras等.</li>
+<li>数据分析: 数据处理,数据可视化, 会用pandas, numpy, matplotlib, seaborn等.</li>
+</ul>
+<h3 id="等待队列">等待队列</h3>
+<ul>
+<li>leetcode算法: 一直在刷,根本刷不完&hellip;</li>
+<li>go项目: 正在做一些项目系统复习一下go的语法和各种数据组件.</li>
+<li>k8s方方面面: 正在学习中,希望产出一些k8s的文章.</li>
+<li>C++: 正在看,每周看2章.</li>
+<li>Model-based Reinforcement Learning for Industrial Applications: 这个项目和教授一起做的,快可以写论文了.</li>
+</ul>
+<h2 id="我的生活">我的生活</h2>
+<p>忙里偷闲,和朋友一起去马来西亚玩.平时就是吃吃吃,玩玩游戏,看漫画.有谁喜欢看刃牙和拳愿会的吗?</p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>English in Action</title>
+            <link>https://Greenery-S.github.io/zh-cn/posts/english-learning/daily/english-in-action/</link>
+            <pubDate>Sun, 19 May 2024 00:16:38 +0800</pubDate>
+            
+            <guid>https://Greenery-S.github.io/zh-cn/posts/english-learning/daily/english-in-action/</guid>
+            <description>English Learning Daily 我在写博客的时候是先写了中文,之后再翻译成英文的.这样的方式可以让我更好的练习英文,也可以让我更好的理解中文和英文之间的差异.
+我可以在写博客的时候,学习一些新的英文单词,也可以学习一些英文的表达方式.这样的方式对我来说是非常有帮助的.
+我会分析chatgpt给我翻译的英文,记录其中的单词,表达方式,语法等等.这样的方式可以让我更好的学习英文.
+这个专题的文章命名方式是: 20010203-english-in-blog.md,其中的20010203是日期,english-in-blog是文章的标题.</description>
+            <content type="html"><![CDATA[<h1 id="english-learning-daily">English Learning Daily</h1>
+<p>我在写博客的时候是先写了中文,之后再翻译成英文的.这样的方式可以让我更好的练习英文,也可以让我更好的理解中文和英文之间的差异.</p>
+<p>我可以在写博客的时候,学习一些新的英文单词,也可以学习一些英文的表达方式.这样的方式对我来说是非常有帮助的.</p>
+<p>我会分析chatgpt给我翻译的英文,记录其中的单词,表达方式,语法等等.这样的方式可以让我更好的学习英文.</p>
+<p>这个专题的文章命名方式是: <code>20010203-english-in-blog.md</code>,其中的<code>20010203</code>是日期,<code>english-in-blog</code>是文章的标题.</p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Classification</title>
+            <link>https://Greenery-S.github.io/zh-cn/posts/hugo/site-building/classification/</link>
+            <pubDate>Sat, 18 May 2024 20:56:05 +0800</pubDate>
+            
+            <guid>https://Greenery-S.github.io/zh-cn/posts/hugo/site-building/classification/</guid>
+            <description>文章的分类系统 文章的分类由tags和categories两个字段管理.tag用来做更加随意的分类,比如golang和gopher,categories用来做更加严格的 专题分类,比如go-dual-token-blog-system.
+tags和categories的列表页面的url分别是/tags/和/categories/.这两个url被设置到了导航栏中,点击后可以查看所有的tags 和categories,非常方便.
+唯一需要注意的是这个列表的排序方式默认是按时间的,所以尽量避免过多的tags和categories,否则会导致列表页面的混乱.
+tags tag值可以随意填写,比如golang和gopher.任何语义的tag都可以填写.它被设置在markdown文件的front matter中,并且可以有多个tag.
+建议填写单数形式的tag,比如rule而不是rules.这样可以避免tag的重复.
+tags: - golang - gopher - hugo categories categories值是专题分类,比如go-project-dual-token-blog-system.它被设置在markdown文件的front matter中.
+这个分类是分级的,比如go是一级分类,go-project是二级分类,go-project-dual-token-blog-system 是三级分类.子分类必须填写父分类,比如,对于在go-project-dual-token-blog-system分类下的文章,categories字段应该填写如下.
+categories: - go - go-project - go-project-dual-token-blog-system 一篇文章可能是处于两个大分类下的,比如本文就可以同时处于hugo和go两个大分类下. 这种一定要谨慎考虑,不要乱填写.</description>
+            <content type="html"><![CDATA[<h1 id="文章的分类系统">文章的分类系统</h1>
+<p>文章的分类由<code>tags</code>和<code>categories</code>两个字段管理.<code>tag</code>用来做更加随意的分类,比如<code>golang</code>和<code>gopher</code>,<code>categories</code>用来做更加严格的
+<strong>专题</strong>分类,比如<code>go-dual-token-blog-system</code>.</p>
+<p><code>tags</code>和<code>categories</code>的列表页面的url分别是<code>/tags/</code>和<code>/categories/</code>.这两个url被设置到了导航栏中,点击后可以查看所有的<code>tags</code>
+和<code>categories</code>,非常方便.</p>
+<p>唯一需要注意的是这个列表的排序方式默认是按时间的,所以尽量避免过多的<code>tags</code>和<code>categories</code>,否则会导致列表页面的混乱.</p>
+<h2 id="tags">tags</h2>
+<p>tag值可以随意填写,比如<code>golang</code>和<code>gopher</code>.任何语义的tag都可以填写.它被设置在markdown文件的front matter中,并且可以有多个tag.</p>
+<p>建议填写单数形式的tag,比如<code>rule</code>而不是<code>rules</code>.这样可以避免tag的重复.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">tags</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">golang</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">gopher</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">hugo</span>
+</span></span></code></pre></div><h2 id="categories">categories</h2>
+<p>categories值是专题分类,比如<code>go-project-dual-token-blog-system</code>.它被设置在markdown文件的front matter中.</p>
+<p>这个分类是分级的,比如<code>go</code>是一级分类,<code>go-project</code>是二级分类,<code>go-project-dual-token-blog-system</code>
+是三级分类.子分类必须填写父分类,比如,对于在<code>go-project-dual-token-blog-system</code>分类下的文章,<code>categories</code>字段应该填写如下.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">categories</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">go</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">go-project</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">go-project-dual-token-blog-system</span>
+</span></span></code></pre></div><p>一篇文章可能是处于两个大分类下的,比如本文就可以同时处于<code>hugo</code>和<code>go</code>两个大分类下. 这种一定要谨慎考虑,不要乱填写.</p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Two-Year Old Gopher</title>
+            <link>https://Greenery-S.github.io/zh-cn/posts/go/two-year-old-gopher/</link>
+            <pubDate>Sat, 18 May 2024 20:49:18 +0800</pubDate>
+            
+            <guid>https://Greenery-S.github.io/zh-cn/posts/go/two-year-old-gopher/</guid>
+            <description>一个2年的go语言使用者 我从20222年10月开始接触go语言,到现在已经有2年了. 接触了go语言的我,对go语言有了一定的了解,并且在工作中也有了一定的实践.我想分享一下我对go语言的一些看法.
+为什么学go? 我当时正在选择一门技术来让我在中国的互联网行业有一席之地.当时疫情刚结束,当年毕业的毕业生都说java就业形势不好,工作难找.大三的我选择了留学,离毕业还有2年,非常迷茫.我就去问我的老程序员伯伯,他让我试试golang,他们也在用.
+漫漫学习路 于是我就开始学习这门语言.我必须要感谢他,仅从初级程序员学习来说,go非常舒服.go和rust作为新兴语言,都有着非常清晰的学习路径和几乎不存在的历史包袱.这对于初学者来说是非常友好的.
+于是我学习了go的语法,go的并发,一些数据组件的go sdk,以及go的一些框架.我发现go的并发非常好用,go的sdk也非常丰富,go的框架也非常多.我也在工作中使用go写了一些小工具,也写了一些小服务.
+我还参加了goCN的线下活动,在北京和go学友面基.那是疫情之后的第一届,在北京举行,前一天我还在拉萨,脑子一热,一个晚上我就赶到了北京,还要有江达哥收留,我在北京的这几天非常开心.
+go语言的明星项目是docker和k8s,这两个项目都是用go语言写的.这两个项目的成功也让go语言在云计算领域有了一席之地,成功在老牌强劲语言java和c++的领域站稳了脚跟.
+我后来业学习了云原生技术,但是一直在学习中,我觉得我要系统的学习它,因为我着实入了这一行.go语言成就了我.我在新加坡成为了TikTok Cloud infra的实习生,我也在这里学习了很多东西.
+道阻且长 来到新加坡,并以go语言作为工作内容,这是对我最好的安排.我也许还要继续精进自己的go语言技术,也许还要学习更多的云原生技术,也许还要学习更多的东西.但是我相信,我会一直走下去,直到我不再喜欢这个行业.
+当然,成为实习生和成为正式员工还是有很大的努力需要做出.介于形势,我需要同时学习leetcode算法,通用go后端技术,k8s为核心的云原生技术.我也许还要学习其他语言技术,比如系统学习cpp或pytorch,来保证我的就业广度.
+这个专题会有什么? 目前我想把我之前做过的一些通用的go后端知识点都放在这个专题.这个go专题近期至少会有以下内容:
+数据库专题 消息队列专题 安全与加密专题 网络编程专题 练手项目: 博客系统: 其实是本网站的前身,基于gin框架的单体,全部组件包括mysql和redis都是容器化的.鉴权部分设计了双token机制. 维护成本比较高,于是转向了hugo. 抽奖系统: 这里会是高并发技巧的融合练习. gpc框架: 这是一个基于go的rpc框架,我会在这里实现一个简单的rpc框架. 分布式搜索系统: 一个比较高级的练手项目,会涉及到分布式系统的一些知识. go语言的基础语法和go语言的并发可能近期不会有,因为他们又是一个很大的专题,我需要时间来整理.</description>
+            <content type="html"><![CDATA[<h1 id="一个2年的go语言使用者">一个2年的go语言使用者</h1>
+<p>我从20222年10月开始接触go语言,到现在已经有2年了. 接触了go语言的我,对go语言有了一定的了解,并且在工作中也有了一定的实践.我想分享一下我对go语言的一些看法.</p>
+<h2 id="为什么学go">为什么学go?</h2>
+<p>我当时正在选择一门技术来让我在中国的互联网行业有一席之地.当时疫情刚结束,当年毕业的毕业生都说java就业形势不好,工作难找.大三的我选择了留学,离毕业还有2年,非常迷茫.我就去问我的老程序员伯伯,他让我试试golang,他们也在用.</p>
+<h2 id="漫漫学习路">漫漫学习路</h2>
+<p>于是我就开始学习这门语言.我必须要感谢他,仅从初级程序员学习来说,go非常舒服.go和rust作为新兴语言,都有着非常清晰的学习路径和几乎不存在的历史包袱.这对于初学者来说是非常友好的.</p>
+<p>于是我学习了go的语法,go的并发,一些数据组件的go sdk,以及go的一些框架.我发现go的并发非常好用,go的sdk也非常丰富,go的框架也非常多.我也在工作中使用go写了一些小工具,也写了一些小服务.</p>
+<p>我还参加了goCN的线下活动,在北京和go学友面基.那是疫情之后的第一届,在北京举行,前一天我还在拉萨,脑子一热,一个晚上我就赶到了北京,还要有江达哥收留,我在北京的这几天非常开心.</p>
+<p>go语言的明星项目是docker和k8s,这两个项目都是用go语言写的.这两个项目的成功也让go语言在云计算领域有了一席之地,成功在老牌强劲语言java和c++的领域站稳了脚跟.</p>
+<p>我后来业学习了云原生技术,但是一直在学习中,我觉得我要系统的学习它,因为我着实入了这一行.go语言成就了我.我在新加坡成为了TikTok Cloud infra的实习生,我也在这里学习了很多东西.</p>
+<h2 id="道阻且长">道阻且长</h2>
+<p>来到新加坡,并以go语言作为工作内容,这是对我最好的安排.我也许还要继续精进自己的go语言技术,也许还要学习更多的云原生技术,也许还要学习更多的东西.但是我相信,我会一直走下去,直到我不再喜欢这个行业.</p>
+<p>当然,成为实习生和成为正式员工还是有很大的努力需要做出.介于形势,我需要同时学习leetcode算法,通用go后端技术,k8s为核心的云原生技术.我也许还要学习其他语言技术,比如系统学习cpp或pytorch,来保证我的就业广度.</p>
+<h2 id="这个专题会有什么">这个专题会有什么?</h2>
+<p>目前我想把我之前做过的一些通用的go后端知识点都放在这个专题.这个go专题近期至少会有以下内容:</p>
+<ul>
+<li><strong>数据库专题</strong></li>
+<li><strong>消息队列专题</strong></li>
+<li><strong>安全与加密专题</strong></li>
+<li><strong>网络编程专题</strong></li>
+<li>练手项目:
+<ul>
+<li><strong>博客系统</strong>: 其实是本网站的前身,基于gin框架的单体,全部组件包括mysql和redis都是容器化的.鉴权部分设计了双token机制. 维护成本比较高,于是转向了hugo.</li>
+<li><strong>抽奖系统</strong>: 这里会是高并发技巧的融合练习.</li>
+<li><strong>gpc框架</strong>: 这是一个基于go的rpc框架,我会在这里实现一个简单的rpc框架.</li>
+<li><strong>分布式搜索系统</strong>: 一个比较高级的练手项目,会涉及到分布式系统的一些知识.</li>
+</ul>
+</li>
+</ul>
+<p>go语言的基础语法和go语言的并发可能近期不会有,因为他们又是一个很大的专题,我需要时间来整理.</p>
+]]></content>
+        </item>
+        
+    </channel>
+</rss>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Site-Building on Greenery&#39;s Blog Site</title>
+    <link>https://Greenery-S.github.io/zh-cn/tags/site-building/</link>
+    <description>Recent content in Site-Building on Greenery&#39;s Blog Site</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Sun, 19 May 2024 02:32:21 +0800</lastBuildDate>
+    <atom:link href="https://Greenery-S.github.io/zh-cn/tags/site-building/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to Maintain the Site</title>
+      <link>https://Greenery-S.github.io/zh-cn/posts/hugo/site-building/how-to-maintain-the-site/</link>
+      <pubDate>Sun, 19 May 2024 02:32:21 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/zh-cn/posts/hugo/site-building/how-to-maintain-the-site/</guid>
+      <description>如何通过hugo和github维护博客 gitpage是一个非常好的博客托管平台,它可以让你通过git的方式来维护你的博客.这样的方式非常适合程序员,因为我们大多数都会使用git.&#xA;hugo是一个非常好的静态网站生成器,它可以让你通过markdown文件来生成静态网站.这样的方式非常适合程序员,因为我们大多数都会使用markdown.&#xA;这篇文章会教你如何通过hugo和github来维护你的博客.&#xA;安装hugo和git 首先你需要安装hugo和git.你可以通过以下方式安装:&#xA;# 安装hugo brew install hugo # 安装git brew install git 在github上创建2个仓库 你需要在github上创建2个仓库,一个用来存放hugo的源文件,一个用来存放hugo生成的静态网站.&#xA;存放hugo生成的静态网站的仓库名字是&amp;lt;yourname.github.io&amp;gt;,这个仓库是一个公开仓库,用来存放你的hugo源文件.&#xA;本地初始化网站项目 # 初始化hugo项目 hugo new site &amp;lt;site-name&amp;gt; # 初始化git项目 git init # 添加远程仓库 git remote add origin &amp;lt;your-site-source-repo&amp;gt; 创建文章,预览,修改 # 创建文章 hugo new posts/my-first-post.md # 预览 hugo server -D 修改主题 # 下载主题 git submodule add &amp;lt;theme-url&amp;gt; themes/&amp;lt;theme-name&amp;gt; # 修改配置文件 cp themes/&amp;lt;theme-name&amp;gt;/exampleSite/config.toml 配置的修改因主题而异,请参考主题的文档.比如我使用的&amp;rsquo;hello-friend-ng&amp;rsquo;主题,使用建议:&#xA;所有的文章都应该放在content/posts目录下 可以配置config.toml文件来修改menu: [[menu.main]] identifier = &amp;#34;about&amp;#34; name = &amp;#34;About&amp;#34; url = &amp;#34;posts/about&amp;#34; weight = 1 [[menu.</description>
+    </item>
+    <item>
+      <title>Classification</title>
+      <link>https://Greenery-S.github.io/zh-cn/posts/hugo/site-building/classification/</link>
+      <pubDate>Sat, 18 May 2024 20:56:05 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/zh-cn/posts/hugo/site-building/classification/</guid>
+      <description>文章的分类系统 文章的分类由tags和categories两个字段管理.tag用来做更加随意的分类,比如golang和gopher,categories用来做更加严格的 专题分类,比如go-dual-token-blog-system.&#xA;tags和categories的列表页面的url分别是/tags/和/categories/.这两个url被设置到了导航栏中,点击后可以查看所有的tags 和categories,非常方便.&#xA;唯一需要注意的是这个列表的排序方式默认是按时间的,所以尽量避免过多的tags和categories,否则会导致列表页面的混乱.&#xA;tags tag值可以随意填写,比如golang和gopher.任何语义的tag都可以填写.它被设置在markdown文件的front matter中,并且可以有多个tag.&#xA;建议填写单数形式的tag,比如rule而不是rules.这样可以避免tag的重复.&#xA;tags: - golang - gopher - hugo categories categories值是专题分类,比如go-project-dual-token-blog-system.它被设置在markdown文件的front matter中.&#xA;这个分类是分级的,比如go是一级分类,go-project是二级分类,go-project-dual-token-blog-system 是三级分类.子分类必须填写父分类,比如,对于在go-project-dual-token-blog-system分类下的文章,categories字段应该填写如下.&#xA;categories: - go - go-project - go-project-dual-token-blog-system 一篇文章可能是处于两个大分类下的,比如本文就可以同时处于hugo和go两个大分类下. 这种一定要谨慎考虑,不要乱填写.</description>
+    </item>
+  </channel>
+</rss>

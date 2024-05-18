@@ -7,42 +7,42 @@
     <generator>Hugo</generator>
     <language>en</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sun, 28 Sep 2014 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 19 May 2024 02:32:11 +0800</lastBuildDate>
     <atom:link href="https://Greenery-S.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Creating a New Theme</title>
-      <link>https://Greenery-S.github.io/posts/2014/09/creating-a-new-theme/</link>
-      <pubDate>Sun, 28 Sep 2014 00:00:00 +0000</pubDate>
-      <guid>https://Greenery-S.github.io/posts/2014/09/creating-a-new-theme/</guid>
-      <description>Introduction This tutorial will show you how to create a simple theme in Hugo. I assume that you are familiar with HTML, the bash command line, and that you are comfortable using Markdown to format content. I&amp;rsquo;ll explain how Hugo uses templates and how you can organize your templates to create a theme. I won&amp;rsquo;t cover using CSS to style your theme.&#xA;We&amp;rsquo;ll start with creating a new site with a very basic template.</description>
-    </item>
-    <item>
-      <title>Migrate to Hugo from Jekyll</title>
-      <link>https://Greenery-S.github.io/posts/2014/03/migrate-to-hugo-from-jekyll/</link>
-      <pubDate>Mon, 10 Mar 2014 00:00:00 +0000</pubDate>
-      <guid>https://Greenery-S.github.io/posts/2014/03/migrate-to-hugo-from-jekyll/</guid>
-      <description>Move static content to static Jekyll has a rule that any directory not starting with _ will be copied as-is to the _site output. Hugo keeps all static content under static. You should therefore move it all there. With Jekyll, something that looked like&#xA;▾ &amp;lt;root&amp;gt;/ ▾ images/ logo.png should become&#xA;▾ &amp;lt;root&amp;gt;/ ▾ static/ ▾ images/ logo.png Additionally, you&amp;rsquo;ll want any files that should reside at the root (such as CNAME) to be moved to static.</description>
+      <title>How to Maintain the Site</title>
+      <link>https://Greenery-S.github.io/posts/hugo/site-building/how-to-maintain-the-site/</link>
+      <pubDate>Sun, 19 May 2024 02:32:11 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/posts/hugo/site-building/how-to-maintain-the-site/</guid>
+      <description>How to Maintain a Blog with Hugo and GitHub GitHub Pages is an excellent platform for hosting blogs. It allows you to maintain your blog using Git, making it particularly suitable for programmers, as most of us are familiar with Git.&#xA;Hugo is a great static site generator that lets you create static websites using Markdown files. This method is ideal for programmers since most of us are comfortable with Markdown.</description>
     </item>
     <item>
       <title>About</title>
-      <link>https://Greenery-S.github.io/about/</link>
-      <pubDate>Wed, 09 Apr 2014 00:00:00 +0000</pubDate>
-      <guid>https://Greenery-S.github.io/about/</guid>
-      <description>Hugo is the world’s fastest framework for building websites. It is written in Go.&#xA;It makes use of a variety of open source projects including:&#xA;https://github.com/russross/blackfriday https://github.com/alecthomas/chroma https://github.com/muesli/smartcrop https://github.com/spf13/cobra https://github.com/spf13/viper Learn more and contribute on GitHub.</description>
+      <link>https://Greenery-S.github.io/posts/about/</link>
+      <pubDate>Sun, 19 May 2024 01:10:01 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/posts/about/</guid>
+      <description>About This Site This site is a blog based on Hugo, mainly used to document my studies and life.&#xA;Hugo is a static site generator written in Go. It is incredibly fast and supports Markdown syntax. It uses Go templates, so its usage is quite similar to other generators like Helm.&#xA;About Me I am a soon-to-be graduate student. I am studying for a master&amp;rsquo;s degree in Computer Engineering at NUS.</description>
     </item>
     <item>
-      <title>(Hu)go Template Primer</title>
-      <link>https://Greenery-S.github.io/posts/2014/04/hugo-template-primer/</link>
-      <pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
-      <guid>https://Greenery-S.github.io/posts/2014/04/hugo-template-primer/</guid>
-      <description>Hugo uses the excellent Go html/template library for its template engine. It is an extremely lightweight engine that provides a very small amount of logic. In our experience that it is just the right amount of logic to be able to create a good static website. If you have used other template systems from different languages or frameworks you will find a lot of similarities in Go templates.&#xA;This document is a brief primer on using Go templates.</description>
+      <title>English in Action</title>
+      <link>https://Greenery-S.github.io/posts/english-learning/daily/english-in-action/</link>
+      <pubDate>Sun, 19 May 2024 00:07:10 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/posts/english-learning/daily/english-in-action/</guid>
+      <description>English Learning Daily When composing my blog, I initially write in Chinese and then translate the content into English. This approach allows me to practice English more effectively and gain a deeper understanding of the differences between Chinese and English.&#xA;While writing the blog, I have the opportunity to learn new English vocabulary and expressions. This method has proven to be highly beneficial for my language learning process.&#xA;I analyze the English translations provided by ChatGPT, noting the vocabulary, expressions, and grammar used.</description>
     </item>
     <item>
-      <title>Getting Started with Hugo</title>
-      <link>https://Greenery-S.github.io/posts/2014/04/getting-started-with-hugo/</link>
-      <pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
-      <guid>https://Greenery-S.github.io/posts/2014/04/getting-started-with-hugo/</guid>
-      <description>Step 1. Install Hugo Go to Hugo releases and download the appropriate version for your OS and architecture.&#xA;Save it somewhere specific as we will be using it in the next step.&#xA;More complete instructions are available at Install Hugo&#xA;Step 2. Build the Docs Hugo has its own example site which happens to also be the documentation site you are reading right now.&#xA;Follow the following steps:&#xA;Clone the Hugo repository Go into the repo Run hugo in server mode and build the docs Open your browser to http://localhost:1313 Corresponding pseudo commands:</description>
+      <title>Classification</title>
+      <link>https://Greenery-S.github.io/posts/hugo/site-building/classification/</link>
+      <pubDate>Sat, 18 May 2024 21:10:35 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/posts/hugo/site-building/classification/</guid>
+      <description>Article Classification System The classification of articles is managed by two fields: tags and categories. Tags are used for more casual classifications, such as golang and gopher, while categories are used for more formal topic classifications, such as go-dual-token-blog-system.&#xA;The URLs for the lists of tags and categories are /tags/ and /categories/, respectively. These URLs are set in the navigation bar, making it easy to view all tags and categories.</description>
+    </item>
+    <item>
+      <title>Two-Year Old Gopher</title>
+      <link>https://Greenery-S.github.io/posts/go/two-year-old-gopher/</link>
+      <pubDate>Sat, 18 May 2024 20:49:02 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/posts/go/two-year-old-gopher/</guid>
+      <description>A Two-Year Go Language User I started learning Go language in October 2022, and now it has been two years. During this time, I have gained a certain level of understanding of Go and have had some practical experience using it in my work. I&amp;rsquo;d like to share some of my thoughts on Go.&#xA;Why Learn Go? I was choosing a technology that would help me establish myself in China’s internet industry.</description>
     </item>
   </channel>
 </rss>
