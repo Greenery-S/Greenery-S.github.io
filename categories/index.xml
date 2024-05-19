@@ -7,8 +7,29 @@
     <generator>Hugo</generator>
     <language>en</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sun, 19 May 2024 02:32:11 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 19 May 2024 22:11:16 +0800</lastBuildDate>
     <atom:link href="https://Greenery-S.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go</title>
+      <link>https://Greenery-S.github.io/categories/go/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://Greenery-S.github.io/categories/go/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Go-Basics</title>
+      <link>https://Greenery-S.github.io/categories/go-basics/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://Greenery-S.github.io/categories/go-basics/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Go-Basics-Database</title>
+      <link>https://Greenery-S.github.io/categories/go-basics-database/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://Greenery-S.github.io/categories/go-basics-database/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Hugo</title>
       <link>https://Greenery-S.github.io/categories/hugo/</link>
@@ -35,13 +56,6 @@
       <link>https://Greenery-S.github.io/categories/english-learning-daily/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://Greenery-S.github.io/categories/english-learning-daily/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Go</title>
-      <link>https://Greenery-S.github.io/categories/go/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://Greenery-S.github.io/categories/go/</guid>
       <description></description>
     </item>
   </channel>

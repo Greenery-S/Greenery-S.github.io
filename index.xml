@@ -7,8 +7,29 @@
     <generator>Hugo</generator>
     <language>en</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sun, 19 May 2024 02:32:11 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 19 May 2024 22:11:16 +0800</lastBuildDate>
     <atom:link href="https://Greenery-S.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Introduction to Redis</title>
+      <link>https://Greenery-S.github.io/posts/go/database/introduction-to-redis/</link>
+      <pubDate>Sun, 19 May 2024 22:11:16 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/posts/go/database/introduction-to-redis/</guid>
+      <description>Redis Code: https://github.com/Greenery-S/go-database/tree/master/redis&#xA;1 Introduction Redis is an in-memory data storage system. Since it is based on memory, it is fast, being 10 to 100 times faster than MySQL. To prevent data loss, data is periodically persisted to disk. Redis is deployed separately from the business application, so it can serve as a distributed cache. It supports a rich variety of data types: strings, hashes, lists, sets, and sorted sets. It supports the publish/subscribe model, where publishers send messages to specified channels, and subscribers can receive and process these messages.</description>
+    </item>
+    <item>
+      <title>ORM Realized by Reflect</title>
+      <link>https://Greenery-S.github.io/posts/go/database/orm-realized-by-reflect/</link>
+      <pubDate>Sun, 19 May 2024 21:50:59 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/posts/go/database/orm-realized-by-reflect/</guid>
+      <description>Core Technology of ORM—Reflection Tutorial, Reflection Guide: https://zhuanlan.zhihu.com/p/411313885&#xA;code: https://github.com/Greenery-S/go-database/tree/master/orm&#xA;1 Reflection What is Reflection&#xA;Reflection is the ability to inspect and modify an object’s type information and memory structure, update variables, and call methods during runtime (not compile time). When to Use Reflection&#xA;When a function’s parameter type is interface{}, and you need to determine the original type at runtime to handle different types accordingly. For example, json.Marshal(v interface{}). When you need to dynamically decide which function to call at runtime based on certain conditions, such as executing the appropriate operator function based on a configuration file.</description>
+    </item>
+    <item>
+      <title>MySQL Optimization</title>
+      <link>https://Greenery-S.github.io/posts/go/database/mysql-optimization/</link>
+      <pubDate>Sun, 19 May 2024 21:16:35 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/posts/go/database/mysql-optimization/</guid>
+      <description>MySQL Performance Tuning code: https://github.com/Greenery-S/go-database/tree/master/mysql&#xA;1 Practical Recommendations Always use lowercase when writing SQL.&#xA;Check if a table already exists before creating it using if not exists.&#xA;Add comment to all columns and tables.&#xA;Use char for short strings to benefit from fixed length and memory alignment, which improves read/write performance. varchar fields may cause memory fragmentation with frequent modifications.&#xA;Use shorter data types whenever possible, e.g., tinyint vs int, float vs double, date vs datetime.</description>
+    </item>
     <item>
       <title>How to Maintain the Site</title>
       <link>https://Greenery-S.github.io/posts/hugo/site-building/how-to-maintain-the-site/</link>

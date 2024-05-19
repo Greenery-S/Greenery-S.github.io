@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="">
+<meta name="description" content="MySQL Performance Tuning code: https://github.com/Greenery-S/go-database/tree/master/mysql
+1 Practical Recommendations Always use lowercase when writing SQL.
+Check if a table already exists before creating it using if not exists.
+Add comment to all columns and tables.
+Use char for short strings to benefit from fixed length and memory alignment, which improves read/write performance. varchar fields may cause memory fragmentation with frequent modifications.
+Use shorter data types whenever possible, e.g., tinyint vs int, float vs double, date vs datetime." />
+<meta name="keywords" content=", database, mysql, optimization" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="" />
+<link rel="canonical" href="https://Greenery-S.github.io/posts/go/database/mysql-optimization/" />
+
+
+    <title>
+        
+            MySQL Optimization :: Greenery&#39;s Blog Site  — Coder, Blogger, Photographer
+        
+    </title>
+
+
+
+
+
+<link rel="stylesheet" href="https://Greenery-S.github.io/main.949191c1dcc9c4a887997048b240354e47152016d821198f89448496ba42e491.css" integrity="sha256-lJGRwdzJxKiHmXBIskA1TkcVIBbYIRmPiUSElrpC5JE=">
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://Greenery-S.github.io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://Greenery-S.github.io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://Greenery-S.github.io/favicon-16x16.png">
+    <link rel="manifest" href="https://Greenery-S.github.io/site.webmanifest">
+    <link rel="mask-icon" href="https://Greenery-S.github.io/safari-pinned-tab.svg" color="">
+    <link rel="shortcut icon" href="https://Greenery-S.github.io/favicon.ico">
+    <meta name="msapplication-TileColor" content="">
+
+
+
+  <meta itemprop="name" content="MySQL Optimization">
+  <meta itemprop="description" content="MySQL Performance Tuning code: https://github.com/Greenery-S/go-database/tree/master/mysql
+1 Practical Recommendations Always use lowercase when writing SQL.
+Check if a table already exists before creating it using if not exists.
+Add comment to all columns and tables.
+Use char for short strings to benefit from fixed length and memory alignment, which improves read/write performance. varchar fields may cause memory fragmentation with frequent modifications.
+Use shorter data types whenever possible, e.g., tinyint vs int, float vs double, date vs datetime.">
+  <meta itemprop="datePublished" content="2024-05-19T21:16:35+08:00">
+  <meta itemprop="dateModified" content="2024-05-19T21:16:35+08:00">
+  <meta itemprop="wordCount" content="1633">
+  <meta itemprop="image" content="https://Greenery-S.github.io/">
+  <meta itemprop="keywords" content="Database,Mysql,Optimization">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://Greenery-S.github.io/"><meta name="twitter:title" content="MySQL Optimization">
+<meta name="twitter:description" content="MySQL Performance Tuning code: https://github.com/Greenery-S/go-database/tree/master/mysql
+1 Practical Recommendations Always use lowercase when writing SQL.
+Check if a table already exists before creating it using if not exists.
+Add comment to all columns and tables.
+Use char for short strings to benefit from fixed length and memory alignment, which improves read/write performance. varchar fields may cause memory fragmentation with frequent modifications.
+Use shorter data types whenever possible, e.g., tinyint vs int, float vs double, date vs datetime.">
+
+
+
+    <meta property="og:url" content="https://Greenery-S.github.io/posts/go/database/mysql-optimization/">
+  <meta property="og:site_name" content="Greenery&#39;s Blog Site">
+  <meta property="og:title" content="MySQL Optimization">
+  <meta property="og:description" content="MySQL Performance Tuning code: https://github.com/Greenery-S/go-database/tree/master/mysql
+1 Practical Recommendations Always use lowercase when writing SQL.
+Check if a table already exists before creating it using if not exists.
+Add comment to all columns and tables.
+Use char for short strings to benefit from fixed length and memory alignment, which improves read/write performance. varchar fields may cause memory fragmentation with frequent modifications.
+Use shorter data types whenever possible, e.g., tinyint vs int, float vs double, date vs datetime.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-05-19T21:16:35+08:00">
+    <meta property="article:modified_time" content="2024-05-19T21:16:35+08:00">
+    <meta property="article:tag" content="Database">
+    <meta property="article:tag" content="Mysql">
+    <meta property="article:tag" content="Optimization">
+    <meta property="og:image" content="https://Greenery-S.github.io/">
+
+
+
+
+    <meta property="article:section" content="go" />
+
+    <meta property="article:section" content="go-basics" />
+
+    <meta property="article:section" content="go-basics-database" />
+
+
+
+    <meta property="article:published_time" content="2024-05-19 21:16:35 &#43;0800 &#43;08" />
+
+
+
+
+
+
+
+
+
+
+
+    </head>
+
+    
+        <body>
+    
+    
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://Greenery-S.github.io/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">(</span>
+            <span class="logo__text ">
+                ｡•̀ᴗ-)</span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://Greenery-S.github.io/posts/about">About</a></li><li><a href="https://Greenery-S.github.io/posts/">Posts</a></li><li><a href="https://Greenery-S.github.io/tags/">Tags</a></li><li><a href="https://Greenery-S.github.io/categories/">Categories</a></li><li><a href="https://Greenery-S.github.io/categories/hugo-site-building/">Site-building</a></li>
+        <div class="submenu">
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">en</a>
+                <div class="dropdown-content">
+                    
+                        
+                            <a title="zh-cn" href="https://Greenery-S.github.io/zh-cn/posts/go/database/mysql-optimization/">zh-cn</a>
+                        
+                    
+                </div>
+            </li>
+        </div>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+                <span class="theme-toggle not-selectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+   <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+   3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+   13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+ </svg></span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+  <main class="post">
+
+    <div class="post-info">
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+        8 minutes
+
+         | Also available in
+          
+              <a href="https://Greenery-S.github.io/zh-cn/posts/go/database/mysql-optimization/"><span class="flag fi fi-cn"></span></a>
+          
+        
+      </p>
+    </div>
+
+    <article>
+      <h1 class="post-title">
+        <a href="https://Greenery-S.github.io/posts/go/database/mysql-optimization/">MySQL Optimization</a>
+      </h1>
+
+      
+
+      
+
+      
+
+      <div class="post-content">
+        <h1 id="mysql-performance-tuning">MySQL Performance Tuning</h1>
+<blockquote>
+<p>code: <a href="https://github.com/Greenery-S/go-database/tree/master/mysql">https://github.com/Greenery-S/go-database/tree/master/mysql</a></p>
+</blockquote>
+<h3 id="1-practical-recommendations">1 Practical Recommendations</h3>
+<ul>
+<li>
+<p>Always use lowercase when writing SQL.</p>
+</li>
+<li>
+<p>Check if a table already exists before creating it using <code>if not exists</code>.</p>
+</li>
+<li>
+<p>Add <code>comment</code> to all columns and tables.</p>
+</li>
+<li>
+<p>Use <code>char</code> for short strings to benefit from fixed length and memory alignment, which improves read/write performance. <code>varchar</code> fields may cause memory fragmentation with frequent modifications.</p>
+</li>
+<li>
+<p>Use shorter data types whenever possible, e.g., <code>tinyint</code> vs <code>int</code>, <code>float</code> vs <code>double</code>, <code>date</code> vs <code>datetime</code>.</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> <span style="color:#66d9ef">if</span> <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">exists</span> <span style="color:#f92672">`</span>student<span style="color:#f92672">`</span> (
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">`</span>id<span style="color:#f92672">`</span> int(<span style="color:#ae81ff">11</span>) <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span> AUTO_INCREMENT <span style="color:#66d9ef">COMMENT</span> <span style="color:#e6db74">&#39;Primary key auto-increment id&#39;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">`</span>name<span style="color:#f92672">`</span> char(<span style="color:#ae81ff">10</span>) <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span> <span style="color:#66d9ef">COMMENT</span> <span style="color:#e6db74">&#39;Name&#39;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">`</span>province<span style="color:#f92672">`</span> char(<span style="color:#ae81ff">6</span>) <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span> <span style="color:#66d9ef">COMMENT</span> <span style="color:#e6db74">&#39;Province&#39;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">`</span>city<span style="color:#f92672">`</span> char(<span style="color:#ae81ff">10</span>) <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span> <span style="color:#66d9ef">COMMENT</span> <span style="color:#e6db74">&#39;City&#39;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">`</span>addr<span style="color:#f92672">`</span> varchar(<span style="color:#ae81ff">100</span>) <span style="color:#66d9ef">DEFAULT</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">COMMENT</span> <span style="color:#e6db74">&#39;Address&#39;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">`</span>score<span style="color:#f92672">`</span> float <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span> <span style="color:#66d9ef">DEFAULT</span> <span style="color:#e6db74">&#39;0&#39;</span> <span style="color:#66d9ef">COMMENT</span> <span style="color:#e6db74">&#39;Exam score&#39;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">`</span>enrollment<span style="color:#f92672">`</span> date <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span> <span style="color:#66d9ef">COMMENT</span> <span style="color:#e6db74">&#39;Enrollment date&#39;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">PRIMARY</span> <span style="color:#66d9ef">KEY</span> (<span style="color:#f92672">`</span>id<span style="color:#f92672">`</span>),
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">UNIQUE</span> <span style="color:#66d9ef">KEY</span> <span style="color:#f92672">`</span>idx_name<span style="color:#f92672">`</span> (<span style="color:#f92672">`</span>name<span style="color:#f92672">`</span>),
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">KEY</span> <span style="color:#f92672">`</span>idx_location<span style="color:#f92672">`</span> (<span style="color:#f92672">`</span>province<span style="color:#f92672">`</span>,<span style="color:#f92672">`</span>city<span style="color:#f92672">`</span>)
+</span></span><span style="display:flex;"><span>) ENGINE<span style="color:#f92672">=</span>InnoDB AUTO_INCREMENT<span style="color:#f92672">=</span><span style="color:#ae81ff">100020</span> <span style="color:#66d9ef">DEFAULT</span> CHARSET<span style="color:#f92672">=</span>utf8 <span style="color:#66d9ef">COMMENT</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Student basic information&#39;</span>;
+</span></span></code></pre></div><h2 id="2-null">2 null</h2>
+<ul>
+<li>
+<p><code>default null</code> differs from <code>default ''</code> and <code>default 0</code>.</p>
+</li>
+<li>
+<p><code>is null</code>, <code>is not null</code> differ from <code>!= ''</code>, <code>!= 0</code>.</p>
+</li>
+<li>
+<p>Set fields to <code>not null</code> whenever possible:</p>
+<ul>
+<li>Some DB indexes do not allow null values.</li>
+<li>Statistics on columns with null values may be inaccurate.</li>
+<li>Null values can sometimes severely degrade system performance.</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-avoiding-slow-queries-eg-1s">3 Avoiding Slow Queries (e.g., &gt;1s)</h2>
+<ul>
+<li>Most slow queries result from improper index usage.</li>
+<li>Avoid creating too many indexes, as it slows down writes.</li>
+<li>Use the default InnoDB engine in most cases, rather than MyISAM.</li>
+<li>Avoid <code>select *</code>, only select the columns you need.</li>
+<li>Use <code>in</code> instead of <code>or</code> when possible, as <code>in</code> is more efficient.</li>
+<li>Limit the number of elements in <code>in</code> to 300-500.</li>
+<li>Avoid model queries like <code>like</code>, as they cannot use indexes effectively.</li>
+<li>Use <code>limit 1</code> if you are sure the result is a single row, to avoid full table scans.</li>
+<li><code>limit m,n</code> retrieves the first m+n rows but only returns the last n rows. Use <code>id&gt;x</code> to replace this pagination method.</li>
+<li>Batch operations in a single SQL statement or as a single transaction to reduce contention on shared resources.</li>
+<li>Avoid large transactions; use small transactions to reduce lock waiting and contention.</li>
+<li>Limit the number of rows queried or updated at once to around 1000.</li>
+<li>Avoid join operations; handle join logic in application code.</li>
+<li>Do not use MySQL built-in functions as they do not utilize query caching; handle complex logic in your code.</li>
+</ul>
+<h2 id="4-b-tree">4 B+ Tree</h2>
+<ol>
+<li>B stands for Balance. In an m-ary tree, each node has up to m data items and at least m/2 data items (except the root node).</li>
+<li>Leaf nodes store all data and are linked for sequential access.</li>
+<li>Each node is designed as a multiple of memory pages (4K). In MySQL, m=1200, so the first two levels of the tree are stored in memory.</li>
+</ol>
+
+    <img src="https://Greenery-S.github.io/images/mysql-optimization-bplustree.png"  alt="b&#43;tree"  class="center"  style="border-radius: 20px; width: 300px;"  />
+
+
+<h2 id="5-indexes">5 Indexes</h2>
+<ul>
+<li>MySQL indexes use B+ trees by default.
+<ul>
+<li>Why not hashtable? 1) Not all data can be loaded into memory; 2) Not suitable for range queries.</li>
+</ul>
+</li>
+<li>The primary key automatically gets indexed. The B+ tree built by the primary key contains data for all columns, whereas a normal index’s B+ tree stores only the primary key, requiring another lookup (back to the table).</li>
+<li>The prefix of a composite index also functions as an index.</li>
+<li>Use <code>explain</code> before SQL statements to check index usage.</li>
+<li>If MySQL does not choose the optimal index plan, use <code>force index (index_name)</code> before <code>where</code>.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">show</span> <span style="color:#66d9ef">create</span> <span style="color:#66d9ef">table</span> student;
+</span></span></code></pre></div>
+    <img src="https://Greenery-S.github.io/images/mysql-optimization-show-table.png"  alt="show-table"  class="center"  style="border-radius: 10px; width: 100%;"  />
+
+
+<h2 id="6-covering-indexes">6 Covering Indexes</h2>
+
+    <img src="https://Greenery-S.github.io/images/mysql-optimization-cover-index.png"  alt="cover-index"  class="center"  style="border-radius: 10px; width: 300;"  />
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">explain</span> <span style="color:#66d9ef">select</span> city <span style="color:#66d9ef">from</span> student <span style="color:#66d9ef">where</span> name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;张三&#39;</span> <span style="color:#66d9ef">and</span> province<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;北京&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">explain</span> <span style="color:#66d9ef">select</span> city <span style="color:#66d9ef">from</span> student <span style="color:#66d9ef">force</span> <span style="color:#66d9ef">index</span> (idx_location) <span style="color:#66d9ef">where</span> name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;张三&#39;</span> <span style="color:#66d9ef">and</span> province<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;北京&#39;</span>;
+</span></span></code></pre></div>
+    <img src="https://Greenery-S.github.io/images/mysql-optimization-explain-select.png"  alt="cover-index"  class="center"  style="border-radius: 10px; width: 300;"  />
+
+
+<ul>
+<li>The first query needs to go back to the table.</li>
+<li>The second SQL query only needs to query the <code>city</code>, and it hits the composite index (<code>province</code>, <code>city</code>), so it does not need to go back to the table. This is a covering index (hits a non-primary key index without needing to go back to the table).</li>
+<li>The covering index will show &ldquo;Using index&rdquo; in the Extra field of the <code>explain</code> output.</li>
+</ul>
+<h2 id="7-sql-injection-attacks">7 SQL Injection Attacks</h2>
+<p><strong>CASE 1</strong></p>
+<ul>
+<li><code>sql = &quot;select username, password from user where username='&quot; + username + &quot;' and password='&quot; + password + &quot;'&quot;;</code></li>
+<li>Variables <code>username</code> and <code>password</code> come from the frontend input. If a user inputs <code>username</code> as lily and <code>password</code> as <code>aaa' or '1'='1</code>, the complete SQL would be <code>select username, password from user where username='lily' and password='aaa' or '1'='1'</code>.</li>
+<li>This returns all records in the table. If the record count is greater than 0, login is allowed, so lily’s account is compromised.</li>
+</ul>
+<p><strong>CASE 2</strong></p>
+<ul>
+<li><code>sql=&quot;insert into student (name) values ('&quot; + username + &quot; ') &quot;;</code></li>
+<li>The variable <code>username</code> comes from the frontend input. If the user inputs <code>username</code> as <code>lily'); drop table student;--</code>, the complete SQL would be <code>insert into student (name) values ('lily'); drop table student;--')</code>.</li>
+<li>The comment <code>--</code> ignores the trailing <code>')</code>, deleting the entire table.</li>
+</ul>
+<h3 id="prevention-methods">Prevention Methods</h3>
+<p><strong>Overall</strong></p>
+<ul>
+<li>Validate frontend inputs with regex and length checks.</li>
+<li>Escape or encode special characters (e.g., &lt;&gt;&amp;*; &lsquo;&quot; etc.). Go’s <code>text/template</code> package function <code>HTMLEscapeString</code> can escape strings.</li>
+<li>Avoid embedding user inputs directly in SQL statements; use <strong>parameterized queries</strong> like <code>Prepare</code>, <code>Query</code>, <code>Exec(query string, args ...interface{})</code>.</li>
+<li>Use professional SQL injection detection tools such as sqlmap and SQLninja.</li>
+<li><strong>Avoid displaying SQL error messages</strong> to prevent attackers from exploiting them.</li>
+<li>No single method can prevent all SQL injection attacks; use a combination of methods.</li>
+</ul>
+<p><strong>Stmt</strong></p>
+<ul>
+<li>
+<p>Define an SQL template: <code>stmt, err := db.Prepare(&quot;update student set score=score+? where city=?&quot;)</code>.</p>
+</li>
+<li>
+<p>Use the template multiple times:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">res</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">stmt</span>.<span style="color:#a6e22e">Exec</span>(<span style="color:#ae81ff">10</span>, <span style="color:#e6db74">&#34;Shanghai&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">res</span>, <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">stmt</span>.<span style="color:#a6e22e">Exec</span>(<span style="color:#ae81ff">9</span>, <span style="color:#e6db74">&#34;Shenzhen&#34;</span>);
+</span></span></code></pre></div></li>
+<li>
+<p>Avoid SQL concatenation (vulnerable to SQL injection and cannot leverage compilation optimization): <code>db.Where(fmt.Sprintf(&quot;merchant_id = %s&quot;, merchantId))</code>.</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> <span style="color:#66d9ef">if</span> <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">exists</span> <span style="color:#f92672">`</span>login<span style="color:#f92672">`</span> (
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">`</span>username<span style="color:#f92672">`</span> varchar(<span style="color:#ae81ff">100</span>) <span style="color:#66d9ef">DEFAULT</span> <span style="color:#66d9ef">NULL</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">`</span>password<span style="color:#f92672">`</span> varchar(<span style="color:#ae81ff">100</span>) <span style="color:#66d9ef">DEFAULT</span> <span style="color:#66d9ef">NULL</span>
+</span></span><span style="display:flex;"><span>) ENGINE<span style="color:#f92672">=</span>InnoDB <span style="color:#66d9ef">DEFAULT</span> CHARSET<span style="color:#f92672">=</span>latin1;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// Returns true if login is successful. Vulnerable to SQL injection.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">LoginUnsafe</span>(<span style="color:#a6e22e">db</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">gorm</span>.<span style="color:#a6e22e">DB</span>, <span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">passwd</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">bool</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">cnt</span> <span style="color:#66d9ef">int64</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">Table</span>(<span style="color:#e6db74">&#34;login&#34;</span>).<span style="color:#a6e22e">Select</span>(<span style="color:#e6db74">&#34;*&#34;</span>).<span style="color:#a6e22e">Where</span>(<span style="color:#e6db74">&#34;username=&#39;&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">name</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;&#39; and password=&#39;&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">passwd</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;&#39;&#34;</span>).<span style="color:#a6e22e">Count</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">cnt</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">cnt</span> &gt; <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Returns true if login is successful. Protected against SQL injection.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">LoginSafe</span>(<span style="color:#a6e22e">db</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">gorm</span>.<span style="color:#a6e22e">DB</span>, <span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">passwd</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">bool</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">cnt</span> <span style="color:#66d9ef">int64</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">Table</span>(<span style="color:#e6db74">&#34;login&#34;</span>).<span style="color:#a6e22e">Select</span>(<span style="color:#e6db74">&#34;*&#34;</span>).<span style="color:#a6e22e">Where</span>(<span style="color:#e6db74">&#34;username=? and password=?&#34;</span>, <span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">passwd</span>).<span style="color:#a6e22e">Count</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">cnt</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">cnt</span> &gt; <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestLoginUnsafe</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">db</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">gorm</span>.<span style="color:#a6e22e">Open</span>(<span style="color:#a6e22e">mysql</span>.<span style="color:#a6e22e">Open</span>(<span style="color:#a6e22e">dsn</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">gorm</span>.<span style="color:#a6e22e">Config</span>{<span style="color:#a6e22e">PrepareStmt</span>: <span style="color:#66d9ef">true</span>}); <span style="color:#75715e">// Enforce PrepareStmt
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>    panic(<span style="color:#a6e22e">err</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">LoginUnsafe</span>(<span style="color:#a6e22e">db</span>, <span style="color:#e6db74">&#34;tom&#34;</span>, <span style="color:#e6db74">&#34;123456&#34;</span>) <span style="color:#f92672">==</span> <span style="color:#66d9ef">false</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Fail</span>();
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">LoginUnsafe</span>(<span style="color:#a6e22e">db</span>, <span style="color:#e6db74">&#34;tom&#34;</span>, <span style="color:#e6db74">&#34;456789&#34;</span>) <span style="color:#f92672">==</span> <span style="color:#66d9ef">true</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Fail</span>();
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// select * from login
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">where</span> <span style="color:#a6e22e">username</span>=<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">tom</span><span style="color:#960050;background-color:#1e0010">&#39;</span> <span style="color:#a6e22e">and</span> <span style="color:#a6e22e">password</span>=<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#ae81ff">456789</span><span style="color:#960050;background-color:#1e0010">&#39;</span> <span style="color:#a6e22e">or</span> <span style="color:#e6db74">&#39;1&#39;</span>=<span style="color:#e6db74">&#39;1&#39;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">LoginUnsafe</span>(<span style="color:#a6e22e">db</span>, <span style="color:#e6db74">&#34;tom&#34;</span>, <span style="color:#e6db74">&#34;456789&#39; or &#39;1&#39;=&#39;1&#34;</span>) <span style="color:#f92672">==</span> <span style="color:#66d9ef">false</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Fail</span>();
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestLoginSafe</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">db</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">gorm</span>.<span style="color:#a6e22e">Open</span>(<span style="color:#a6e22e">mysql</span>.<span style="color:#a6e22e">Open</span>(<span style="color:#a6e22e">dsn</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">gorm</span>.<span style="color:#a6e22e">Config</span>{<span style="color:#a6e22e">PrepareStmt</span>: <span style="color:#66d9ef">true</span>}); <span style="color:#75715e">// Enforce PrepareStmt
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>    panic(<span style="color:#a6e22e">err</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">LoginSafe</span>(<span style="color:#a6e22e">db</span>, <span style="color:#e6db74">&#34;tom&#34;</span>, <span style="color:#e6db74">&#34;123456&#34;</span>) <span style="color:#f92672">==</span> <span style="color:#66d9ef">false</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Fail</span>();
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">LoginSafe</span>(<span style="color:#a6e22e">db</span>, <span style="color:#e6db74">&#34;tom&#34;</span>, <span style="color:#e6db74">&#34;456789&#34;</span>) <span style="color:#f92672">==</span> <span style="color:#66d9ef">true</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Fail</span>();
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">LoginSafe</span>(<span style="color:#a6e22e">db</span>, <span style="color:#e6db74">&#34;tom&#34;</span>, <span style="color:#e6db74">&#34;456789&#39; or &#39;1&#39;=&#39;1&#34;</span>) <span style="color:#f92672">==</span> <span style="color:#66d9ef">true</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Fail</span>();
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>SQL Precompilation</strong></p>
+<ul>
+<li>
+<p>DB execution of SQL involves three steps:</p>
+<ol>
+<li>Lexical and semantic analysis.</li>
+<li>SQL statement optimization and execution plan formulation.</li>
+<li>Execution and return of results.</li>
+</ol>
+</li>
+<li>
+<p>SQL precompilation replaces user inputs with placeholders (<code>?</code>), precompiles the template SQL, and injects user inputs at runtime.</p>
+</li>
+<li>
+<p>This prevents SQL injection and allows caching of precompiled SQL statements, avoiding repeated analysis and optimization.</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">BenchmarkQueryWithoutPrepare</span>(<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">B</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">client</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">gorm</span>.<span style="color:#a6e22e">Open</span>(<span style="color:#a6e22e">mysql</span>.<span style="color:#a6e22e">Open</span>(<span style="color:#a6e22e">dsn</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">gorm</span>.<span style="color:#a6e22e">Config</span>{}); <span style="color:#75715e">// PrepareStmt not specified
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>    panic(<span style="color:#a6e22e">err</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">ResetTimer</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">N</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">LoginUnsafe</span>(<span style="color:#a6e22e">client</span>, <span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">passwd</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">BenchmarkQueryWithPrepare</span>(<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">B</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">client</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">gorm</span>.<span style="color:#a6e22e">Open</span>(<span style="color:#a6e22e">mysql</span>.<span style="color:#a6e22e">Open</span>(<span style="color:#a6e22e">dsn</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">gorm</span>.<span style="color:#a6e22e">Config</span>{<span style="color:#a6e22e">PrepareStmt</span>: <span style="color:#66d9ef">true</span>}); <span style="color:#75715e">// Enforce PrepareStmt
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>    panic(<span style="color:#a6e22e">err</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">ResetTimer</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">N</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">LoginUnsafe</span>(<span style="color:#a6e22e">client</span>, <span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">passwd</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>&gt; go test ./ -bench<span style="color:#f92672">=</span>^BenchmarkQueryWith -run<span style="color:#f92672">=</span>^$ -count<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> -benchmem
+</span></span><span style="display:flex;"><span>goos: darwin
+</span></span><span style="display:flex;"><span>goarch: arm64
+</span></span><span style="display:flex;"><span>pkg: dqq/database/mysql
+</span></span><span style="display:flex;"><span>BenchmarkQueryWithoutPrepare-10             <span style="color:#ae81ff">7888</span>            <span style="color:#ae81ff">147138</span> ns/op            <span style="color:#ae81ff">3441</span> B/op         <span style="color:#ae81ff">54</span> allocs/op
+</span></span><span style="display:flex;"><span>BenchmarkQueryWithPrepare-10                <span style="color:#ae81ff">8508</span>            <span style="color:#ae81ff">130443</span> ns/op            <span style="color:#ae81ff">3458</span> B/op         <span style="color:#ae81ff">55</span> allocs/op
+</span></span><span style="display:flex;"><span>PASS
+</span></span></code></pre></div><h2 id="8-pagination-queries">8 Pagination Queries</h2>
+<ul>
+<li><code>limit m,n</code> retrieves the first m+n rows but only returns the last n rows. Use <code>id&gt;x</code> to replace this pagination method.</li>
+<li>Full table scan:
+<ol>
+<li>Directly selecting <code>* from table</code> is slow, violating the principle of not querying too many rows at once.</li>
+<li>Pagination appears to query few rows, but it executes multiple full table scans.</li>
+<li>Fix <code>page_size</code> and maintain the maximum queried <code>id (max_id)</code>. Query using <code>where id&gt;maxid limit page_size</code>, exiting the loop when the result is empty.</li>
+</ol>
+</li>
+</ul>
+
+    <img src="https://Greenery-S.github.io/images/mysql-optimization-pagenate.png"  alt="pagination"  class="center"  style="border-radius: 10px; width: 300;"  />
+
+
+<h2 id="9-transactions">9 Transactions</h2>
+<ul>
+<li>Batch operations should be done in a single SQL statement; otherwise, bundle them in a transaction and commit once to reduce contention on shared resources.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> (
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">INSERT_COUNT</span> = <span style="color:#ae81ff">100000</span>;
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Insert one by one
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">InsertOneByOne</span>(<span style="color:#a6e22e">db</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">gorm</span>.<span style="color:#a6e22e">DB</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">begin</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>();
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">INSERT_COUNT</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">student</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Student</span>{<span style="color:#a6e22e">Name</span>: <span style="color:#e6db74">&#34;Student&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">Itoa</span>(<span style="color:#a6e22e">i</span>), <span style="color:#a6e22e">Province</span>: <span style="color:#e6db74">&#34;Beijing&#34;</span>, <span style="color:#a6e22e">City</span>: <span style="color:#e6db74">&#34;Beijing&#34;</span>, <span style="color:#a6e22e">Score</span>: <span style="color:#ae81ff">38</span>, <span style="color:#a6e22e">Enrollment</span>: <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>()};
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">Create</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">student</span>).<span style="color:#a6e22e">Error</span>; <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> { <span style="color:#75715e">// Note: pass the pointer of student
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">err</span>);
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;total&#34;</span>, <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Since</span>(<span style="color:#a6e22e">begin</span>));
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Insert within a transaction
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">InsertByTransaction1</span>(<span style="color:#a6e22e">db</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">gorm</span>.<span style="color:#a6e22e">DB</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">begin</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>();
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">tx</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">Begin</span>();
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">INSERT_COUNT</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">student</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Student</span>{<span style="color:#a6e22e">Name</span>: <span style="color:#e6db74">&#34;Student&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">Itoa</span>(<span style="color:#a6e22e">i</span>), <span style="color:#a6e22e">Province</span>: <span style="color:#e6db74">&#34;Beijing&#34;</span>, <span style="color:#a6e22e">City</span>: <span style="color:#e6db74">&#34;Beijing&#34;</span>, <span style="color:#a6e22e">Score</span>: <span style="color:#ae81ff">38</span>, <span style="color:#a6e22e">Enrollment</span>: <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>()};
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">tx</span>.<span style="color:#a6e22e">Create</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">student</span>).<span style="color:#a6e22e">Error</span>; <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">err</span>);
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">tx</span>.<span style="color:#a6e22e">Commit</span>();
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;total&#34;</span>, <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Since</span>(<span style="color:#a6e22e">begin</span>));
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Insert multiple rows at once within a transaction
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">InsertByTransaction2</span>(<span style="color:#a6e22e">db</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">gorm</span>.<span style="color:#a6e22e">DB</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">begin</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>();
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">tx</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">Begin</span>();
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">BATCH</span> = <span style="color:#ae81ff">100</span>; <span style="color:#75715e">// Insert multiple rows in a single SQL statement
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">INSERT_COUNT</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">BATCH</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">students</span> <span style="color:#f92672">:=</span> make([]<span style="color:#a6e22e">Student</span>, <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">BATCH</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span> &lt; <span style="color:#a6e22e">BATCH</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">student</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Student</span>{<span style="color:#a6e22e">Name</span>: <span style="color:#e6db74">&#34;Student&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">Itoa</span>(<span style="color:#a6e22e">i</span><span style="color:#f92672">+</span><span style="color:#a6e22e">j</span>), <span style="color:#a6e22e">Province</span>: <span style="color:#e6db74">&#34;Beijing&#34;</span>, <span style="color:#a6e22e">City</span>: <span style="color:#e6db74">&#34;Beijing&#34;</span>, <span style="color:#a6e22e">Score</span>: <span style="color:#ae81ff">38</span>, <span style="color:#a6e22e">Enrollment</span>: <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>()};
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">students</span> = append(<span style="color:#a6e22e">students</span>, <span style="color:#a6e22e">student</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">tx</span>.<span style="color:#a6e22e">Create</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">students</span>).<span style="color:#a6e22e">Error</span>; <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">err</span>);
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">tx</span>.<span style="color:#a6e22e">Commit</span>();
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;total&#34;</span>, <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Since</span>(<span style="color:#a6e22e">begin</span>));
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#f92672">===</span> RUN   TestInsertOneByOne
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>total 1m55.652681166s
+</span></span><span style="display:flex;"><span>--- PASS: TestInsertOneByOne <span style="color:#f92672">(</span>116.20s<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===</span> RUN   TestInsertByTransaction1
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>total 27.29299825s
+</span></span><span style="display:flex;"><span>--- PASS: TestInsertByTransaction1 <span style="color:#f92672">(</span>27.91s<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===</span> RUN   TestInsertByTransaction2
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>total 3.226376333s
+</span></span><span style="display:flex;"><span>--- PASS: TestInsertByTransaction2 <span style="color:#f92672">(</span>4.20s<span style="color:#f92672">)</span>
+</span></span></code></pre></div>
+      </div>
+    </article>
+
+    <hr />
+
+    <div class="post-info">
+      
+    <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg>
+
+        <span class="tag"><a href="https://Greenery-S.github.io/tags/database/">database</a></span>
+        <span class="tag"><a href="https://Greenery-S.github.io/tags/mysql/">mysql</a></span>
+        <span class="tag"><a href="https://Greenery-S.github.io/tags/optimization/">optimization</a></span>
+        
+    </p>
+
+      
+    <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder meta-icon"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+
+        <span class="tag"><a href="https://Greenery-S.github.io/categories/go/">go</a></span>
+        <span class="tag"><a href="https://Greenery-S.github.io/categories/go-basics/">go-basics</a></span>
+        <span class="tag"><a href="https://Greenery-S.github.io/categories/go-basics-database/">go-basics-database</a></span>
+        
+    </p>
+
+
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+          <polyline points="10 9 9 9 8 9"></polyline>
+        </svg>
+        1633 Words
+      </p>
+
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
+        
+          2024-05-19 21:16
+        
+
+         
+          
+        
+      </p>
+    </div>
+      <hr />
+      <div class="sharing-buttons">
+        
+<a class="resp-sharing-button__link" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fGreenery-S.github.io%2fposts%2fgo%2fdatabase%2fmysql-optimization%2f" target="_blank" rel="noopener" aria-label="" title="Share on facebook">
+  <div class="resp-sharing-button resp-sharing-button--facebook resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://twitter.com/intent/tweet/?url=https%3a%2f%2fGreenery-S.github.io%2fposts%2fgo%2fdatabase%2fmysql-optimization%2f" target="_blank" rel="noopener" aria-label="" title="Share on twitter">
+  <div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--small">
+      <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://www.tumblr.com/widgets/share/tool?posttype=link&amp;title=MySQL%20Optimization&amp;caption=MySQL%20Optimization&amp;canonicalUrl=https%3a%2f%2fGreenery-S.github.io%2fposts%2fgo%2fdatabase%2fmysql-optimization%2f" target="_blank" rel="noopener" aria-label="" title="Share on tumblr">
+  <div class="resp-sharing-button resp-sharing-button--tumblr resp-sharing-button--small">
+    <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.563 24c-5.093 0-7.031-3.756-7.031-6.411V9.747H5.116V6.648c3.63-1.313 4.512-4.596 4.71-6.469C9.84.051 9.941 0 9.999 0h3.517v6.114h4.801v3.633h-4.82v7.47c.016 1.001.375 2.371 2.207 2.371h.09c.631-.02 1.486-.205 1.936-.419l1.156 3.425c-.436.636-2.4 1.374-4.156 1.404h-.178l.011.002z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="mailto:?subject=MySQL%20Optimization&amp;body=https%3a%2f%2fGreenery-S.github.io%2fposts%2fgo%2fdatabase%2fmysql-optimization%2f" target="_self" rel="noopener" aria-label="" title="Share via email">
+  <div class="resp-sharing-button resp-sharing-button--email resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://pinterest.com/pin/create/button/?url=https%3a%2f%2fGreenery-S.github.io%2fposts%2fgo%2fdatabase%2fmysql-optimization%2f&amp;media=https%3a%2f%2fGreenery-S.github.io%2fposts%2fgo%2fdatabase%2fmysql-optimization%2f;description=MySQL%20Optimization" target="_blank" rel="noopener" aria-label="" title="Share on pinterest">
+  <div class="resp-sharing-button resp-sharing-button--pinterest resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fGreenery-S.github.io%2fposts%2fgo%2fdatabase%2fmysql-optimization%2f&amp;title=MySQL%20Optimization&amp;summary=MySQL%20Optimization&amp;source=https%3a%2f%2fGreenery-S.github.io%2fposts%2fgo%2fdatabase%2fmysql-optimization%2f" target="_blank" rel="noopener" aria-label="" title="Share on linkedin">
+  <div class="resp-sharing-button resp-sharing-button--linkedin resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://reddit.com/submit/?url=https%3a%2f%2fGreenery-S.github.io%2fposts%2fgo%2fdatabase%2fmysql-optimization%2f&amp;resubmit=true&amp;title=MySQL%20Optimization" target="_blank" rel="noopener" aria-label="" title="Share on reddit">
+  <div class="resp-sharing-button resp-sharing-button--reddit resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://www.xing.com/app/user?op=share;url=https%3a%2f%2fGreenery-S.github.io%2fposts%2fgo%2fdatabase%2fmysql-optimization%2f;title=MySQL%20Optimization" target="_blank" rel="noopener" aria-label="" title="Share on xing">
+  <div class="resp-sharing-button resp-sharing-button--xing resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M18.188 0c-.517 0-.741.325-.927.66 0 0-7.455 13.224-7.702 13.657.015.024 4.919 9.023 4.919 9.023.17.308.436.66.967.66h3.454c.211 0 .375-.078.463-.22.089-.151.089-.346-.009-.536l-4.879-8.916c-.004-.006-.004-.016 0-.022L22.139.756c.095-.191.097-.387.006-.535C22.056.078 21.894 0 21.686 0h-3.498zM3.648 4.74c-.211 0-.385.074-.473.216-.09.149-.078.339.02.531l2.34 4.05c.004.01.004.016 0 .021L1.86 16.051c-.099.188-.093.381 0 .529.085.142.239.234.45.234h3.461c.518 0 .766-.348.945-.667l3.734-6.609-2.378-4.155c-.172-.315-.434-.659-.962-.659H3.648v.016z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="whatsapp://send?text=MySQL%20Optimization%20https%3a%2f%2fGreenery-S.github.io%2fposts%2fgo%2fdatabase%2fmysql-optimization%2f" target="_blank" rel="noopener" aria-label="" title="Share on whatsapp">
+  <div class="resp-sharing-button resp-sharing-button--whatsapp resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://news.ycombinator.com/submitlink?u=https%3a%2f%2fGreenery-S.github.io%2fposts%2fgo%2fdatabase%2fmysql-optimization%2f&amp;t=MySQL%20Optimization" target="_blank" rel="noopener" aria-label="" title="Share on hacker news">
+  <div class="resp-sharing-button resp-sharing-button--hackernews resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M0 24V0h24v24H0zM6.951 5.896l4.112 7.708v5.064h1.583v-4.972l4.148-7.799h-1.749l-2.457 4.875c-.372.745-.688 1.434-.688 1.434s-.297-.708-.651-1.434L8.831 5.896h-1.88z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://telegram.me/share/url?text=MySQL%20Optimization&amp;url=https%3a%2f%2fGreenery-S.github.io%2fposts%2fgo%2fdatabase%2fmysql-optimization%2f" target="_blank" rel="noopener" aria-label="" title="Share on telegram">
+  <div class="resp-sharing-button resp-sharing-button--telegram resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+    </div>
+  </div>
+</a>
+
+      </div>
+
+    
+    <div class="pagination">
+        
+
+        <div class="pagination__buttons">
+            
+            <span class="button previous">
+                <a href="https://Greenery-S.github.io/posts/go/database/orm-realized-by-reflect/">
+                    <span class="button__icon">←</span>
+                    <span class="button__text">ORM Realized by Reflect</span>
+                </a>
+            </span>
+            
+
+            
+            <span class="button next">
+                <a href="https://Greenery-S.github.io/posts/hugo/site-building/how-to-maintain-the-site/">
+                    <span class="button__text">How to Maintain the Site</span>
+                    <span class="button__icon">→</span>
+                </a>
+            </span>
+            
+        </div>
+    </div>
+
+
+    
+
+    
+
+    
+    <script src="https://utteranc.es/client.js"
+            repo="Greenery-S/Greenery-S.github.io"
+            label="comments"
+            issue-term="pathname"
+            theme="boxy-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    
+
+  </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2023</span>
+            <span><a href="https://Greenery-S.github.io/"></a></span>
+            <span><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></span>
+            <span><a href="https://Greenery-S.github.io/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+            
+        </div>
+    </div>
+    
+    
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Powered by <a href="http://gohugo.io">Hugo</a></span><span>Made with &#10084; by <a href="https://github.com/Greenery-S">Sam, Keyu Yan</a></span>
+        </div>
+    </div>
+    
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+<script type="text/javascript" src="https://Greenery-S.github.io/bundle.min.85fad2de4f13fec3bcb3b3cb10430cdb44a7b4a9749b32938241a5c6e77718df7624f1002b880521fdc26e24ec1077fda214bf1cb36ee3045510760d09638cae.js" integrity="sha512-hfrS3k8T/sO8s7PLEEMM20SntKl0mzKTgkGlxud3GN92JPEAK4gFIf3CbiTsEHf9ohS/HLNu4wRVEHYNCWOMrg=="></script>
+
+
+
+
+    </body>
+</html>

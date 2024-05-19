@@ -6,8 +6,576 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sun, 19 May 2024 02:32:11 +0800</lastBuildDate>
+        <lastBuildDate>Sun, 19 May 2024 22:11:16 +0800</lastBuildDate>
         <atom:link href="https://Greenery-S.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Introduction to Redis</title>
+            <link>https://Greenery-S.github.io/posts/go/database/introduction-to-redis/</link>
+            <pubDate>Sun, 19 May 2024 22:11:16 +0800</pubDate>
+            
+            <guid>https://Greenery-S.github.io/posts/go/database/introduction-to-redis/</guid>
+            <description>Redis Code: https://github.com/Greenery-S/go-database/tree/master/redis
+1 Introduction Redis is an in-memory data storage system. Since it is based on memory, it is fast, being 10 to 100 times faster than MySQL. To prevent data loss, data is periodically persisted to disk. Redis is deployed separately from the business application, so it can serve as a distributed cache. It supports a rich variety of data types: strings, hashes, lists, sets, and sorted sets. It supports the publish/subscribe model, where publishers send messages to specified channels, and subscribers can receive and process these messages.</description>
+            <content type="html"><![CDATA[<h1 id="redis">Redis</h1>
+<blockquote>
+<p>Code: <a href="https://github.com/Greenery-S/go-database/tree/master/redis">https://github.com/Greenery-S/go-database/tree/master/redis</a></p>
+</blockquote>
+<h2 id="1-introduction">1 Introduction</h2>
+<ul>
+<li>Redis is an in-memory data storage system.</li>
+<li>Since it is based on memory, it is fast, being 10 to 100 times faster than MySQL.</li>
+<li>To prevent data loss, data is periodically persisted to disk.</li>
+<li>Redis is deployed separately from the business application, so it can serve as a distributed cache.</li>
+<li>It supports a rich variety of data types: strings, hashes, lists, sets, and sorted sets.</li>
+<li>It supports the publish/subscribe model, where publishers send messages to specified channels, and subscribers can receive and process these messages. This model is commonly used in real-time communication, event-driven systems, and message queues.</li>
+<li>Redis transactions are not recommended as they are considered too limited.</li>
+</ul>
+<h2 id="2-publishsubscribe-model">2 Publish/Subscribe Model</h2>
+<ol>
+<li>Messages in the channel are not received before the subscriber starts.</li>
+<li>Broadcast effect.</li>
+</ol>
+
+    <img src="/images/introduction-to-redis-pubsub.png"  alt="pubsub"  class="center"  style="border-radius: 20px; width: 100%;"  />
+
+
+<h2 id="3-distributed-lock">3 Distributed Lock</h2>
+<ol>
+<li><code>SetNX(ctx context.Context, key string, value interface{}, expiration time.Duration) *BoolCmd</code></li>
+<li>SetNX returns true and writes the key with an expiration time if the key does not exist.</li>
+</ol>
+
+    <img src="/images/introduction-to-redis-distributed-key.png"  alt="distributed-key"  class="center"  style="border-radius: 20px; width: 100%;"  />
+
+
+<p>Example code for iPhone flash sale:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TryLock</span>(<span style="color:#a6e22e">rc</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">redis</span>.<span style="color:#a6e22e">Client</span>, <span style="color:#a6e22e">key</span> <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">expire</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Duration</span>) <span style="color:#66d9ef">bool</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">cmd</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">rc</span>.<span style="color:#a6e22e">SetNX</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Background</span>(), <span style="color:#a6e22e">key</span>, <span style="color:#e6db74">&#34;anything is ok&#34;</span>, <span style="color:#a6e22e">expire</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">cmd</span>.<span style="color:#a6e22e">Err</span>(); <span style="color:#a6e22e">err</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">cmd</span>.<span style="color:#a6e22e">Val</span>()
+</span></span><span style="display:flex;"><span>	} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">ReleaseLock</span>(<span style="color:#a6e22e">rc</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">redis</span>.<span style="color:#a6e22e">Client</span>, <span style="color:#a6e22e">key</span> <span style="color:#66d9ef">string</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">rc</span>.<span style="color:#a6e22e">Del</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Background</span>(), <span style="color:#a6e22e">key</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">LockRace2</span>(<span style="color:#a6e22e">client</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">redis</span>.<span style="color:#a6e22e">Client</span>, <span style="color:#a6e22e">storage</span> <span style="color:#66d9ef">int</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">keyLock</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;lock&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">keyStorage</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">&#34;store&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">client</span>.<span style="color:#a6e22e">Set</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Background</span>(), <span style="color:#a6e22e">keyStorage</span>, <span style="color:#a6e22e">storage</span>, <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">ReleaseLock</span>(<span style="color:#a6e22e">client</span>, <span style="color:#a6e22e">keyLock</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">client</span>.<span style="color:#a6e22e">Del</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Background</span>(), <span style="color:#a6e22e">keyStorage</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">P</span> = <span style="color:#ae81ff">1000</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">wg</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">WaitGroup</span>{}
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">P</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">start</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>()
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">P</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">i</span> <span style="color:#66d9ef">int</span>) {
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Done</span>()
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Duration</span>(<span style="color:#a6e22e">rand</span>.<span style="color:#a6e22e">Intn</span>(<span style="color:#ae81ff">100</span>)) <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Millisecond</span>)
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">TryLock</span>(<span style="color:#a6e22e">client</span>, <span style="color:#a6e22e">keyLock</span>, <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>				<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">client</span>.<span style="color:#a6e22e">IncrBy</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Background</span>(), <span style="color:#a6e22e">keyStorage</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>).<span style="color:#a6e22e">Val</span>(); <span style="color:#a6e22e">v</span> <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> {
+</span></span><span style="display:flex;"><span>					<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%d gets the No.%d iPhone! Use %v!\n&#34;</span>, <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">v</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>().<span style="color:#a6e22e">Sub</span>(<span style="color:#a6e22e">start</span>))
+</span></span><span style="display:flex;"><span>				}
+</span></span><span style="display:flex;"><span>				<span style="color:#a6e22e">ReleaseLock</span>(<span style="color:#a6e22e">client</span>, <span style="color:#a6e22e">keyLock</span>)
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>		}(<span style="color:#a6e22e">i</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Wait</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="4-memory-eviction-mechanism">4 Memory Eviction Mechanism</h2>
+<ol>
+<li>LRU (Least Recently Used): Based on a linked list structure, elements in the list are arranged in the order of operations. The most recently operated keys are moved to the head of the list. When memory eviction is needed, the elements at the tail of the list are deleted.</li>
+<li>LFU (Least Frequently Used): The basic assumption is that data accessed frequently in the past will also be accessed more frequently in the future, so the keys with the lowest usage frequency in the past are evicted. Redis uses a complex but efficient method to approximate LFU.</li>
+<li>LFU is more reasonable than LRU but more complex to implement.</li>
+</ol>
+
+    <img src="/images/introduction-to-redis-memory.png"  alt="memory"  class="center"  style="border-radius: 20px; width: 100%;"  />
+
+
+<h2 id="5-common-application-scenarios">5 Common Application Scenarios</h2>
+<ul>
+<li><strong>General Principle:</strong> Redis is an order of magnitude faster than MySQL but less reliable. It is suitable for storing data that requires high-frequency reads and writes, has a short lifecycle, and is not critically important to users.</li>
+<li><strong>Counter:</strong> <code>Incr(ctx context.Context, key string)</code> increments the counter for the corresponding key, such as video views or inventory in a flash sale scenario. <code>INCRBY</code> can increment by any value, including negative numbers.</li>
+<li><strong>Cache:</strong> Frequently accessed MySQL data can be stored in Redis, with keys corresponding to IDs and values as JSON strings. This reduces MySQL load and improves API response speed.</li>
+<li><strong>Session Cache:</strong> Session IDs are used to mark successful user logins. Logins and subsequent operations may hit different servers, so session IDs need to be stored in distributed cache. Search/recommendation result lists are stored in cache and read from cache when paging.</li>
+<li><strong>Distributed Lock:</strong> In a distributed system, scheduled tasks only need to be executed by one server. Whoever acquires the lock executes the task and releases the lock before the next cycle.</li>
+<li><strong>Publish/Subscribe Function:</strong> Redis can be used for small-scale event notifications, while Kafka is more suitable for large-scale message passing.</li>
+</ul>
+]]></content>
+        </item>
+        
+        <item>
+            <title>ORM Realized by Reflect</title>
+            <link>https://Greenery-S.github.io/posts/go/database/orm-realized-by-reflect/</link>
+            <pubDate>Sun, 19 May 2024 21:50:59 +0800</pubDate>
+            
+            <guid>https://Greenery-S.github.io/posts/go/database/orm-realized-by-reflect/</guid>
+            <description>Core Technology of ORM—Reflection Tutorial, Reflection Guide: https://zhuanlan.zhihu.com/p/411313885
+code: https://github.com/Greenery-S/go-database/tree/master/orm
+1 Reflection What is Reflection
+Reflection is the ability to inspect and modify an object’s type information and memory structure, update variables, and call methods during runtime (not compile time). When to Use Reflection
+When a function’s parameter type is interface{}, and you need to determine the original type at runtime to handle different types accordingly. For example, json.Marshal(v interface{}). When you need to dynamically decide which function to call at runtime based on certain conditions, such as executing the appropriate operator function based on a configuration file.</description>
+            <content type="html"><![CDATA[<h1 id="core-technology-of-ormreflection">Core Technology of ORM—Reflection</h1>
+<blockquote>
+<p>Tutorial, Reflection Guide: <a href="https://zhuanlan.zhihu.com/p/411313885">https://zhuanlan.zhihu.com/p/411313885</a></p>
+<p>code: <a href="https://github.com/Greenery-S/go-database/tree/master/orm">https://github.com/Greenery-S/go-database/tree/master/orm</a></p>
+</blockquote>
+<h2 id="1-reflection">1 Reflection</h2>
+<p><strong>What is Reflection</strong></p>
+<ul>
+<li>Reflection is the ability to inspect and modify an object’s type information and memory structure, update variables, and call methods during <strong>runtime</strong> (not compile time).</li>
+</ul>
+<p><strong>When to Use Reflection</strong></p>
+<ul>
+<li>When a function’s parameter type is <code>interface{}</code>, and you need to determine the original type at runtime to handle different types accordingly. For example, <code>json.Marshal(v interface{})</code>.</li>
+<li>When you need to dynamically decide which function to call at runtime based on certain conditions, such as executing the appropriate operator function based on a configuration file.</li>
+<li>It is recommended to use reflection during the initialization phase. Avoid using it frequently in API calls due to performance concerns.</li>
+</ul>
+<h2 id="2-usage-examples">2 Usage Examples</h2>
+
+    <img src="/images/orm-realized-by-reflect-example.png"  alt="show-table"  class="center"  style="border-radius: 10px; width: 80%;"  />
+
+
+<h2 id="3-drawbacks-of-reflection">3 Drawbacks of Reflection</h2>
+<ol>
+<li>Code readability and maintainability are poor.</li>
+<li>Type errors cannot be detected during compilation, making comprehensive testing challenging. Some bugs may only be discovered after prolonged runtime in production, potentially causing severe consequences.</li>
+<li>Reflection performance is poor, typically one to two orders of magnitude slower than regular code. Avoid using reflection in performance-critical or frequently called code blocks.</li>
+</ol>
+<h2 id="4-basic-data-types-of-reflection">4 Basic Data Types of Reflection</h2>
+
+    <img src="/images/orm-realized-by-reflect-data-type.png"  alt="show-table"  class="center"  style="border-radius: 10px; width: 80%;"  />
+
+
+<p><strong>reflect.Type</strong> – Retrieve type-related information using <code>reflect.Type</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Type</span> <span style="color:#66d9ef">interface</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">MethodByName</span>(<span style="color:#66d9ef">string</span>) (<span style="color:#a6e22e">Method</span>, <span style="color:#66d9ef">bool</span>) <span style="color:#75715e">// Retrieve method by name
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">Name</span>() <span style="color:#66d9ef">string</span>   <span style="color:#75715e">// Get the struct name
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">PkgPath</span>() <span style="color:#66d9ef">string</span> <span style="color:#75715e">// Package path
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">Size</span>() <span style="color:#66d9ef">uintptr</span>  <span style="color:#75715e">// Memory size
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">Kind</span>() <span style="color:#a6e22e">Kind</span>  <span style="color:#75715e">// Data type
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">Implements</span>(<span style="color:#a6e22e">u</span> <span style="color:#a6e22e">Type</span>) <span style="color:#66d9ef">bool</span>  <span style="color:#75715e">// Check if it implements an interface
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">Field</span>(<span style="color:#a6e22e">i</span> <span style="color:#66d9ef">int</span>) <span style="color:#a6e22e">StructField</span>  <span style="color:#75715e">// Retrieve the i-th field
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">FieldByIndex</span>(<span style="color:#a6e22e">index</span> []<span style="color:#66d9ef">int</span>) <span style="color:#a6e22e">StructField</span>  <span style="color:#75715e">// Retrieve nested field by index path
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">FieldByName</span>(<span style="color:#a6e22e">name</span> <span style="color:#66d9ef">string</span>) (<span style="color:#a6e22e">StructField</span>, <span style="color:#66d9ef">bool</span>)  <span style="color:#75715e">// Retrieve field by name
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">Len</span>() <span style="color:#66d9ef">int</span>  <span style="color:#75715e">// Container length
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">NumIn</span>() <span style="color:#66d9ef">int</span>  <span style="color:#75715e">// Number of input parameters
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">NumOut</span>() <span style="color:#66d9ef">int</span>  <span style="color:#75715e">// Number of return parameters
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p><strong>reflect.Value</strong> – Retrieve and modify values within the original data type using <code>reflect.Value</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Value</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// The type represented by this value
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">typ</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">rtype</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Pointer to the original data
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">ptr</span> <span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="5-retrieving-field-information">5 Retrieving Field Information</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">typeUser</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">TypeOf</span>(<span style="color:#a6e22e">User</span>{})
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">typeUser</span>.<span style="color:#a6e22e">NumField</span>(); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> { <span style="color:#75715e">// Number of fields
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">field</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">typeUser</span>.<span style="color:#a6e22e">Field</span>(<span style="color:#a6e22e">i</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%s offset %d anonymous %t type %s exported %t json tag %s\n&#34;</span>, 
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">field</span>.<span style="color:#a6e22e">Name</span>, <span style="color:#75715e">// Field name
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">field</span>.<span style="color:#a6e22e">Offset</span>, <span style="color:#75715e">// Memory offset from the struct&#39;s start address; string type occupies 16 bytes
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">field</span>.<span style="color:#a6e22e">Anonymous</span>, <span style="color:#75715e">// Is it an anonymous field
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">field</span>.<span style="color:#a6e22e">Type</span>, <span style="color:#75715e">// Data type, of type reflect.Type
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">field</span>.<span style="color:#a6e22e">IsExported</span>(), <span style="color:#75715e">// Is it visible outside the package (i.e., starts with an uppercase letter)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">field</span>.<span style="color:#a6e22e">Tag</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#e6db74">&#34;json&#34;</span>)) <span style="color:#75715e">// Retrieve the tag defined after the field in ``
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><h2 id="6-principles-of-orm-implementation">6 Principles of ORM Implementation</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">User</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Id</span>         <span style="color:#66d9ef">int</span>    <span style="color:#e6db74">`gorm:&#34;column:id;primaryKey&#34;`</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Gender</span>     <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`gorm:&#34;column:sex&#34;`</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Name</span>       <span style="color:#66d9ef">string</span> <span style="color:#e6db74">`gorm:&#34;-&#34;`</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">FamilyName</span> <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ol>
+<li>Ignore fields marked with <code>gorm:&quot;-&quot;</code></li>
+<li>Retrieve the content after <code>gorm</code> from <code>field.Tag.Get(&quot;gorm&quot;)</code></li>
+<li>Remove the prefix <code>&quot;column:&quot;</code></li>
+<li>Split the string by <code>;</code> and take the first part</li>
+<li>Fields without an explicit <code>gorm</code> tag will be converted to snake case, corresponding to the MySQL table column</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">GetGormFields</span>(<span style="color:#a6e22e">stc</span> <span style="color:#66d9ef">interface</span>{}) []<span style="color:#66d9ef">string</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">value</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">ValueOf</span>(<span style="color:#a6e22e">stc</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">typ</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">value</span>.<span style="color:#a6e22e">Type</span>()
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">columns</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">string</span>, <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">value</span>.<span style="color:#a6e22e">NumField</span>())
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">value</span>.<span style="color:#a6e22e">NumField</span>(); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fieldType</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">typ</span>.<span style="color:#a6e22e">Field</span>(<span style="color:#a6e22e">i</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Skip fields not mapped to ORM
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">fieldType</span>.<span style="color:#a6e22e">Tag</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#e6db74">&#34;gorm&#34;</span>) <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;-&#34;</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">continue</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Convert camel case to snake case if there is no gorm tag
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">name</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">util</span>.<span style="color:#a6e22e">Camel2Snake</span>(<span style="color:#a6e22e">fieldType</span>.<span style="color:#a6e22e">Name</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">fieldType</span>.<span style="color:#a6e22e">Tag</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#e6db74">&#34;gorm&#34;</span>)) &gt; <span style="color:#ae81ff">0</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">content</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">fieldType</span>.<span style="color:#a6e22e">Tag</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#e6db74">&#34;gorm&#34;</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">HasPrefix</span>(<span style="color:#a6e22e">content</span>, <span style="color:#e6db74">&#34;column:&#34;</span>) {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">content</span> = <span style="color:#a6e22e">content</span>[<span style="color:#ae81ff">7</span>:]
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">pos</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">Index</span>(<span style="color:#a6e22e">content</span>, <span style="color:#e6db74">&#34;;&#34;</span>)
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">pos</span> &gt; <span style="color:#ae81ff">0</span> {
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">name</span> = <span style="color:#a6e22e">content</span>[:<span style="color:#a6e22e">pos</span>]
+</span></span><span style="display:flex;"><span>                } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">pos</span> &lt; <span style="color:#ae81ff">0</span> {
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">name</span> = <span style="color:#a6e22e">content</span>
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">columns</span> = append(<span style="color:#a6e22e">columns</span>, <span style="color:#a6e22e">name</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">columns</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>]]></content>
+        </item>
+        
+        <item>
+            <title>MySQL Optimization</title>
+            <link>https://Greenery-S.github.io/posts/go/database/mysql-optimization/</link>
+            <pubDate>Sun, 19 May 2024 21:16:35 +0800</pubDate>
+            
+            <guid>https://Greenery-S.github.io/posts/go/database/mysql-optimization/</guid>
+            <description>MySQL Performance Tuning code: https://github.com/Greenery-S/go-database/tree/master/mysql
+1 Practical Recommendations Always use lowercase when writing SQL.
+Check if a table already exists before creating it using if not exists.
+Add comment to all columns and tables.
+Use char for short strings to benefit from fixed length and memory alignment, which improves read/write performance. varchar fields may cause memory fragmentation with frequent modifications.
+Use shorter data types whenever possible, e.g., tinyint vs int, float vs double, date vs datetime.</description>
+            <content type="html"><![CDATA[<h1 id="mysql-performance-tuning">MySQL Performance Tuning</h1>
+<blockquote>
+<p>code: <a href="https://github.com/Greenery-S/go-database/tree/master/mysql">https://github.com/Greenery-S/go-database/tree/master/mysql</a></p>
+</blockquote>
+<h3 id="1-practical-recommendations">1 Practical Recommendations</h3>
+<ul>
+<li>
+<p>Always use lowercase when writing SQL.</p>
+</li>
+<li>
+<p>Check if a table already exists before creating it using <code>if not exists</code>.</p>
+</li>
+<li>
+<p>Add <code>comment</code> to all columns and tables.</p>
+</li>
+<li>
+<p>Use <code>char</code> for short strings to benefit from fixed length and memory alignment, which improves read/write performance. <code>varchar</code> fields may cause memory fragmentation with frequent modifications.</p>
+</li>
+<li>
+<p>Use shorter data types whenever possible, e.g., <code>tinyint</code> vs <code>int</code>, <code>float</code> vs <code>double</code>, <code>date</code> vs <code>datetime</code>.</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> <span style="color:#66d9ef">if</span> <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">exists</span> <span style="color:#f92672">`</span>student<span style="color:#f92672">`</span> (
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">`</span>id<span style="color:#f92672">`</span> int(<span style="color:#ae81ff">11</span>) <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span> AUTO_INCREMENT <span style="color:#66d9ef">COMMENT</span> <span style="color:#e6db74">&#39;Primary key auto-increment id&#39;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">`</span>name<span style="color:#f92672">`</span> char(<span style="color:#ae81ff">10</span>) <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span> <span style="color:#66d9ef">COMMENT</span> <span style="color:#e6db74">&#39;Name&#39;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">`</span>province<span style="color:#f92672">`</span> char(<span style="color:#ae81ff">6</span>) <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span> <span style="color:#66d9ef">COMMENT</span> <span style="color:#e6db74">&#39;Province&#39;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">`</span>city<span style="color:#f92672">`</span> char(<span style="color:#ae81ff">10</span>) <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span> <span style="color:#66d9ef">COMMENT</span> <span style="color:#e6db74">&#39;City&#39;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">`</span>addr<span style="color:#f92672">`</span> varchar(<span style="color:#ae81ff">100</span>) <span style="color:#66d9ef">DEFAULT</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">COMMENT</span> <span style="color:#e6db74">&#39;Address&#39;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">`</span>score<span style="color:#f92672">`</span> float <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span> <span style="color:#66d9ef">DEFAULT</span> <span style="color:#e6db74">&#39;0&#39;</span> <span style="color:#66d9ef">COMMENT</span> <span style="color:#e6db74">&#39;Exam score&#39;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">`</span>enrollment<span style="color:#f92672">`</span> date <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span> <span style="color:#66d9ef">COMMENT</span> <span style="color:#e6db74">&#39;Enrollment date&#39;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">PRIMARY</span> <span style="color:#66d9ef">KEY</span> (<span style="color:#f92672">`</span>id<span style="color:#f92672">`</span>),
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">UNIQUE</span> <span style="color:#66d9ef">KEY</span> <span style="color:#f92672">`</span>idx_name<span style="color:#f92672">`</span> (<span style="color:#f92672">`</span>name<span style="color:#f92672">`</span>),
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">KEY</span> <span style="color:#f92672">`</span>idx_location<span style="color:#f92672">`</span> (<span style="color:#f92672">`</span>province<span style="color:#f92672">`</span>,<span style="color:#f92672">`</span>city<span style="color:#f92672">`</span>)
+</span></span><span style="display:flex;"><span>) ENGINE<span style="color:#f92672">=</span>InnoDB AUTO_INCREMENT<span style="color:#f92672">=</span><span style="color:#ae81ff">100020</span> <span style="color:#66d9ef">DEFAULT</span> CHARSET<span style="color:#f92672">=</span>utf8 <span style="color:#66d9ef">COMMENT</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Student basic information&#39;</span>;
+</span></span></code></pre></div><h2 id="2-null">2 null</h2>
+<ul>
+<li>
+<p><code>default null</code> differs from <code>default ''</code> and <code>default 0</code>.</p>
+</li>
+<li>
+<p><code>is null</code>, <code>is not null</code> differ from <code>!= ''</code>, <code>!= 0</code>.</p>
+</li>
+<li>
+<p>Set fields to <code>not null</code> whenever possible:</p>
+<ul>
+<li>Some DB indexes do not allow null values.</li>
+<li>Statistics on columns with null values may be inaccurate.</li>
+<li>Null values can sometimes severely degrade system performance.</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-avoiding-slow-queries-eg-1s">3 Avoiding Slow Queries (e.g., &gt;1s)</h2>
+<ul>
+<li>Most slow queries result from improper index usage.</li>
+<li>Avoid creating too many indexes, as it slows down writes.</li>
+<li>Use the default InnoDB engine in most cases, rather than MyISAM.</li>
+<li>Avoid <code>select *</code>, only select the columns you need.</li>
+<li>Use <code>in</code> instead of <code>or</code> when possible, as <code>in</code> is more efficient.</li>
+<li>Limit the number of elements in <code>in</code> to 300-500.</li>
+<li>Avoid model queries like <code>like</code>, as they cannot use indexes effectively.</li>
+<li>Use <code>limit 1</code> if you are sure the result is a single row, to avoid full table scans.</li>
+<li><code>limit m,n</code> retrieves the first m+n rows but only returns the last n rows. Use <code>id&gt;x</code> to replace this pagination method.</li>
+<li>Batch operations in a single SQL statement or as a single transaction to reduce contention on shared resources.</li>
+<li>Avoid large transactions; use small transactions to reduce lock waiting and contention.</li>
+<li>Limit the number of rows queried or updated at once to around 1000.</li>
+<li>Avoid join operations; handle join logic in application code.</li>
+<li>Do not use MySQL built-in functions as they do not utilize query caching; handle complex logic in your code.</li>
+</ul>
+<h2 id="4-b-tree">4 B+ Tree</h2>
+<ol>
+<li>B stands for Balance. In an m-ary tree, each node has up to m data items and at least m/2 data items (except the root node).</li>
+<li>Leaf nodes store all data and are linked for sequential access.</li>
+<li>Each node is designed as a multiple of memory pages (4K). In MySQL, m=1200, so the first two levels of the tree are stored in memory.</li>
+</ol>
+
+    <img src="/images/mysql-optimization-bplustree.png"  alt="b&#43;tree"  class="center"  style="border-radius: 20px; width: 300px;"  />
+
+
+<h2 id="5-indexes">5 Indexes</h2>
+<ul>
+<li>MySQL indexes use B+ trees by default.
+<ul>
+<li>Why not hashtable? 1) Not all data can be loaded into memory; 2) Not suitable for range queries.</li>
+</ul>
+</li>
+<li>The primary key automatically gets indexed. The B+ tree built by the primary key contains data for all columns, whereas a normal index’s B+ tree stores only the primary key, requiring another lookup (back to the table).</li>
+<li>The prefix of a composite index also functions as an index.</li>
+<li>Use <code>explain</code> before SQL statements to check index usage.</li>
+<li>If MySQL does not choose the optimal index plan, use <code>force index (index_name)</code> before <code>where</code>.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">show</span> <span style="color:#66d9ef">create</span> <span style="color:#66d9ef">table</span> student;
+</span></span></code></pre></div>
+    <img src="/images/mysql-optimization-show-table.png"  alt="show-table"  class="center"  style="border-radius: 10px; width: 100%;"  />
+
+
+<h2 id="6-covering-indexes">6 Covering Indexes</h2>
+
+    <img src="/images/mysql-optimization-cover-index.png"  alt="cover-index"  class="center"  style="border-radius: 10px; width: 300;"  />
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">explain</span> <span style="color:#66d9ef">select</span> city <span style="color:#66d9ef">from</span> student <span style="color:#66d9ef">where</span> name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;张三&#39;</span> <span style="color:#66d9ef">and</span> province<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;北京&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">explain</span> <span style="color:#66d9ef">select</span> city <span style="color:#66d9ef">from</span> student <span style="color:#66d9ef">force</span> <span style="color:#66d9ef">index</span> (idx_location) <span style="color:#66d9ef">where</span> name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;张三&#39;</span> <span style="color:#66d9ef">and</span> province<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;北京&#39;</span>;
+</span></span></code></pre></div>
+    <img src="/images/mysql-optimization-explain-select.png"  alt="cover-index"  class="center"  style="border-radius: 10px; width: 300;"  />
+
+
+<ul>
+<li>The first query needs to go back to the table.</li>
+<li>The second SQL query only needs to query the <code>city</code>, and it hits the composite index (<code>province</code>, <code>city</code>), so it does not need to go back to the table. This is a covering index (hits a non-primary key index without needing to go back to the table).</li>
+<li>The covering index will show &ldquo;Using index&rdquo; in the Extra field of the <code>explain</code> output.</li>
+</ul>
+<h2 id="7-sql-injection-attacks">7 SQL Injection Attacks</h2>
+<p><strong>CASE 1</strong></p>
+<ul>
+<li><code>sql = &quot;select username, password from user where username='&quot; + username + &quot;' and password='&quot; + password + &quot;'&quot;;</code></li>
+<li>Variables <code>username</code> and <code>password</code> come from the frontend input. If a user inputs <code>username</code> as lily and <code>password</code> as <code>aaa' or '1'='1</code>, the complete SQL would be <code>select username, password from user where username='lily' and password='aaa' or '1'='1'</code>.</li>
+<li>This returns all records in the table. If the record count is greater than 0, login is allowed, so lily’s account is compromised.</li>
+</ul>
+<p><strong>CASE 2</strong></p>
+<ul>
+<li><code>sql=&quot;insert into student (name) values ('&quot; + username + &quot; ') &quot;;</code></li>
+<li>The variable <code>username</code> comes from the frontend input. If the user inputs <code>username</code> as <code>lily'); drop table student;--</code>, the complete SQL would be <code>insert into student (name) values ('lily'); drop table student;--')</code>.</li>
+<li>The comment <code>--</code> ignores the trailing <code>')</code>, deleting the entire table.</li>
+</ul>
+<h3 id="prevention-methods">Prevention Methods</h3>
+<p><strong>Overall</strong></p>
+<ul>
+<li>Validate frontend inputs with regex and length checks.</li>
+<li>Escape or encode special characters (e.g., &lt;&gt;&amp;*; &lsquo;&quot; etc.). Go’s <code>text/template</code> package function <code>HTMLEscapeString</code> can escape strings.</li>
+<li>Avoid embedding user inputs directly in SQL statements; use <strong>parameterized queries</strong> like <code>Prepare</code>, <code>Query</code>, <code>Exec(query string, args ...interface{})</code>.</li>
+<li>Use professional SQL injection detection tools such as sqlmap and SQLninja.</li>
+<li><strong>Avoid displaying SQL error messages</strong> to prevent attackers from exploiting them.</li>
+<li>No single method can prevent all SQL injection attacks; use a combination of methods.</li>
+</ul>
+<p><strong>Stmt</strong></p>
+<ul>
+<li>
+<p>Define an SQL template: <code>stmt, err := db.Prepare(&quot;update student set score=score+? where city=?&quot;)</code>.</p>
+</li>
+<li>
+<p>Use the template multiple times:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">res</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">stmt</span>.<span style="color:#a6e22e">Exec</span>(<span style="color:#ae81ff">10</span>, <span style="color:#e6db74">&#34;Shanghai&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">res</span>, <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">stmt</span>.<span style="color:#a6e22e">Exec</span>(<span style="color:#ae81ff">9</span>, <span style="color:#e6db74">&#34;Shenzhen&#34;</span>);
+</span></span></code></pre></div></li>
+<li>
+<p>Avoid SQL concatenation (vulnerable to SQL injection and cannot leverage compilation optimization): <code>db.Where(fmt.Sprintf(&quot;merchant_id = %s&quot;, merchantId))</code>.</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> <span style="color:#66d9ef">if</span> <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">exists</span> <span style="color:#f92672">`</span>login<span style="color:#f92672">`</span> (
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">`</span>username<span style="color:#f92672">`</span> varchar(<span style="color:#ae81ff">100</span>) <span style="color:#66d9ef">DEFAULT</span> <span style="color:#66d9ef">NULL</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">`</span>password<span style="color:#f92672">`</span> varchar(<span style="color:#ae81ff">100</span>) <span style="color:#66d9ef">DEFAULT</span> <span style="color:#66d9ef">NULL</span>
+</span></span><span style="display:flex;"><span>) ENGINE<span style="color:#f92672">=</span>InnoDB <span style="color:#66d9ef">DEFAULT</span> CHARSET<span style="color:#f92672">=</span>latin1;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// Returns true if login is successful. Vulnerable to SQL injection.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">LoginUnsafe</span>(<span style="color:#a6e22e">db</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">gorm</span>.<span style="color:#a6e22e">DB</span>, <span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">passwd</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">bool</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">cnt</span> <span style="color:#66d9ef">int64</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">Table</span>(<span style="color:#e6db74">&#34;login&#34;</span>).<span style="color:#a6e22e">Select</span>(<span style="color:#e6db74">&#34;*&#34;</span>).<span style="color:#a6e22e">Where</span>(<span style="color:#e6db74">&#34;username=&#39;&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">name</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;&#39; and password=&#39;&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">passwd</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;&#39;&#34;</span>).<span style="color:#a6e22e">Count</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">cnt</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">cnt</span> &gt; <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Returns true if login is successful. Protected against SQL injection.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">LoginSafe</span>(<span style="color:#a6e22e">db</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">gorm</span>.<span style="color:#a6e22e">DB</span>, <span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">passwd</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">bool</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">cnt</span> <span style="color:#66d9ef">int64</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">Table</span>(<span style="color:#e6db74">&#34;login&#34;</span>).<span style="color:#a6e22e">Select</span>(<span style="color:#e6db74">&#34;*&#34;</span>).<span style="color:#a6e22e">Where</span>(<span style="color:#e6db74">&#34;username=? and password=?&#34;</span>, <span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">passwd</span>).<span style="color:#a6e22e">Count</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">cnt</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">cnt</span> &gt; <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestLoginUnsafe</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">db</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">gorm</span>.<span style="color:#a6e22e">Open</span>(<span style="color:#a6e22e">mysql</span>.<span style="color:#a6e22e">Open</span>(<span style="color:#a6e22e">dsn</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">gorm</span>.<span style="color:#a6e22e">Config</span>{<span style="color:#a6e22e">PrepareStmt</span>: <span style="color:#66d9ef">true</span>}); <span style="color:#75715e">// Enforce PrepareStmt
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>    panic(<span style="color:#a6e22e">err</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">LoginUnsafe</span>(<span style="color:#a6e22e">db</span>, <span style="color:#e6db74">&#34;tom&#34;</span>, <span style="color:#e6db74">&#34;123456&#34;</span>) <span style="color:#f92672">==</span> <span style="color:#66d9ef">false</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Fail</span>();
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">LoginUnsafe</span>(<span style="color:#a6e22e">db</span>, <span style="color:#e6db74">&#34;tom&#34;</span>, <span style="color:#e6db74">&#34;456789&#34;</span>) <span style="color:#f92672">==</span> <span style="color:#66d9ef">true</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Fail</span>();
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// select * from login
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span> <span style="color:#a6e22e">where</span> <span style="color:#a6e22e">username</span>=<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">tom</span><span style="color:#960050;background-color:#1e0010">&#39;</span> <span style="color:#a6e22e">and</span> <span style="color:#a6e22e">password</span>=<span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#ae81ff">456789</span><span style="color:#960050;background-color:#1e0010">&#39;</span> <span style="color:#a6e22e">or</span> <span style="color:#e6db74">&#39;1&#39;</span>=<span style="color:#e6db74">&#39;1&#39;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">LoginUnsafe</span>(<span style="color:#a6e22e">db</span>, <span style="color:#e6db74">&#34;tom&#34;</span>, <span style="color:#e6db74">&#34;456789&#39; or &#39;1&#39;=&#39;1&#34;</span>) <span style="color:#f92672">==</span> <span style="color:#66d9ef">false</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Fail</span>();
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">TestLoginSafe</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">T</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">db</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">gorm</span>.<span style="color:#a6e22e">Open</span>(<span style="color:#a6e22e">mysql</span>.<span style="color:#a6e22e">Open</span>(<span style="color:#a6e22e">dsn</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">gorm</span>.<span style="color:#a6e22e">Config</span>{<span style="color:#a6e22e">PrepareStmt</span>: <span style="color:#66d9ef">true</span>}); <span style="color:#75715e">// Enforce PrepareStmt
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>    panic(<span style="color:#a6e22e">err</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">LoginSafe</span>(<span style="color:#a6e22e">db</span>, <span style="color:#e6db74">&#34;tom&#34;</span>, <span style="color:#e6db74">&#34;123456&#34;</span>) <span style="color:#f92672">==</span> <span style="color:#66d9ef">false</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Fail</span>();
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">LoginSafe</span>(<span style="color:#a6e22e">db</span>, <span style="color:#e6db74">&#34;tom&#34;</span>, <span style="color:#e6db74">&#34;456789&#34;</span>) <span style="color:#f92672">==</span> <span style="color:#66d9ef">true</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Fail</span>();
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">LoginSafe</span>(<span style="color:#a6e22e">db</span>, <span style="color:#e6db74">&#34;tom&#34;</span>, <span style="color:#e6db74">&#34;456789&#39; or &#39;1&#39;=&#39;1&#34;</span>) <span style="color:#f92672">==</span> <span style="color:#66d9ef">true</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Fail</span>();
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>SQL Precompilation</strong></p>
+<ul>
+<li>
+<p>DB execution of SQL involves three steps:</p>
+<ol>
+<li>Lexical and semantic analysis.</li>
+<li>SQL statement optimization and execution plan formulation.</li>
+<li>Execution and return of results.</li>
+</ol>
+</li>
+<li>
+<p>SQL precompilation replaces user inputs with placeholders (<code>?</code>), precompiles the template SQL, and injects user inputs at runtime.</p>
+</li>
+<li>
+<p>This prevents SQL injection and allows caching of precompiled SQL statements, avoiding repeated analysis and optimization.</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">BenchmarkQueryWithoutPrepare</span>(<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">B</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">client</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">gorm</span>.<span style="color:#a6e22e">Open</span>(<span style="color:#a6e22e">mysql</span>.<span style="color:#a6e22e">Open</span>(<span style="color:#a6e22e">dsn</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">gorm</span>.<span style="color:#a6e22e">Config</span>{}); <span style="color:#75715e">// PrepareStmt not specified
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>    panic(<span style="color:#a6e22e">err</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">ResetTimer</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">N</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">LoginUnsafe</span>(<span style="color:#a6e22e">client</span>, <span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">passwd</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">BenchmarkQueryWithPrepare</span>(<span style="color:#a6e22e">b</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">testing</span>.<span style="color:#a6e22e">B</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">client</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">gorm</span>.<span style="color:#a6e22e">Open</span>(<span style="color:#a6e22e">mysql</span>.<span style="color:#a6e22e">Open</span>(<span style="color:#a6e22e">dsn</span>), <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">gorm</span>.<span style="color:#a6e22e">Config</span>{<span style="color:#a6e22e">PrepareStmt</span>: <span style="color:#66d9ef">true</span>}); <span style="color:#75715e">// Enforce PrepareStmt
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>    panic(<span style="color:#a6e22e">err</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">ResetTimer</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">N</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">LoginUnsafe</span>(<span style="color:#a6e22e">client</span>, <span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">passwd</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>&gt; go test ./ -bench<span style="color:#f92672">=</span>^BenchmarkQueryWith -run<span style="color:#f92672">=</span>^$ -count<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> -benchmem
+</span></span><span style="display:flex;"><span>goos: darwin
+</span></span><span style="display:flex;"><span>goarch: arm64
+</span></span><span style="display:flex;"><span>pkg: dqq/database/mysql
+</span></span><span style="display:flex;"><span>BenchmarkQueryWithoutPrepare-10             <span style="color:#ae81ff">7888</span>            <span style="color:#ae81ff">147138</span> ns/op            <span style="color:#ae81ff">3441</span> B/op         <span style="color:#ae81ff">54</span> allocs/op
+</span></span><span style="display:flex;"><span>BenchmarkQueryWithPrepare-10                <span style="color:#ae81ff">8508</span>            <span style="color:#ae81ff">130443</span> ns/op            <span style="color:#ae81ff">3458</span> B/op         <span style="color:#ae81ff">55</span> allocs/op
+</span></span><span style="display:flex;"><span>PASS
+</span></span></code></pre></div><h2 id="8-pagination-queries">8 Pagination Queries</h2>
+<ul>
+<li><code>limit m,n</code> retrieves the first m+n rows but only returns the last n rows. Use <code>id&gt;x</code> to replace this pagination method.</li>
+<li>Full table scan:
+<ol>
+<li>Directly selecting <code>* from table</code> is slow, violating the principle of not querying too many rows at once.</li>
+<li>Pagination appears to query few rows, but it executes multiple full table scans.</li>
+<li>Fix <code>page_size</code> and maintain the maximum queried <code>id (max_id)</code>. Query using <code>where id&gt;maxid limit page_size</code>, exiting the loop when the result is empty.</li>
+</ol>
+</li>
+</ul>
+
+    <img src="/images/mysql-optimization-pagenate.png"  alt="pagination"  class="center"  style="border-radius: 10px; width: 300;"  />
+
+
+<h2 id="9-transactions">9 Transactions</h2>
+<ul>
+<li>Batch operations should be done in a single SQL statement; otherwise, bundle them in a transaction and commit once to reduce contention on shared resources.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> (
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">INSERT_COUNT</span> = <span style="color:#ae81ff">100000</span>;
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Insert one by one
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">InsertOneByOne</span>(<span style="color:#a6e22e">db</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">gorm</span>.<span style="color:#a6e22e">DB</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">begin</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>();
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">INSERT_COUNT</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">student</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Student</span>{<span style="color:#a6e22e">Name</span>: <span style="color:#e6db74">&#34;Student&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">Itoa</span>(<span style="color:#a6e22e">i</span>), <span style="color:#a6e22e">Province</span>: <span style="color:#e6db74">&#34;Beijing&#34;</span>, <span style="color:#a6e22e">City</span>: <span style="color:#e6db74">&#34;Beijing&#34;</span>, <span style="color:#a6e22e">Score</span>: <span style="color:#ae81ff">38</span>, <span style="color:#a6e22e">Enrollment</span>: <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>()};
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">Create</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">student</span>).<span style="color:#a6e22e">Error</span>; <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> { <span style="color:#75715e">// Note: pass the pointer of student
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">err</span>);
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;total&#34;</span>, <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Since</span>(<span style="color:#a6e22e">begin</span>));
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Insert within a transaction
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">InsertByTransaction1</span>(<span style="color:#a6e22e">db</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">gorm</span>.<span style="color:#a6e22e">DB</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">begin</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>();
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">tx</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">Begin</span>();
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">INSERT_COUNT</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">student</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Student</span>{<span style="color:#a6e22e">Name</span>: <span style="color:#e6db74">&#34;Student&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">Itoa</span>(<span style="color:#a6e22e">i</span>), <span style="color:#a6e22e">Province</span>: <span style="color:#e6db74">&#34;Beijing&#34;</span>, <span style="color:#a6e22e">City</span>: <span style="color:#e6db74">&#34;Beijing&#34;</span>, <span style="color:#a6e22e">Score</span>: <span style="color:#ae81ff">38</span>, <span style="color:#a6e22e">Enrollment</span>: <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>()};
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">tx</span>.<span style="color:#a6e22e">Create</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">student</span>).<span style="color:#a6e22e">Error</span>; <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">err</span>);
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">tx</span>.<span style="color:#a6e22e">Commit</span>();
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;total&#34;</span>, <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Since</span>(<span style="color:#a6e22e">begin</span>));
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Insert multiple rows at once within a transaction
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">InsertByTransaction2</span>(<span style="color:#a6e22e">db</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">gorm</span>.<span style="color:#a6e22e">DB</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">begin</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>();
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">tx</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">Begin</span>();
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">BATCH</span> = <span style="color:#ae81ff">100</span>; <span style="color:#75715e">// Insert multiple rows in a single SQL statement
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">INSERT_COUNT</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">BATCH</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">students</span> <span style="color:#f92672">:=</span> make([]<span style="color:#a6e22e">Student</span>, <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">BATCH</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span> &lt; <span style="color:#a6e22e">BATCH</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">student</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Student</span>{<span style="color:#a6e22e">Name</span>: <span style="color:#e6db74">&#34;Student&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">strconv</span>.<span style="color:#a6e22e">Itoa</span>(<span style="color:#a6e22e">i</span><span style="color:#f92672">+</span><span style="color:#a6e22e">j</span>), <span style="color:#a6e22e">Province</span>: <span style="color:#e6db74">&#34;Beijing&#34;</span>, <span style="color:#a6e22e">City</span>: <span style="color:#e6db74">&#34;Beijing&#34;</span>, <span style="color:#a6e22e">Score</span>: <span style="color:#ae81ff">38</span>, <span style="color:#a6e22e">Enrollment</span>: <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>()};
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">students</span> = append(<span style="color:#a6e22e">students</span>, <span style="color:#a6e22e">student</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">tx</span>.<span style="color:#a6e22e">Create</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">students</span>).<span style="color:#a6e22e">Error</span>; <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">err</span>);
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">tx</span>.<span style="color:#a6e22e">Commit</span>();
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;total&#34;</span>, <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Since</span>(<span style="color:#a6e22e">begin</span>));
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#f92672">===</span> RUN   TestInsertOneByOne
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>total 1m55.652681166s
+</span></span><span style="display:flex;"><span>--- PASS: TestInsertOneByOne <span style="color:#f92672">(</span>116.20s<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===</span> RUN   TestInsertByTransaction1
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>total 27.29299825s
+</span></span><span style="display:flex;"><span>--- PASS: TestInsertByTransaction1 <span style="color:#f92672">(</span>27.91s<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">===</span> RUN   TestInsertByTransaction2
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>total 3.226376333s
+</span></span><span style="display:flex;"><span>--- PASS: TestInsertByTransaction2 <span style="color:#f92672">(</span>4.20s<span style="color:#f92672">)</span>
+</span></span></code></pre></div>]]></content>
+        </item>
         
         <item>
             <title>How to Maintain the Site</title>
@@ -96,7 +664,7 @@ About Me I am a soon-to-be graduate student. I am studying for a master&amp;rsqu
 <h1 id="about-me">About Me</h1>
 <p>I am a soon-to-be graduate student. I am studying for a master&rsquo;s degree in Computer Engineering at NUS. My undergraduate degree is in Computer Science and Technology from a 985 university, where I ranked quite high, but I still feel there is much to learn. I wanted to see the world, so I came to Singapore.</p>
 
-    <img src="/images/author.png"  alt="Hello Friend"  class="center"  style="border-radius: 20px; width: 200px;"  />
+    <img src="/images/author.jpg"  alt="Hello Friend"  class="center"  style="border-radius: 20px; width: 200px;"  />
 
 
 <p>Here is my resume:</p>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Mysql on Greenery&#39;s Blog Site</title>
+    <link>https://Greenery-S.github.io/tags/mysql/</link>
+    <description>Recent content in Mysql on Greenery&#39;s Blog Site</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Sun, 19 May 2024 21:16:35 +0800</lastBuildDate>
+    <atom:link href="https://Greenery-S.github.io/tags/mysql/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MySQL Optimization</title>
+      <link>https://Greenery-S.github.io/posts/go/database/mysql-optimization/</link>
+      <pubDate>Sun, 19 May 2024 21:16:35 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/posts/go/database/mysql-optimization/</guid>
+      <description>MySQL Performance Tuning code: https://github.com/Greenery-S/go-database/tree/master/mysql&#xA;1 Practical Recommendations Always use lowercase when writing SQL.&#xA;Check if a table already exists before creating it using if not exists.&#xA;Add comment to all columns and tables.&#xA;Use char for short strings to benefit from fixed length and memory alignment, which improves read/write performance. varchar fields may cause memory fragmentation with frequent modifications.&#xA;Use shorter data types whenever possible, e.g., tinyint vs int, float vs double, date vs datetime.</description>
+    </item>
+  </channel>
+</rss>

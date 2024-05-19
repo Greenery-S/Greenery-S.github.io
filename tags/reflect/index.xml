@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Reflect on Greenery&#39;s Blog Site</title>
+    <link>https://Greenery-S.github.io/tags/reflect/</link>
+    <description>Recent content in Reflect on Greenery&#39;s Blog Site</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Sun, 19 May 2024 21:50:59 +0800</lastBuildDate>
+    <atom:link href="https://Greenery-S.github.io/tags/reflect/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ORM Realized by Reflect</title>
+      <link>https://Greenery-S.github.io/posts/go/database/orm-realized-by-reflect/</link>
+      <pubDate>Sun, 19 May 2024 21:50:59 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/posts/go/database/orm-realized-by-reflect/</guid>
+      <description>Core Technology of ORM—Reflection Tutorial, Reflection Guide: https://zhuanlan.zhihu.com/p/411313885&#xA;code: https://github.com/Greenery-S/go-database/tree/master/orm&#xA;1 Reflection What is Reflection&#xA;Reflection is the ability to inspect and modify an object’s type information and memory structure, update variables, and call methods during runtime (not compile time). When to Use Reflection&#xA;When a function’s parameter type is interface{}, and you need to determine the original type at runtime to handle different types accordingly. For example, json.Marshal(v interface{}). When you need to dynamically decide which function to call at runtime based on certain conditions, such as executing the appropriate operator function based on a configuration file.</description>
+    </item>
+  </channel>
+</rss>

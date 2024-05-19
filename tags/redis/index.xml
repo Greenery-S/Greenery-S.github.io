@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Redis on Greenery&#39;s Blog Site</title>
+    <link>https://Greenery-S.github.io/tags/redis/</link>
+    <description>Recent content in Redis on Greenery&#39;s Blog Site</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Sun, 19 May 2024 22:11:16 +0800</lastBuildDate>
+    <atom:link href="https://Greenery-S.github.io/tags/redis/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Introduction to Redis</title>
+      <link>https://Greenery-S.github.io/posts/go/database/introduction-to-redis/</link>
+      <pubDate>Sun, 19 May 2024 22:11:16 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/posts/go/database/introduction-to-redis/</guid>
+      <description>Redis Code: https://github.com/Greenery-S/go-database/tree/master/redis&#xA;1 Introduction Redis is an in-memory data storage system. Since it is based on memory, it is fast, being 10 to 100 times faster than MySQL. To prevent data loss, data is periodically persisted to disk. Redis is deployed separately from the business application, so it can serve as a distributed cache. It supports a rich variety of data types: strings, hashes, lists, sets, and sorted sets. It supports the publish/subscribe model, where publishers send messages to specified channels, and subscribers can receive and process these messages.</description>
+    </item>
+  </channel>
+</rss>

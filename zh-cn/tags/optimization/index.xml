@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Optimization on Greenery&#39;s Blog Site</title>
+    <link>https://Greenery-S.github.io/zh-cn/tags/optimization/</link>
+    <description>Recent content in Optimization on Greenery&#39;s Blog Site</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Sun, 19 May 2024 21:16:35 +0800</lastBuildDate>
+    <atom:link href="https://Greenery-S.github.io/zh-cn/tags/optimization/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mysql Optimization</title>
+      <link>https://Greenery-S.github.io/zh-cn/posts/go/database/mysql-optimization/</link>
+      <pubDate>Sun, 19 May 2024 21:16:35 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/zh-cn/posts/go/database/mysql-optimization/</guid>
+      <description>MySQL性能调优 code: https://github.com/Greenery-S/go-database/tree/master/mysql&#xA;实战建议 写sql时一律使用小写&#xA;建表时先判断表是否已存在 if not exists&#xA;所有的列和表都加comment&#xA;字符串长度比较短时尽量使用char，定长有利于内存对齐，读写性能更好，而varchar字段频繁修改时容易产生内存碎片&#xA;满足需求的前提下尽量使用短的数据类型，如tinyint vs int, float vs double, date vs datetime&#xA;CREATE TABLE if not exists `student` ( `id` int(11) NOT NULL AUTO_INCREMENT COMMENT &amp;#39;主键自增id&amp;#39;, `name` char(10) NOT NULL COMMENT &amp;#39;姓名&amp;#39;, `province` char(6) NOT NULL COMMENT &amp;#39;省&amp;#39;, `city` char(10) NOT NULL COMMENT &amp;#39;城市&amp;#39;, `addr` varchar(100) DEFAULT &amp;#39;&amp;#39; COMMENT &amp;#39;地址&amp;#39;, `score` float NOT NULL DEFAULT &amp;#39;0&amp;#39; COMMENT &amp;#39;考试成绩&amp;#39;, `enrollment` date NOT NULL COMMENT &amp;#39;入学时间&amp;#39;, PRIMARY KEY (`id`), UNIQUE KEY `idx_name` (`name`), KEY `idx_location` (`province`,`city`) ) ENGINE=InnoDB AUTO_INCREMENT=100020 DEFAULT CHARSET=utf8 COMMENT=&amp;#39;学员基本信息&amp;#39; 2 null default null有别于default &#39;&#39;和default 0</description>
+    </item>
+  </channel>
+</rss>

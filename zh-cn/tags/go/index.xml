@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Go on Greenery&#39;s Blog Site</title>
+    <link>https://Greenery-S.github.io/zh-cn/tags/go/</link>
+    <description>Recent content in Go on Greenery&#39;s Blog Site</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Sun, 19 May 2024 21:50:59 +0800</lastBuildDate>
+    <atom:link href="https://Greenery-S.github.io/zh-cn/tags/go/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Orm Realized by Reflect</title>
+      <link>https://Greenery-S.github.io/zh-cn/posts/go/database/orm-realized-by-reflect/</link>
+      <pubDate>Sun, 19 May 2024 21:50:59 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/zh-cn/posts/go/database/orm-realized-by-reflect/</guid>
+      <description>ORM核心技术—反射 教程,反射大全: https://zhuanlan.zhihu.com/p/411313885&#xA;code: https://github.com/Greenery-S/go-database/tree/master/orm&#xA;1 反射 什么是反射&#xA;在运行期间（不是编译期间）探知对象的类型信息和内存结构、更新变量、调用它们的方法 何时使用反射&#xA;函数的参数类型是interface{}，需要在运行时对原始类型进行判断，针对不同的类型采取不同的处理方式。比如json.Marshal(v interface{})&#xA;在运行时根据某些条件动态决定调用哪个函数，比如根据配置文件执行相应的算子函数&#xA;建议在初始化环节使用, 频繁调用的api不建议使用&#xA;2 使用例子 3 反射的弊端 代码难以阅读，难以维护 编译期间不能发现类型错误，覆盖测试难度很大，有些bug需要到线上运行很长时间才能发现，可能会造成严重用后果 反射性能很差，通常比正常代码慢一到两个数量级。在对性能要求很高，或大量反复调用的代码块里建议不要使用反射 4 反射的基础数据类型 reflact.Type – 通过reflect.Type获取类型相关的信息&#xA;type Type interface { MethodByName(string) (Method, bool) //根据名称获取方法 Name() string //获取结构体名称 PkgPath() string //包路径 Size() uintptr //占用内存的大小 Kind() Kind //数据类型 Implements(u Type) bool //判断是否实现了某接口 Field(i int) StructField //第i个成员 FieldByIndex(index []int) StructField //根据index路径获取嵌套成员 FieldByName(name string) (StructField, bool) //根据名称获取成员 Len() int //容器的长度 NumIn() int //输出参数的个数 NumOut() int //返回参数的个数 } reflect.</description>
+    </item>
+  </channel>
+</rss>

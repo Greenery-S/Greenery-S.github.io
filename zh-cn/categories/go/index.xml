@@ -7,8 +7,29 @@
     <generator>Hugo</generator>
     <language>zh-cn</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sat, 18 May 2024 20:49:18 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 19 May 2024 22:11:16 +0800</lastBuildDate>
     <atom:link href="https://Greenery-S.github.io/zh-cn/categories/go/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Introduction to Redis</title>
+      <link>https://Greenery-S.github.io/zh-cn/posts/go/database/introduction-to-redis/</link>
+      <pubDate>Sun, 19 May 2024 22:11:16 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/zh-cn/posts/go/database/introduction-to-redis/</guid>
+      <description>Redis code: https://github.com/Greenery-S/go-database/tree/master/redis&#xA;1 简介 Redis是一个基于内存的数据存储系统。 基于内存，所以快，是Mysql的10到100倍。 为防止数据丢失，数据会周期性地持久化到磁盘。 Redis跟业务程序是分开部署的，所以Redis可以充当分布式缓存。 支持丰富的数据类型：字符串（String）、哈希（Hash）、列表（List）、集合（Set）和有序集合（Sorted Set）。 支持发布/订阅模式，发布者将消息发送到指定的频道，订阅者可以接收和处理这些消息。这种模式常应用于实时通信、事件驱动系统和消息队列等场景。 Redis事务太鸡肋，不建议使用。 2 发布/订阅模式 Subscriber启动之前，Channel里的消息接收不到。 广播效果. 3 分布式锁 SetNX(ctx context.Context, key string, value interface{}, expiration time.Duration) *BoolCmd SetNX如果key不存在则返回true，写入key，并设置过期时间 秒杀iphone代码示例：&#xA;func TryLock(rc *redis.Client, key string, expire time.Duration) bool { cmd := rc.SetNX(context.Background(), key, &amp;#34;anything is ok&amp;#34;, expire) if err := cmd.Err(); err == nil { return cmd.Val() } else { return false } } func ReleaseLock(rc *redis.Client, key string) { rc.</description>
+    </item>
+    <item>
+      <title>Orm Realized by Reflect</title>
+      <link>https://Greenery-S.github.io/zh-cn/posts/go/database/orm-realized-by-reflect/</link>
+      <pubDate>Sun, 19 May 2024 21:50:59 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/zh-cn/posts/go/database/orm-realized-by-reflect/</guid>
+      <description>ORM核心技术—反射 教程,反射大全: https://zhuanlan.zhihu.com/p/411313885&#xA;code: https://github.com/Greenery-S/go-database/tree/master/orm&#xA;1 反射 什么是反射&#xA;在运行期间（不是编译期间）探知对象的类型信息和内存结构、更新变量、调用它们的方法 何时使用反射&#xA;函数的参数类型是interface{}，需要在运行时对原始类型进行判断，针对不同的类型采取不同的处理方式。比如json.Marshal(v interface{})&#xA;在运行时根据某些条件动态决定调用哪个函数，比如根据配置文件执行相应的算子函数&#xA;建议在初始化环节使用, 频繁调用的api不建议使用&#xA;2 使用例子 3 反射的弊端 代码难以阅读，难以维护 编译期间不能发现类型错误，覆盖测试难度很大，有些bug需要到线上运行很长时间才能发现，可能会造成严重用后果 反射性能很差，通常比正常代码慢一到两个数量级。在对性能要求很高，或大量反复调用的代码块里建议不要使用反射 4 反射的基础数据类型 reflact.Type – 通过reflect.Type获取类型相关的信息&#xA;type Type interface { MethodByName(string) (Method, bool) //根据名称获取方法 Name() string //获取结构体名称 PkgPath() string //包路径 Size() uintptr //占用内存的大小 Kind() Kind //数据类型 Implements(u Type) bool //判断是否实现了某接口 Field(i int) StructField //第i个成员 FieldByIndex(index []int) StructField //根据index路径获取嵌套成员 FieldByName(name string) (StructField, bool) //根据名称获取成员 Len() int //容器的长度 NumIn() int //输出参数的个数 NumOut() int //返回参数的个数 } reflect.</description>
+    </item>
+    <item>
+      <title>Mysql Optimization</title>
+      <link>https://Greenery-S.github.io/zh-cn/posts/go/database/mysql-optimization/</link>
+      <pubDate>Sun, 19 May 2024 21:16:35 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/zh-cn/posts/go/database/mysql-optimization/</guid>
+      <description>MySQL性能调优 code: https://github.com/Greenery-S/go-database/tree/master/mysql&#xA;实战建议 写sql时一律使用小写&#xA;建表时先判断表是否已存在 if not exists&#xA;所有的列和表都加comment&#xA;字符串长度比较短时尽量使用char，定长有利于内存对齐，读写性能更好，而varchar字段频繁修改时容易产生内存碎片&#xA;满足需求的前提下尽量使用短的数据类型，如tinyint vs int, float vs double, date vs datetime&#xA;CREATE TABLE if not exists `student` ( `id` int(11) NOT NULL AUTO_INCREMENT COMMENT &amp;#39;主键自增id&amp;#39;, `name` char(10) NOT NULL COMMENT &amp;#39;姓名&amp;#39;, `province` char(6) NOT NULL COMMENT &amp;#39;省&amp;#39;, `city` char(10) NOT NULL COMMENT &amp;#39;城市&amp;#39;, `addr` varchar(100) DEFAULT &amp;#39;&amp;#39; COMMENT &amp;#39;地址&amp;#39;, `score` float NOT NULL DEFAULT &amp;#39;0&amp;#39; COMMENT &amp;#39;考试成绩&amp;#39;, `enrollment` date NOT NULL COMMENT &amp;#39;入学时间&amp;#39;, PRIMARY KEY (`id`), UNIQUE KEY `idx_name` (`name`), KEY `idx_location` (`province`,`city`) ) ENGINE=InnoDB AUTO_INCREMENT=100020 DEFAULT CHARSET=utf8 COMMENT=&amp;#39;学员基本信息&amp;#39; 2 null default null有别于default &#39;&#39;和default 0</description>
+    </item>
     <item>
       <title>Two-Year Old Gopher</title>
       <link>https://Greenery-S.github.io/zh-cn/posts/go/two-year-old-gopher/</link>

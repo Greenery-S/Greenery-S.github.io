@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Redis on Greenery&#39;s Blog Site</title>
+    <link>https://Greenery-S.github.io/zh-cn/tags/redis/</link>
+    <description>Recent content in Redis on Greenery&#39;s Blog Site</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Sun, 19 May 2024 22:11:16 +0800</lastBuildDate>
+    <atom:link href="https://Greenery-S.github.io/zh-cn/tags/redis/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Introduction to Redis</title>
+      <link>https://Greenery-S.github.io/zh-cn/posts/go/database/introduction-to-redis/</link>
+      <pubDate>Sun, 19 May 2024 22:11:16 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/zh-cn/posts/go/database/introduction-to-redis/</guid>
+      <description>Redis code: https://github.com/Greenery-S/go-database/tree/master/redis&#xA;1 简介 Redis是一个基于内存的数据存储系统。 基于内存，所以快，是Mysql的10到100倍。 为防止数据丢失，数据会周期性地持久化到磁盘。 Redis跟业务程序是分开部署的，所以Redis可以充当分布式缓存。 支持丰富的数据类型：字符串（String）、哈希（Hash）、列表（List）、集合（Set）和有序集合（Sorted Set）。 支持发布/订阅模式，发布者将消息发送到指定的频道，订阅者可以接收和处理这些消息。这种模式常应用于实时通信、事件驱动系统和消息队列等场景。 Redis事务太鸡肋，不建议使用。 2 发布/订阅模式 Subscriber启动之前，Channel里的消息接收不到。 广播效果. 3 分布式锁 SetNX(ctx context.Context, key string, value interface{}, expiration time.Duration) *BoolCmd SetNX如果key不存在则返回true，写入key，并设置过期时间 秒杀iphone代码示例：&#xA;func TryLock(rc *redis.Client, key string, expire time.Duration) bool { cmd := rc.SetNX(context.Background(), key, &amp;#34;anything is ok&amp;#34;, expire) if err := cmd.Err(); err == nil { return cmd.Val() } else { return false } } func ReleaseLock(rc *redis.Client, key string) { rc.</description>
+    </item>
+  </channel>
+</rss>
