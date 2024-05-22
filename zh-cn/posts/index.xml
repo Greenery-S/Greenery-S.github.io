@@ -6,8 +6,77 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Wed, 22 May 2024 01:23:35 +0800</lastBuildDate>
+        <lastBuildDate>Wed, 22 May 2024 15:08:40 +0800</lastBuildDate>
         <atom:link href="https://Greenery-S.github.io/zh-cn/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Introduction to Clickhouse</title>
+            <link>https://Greenery-S.github.io/zh-cn/posts/go/database/introduction-to-clickhouse/</link>
+            <pubDate>Wed, 22 May 2024 15:08:40 +0800</pubDate>
+            
+            <guid>https://Greenery-S.github.io/zh-cn/posts/go/database/introduction-to-clickhouse/</guid>
+            <description>ClickHouse code: https://github.com/Greenery-S/go-database/tree/master/clickhouse
+1 简介 ClickHouse是一个用于联机分析（OLAP）的列式数据库管理系统（DBMS）。
+在传统的行式数据库系统（MySQL、SQL Server）中，处于同一行中的数据总是被物理的存储在一起。在列式数据库系统（ClickHouse、HBase、Druid）中，来自同一列的数据被存储在一起。
+OLAP场景的关键特征 (基于埋点数据进行业务的统计分析):
+绝大多数是读请求，已添加到数据库的数据不能修改 宽表，即每个表包含着大量的列 对于读取，从数据库中提取相当多的行，但只提取列的一小部分 查询相对较少（通常每台服务器每秒查询数百次或更少） 对于简单查询，允许延迟大约50毫秒 列中的数据相对较小：数字和短字符串（例如，每个URL 60个字节） 处理单个查询时需要高吞吐量（每台服务器每秒可达数十亿行） 事务不是必须的 2 使用方法 它的SQL语法和MySQL类似，但是有一些不同之处。
+创建数据库,表：
+create database test; -- json type is experimental feature set allow_experimental_object_type = 1; CREATE TABLE test.user ( user_id UInt32 comment &amp;#39;用户ID&amp;#39;, -- 用户ID name String comment &amp;#39;用户姓名&amp;#39;, -- 用户名 create_time DateTime comment &amp;#39;注册时间&amp;#39;, -- 注册时间 extra Json comment &amp;#39;附加信息&amp;#39; -- 附加信息,json可自由扩充字段 ) ENGINE = MergeTree() PRIMARY KEY (create_time); 查询数据:</description>
+            <content type="html"><![CDATA[<h1 id="clickhouse">ClickHouse</h1>
+<blockquote>
+<p>code: <a href="https://github.com/Greenery-S/go-database/tree/master/clickhouse">https://github.com/Greenery-S/go-database/tree/master/clickhouse</a></p>
+</blockquote>
+<h2 id="1-简介">1 简介</h2>
+<p>ClickHouse是一个用于联机分析（OLAP）的列式数据库管理系统（DBMS）。</p>
+<p>在传统的行式数据库系统（MySQL、SQL Server）中，处于同一行中的数据总是被物理的存储在一起。在列式数据库系统（ClickHouse、HBase、Druid）中，来自同一列的数据被存储在一起。</p>
+<p>OLAP场景的关键特征 (基于埋点数据进行业务的统计分析):</p>
+<ol>
+<li>绝大多数是读请求，已添加到数据库的数据不能修改</li>
+<li>宽表，即每个表包含着大量的列</li>
+<li>对于读取，从数据库中提取相当多的行，但只提取列的一小部分</li>
+<li>查询相对较少（通常每台服务器每秒查询数百次或更少）</li>
+<li>对于简单查询，允许延迟大约50毫秒</li>
+<li>列中的数据相对较小：数字和短字符串（例如，每个URL 60个字节）</li>
+<li>处理单个查询时需要高吞吐量（每台服务器每秒可达数十亿行）</li>
+<li>事务不是必须的</li>
+</ol>
+<h2 id="2-使用方法">2 使用方法</h2>
+<p>它的SQL语法和MySQL类似，但是有一些不同之处。</p>
+<p>创建数据库,表：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">database</span> test;
+</span></span><span style="display:flex;"><span>       
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- json type is experimental feature
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">set</span> allow_experimental_object_type <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> test.<span style="color:#66d9ef">user</span>
+</span></span><span style="display:flex;"><span>(
+</span></span><span style="display:flex;"><span>    user_id     UInt32 <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;用户ID&#39;</span>,     <span style="color:#75715e">-- 用户ID
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    name        String <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;用户姓名&#39;</span>,   <span style="color:#75715e">-- 用户名
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    create_time DateTime <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;注册时间&#39;</span>, <span style="color:#75715e">-- 注册时间
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    extra       Json <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;附加信息&#39;</span>      <span style="color:#75715e">-- 附加信息,json可自由扩充字段
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>) ENGINE <span style="color:#f92672">=</span> MergeTree()
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">PRIMARY</span> <span style="color:#66d9ef">KEY</span> (create_time);
+</span></span></code></pre></div><p>查询数据:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">WITH</span>
+</span></span><span style="display:flex;"><span>    toDateTime(<span style="color:#e6db74">&#39;2023-09-01&#39;</span>, <span style="color:#e6db74">&#39;UTC&#39;</span>) <span style="color:#66d9ef">AS</span> begin_day,
+</span></span><span style="display:flex;"><span>    toDateTime(<span style="color:#e6db74">&#39;2023-09-08&#39;</span>, <span style="color:#e6db74">&#39;UTC&#39;</span>) <span style="color:#66d9ef">AS</span> end_day
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> toDate(create_time) <span style="color:#66d9ef">AS</span> date,
+</span></span><span style="display:flex;"><span>       uniq(user_id)       <span style="color:#66d9ef">AS</span> <span style="color:#f92672">`</span><span style="color:#960050;background-color:#1e0010">注册用户数</span><span style="color:#f92672">`</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> test.<span style="color:#66d9ef">user</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> (create_time <span style="color:#f92672">&gt;=</span> begin_day)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">AND</span> (create_time <span style="color:#f92672">&lt;</span> end_day)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> date
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> date;
+</span></span></code></pre></div><h2 id="3-go-sdk">3 Go sdk</h2>
+<p>见code.</p>
+<h2 id="4-制作dashboard">4 制作dashboard</h2>
+<p>基于Clickhouse+grafana生成业务报表.</p>
+
+    <img src="/images/introduction-to-clickhouse-dashboard.png"  alt="dashboard"  class="center"  style="border-radius: 0px; width: 100%;"  />
+
+
+]]></content>
+        </item>
         
         <item>
             <title>Introduction to Mongo</title>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Big Data on Greenery&#39;s Blog Site</title>
+    <link>https://Greenery-S.github.io/zh-cn/tags/big-data/</link>
+    <description>Recent content in Big Data on Greenery&#39;s Blog Site</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Wed, 22 May 2024 15:08:40 +0800</lastBuildDate>
+    <atom:link href="https://Greenery-S.github.io/zh-cn/tags/big-data/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Introduction to Clickhouse</title>
+      <link>https://Greenery-S.github.io/zh-cn/posts/go/database/introduction-to-clickhouse/</link>
+      <pubDate>Wed, 22 May 2024 15:08:40 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/zh-cn/posts/go/database/introduction-to-clickhouse/</guid>
+      <description>ClickHouse code: https://github.com/Greenery-S/go-database/tree/master/clickhouse&#xA;1 简介 ClickHouse是一个用于联机分析（OLAP）的列式数据库管理系统（DBMS）。&#xA;在传统的行式数据库系统（MySQL、SQL Server）中，处于同一行中的数据总是被物理的存储在一起。在列式数据库系统（ClickHouse、HBase、Druid）中，来自同一列的数据被存储在一起。&#xA;OLAP场景的关键特征 (基于埋点数据进行业务的统计分析):&#xA;绝大多数是读请求，已添加到数据库的数据不能修改 宽表，即每个表包含着大量的列 对于读取，从数据库中提取相当多的行，但只提取列的一小部分 查询相对较少（通常每台服务器每秒查询数百次或更少） 对于简单查询，允许延迟大约50毫秒 列中的数据相对较小：数字和短字符串（例如，每个URL 60个字节） 处理单个查询时需要高吞吐量（每台服务器每秒可达数十亿行） 事务不是必须的 2 使用方法 它的SQL语法和MySQL类似，但是有一些不同之处。&#xA;创建数据库,表：&#xA;create database test; -- json type is experimental feature set allow_experimental_object_type = 1; CREATE TABLE test.user ( user_id UInt32 comment &amp;#39;用户ID&amp;#39;, -- 用户ID name String comment &amp;#39;用户姓名&amp;#39;, -- 用户名 create_time DateTime comment &amp;#39;注册时间&amp;#39;, -- 注册时间 extra Json comment &amp;#39;附加信息&amp;#39; -- 附加信息,json可自由扩充字段 ) ENGINE = MergeTree() PRIMARY KEY (create_time); 查询数据:</description>
+    </item>
+  </channel>
+</rss>

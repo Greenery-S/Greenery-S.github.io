@@ -7,8 +7,43 @@
     <generator>Hugo</generator>
     <language>en</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Wed, 22 May 2024 01:23:35 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 22 May 2024 15:08:40 +0800</lastBuildDate>
     <atom:link href="https://Greenery-S.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Big Data</title>
+      <link>https://Greenery-S.github.io/tags/big-data/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://Greenery-S.github.io/tags/big-data/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Clickhouse</title>
+      <link>https://Greenery-S.github.io/tags/clickhouse/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://Greenery-S.github.io/tags/clickhouse/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Database</title>
+      <link>https://Greenery-S.github.io/tags/database/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://Greenery-S.github.io/tags/database/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Grafana</title>
+      <link>https://Greenery-S.github.io/tags/grafana/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://Greenery-S.github.io/tags/grafana/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>OLAP</title>
+      <link>https://Greenery-S.github.io/tags/olap/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://Greenery-S.github.io/tags/olap/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Go-Mongo</title>
       <link>https://Greenery-S.github.io/tags/go-mongo/</link>
@@ -42,41 +77,6 @@
       <link>https://Greenery-S.github.io/tags/rental-lease/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://Greenery-S.github.io/tags/rental-lease/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Singapore</title>
-      <link>https://Greenery-S.github.io/tags/singapore/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://Greenery-S.github.io/tags/singapore/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Go-Redis</title>
-      <link>https://Greenery-S.github.io/tags/go-redis/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://Greenery-S.github.io/tags/go-redis/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Redis</title>
-      <link>https://Greenery-S.github.io/tags/redis/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://Greenery-S.github.io/tags/redis/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Go</title>
-      <link>https://Greenery-S.github.io/tags/go/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://Greenery-S.github.io/tags/go/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Orm</title>
-      <link>https://Greenery-S.github.io/tags/orm/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://Greenery-S.github.io/tags/orm/</guid>
       <description></description>
     </item>
   </channel>

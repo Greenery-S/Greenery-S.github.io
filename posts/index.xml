@@ -6,8 +6,75 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Wed, 22 May 2024 01:23:35 +0800</lastBuildDate>
+        <lastBuildDate>Wed, 22 May 2024 15:08:40 +0800</lastBuildDate>
         <atom:link href="https://Greenery-S.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Introduction to Clickhouse</title>
+            <link>https://Greenery-S.github.io/posts/go/database/introduction-to-clickhouse/</link>
+            <pubDate>Wed, 22 May 2024 15:08:40 +0800</pubDate>
+            
+            <guid>https://Greenery-S.github.io/posts/go/database/introduction-to-clickhouse/</guid>
+            <description>ClickHouse code: https://github.com/Greenery-S/go-database/tree/master/clickhouse
+1 Introduction ClickHouse is a columnar database management system (DBMS) for online analytical processing (OLAP).
+In traditional row-based database systems (MySQL, SQL Server), data in the same row is always physically stored together. In columnar database systems (ClickHouse, HBase, Druid), data from the same column is stored together.
+Key characteristics of OLAP scenarios (statistical analysis based on event tracking data):
+The vast majority are read requests, and data added to the database cannot be modified.</description>
+            <content type="html"><![CDATA[<h1 id="clickhouse">ClickHouse</h1>
+<blockquote>
+<p>code: <a href="https://github.com/Greenery-S/go-database/tree/master/clickhouse">https://github.com/Greenery-S/go-database/tree/master/clickhouse</a></p>
+</blockquote>
+<h2 id="1-introduction">1 Introduction</h2>
+<p>ClickHouse is a columnar database management system (DBMS) for online analytical processing (OLAP).</p>
+<p>In traditional row-based database systems (MySQL, SQL Server), data in the same row is always physically stored together. In columnar database systems (ClickHouse, HBase, Druid), data from the same column is stored together.</p>
+<p>Key characteristics of OLAP scenarios (statistical analysis based on event tracking data):</p>
+<ol>
+<li>The vast majority are read requests, and data added to the database cannot be modified.</li>
+<li>Wide tables, meaning each table contains a large number of columns.</li>
+<li>For reads, a significant number of rows are extracted from the database, but only a small portion of the columns.</li>
+<li>Relatively few queries (typically hundreds or fewer per second per server).</li>
+<li>For simple queries, a latency of about 50 milliseconds is acceptable.</li>
+<li>Data in columns is relatively small: numbers and short strings (e.g., 60 bytes per URL).</li>
+<li>High throughput is required when processing a single query (up to billions of rows per second per server).</li>
+<li>Transactions are not necessary.</li>
+</ol>
+<h2 id="2-usage">2 Usage</h2>
+<p>Its SQL syntax is similar to MySQL, but there are some differences.</p>
+<p>Creating a database and table:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">database</span> test;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- json type is experimental feature
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">set</span> allow_experimental_object_type <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> test.<span style="color:#66d9ef">user</span>
+</span></span><span style="display:flex;"><span>(
+</span></span><span style="display:flex;"><span>    user_id     UInt32 <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;User ID&#39;</span>,       <span style="color:#75715e">-- User ID
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    name        String <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;User Name&#39;</span>,     <span style="color:#75715e">-- User Name
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    create_time DateTime <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;Registration Time&#39;</span>, <span style="color:#75715e">-- Registration Time
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    extra       Json <span style="color:#66d9ef">comment</span> <span style="color:#e6db74">&#39;Additional Info&#39;</span>  <span style="color:#75715e">-- Additional Info, json can freely extend fields
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>) ENGINE <span style="color:#f92672">=</span> MergeTree()
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">PRIMARY</span> <span style="color:#66d9ef">KEY</span> (create_time);
+</span></span></code></pre></div><p>Querying data:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">WITH</span>
+</span></span><span style="display:flex;"><span>    toDateTime(<span style="color:#e6db74">&#39;2023-09-01&#39;</span>, <span style="color:#e6db74">&#39;UTC&#39;</span>) <span style="color:#66d9ef">AS</span> begin_day,
+</span></span><span style="display:flex;"><span>    toDateTime(<span style="color:#e6db74">&#39;2023-09-08&#39;</span>, <span style="color:#e6db74">&#39;UTC&#39;</span>) <span style="color:#66d9ef">AS</span> end_day
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> toDate(create_time) <span style="color:#66d9ef">AS</span> date,
+</span></span><span style="display:flex;"><span>       uniq(user_id)       <span style="color:#66d9ef">AS</span> <span style="color:#f92672">`</span>Number <span style="color:#66d9ef">of</span> Registered Users<span style="color:#f92672">`</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> test.<span style="color:#66d9ef">user</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> (create_time <span style="color:#f92672">&gt;=</span> begin_day)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">AND</span> (create_time <span style="color:#f92672">&lt;</span> end_day)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> date
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> date;
+</span></span></code></pre></div><h2 id="3-go-sdk">3 Go SDK</h2>
+<p>See code.</p>
+<h2 id="4-creating-dashboards">4 Creating Dashboards</h2>
+<p>Generate business reports based on ClickHouse and Grafana.</p>
+
+    <img src="/images/introduction-to-clickhouse-dashboard.png"  alt="dashboard"  class="center"  style="border-radius: 0px; width: 100%;"  />
+
+
+]]></content>
+        </item>
         
         <item>
             <title>Introduction to Mongo</title>
