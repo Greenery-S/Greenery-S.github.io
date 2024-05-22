@@ -7,8 +7,50 @@
     <generator>Hugo</generator>
     <language>zh-cn</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sun, 19 May 2024 22:11:16 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 22 May 2024 01:23:35 +0800</lastBuildDate>
     <atom:link href="https://Greenery-S.github.io/zh-cn/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go-Mongo</title>
+      <link>https://Greenery-S.github.io/zh-cn/tags/go-mongo/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://Greenery-S.github.io/zh-cn/tags/go-mongo/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Mongo</title>
+      <link>https://Greenery-S.github.io/zh-cn/tags/mongo/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://Greenery-S.github.io/zh-cn/tags/mongo/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Mongodb</title>
+      <link>https://Greenery-S.github.io/zh-cn/tags/mongodb/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://Greenery-S.github.io/zh-cn/tags/mongodb/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Poor Condition</title>
+      <link>https://Greenery-S.github.io/zh-cn/tags/poor-condition/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://Greenery-S.github.io/zh-cn/tags/poor-condition/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Rental Lease</title>
+      <link>https://Greenery-S.github.io/zh-cn/tags/rental-lease/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://Greenery-S.github.io/zh-cn/tags/rental-lease/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Singapore</title>
+      <link>https://Greenery-S.github.io/zh-cn/tags/singapore/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://Greenery-S.github.io/zh-cn/tags/singapore/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Go-Redis</title>
       <link>https://Greenery-S.github.io/zh-cn/tags/go-redis/</link>
@@ -35,48 +77,6 @@
       <link>https://Greenery-S.github.io/zh-cn/tags/orm/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://Greenery-S.github.io/zh-cn/tags/orm/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Reflect</title>
-      <link>https://Greenery-S.github.io/zh-cn/tags/reflect/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://Greenery-S.github.io/zh-cn/tags/reflect/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Database</title>
-      <link>https://Greenery-S.github.io/zh-cn/tags/database/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://Greenery-S.github.io/zh-cn/tags/database/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Mysql</title>
-      <link>https://Greenery-S.github.io/zh-cn/tags/mysql/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://Greenery-S.github.io/zh-cn/tags/mysql/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Optimization</title>
-      <link>https://Greenery-S.github.io/zh-cn/tags/optimization/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://Greenery-S.github.io/zh-cn/tags/optimization/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Github</title>
-      <link>https://Greenery-S.github.io/zh-cn/tags/github/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://Greenery-S.github.io/zh-cn/tags/github/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Hugo</title>
-      <link>https://Greenery-S.github.io/zh-cn/tags/hugo/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://Greenery-S.github.io/zh-cn/tags/hugo/</guid>
       <description></description>
     </item>
   </channel>

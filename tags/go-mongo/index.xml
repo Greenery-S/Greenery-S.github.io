@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Go-Mongo on Greenery&#39;s Blog Site</title>
+    <link>https://Greenery-S.github.io/tags/go-mongo/</link>
+    <description>Recent content in Go-Mongo on Greenery&#39;s Blog Site</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Wed, 22 May 2024 01:23:35 +0800</lastBuildDate>
+    <atom:link href="https://Greenery-S.github.io/tags/go-mongo/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Introduction to Mongo</title>
+      <link>https://Greenery-S.github.io/posts/go/database/introduction-to-mongo/</link>
+      <pubDate>Wed, 22 May 2024 01:23:35 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/posts/go/database/introduction-to-mongo/</guid>
+      <description>MongoDB code: https://github.com/Greenery-S/go-database/tree/master/mongo&#xA;1 Introduction Mongo is a document-oriented database, and it contrasts with relational databases as follows. Mongo&amp;rsquo;s greatest feature is its schema flexibility, meaning you can store documents with completely different structures in the same collection. This is especially useful in the early stages of a project when the table fields are not yet stable. Compared to MySQL, Mongo is better suited for storing large, low-value data. The read and write performance for large documents is better in Mongo than in MySQL.</description>
+    </item>
+  </channel>
+</rss>

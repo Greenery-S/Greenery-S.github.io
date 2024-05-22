@@ -6,8 +6,99 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sun, 19 May 2024 22:11:16 +0800</lastBuildDate>
+        <lastBuildDate>Wed, 22 May 2024 01:23:35 +0800</lastBuildDate>
         <atom:link href="https://Greenery-S.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Introduction to Mongo</title>
+            <link>https://Greenery-S.github.io/posts/go/database/introduction-to-mongo/</link>
+            <pubDate>Wed, 22 May 2024 01:23:35 +0800</pubDate>
+            
+            <guid>https://Greenery-S.github.io/posts/go/database/introduction-to-mongo/</guid>
+            <description>MongoDB code: https://github.com/Greenery-S/go-database/tree/master/mongo
+1 Introduction Mongo is a document-oriented database, and it contrasts with relational databases as follows. Mongo&amp;rsquo;s greatest feature is its schema flexibility, meaning you can store documents with completely different structures in the same collection. This is especially useful in the early stages of a project when the table fields are not yet stable. Compared to MySQL, Mongo is better suited for storing large, low-value data. The read and write performance for large documents is better in Mongo than in MySQL.</description>
+            <content type="html"><![CDATA[<h1 id="mongodb">MongoDB</h1>
+<blockquote>
+<p>code: <a href="https://github.com/Greenery-S/go-database/tree/master/mongo">https://github.com/Greenery-S/go-database/tree/master/mongo</a></p>
+</blockquote>
+<h2 id="1-introduction">1 Introduction</h2>
+
+    <img src="/images/introduction-to-mongo-compare-to-mysql.png"  alt="compare-to-mysql"  class="center"  style="border-radius: 0px; width: 80%;"  />
+
+
+<ul>
+<li>Mongo is a document-oriented database, and it contrasts with relational databases as follows.</li>
+<li>Mongo&rsquo;s greatest feature is its schema flexibility, meaning you can store documents with completely different structures in the same collection. This is especially useful in the early stages of a project when the table fields are not yet stable.</li>
+<li>Compared to MySQL, Mongo is better suited for storing large, low-value data. The read and write performance for large documents is better in Mongo than in MySQL.</li>
+</ul>
+<h2 id="2-syntax">2 Syntax</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>use test;  <span style="color:#75715e"># Switch to the test database, which will be automatically created if it doesn&#39;t exist when a collection is created</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>show collections  <span style="color:#75715e"># View the collections in the database</span>
+</span></span><span style="display:flex;"><span>db.createCollection<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;student&#34;</span><span style="color:#f92672">)</span>;  <span style="color:#75715e"># Create a collection</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>db.createUser<span style="color:#f92672">({</span>user: <span style="color:#e6db74">&#34;tester&#34;</span>,pwd: <span style="color:#e6db74">&#34;123456&#34;</span>, roles: <span style="color:#f92672">[{</span>role: <span style="color:#e6db74">&#34;dbAdmin&#34;</span>, db: <span style="color:#e6db74">&#34;test&#34;</span><span style="color:#f92672">}]})</span>; <span style="color:#75715e"># Create a user</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Log in with the newly created tester user:</span>
+</span></span><span style="display:flex;"><span>mongo --port <span style="color:#ae81ff">27017</span> -u <span style="color:#e6db74">&#34;tester&#34;</span> -p <span style="color:#e6db74">&#34;123456&#34;</span> --authenticationDatabase <span style="color:#e6db74">&#34;test&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>db.student.createIndex<span style="color:#f92672">({</span>name:1,unique:1<span style="color:#f92672">})</span> <span style="color:#75715e"># Create a unique index on the name field, 1 for ascending order, -1 for descending order</span>
+</span></span><span style="display:flex;"><span>db.student.dropIndex<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;name_1_unique_1&#34;</span><span style="color:#f92672">)</span>  <span style="color:#75715e"># Delete the index</span>
+</span></span><span style="display:flex;"><span>db.student.getIndexes<span style="color:#f92672">()</span>  <span style="color:#75715e"># View the indexes</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>db.student.insertOne<span style="color:#f92672">({</span>name:<span style="color:#e6db74">&#34;张三&#34;</span>,city:<span style="color:#e6db74">&#34;北京&#34;</span><span style="color:#f92672">})</span>;  <span style="color:#75715e"># Insert a single record</span>
+</span></span><span style="display:flex;"><span>db.student.insertMany<span style="color:#f92672">([{</span>name:<span style="color:#e6db74">&#34;张三&#34;</span>,city:<span style="color:#e6db74">&#34;北京&#34;</span><span style="color:#f92672">}</span>,<span style="color:#f92672">{</span>name:<span style="color:#e6db74">&#34;李四&#34;</span>,gender:<span style="color:#e6db74">&#34;女&#34;</span><span style="color:#f92672">}])</span>;  <span style="color:#75715e"># Insert multiple records</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>db.student.find<span style="color:#f92672">({</span>name:<span style="color:#e6db74">&#34;张三&#34;</span><span style="color:#f92672">})</span>;  <span style="color:#75715e"># Find records that match the condition</span>
+</span></span><span style="display:flex;"><span>db.student.find<span style="color:#f92672">({})</span>;  <span style="color:#75715e"># View all records in the collection</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>db.student.updateOne<span style="color:#f92672">({</span>name:<span style="color:#e6db74">&#34;张三&#34;</span><span style="color:#f92672">}</span>,<span style="color:#f92672">{</span>$set:<span style="color:#f92672">{</span>gender:<span style="color:#e6db74">&#34;女&#34;</span><span style="color:#f92672">}})</span>;  <span style="color:#75715e"># Update a single record</span>
+</span></span><span style="display:flex;"><span>db.student.updateMany<span style="color:#f92672">({</span>name:<span style="color:#e6db74">&#34;张三&#34;</span><span style="color:#f92672">}</span>,<span style="color:#f92672">{</span>$set:<span style="color:#f92672">{</span>gender:<span style="color:#e6db74">&#34;女&#34;</span><span style="color:#f92672">}})</span>;  <span style="color:#75715e"># Update all records that match the condition</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>db.student.deleteOne<span style="color:#f92672">({</span>name:<span style="color:#e6db74">&#34;张三&#34;</span><span style="color:#f92672">})</span>;  db.student.deleteMany<span style="color:#f92672">({</span>name:<span style="color:#e6db74">&#34;张三&#34;</span><span style="color:#f92672">})</span>;  <span style="color:#75715e"># Delete records</span>
+</span></span><span style="display:flex;"><span>db.student.drop<span style="color:#f92672">()</span>;  <span style="color:#75715e"># Drop the collection</span>
+</span></span></code></pre></div><h2 id="3-using-mongo-with-go">3 Using Mongo with Go</h2>
+<h3 id="connection">Connection</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ctx</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Background</span>()
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">option</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">Client</span>().<span style="color:#a6e22e">ApplyURI</span>(<span style="color:#e6db74">&#34;mongodb://127.0.0.1:27017&#34;</span>).
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">SetConnectTimeout</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>). <span style="color:#75715e">// Connection timeout duration
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// AuthSource represents the Database
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">SetAuth</span>(<span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">Credential</span>{<span style="color:#a6e22e">Username</span>: <span style="color:#e6db74">&#34;tester&#34;</span>, <span style="color:#a6e22e">Password</span>: <span style="color:#e6db74">&#34;123456&#34;</span>, <span style="color:#a6e22e">AuthSource</span>: <span style="color:#e6db74">&#34;test&#34;</span>})
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">client</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">mongo</span>.<span style="color:#a6e22e">Connect</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">option</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">CheckError</span>(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">client</span>.<span style="color:#a6e22e">Ping</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#66d9ef">nil</span>) <span style="color:#75715e">// A successful ping indicates a successful connection, not just the absence of an error from Connect
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">CheckError</span>(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">client</span>.<span style="color:#a6e22e">Disconnect</span>(<span style="color:#a6e22e">ctx</span>) <span style="color:#75715e">// Release the connection
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><h3 id="crud-operations">CRUD Operations</h3>
+<p>See the code repository for examples.</p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Be Careful When Choosing House</title>
+            <link>https://Greenery-S.github.io/posts/life/singapore/be-careful-when-choosing-house/</link>
+            <pubDate>Wed, 22 May 2024 00:43:27 +0800</pubDate>
+            
+            <guid>https://Greenery-S.github.io/posts/life/singapore/be-careful-when-choosing-house/</guid>
+            <description>Be Careful When Choosing a Place to Stay in Singapore When you come to Singapore, be careful when choosing a place to stay.
+What is a poor person&amp;rsquo;s house? I refer to those who rent out a room in their own residence.
+These landlords usually have significant financial pressures. On the one hand, they bought an HDB flat but need to rent out a room to help with their mortgage payments; on the other hand, they may be very picky about tenants, leading to conflicts and an atmosphere that feels more like a student dormitory than a home.</description>
+            <content type="html"><![CDATA[<h1 id="be-careful-when-choosing-a-place-to-stay-in-singapore">Be Careful When Choosing a Place to Stay in Singapore</h1>
+<p>When you come to Singapore, be careful when choosing a place to stay.</p>
+<p>What is a poor person&rsquo;s house? I refer to those who rent out a room in their own residence.</p>
+<p>These landlords usually have significant financial pressures. On the one hand, they bought an HDB flat but need to rent out a room to help with their mortgage payments; on the other hand, they may be very picky about tenants, leading to conflicts and an atmosphere that feels more like a student dormitory than a home.</p>
+<p>Let me first talk about the normal renting process: viewing the house, paying the deposit, moving in, paying monthly rent, moving out, inspection, and returning the deposit. As long as the room is in the same condition when you move out as when you moved in, the deposit should not be deducted. It’s like &ldquo;eventual consistency&rdquo; in computing: as long as the final state of the room is okay, everything is fine. My experience with the popular Interlace Place condo was like this; the landlord or agent wouldn’t interfere with your normal life.</p>
+<p>However, living in a &ldquo;poor person&rsquo;s house&rdquo; can be different. The landlord may frequently check your room, suspecting you of causing damage, and sometimes even invading your privacy.</p>
+<p>Even more troubling is that sometimes landlords may ask for rent in advance for various reasons. For example, one landlord I had would ask for rent 15 to 23 days early every month, citing reasons like &ldquo;school fees,&rdquo; &ldquo;medical bills,&rdquo; or &ldquo;hosting a banquet.&rdquo; These requests became a monthly occurrence, hoping for understanding and help.</p>
+<p>As a programmer, I value agreements and contracts, so I was not swayed by these emotional requests. I aimed to balance supporting the landlord while protecting my own interests, often refusing to pay rent in advance.</p>
+<p>For the last two months, I was very lenient with the landlord’s family. They frequently asked for partial rent payments in advance, and I generally agreed. Additionally, I was out of the room 60% of the time each week, either visiting friends or taking care of my sister. Eventually, during my exam period, I was away for an entire month. When I returned, I found they had taken advance rent payments as a given, showing no respect for my boundaries. I immediately refused their request that month and communicated my stance through the agent, hoping they would understand.</p>
+<p>Yesterday, with 10 days left until rent was due, the landlord asked for $100 again, but this time their tone was very pleading. I felt it was enough, so I gave them the money, and they were very grateful.</p>
+<p>But I was exhausted. I don&rsquo;t enjoy manipulating people, and this place was indeed unsuitable for long-term rental. I contacted a monthly hotel rental service and decided to stay in a hotel for a month. When I discussed this with the landlord, I knew my deposit might not be fully returned, so I offered to accept only 50% of it back. However, they were in such financial difficulty that they begged me to stay another month and apply the deposit to that month&rsquo;s rent. Knowing I might incur some loss, I accepted as it seemed the only way for them to repay me.</p>
+<p>Many people in Singapore face tough living conditions, especially those with financial difficulties. We can&rsquo;t change everyone&rsquo;s circumstances, but we can choose suitable living arrangements to avoid unnecessary troubles. I hope everyone can find a living situation that suits them.</p>
+]]></content>
+        </item>
         
         <item>
             <title>Introduction to Redis</title>

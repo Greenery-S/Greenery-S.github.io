@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Go-Mongo on Greenery&#39;s Blog Site</title>
+    <link>https://Greenery-S.github.io/zh-cn/tags/go-mongo/</link>
+    <description>Recent content in Go-Mongo on Greenery&#39;s Blog Site</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Wed, 22 May 2024 01:23:35 +0800</lastBuildDate>
+    <atom:link href="https://Greenery-S.github.io/zh-cn/tags/go-mongo/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Introduction to Mongo</title>
+      <link>https://Greenery-S.github.io/zh-cn/posts/go/database/introduction-to-mongo/</link>
+      <pubDate>Wed, 22 May 2024 01:23:35 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/zh-cn/posts/go/database/introduction-to-mongo/</guid>
+      <description>MongoDB code: https://github.com/Greenery-S/go-database/tree/master/mongo&#xA;1 简介 Mongo是一个面向文档存储的数据库，它跟关系型数据库的概念对比如下。 Mongo最大的特点是模式自由，即你可以将结构完全不同的文档存储同一个集合中。特别适合于业务初期，表字段不稳定的时候。 相比于MySQL，Mongo更适合存储大尺寸、低价值的数据，大文档的读写性能比MySQL好。 2 语法 use test; 切换到test库，如果没有则（创建集合时）会自动创建 show collections 查看库里有哪些集合 db.createCollection(&amp;#34;student&amp;#34;); 创建collection db.createUser({user: &amp;#34;tester&amp;#34;,pwd: &amp;#34;123456&amp;#34;, roles: [{role: &amp;#34;dbAdmin&amp;#34;, db: &amp;#34;test&amp;#34;}]});创建用户 用刚创建的tester用户身份登录： mongo --port 27017 -u &amp;#34;tester&amp;#34; -p &amp;#34;123456&amp;#34; --authenticationDatabase &amp;#34;test&amp;#34; db.student.createIndex({name:1,unique:1})在name上创建唯一索引,1表示升序，-1表示降序 db.student.dropIndex(&amp;#34; name_1_unique_1 &amp;#34;) 删除索引 db.student.getIndexes() 查看索引 db.student.insertOne({name:&amp;#34;张三&amp;#34;,city:&amp;#34;北京&amp;#34;}); 插入一条记录 db.student.insertMany([{name:&amp;#34;张三&amp;#34;,city:&amp;#34;北京&amp;#34;},{name:&amp;#34;李四&amp;#34;,gender:&amp;#34;女&amp;#34;}]) 插入多条记录 db.student.find({name:&amp;#34;张三&amp;#34;}); 查找满足条件的记录 db.student.find({}); 查看集合里的全部内容 db.student.updateOne({name:&amp;#34;张三&amp;#34;},{$set:{gender:&amp;#34;女&amp;#34;}}) 更新一条记录 db.student.updateMany({name:&amp;#34;张三&amp;#34;},{$set:{gender:&amp;#34;女&amp;#34;}}) 更新满足条件的所有记录 db.student.deleteOne({name:&amp;#34;张三&amp;#34;}); db.student.deleteMany({name:&amp;#34;张三&amp;#34;}); 删除记录 db.student.drop() 删除集合 3 Go操作Mongo 连接 func main() { ctx := context.Background() option := options.</description>
+    </item>
+  </channel>
+</rss>
