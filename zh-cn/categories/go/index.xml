@@ -7,8 +7,29 @@
     <generator>Hugo</generator>
     <language>zh-cn</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Wed, 22 May 2024 15:08:40 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 22 May 2024 23:29:47 +0800</lastBuildDate>
     <atom:link href="https://Greenery-S.github.io/zh-cn/categories/go/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hash Function vs Symmetric Encryption</title>
+      <link>https://Greenery-S.github.io/zh-cn/posts/go/encryption/hash-function-vs-symmetric-encryption/</link>
+      <pubDate>Wed, 22 May 2024 23:29:47 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/zh-cn/posts/go/encryption/hash-function-vs-symmetric-encryption/</guid>
+      <description>对称加密和散列算法的核心区别 1 对称加密 目的: 保护数据的机密性，使其无法被未授权方读取。&#xA;工作原理: 使用相同的密钥对数据进行加密和解密。&#xA;特点:&#xA;可逆性：可以使用相同的密钥解密密文得到原始数据。 密钥管理：需要安全地共享密钥，否则数据无法解密。 应用场景: 安全通信、数据存储、数字签名等。&#xA;2 散列算法 目的: 验证数据的完整性和真实性。&#xA;工作原理: 将任意长度的输入转换为固定长度的哈希值。&#xA;特点:&#xA;单向性：无法从哈希值推算出原始数据。 抗碰撞性：难以找到两个不同的输入产生相同的哈希值。 完整性：数据的任何修改都会导致哈希值改变。 应用场景: 文件完整性校验、密码存储、数字签名等。&#xA;3 总结 特性 对称加密 散列算法 目的 保密性 完整性和真实性 可逆性 可逆 不可逆 密钥管理 需要密钥管理 无需密钥管理 输出 加密数据 哈希值 对称加密和散列算法都是重要的密码学技术，用于保护数据的安全。它们在工作原理、应用场景和安全性等方面都有所不同。选择哪种技术取决于具体的应用需求。</description>
+    </item>
+    <item>
+      <title>Open Compare to Openfile</title>
+      <link>https://Greenery-S.github.io/zh-cn/posts/go/memo/open-compare-to-openfile/</link>
+      <pubDate>Wed, 22 May 2024 22:15:28 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/zh-cn/posts/go/memo/open-compare-to-openfile/</guid>
+      <description>os.Open 与 os.OpenFile 1 差异 在 Go 语言中，os.Open 和 os.OpenFile 都是用于打开文件的函数，但它们的使用场景和功能有所不同。&#xA;os.Open：这是一个较为简单的打开文件的函数，它只接受一个参数，即要打开的文件的路径。它以只读模式打开文件，如果文件不存在，它会返回一个错误。 file, err := os.Open(&amp;#34;example.txt&amp;#34;) if err != nil { log.Fatal(err) } defer file.Close() os.OpenFile：这是一个更为强大的打开文件的函数，它接受三个参数：文件路径、打开文件的模式和文件权限。它可以以各种模式（如只读、只写、读写、追加、创建等）打开文件，如果文件不存在，它可以创建一个新文件。 file, err := os.OpenFile(&amp;#34;example.txt&amp;#34;, os.O_CREATE|os.O_WRONLY, 0644) if err != nil { log.Fatal(err) } defer file.Close() 在这个例子中，os.OpenFile 以写入模式打开文件，如果文件不存在，它会创建一个新文件。文件的权限被设置为 0644，这意味着文件所有者可以读写文件，而其他用户只能读取文件。&#xA;总的来说，如果你只需要以只读模式打开文件，可以使用 os.Open。如果你需要更多的控制（如设置文件权限，或以不同的模式打开文件），则应使用 os.OpenFile。&#xA;2 模式与权限 当你在 Go 语言中使用 os.OpenFile 函数打开或创建文件时，你需要指定两个参数：模式（flag）和权限（permission）。&#xA;模式（flag） 这个参数决定了你如何打开文件。Go 语言提供了一些预定义的常量来设置这个参数：&#xA;os.O_RDONLY：以只读模式打开文件。 os.O_WRONLY：以只写模式打开文件。 os.O_RDWR：以读写模式打开文件。 os.O_APPEND：在写入数据时，将数据追加到文件的末尾，而不是覆盖现有的内容。 os.O_CREATE：如果文件不存在，就创建一个新文件。 os.O_TRUNC：如果文件已经存在，就先清空文件的内容，然后再写入数据。 这些常量可以通过逻辑 OR 运算符（|）组合在一起，以设置多个模式。例如，os.O_CREATE|os.O_WRONLY 会以只写模式打开文件，如果文件不存在，就创建一个新文件。&#xA;权限（permission） 这个参数决定了文件的权限。它是一个八进制数，通常由三个数字组成。每个数字分别代表文件所有者、文件所属的用户组和其他用户的权限。&#xA;第一个数字代表文件所有者的权限。 第二个数字代表文件所属的用户组的权限。 第三个数字代表其他用户的权限。 每个数字都是 0 到 7 的整数，代表以下三种权限的组合：</description>
+    </item>
+    <item>
+      <title>File Encryption</title>
+      <link>https://Greenery-S.github.io/zh-cn/posts/go/encryption/file-encryption/</link>
+      <pubDate>Wed, 22 May 2024 17:42:47 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/zh-cn/posts/go/encryption/file-encryption/</guid>
+      <description>文件加密 code: https://github.com/Greenery-S/go-encryption/tree/master/enc_file&#xA;1 对称加密 加密过程的每一步都是可逆的 加密和解密用的是同一组密钥 异或是最简单的对称加密算法 典型对称加密算法：DES（Data Encryption Standard）AES(Advanced Encryption Standard)&#xA;2 分组加密 分组加密：对原始数据（明文）进行分组，每组64位，最后一组不足64位时按一定规则填充。每一组上单独施加DES算法 CBC（Cipher Block Chaining）密文分组链接模式，将当前明文分组与前一个密文分组进行异或运算，然后再进行加密 代码见code链接.&#xA;数字填充 PKCS#5 和 PKCS#7 是两种常见的数据填充标准，它们都属于 PKCS (Public-Key Cryptography Standards) 系列标准的一部分。&#xA;PKCS#5：主要用于描述密码学中的分组密码的填充方式。在实际应用中，当数据块的大小不是密码算法所需要的固定长度时，就需要进行填充。PKCS#5 填充方式是在数据块末尾填充一个字节序列，每个字节的值等于缺少的字节的数量。例如，如果数据块长度为 6，而密码算法需要的长度为 8，则需要在数据块末尾填充两个字节，每个字节的值为 2。 PKCS#7：是 PKCS#5 的扩展，它支持任何长度的数据块，而不仅仅是 8 字节。PKCS#7 的填充方式与 PKCS#5 相同，都是在数据块末尾填充一个字节序列，每个字节的值等于缺少的字节的数量。 // pkcs7padding和pkcs5padding的填充方式相同，填充字节的值都等于填充字节的个数。 // 例如需要填充4个字节，则填充的值为&amp;#34;4 4 4 4&amp;#34;。 var ( // only difference is the block size, PKCS5 is 8 bytes, PKCS7 can be any bytes PKCS5 = &amp;amp;pkcs5{} PKCS7 = &amp;amp;pkcs5{} ErrPaddingSize = errors.</description>
+    </item>
     <item>
       <title>Introduction to Clickhouse</title>
       <link>https://Greenery-S.github.io/zh-cn/posts/go/database/introduction-to-clickhouse/</link>

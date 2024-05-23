@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Asymmetric Encryption on Greenery&#39;s Blog Site</title>
+    <link>https://Greenery-S.github.io/zh-cn/tags/asymmetric-encryption/</link>
+    <description>Recent content in Asymmetric Encryption on Greenery&#39;s Blog Site</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Wed, 22 May 2024 17:42:47 +0800</lastBuildDate>
+    <atom:link href="https://Greenery-S.github.io/zh-cn/tags/asymmetric-encryption/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>File Encryption</title>
+      <link>https://Greenery-S.github.io/zh-cn/posts/go/encryption/file-encryption/</link>
+      <pubDate>Wed, 22 May 2024 17:42:47 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/zh-cn/posts/go/encryption/file-encryption/</guid>
+      <description>文件加密 code: https://github.com/Greenery-S/go-encryption/tree/master/enc_file&#xA;1 对称加密 加密过程的每一步都是可逆的 加密和解密用的是同一组密钥 异或是最简单的对称加密算法 典型对称加密算法：DES（Data Encryption Standard）AES(Advanced Encryption Standard)&#xA;2 分组加密 分组加密：对原始数据（明文）进行分组，每组64位，最后一组不足64位时按一定规则填充。每一组上单独施加DES算法 CBC（Cipher Block Chaining）密文分组链接模式，将当前明文分组与前一个密文分组进行异或运算，然后再进行加密 代码见code链接.&#xA;数字填充 PKCS#5 和 PKCS#7 是两种常见的数据填充标准，它们都属于 PKCS (Public-Key Cryptography Standards) 系列标准的一部分。&#xA;PKCS#5：主要用于描述密码学中的分组密码的填充方式。在实际应用中，当数据块的大小不是密码算法所需要的固定长度时，就需要进行填充。PKCS#5 填充方式是在数据块末尾填充一个字节序列，每个字节的值等于缺少的字节的数量。例如，如果数据块长度为 6，而密码算法需要的长度为 8，则需要在数据块末尾填充两个字节，每个字节的值为 2。 PKCS#7：是 PKCS#5 的扩展，它支持任何长度的数据块，而不仅仅是 8 字节。PKCS#7 的填充方式与 PKCS#5 相同，都是在数据块末尾填充一个字节序列，每个字节的值等于缺少的字节的数量。 // pkcs7padding和pkcs5padding的填充方式相同，填充字节的值都等于填充字节的个数。 // 例如需要填充4个字节，则填充的值为&amp;#34;4 4 4 4&amp;#34;。 var ( // only difference is the block size, PKCS5 is 8 bytes, PKCS7 can be any bytes PKCS5 = &amp;amp;pkcs5{} PKCS7 = &amp;amp;pkcs5{} ErrPaddingSize = errors.</description>
+    </item>
+  </channel>
+</rss>

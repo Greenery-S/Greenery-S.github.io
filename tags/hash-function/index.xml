@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hash Function on Greenery&#39;s Blog Site</title>
+    <link>https://Greenery-S.github.io/tags/hash-function/</link>
+    <description>Recent content in Hash Function on Greenery&#39;s Blog Site</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Wed, 22 May 2024 23:29:47 +0800</lastBuildDate>
+    <atom:link href="https://Greenery-S.github.io/tags/hash-function/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hash Function vs Symmetric Encryption</title>
+      <link>https://Greenery-S.github.io/posts/go/encryption/hash-function-vs-symmetric-encryption/</link>
+      <pubDate>Wed, 22 May 2024 23:29:47 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/posts/go/encryption/hash-function-vs-symmetric-encryption/</guid>
+      <description>Core Differences between Symmetric Encryption and Hash Functions 1 Symmetric Encryption Purpose: Protect the confidentiality of data, preventing unauthorized access.&#xA;Working Principle: Utilizes the same key for both encryption and decryption of data.&#xA;Characteristics:&#xA;Reversibility: Decrypting ciphertext to retrieve the original data using the same key is possible. Key Management: Securely sharing the key is crucial, as data remains inaccessible without it. Applications: Secure communication, data storage, digital signatures, etc.</description>
+    </item>
+  </channel>
+</rss>

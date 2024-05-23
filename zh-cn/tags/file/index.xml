@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>File on Greenery&#39;s Blog Site</title>
+    <link>https://Greenery-S.github.io/zh-cn/tags/file/</link>
+    <description>Recent content in File on Greenery&#39;s Blog Site</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Wed, 22 May 2024 22:15:28 +0800</lastBuildDate>
+    <atom:link href="https://Greenery-S.github.io/zh-cn/tags/file/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Open Compare to Openfile</title>
+      <link>https://Greenery-S.github.io/zh-cn/posts/go/memo/open-compare-to-openfile/</link>
+      <pubDate>Wed, 22 May 2024 22:15:28 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/zh-cn/posts/go/memo/open-compare-to-openfile/</guid>
+      <description>os.Open 与 os.OpenFile 1 差异 在 Go 语言中，os.Open 和 os.OpenFile 都是用于打开文件的函数，但它们的使用场景和功能有所不同。&#xA;os.Open：这是一个较为简单的打开文件的函数，它只接受一个参数，即要打开的文件的路径。它以只读模式打开文件，如果文件不存在，它会返回一个错误。 file, err := os.Open(&amp;#34;example.txt&amp;#34;) if err != nil { log.Fatal(err) } defer file.Close() os.OpenFile：这是一个更为强大的打开文件的函数，它接受三个参数：文件路径、打开文件的模式和文件权限。它可以以各种模式（如只读、只写、读写、追加、创建等）打开文件，如果文件不存在，它可以创建一个新文件。 file, err := os.OpenFile(&amp;#34;example.txt&amp;#34;, os.O_CREATE|os.O_WRONLY, 0644) if err != nil { log.Fatal(err) } defer file.Close() 在这个例子中，os.OpenFile 以写入模式打开文件，如果文件不存在，它会创建一个新文件。文件的权限被设置为 0644，这意味着文件所有者可以读写文件，而其他用户只能读取文件。&#xA;总的来说，如果你只需要以只读模式打开文件，可以使用 os.Open。如果你需要更多的控制（如设置文件权限，或以不同的模式打开文件），则应使用 os.OpenFile。&#xA;2 模式与权限 当你在 Go 语言中使用 os.OpenFile 函数打开或创建文件时，你需要指定两个参数：模式（flag）和权限（permission）。&#xA;模式（flag） 这个参数决定了你如何打开文件。Go 语言提供了一些预定义的常量来设置这个参数：&#xA;os.O_RDONLY：以只读模式打开文件。 os.O_WRONLY：以只写模式打开文件。 os.O_RDWR：以读写模式打开文件。 os.O_APPEND：在写入数据时，将数据追加到文件的末尾，而不是覆盖现有的内容。 os.O_CREATE：如果文件不存在，就创建一个新文件。 os.O_TRUNC：如果文件已经存在，就先清空文件的内容，然后再写入数据。 这些常量可以通过逻辑 OR 运算符（|）组合在一起，以设置多个模式。例如，os.O_CREATE|os.O_WRONLY 会以只写模式打开文件，如果文件不存在，就创建一个新文件。&#xA;权限（permission） 这个参数决定了文件的权限。它是一个八进制数，通常由三个数字组成。每个数字分别代表文件所有者、文件所属的用户组和其他用户的权限。&#xA;第一个数字代表文件所有者的权限。 第二个数字代表文件所属的用户组的权限。 第三个数字代表其他用户的权限。 每个数字都是 0 到 7 的整数，代表以下三种权限的组合：</description>
+    </item>
+  </channel>
+</rss>

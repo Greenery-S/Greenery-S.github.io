@@ -7,8 +7,15 @@
     <generator>Hugo</generator>
     <language>en</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sat, 18 May 2024 20:49:02 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 22 May 2024 22:15:28 +0800</lastBuildDate>
     <atom:link href="https://Greenery-S.github.io/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Open Compare to Openfile</title>
+      <link>https://Greenery-S.github.io/posts/go/memo/open-compare-to-openfile/</link>
+      <pubDate>Wed, 22 May 2024 22:15:28 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/posts/go/memo/open-compare-to-openfile/</guid>
+      <description>os.Open vs. os.OpenFile 1 Differences In Go, both os.Open and os.OpenFile are functions used to open files, but they have different usage scenarios and functionalities.&#xA;os.Open: This is a simpler function for opening files. It takes only one argument, the path to the file to be opened. It opens the file in read-only mode and returns an error if the file does not exist. file, err := os.Open(&amp;#34;example.txt&amp;#34;) if err !</description>
+    </item>
     <item>
       <title>Two-Year Old Gopher</title>
       <link>https://Greenery-S.github.io/posts/go/two-year-old-gopher/</link>

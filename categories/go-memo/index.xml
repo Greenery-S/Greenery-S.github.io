@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Go-Memo on Greenery&#39;s Blog Site</title>
+    <link>https://Greenery-S.github.io/categories/go-memo/</link>
+    <description>Recent content in Go-Memo on Greenery&#39;s Blog Site</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Wed, 22 May 2024 22:15:28 +0800</lastBuildDate>
+    <atom:link href="https://Greenery-S.github.io/categories/go-memo/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Open Compare to Openfile</title>
+      <link>https://Greenery-S.github.io/posts/go/memo/open-compare-to-openfile/</link>
+      <pubDate>Wed, 22 May 2024 22:15:28 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/posts/go/memo/open-compare-to-openfile/</guid>
+      <description>os.Open vs. os.OpenFile 1 Differences In Go, both os.Open and os.OpenFile are functions used to open files, but they have different usage scenarios and functionalities.&#xA;os.Open: This is a simpler function for opening files. It takes only one argument, the path to the file to be opened. It opens the file in read-only mode and returns an error if the file does not exist. file, err := os.Open(&amp;#34;example.txt&amp;#34;) if err !</description>
+    </item>
+  </channel>
+</rss>

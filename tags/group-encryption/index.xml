@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Group Encryption on Greenery&#39;s Blog Site</title>
+    <link>https://Greenery-S.github.io/tags/group-encryption/</link>
+    <description>Recent content in Group Encryption on Greenery&#39;s Blog Site</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Wed, 22 May 2024 17:42:47 +0800</lastBuildDate>
+    <atom:link href="https://Greenery-S.github.io/tags/group-encryption/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>File Encryption</title>
+      <link>https://Greenery-S.github.io/posts/go/encryption/file-encryption/</link>
+      <pubDate>Wed, 22 May 2024 17:42:47 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/posts/go/encryption/file-encryption/</guid>
+      <description>File Encryption code: https://github.com/Greenery-S/go-encryption/tree/master/enc_file&#xA;1 Symmetric Encryption Every step of the encryption process is reversible The same set of keys is used for encryption and decryption XOR is the simplest symmetric encryption algorithm Typical symmetric encryption algorithms: DES (Data Encryption Standard), AES (Advanced Encryption Standard)&#xA;2 Group Encryption Group encryption: The original data (plaintext) is grouped, each group is 64 bits, and when the last group is less than 64 bits, it is filled according to certain rules.</description>
+    </item>
+  </channel>
+</rss>
