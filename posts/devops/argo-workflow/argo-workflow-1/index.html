@@ -190,7 +190,7 @@ However, since the <code>docker/whalesay</code> image is no longer supported, ma
 </span></span><span style="display:flex;"><span>argo logs hello-world-xxx       <span style="color:#75715e"># print the logs from a workflow</span>
 </span></span><span style="display:flex;"><span>argo delete hello-world-xxx     <span style="color:#75715e"># delete workflow</span>
 </span></span></code></pre></div><p>You can also use <code>kubectl</code>, but you need to specify the <code>namespace</code>.</p>
-<h1 id="2-hello-world">2 Hello World</h1>
+<h2 id="2-hello-world">2 Hello World</h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow                 </span> <span style="color:#75715e"># new type of k8s spec</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
