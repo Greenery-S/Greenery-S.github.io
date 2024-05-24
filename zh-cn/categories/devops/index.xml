@@ -7,8 +7,15 @@
     <generator>Hugo</generator>
     <language>zh-cn</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sat, 25 May 2024 02:17:44 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 25 May 2024 03:46:15 +0800</lastBuildDate>
     <atom:link href="https://Greenery-S.github.io/zh-cn/categories/devops/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Argo Workflow 1</title>
+      <link>https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/argo-workflow-1/</link>
+      <pubDate>Sat, 25 May 2024 03:46:15 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/argo-workflow-1/</guid>
+      <description>Argo Workflow (1) 大量例子在此: https://github.com/argoproj/argo-workflows/tree/main/examples 但是,由于docker/whalesay镜像不再支持,导致很多例子无法运行,需要自己构建一个镜像来替代它.&#xA;1 Argo CLI argo submit hello-world.yaml # submit a workflow spec to Kubernetes argo list # list current workflows argo get hello-world-xxx # get info about a specific workflow argo logs hello-world-xxx # print the logs from a workflow argo delete hello-world-xxx # delete workflow 用kubectl也可以, 都要指定namespace&#xA;2 Hello World apiVersion: argoproj.io/v1alpha1 kind: Workflow # new type of k8s spec metadata: generateName: hello-world- # name of the workflow spec spec: entrypoint: argosay # invoke the whalesay template templates: - name: argosay # name of the template container: image: yky8/argosay:v2 command: [&amp;#34;/usr/local/bin/argosay&amp;#34;] args: [&amp;#34;echo&amp;#34;, &amp;#34;hello world!</description>
+    </item>
     <item>
       <title>Quick Start With Self Build Image</title>
       <link>https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/quick-start-with-self-build-image/</link>

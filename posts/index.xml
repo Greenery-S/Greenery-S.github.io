@@ -6,8 +6,163 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sat, 25 May 2024 02:17:44 +0800</lastBuildDate>
+        <lastBuildDate>Sat, 25 May 2024 03:46:15 +0800</lastBuildDate>
         <atom:link href="https://Greenery-S.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Argo Workflow 1</title>
+            <link>https://Greenery-S.github.io/posts/devops/argo-workflow/argo-workflow-1/</link>
+            <pubDate>Sat, 25 May 2024 03:46:15 +0800</pubDate>
+            
+            <guid>https://Greenery-S.github.io/posts/devops/argo-workflow/argo-workflow-1/</guid>
+            <description>Argo Workflow (1) A lot of examples can be found here: https://github.com/argoproj/argo-workflows/tree/main/examples However, since the docker/whalesay image is no longer supported, many examples cannot run, and you need to build an image to replace it.
+1 Argo CLI argo submit hello-world.yaml # submit a workflow spec to Kubernetes argo list # list current workflows argo get hello-world-xxx # get info about a specific workflow argo logs hello-world-xxx # print the logs from a workflow argo delete hello-world-xxx # delete workflow You can also use kubectl, but you need to specify the namespace.</description>
+            <content type="html"><![CDATA[<h1 id="argo-workflow-1">Argo Workflow (1)</h1>
+<p>A lot of examples can be found here: <a href="https://github.com/argoproj/argo-workflows/tree/main/examples">https://github.com/argoproj/argo-workflows/tree/main/examples</a>
+However, since the <code>docker/whalesay</code> image is no longer supported, many examples cannot run, and you need to build an image to replace it.</p>
+<h2 id="1-argo-cli">1 Argo CLI</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>argo submit hello-world.yaml    <span style="color:#75715e"># submit a workflow spec to Kubernetes</span>
+</span></span><span style="display:flex;"><span>argo list                       <span style="color:#75715e"># list current workflows</span>
+</span></span><span style="display:flex;"><span>argo get hello-world-xxx        <span style="color:#75715e"># get info about a specific workflow</span>
+</span></span><span style="display:flex;"><span>argo logs hello-world-xxx       <span style="color:#75715e"># print the logs from a workflow</span>
+</span></span><span style="display:flex;"><span>argo delete hello-world-xxx     <span style="color:#75715e"># delete workflow</span>
+</span></span></code></pre></div><p>You can also use <code>kubectl</code>, but you need to specify the <code>namespace</code>.</p>
+<h1 id="2-hello-world">2 Hello World</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow                 </span> <span style="color:#75715e"># new type of k8s spec</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">hello-world-   </span> <span style="color:#75715e"># name of the workflow spec</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">argosay         </span> <span style="color:#75715e"># invoke the whalesay template</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">argosay             </span> <span style="color:#75715e"># name of the template</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">image</span>: <span style="color:#ae81ff">yky8/argosay:v2</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">command</span>: [<span style="color:#e6db74">&#34;/usr/local/bin/argosay&#34;</span>]
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;echo&#34;</span>, <span style="color:#e6db74">&#34;hello world!&#34;</span>]
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">resources</span>: <span style="color:#75715e"># limit the resources</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">limits</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">memory</span>: <span style="color:#ae81ff">32Mi</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">cpu</span>: <span style="color:#ae81ff">100m</span>
+</span></span></code></pre></div><p>Execute <code>argo submit -n argo --watch hello-world.yaml</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Name:                hello-world-852mj
+</span></span><span style="display:flex;"><span>Namespace:           argo
+</span></span><span style="display:flex;"><span>ServiceAccount:      unset (will run with the default ServiceAccount)
+</span></span><span style="display:flex;"><span>Status:              Succeeded
+</span></span><span style="display:flex;"><span>Conditions:
+</span></span><span style="display:flex;"><span> PodRunning          False
+</span></span><span style="display:flex;"><span> Completed           True
+</span></span><span style="display:flex;"><span>Created:             Sat May 25 02:58:27 +0800 (10 seconds ago)
+</span></span><span style="display:flex;"><span>Started:             Sat May 25 02:58:27 +0800 (10 seconds ago)
+</span></span><span style="display:flex;"><span>Finished:            Sat May 25 02:58:37 +0800 (now)
+</span></span><span style="display:flex;"><span>Duration:            10 seconds
+</span></span><span style="display:flex;"><span>Progress:            1/1
+</span></span><span style="display:flex;"><span>ResourcesDuration:   0s*(1 cpu),1s*(100Mi memory)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>STEP                  TEMPLATE  PODNAME            DURATION  MESSAGE
+</span></span><span style="display:flex;"><span> ✔ hello-world-852mj  argosay   hello-world-852mj  3s
+</span></span></code></pre></div><h2 id="3-parameters">3 Parameters</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">hello-world-parameters-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># invoke the whalesay template with</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># &#34;hello world&#34; as the argument</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># to the message parameter</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">argosay</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">arguments</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">value</span>: <span style="color:#ae81ff">hello world</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">argosay</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">inputs</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message      </span> <span style="color:#75715e"># parameter declaration</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># run cowsay with that message input parameter as args</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">image</span>: <span style="color:#ae81ff">yky8/argosay:v2</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">command</span>: [ <span style="color:#e6db74">&#34;/usr/local/bin/argosay&#34;</span> ]
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">args</span>: [ <span style="color:#e6db74">&#34;echo&#34;</span> ,<span style="color:#e6db74">&#34;{{inputs.parameters.message}}&#34;</span> ]
+</span></span></code></pre></div><p><strong>First type: parameter comes from <code>-p</code> argument</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>argo submit arguments-parameters.yaml -n argo -p message<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;goodbye world&#34;</span>
+</span></span></code></pre></div><p><strong>Second type: parameter comes from file</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#75715e"># params.yaml</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">message</span>: <span style="color:#ae81ff">goodbye world</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>argo submit arguments-parameters.yaml -n argo --parameter-file params.yaml
+</span></span></code></pre></div><p><strong>Rewrite any parameters in the spec</strong>
+Command-line arguments can also be used to override the default entry point and call any template in the workflow specification. For example, if you add a new version of the argosay template named argosay-caps, but you don&rsquo;t want to change the default entry point, you can call it with the following command line:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>argo submit arguments-parameters.yaml -n argo --entrypoint argosay-caps
+</span></span></code></pre></div><p>By combining the use of <code>--entrypoint</code> and <code>-p</code> arguments, you can call any template in the workflow specification and pass any parameters you like.</p>
+<p>The values set in <code>spec.arguments.parameters</code> are globally scoped and can be accessed via <code>{{workflow.parameters.parameter_name}}</code>. This is very useful for passing information to multiple steps in the workflow. For example, if you want to run the workflow with different log levels set in each container environment, you can create a YAML file similar to the following:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">global-parameters-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">A</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">arguments</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">log-level</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">value</span>: <span style="color:#ae81ff">INFO</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">A</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">containerA</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">env</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">LOG_LEVEL</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#34;{{workflow.parameters.log-level}}&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">runA]</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">B</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">containerB</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">env</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">LOG_LEVEL</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#34;{{workflow.parameters.log-level}}&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">runB]</span>
+</span></span></code></pre></div><p>In this workflow, steps A and B both set the log level to INFO, and you can easily change it between workflow submissions using the <code>-p</code> flag.</p>
+<h3 id="what-is-the-difference-between-workflowparametersparam_name-and-inputsparametersparam_name">What is the difference between {{workflow.parameters.param_name}} and {{inputs.parameters.param_name}}?</h3>
+<ul>
+<li>{{workflow.parameters.param_name}}: This form of parameter is defined at the workflow level, that is, these parameters can be accessed throughout the entire workflow. These parameters are usually defined in the spec.arguments.parameters part of the workflow and can be overridden when submitting the workflow through command line parameters.</li>
+<li>{{inputs.parameters.param_name}}: This form of parameter is defined at the template level, that is, these parameters can only be accessed in the template where they are defined. These parameters are usually defined in the inputs.parameters part of the template and can be passed to them by the workflow or other templates.</li>
+</ul>
+<p>In Argo Workflow, the use of <code>{{workflow.parameters.param_name}}</code> and <code>{{inputs.parameters.param_name}}</code> can be illustrated by the following example:</p>
+<p>Suppose we have a workflow definition as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">example-workflow-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">main</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">arguments</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">workflow-param</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#34;This is a workflow parameter&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">main</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">steps</span>:
+</span></span><span style="display:flex;"><span>    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">step-one</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">print-message</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">arguments</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#34;{{workflow.parameters.workflow-param}}&#34;</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">print-message</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">inputs</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">alpine:latest</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">echo]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;{{inputs.parameters.message}}&#34;</span>]
+</span></span></code></pre></div><p>In this example, we defined a workflow parameter <code>workflow-param</code> and used it in the <code>step-one</code> step of the <code>main</code> template. We reference this workflow parameter through <code>{{workflow.parameters.workflow-param}}</code> and pass its value to the <code>message</code> parameter of the <code>print-message</code> template.</p>
+<p>Then, in the <code>print-message</code> template, we defined an input parameter <code>message</code> and used it in the container command. We reference this input parameter through <code>{{inputs.parameters.message}}</code>.</p>
+<p>So, when we run this workflow, the container of the <code>print-message</code> template will print &ldquo;This is a workflow parameter&rdquo;, which is the value of the <code>workflow-param</code> parameter.</p>
+]]></content>
+        </item>
         
         <item>
             <title>Quick Start With Self Build Image</title>

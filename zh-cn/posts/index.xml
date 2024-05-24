@@ -6,8 +6,164 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sat, 25 May 2024 02:17:44 +0800</lastBuildDate>
+        <lastBuildDate>Sat, 25 May 2024 03:46:15 +0800</lastBuildDate>
         <atom:link href="https://Greenery-S.github.io/zh-cn/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Argo Workflow 1</title>
+            <link>https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/argo-workflow-1/</link>
+            <pubDate>Sat, 25 May 2024 03:46:15 +0800</pubDate>
+            
+            <guid>https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/argo-workflow-1/</guid>
+            <description>Argo Workflow (1) 大量例子在此: https://github.com/argoproj/argo-workflows/tree/main/examples 但是,由于docker/whalesay镜像不再支持,导致很多例子无法运行,需要自己构建一个镜像来替代它.
+1 Argo CLI argo submit hello-world.yaml # submit a workflow spec to Kubernetes argo list # list current workflows argo get hello-world-xxx # get info about a specific workflow argo logs hello-world-xxx # print the logs from a workflow argo delete hello-world-xxx # delete workflow 用kubectl也可以, 都要指定namespace
+2 Hello World apiVersion: argoproj.io/v1alpha1 kind: Workflow # new type of k8s spec metadata: generateName: hello-world- # name of the workflow spec spec: entrypoint: argosay # invoke the whalesay template templates: - name: argosay # name of the template container: image: yky8/argosay:v2 command: [&amp;#34;/usr/local/bin/argosay&amp;#34;] args: [&amp;#34;echo&amp;#34;, &amp;#34;hello world!</description>
+            <content type="html"><![CDATA[<h1 id="argo-workflow-1">Argo Workflow (1)</h1>
+<p>大量例子在此: <a href="https://github.com/argoproj/argo-workflows/tree/main/examples">https://github.com/argoproj/argo-workflows/tree/main/examples</a>
+但是,由于<code>docker/whalesay</code>镜像不再支持,导致很多例子无法运行,需要自己构建一个镜像来替代它.</p>
+<h2 id="1-argo-cli">1 Argo CLI</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>argo submit hello-world.yaml    <span style="color:#75715e"># submit a workflow spec to Kubernetes</span>
+</span></span><span style="display:flex;"><span>argo list                       <span style="color:#75715e"># list current workflows</span>
+</span></span><span style="display:flex;"><span>argo get hello-world-xxx        <span style="color:#75715e"># get info about a specific workflow</span>
+</span></span><span style="display:flex;"><span>argo logs hello-world-xxx       <span style="color:#75715e"># print the logs from a workflow</span>
+</span></span><span style="display:flex;"><span>argo delete hello-world-xxx     <span style="color:#75715e"># delete workflow</span>
+</span></span></code></pre></div><p>用<code>kubectl</code>也可以, 都要指定<code>namespace</code></p>
+<h1 id="2-hello-world">2 Hello World</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow                 </span> <span style="color:#75715e"># new type of k8s spec</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">hello-world-   </span> <span style="color:#75715e"># name of the workflow spec</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">argosay         </span> <span style="color:#75715e"># invoke the whalesay template</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">argosay             </span> <span style="color:#75715e"># name of the template</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">image</span>: <span style="color:#ae81ff">yky8/argosay:v2</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">command</span>: [<span style="color:#e6db74">&#34;/usr/local/bin/argosay&#34;</span>]
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;echo&#34;</span>, <span style="color:#e6db74">&#34;hello world!&#34;</span>]
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">resources</span>: <span style="color:#75715e"># limit the resources</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">limits</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">memory</span>: <span style="color:#ae81ff">32Mi</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">cpu</span>: <span style="color:#ae81ff">100m</span>
+</span></span></code></pre></div><p>执行 <code>argo submit -n argo --watch hello-world.yaml</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Name:                hello-world-852mj
+</span></span><span style="display:flex;"><span>Namespace:           argo
+</span></span><span style="display:flex;"><span>ServiceAccount:      unset (will run with the default ServiceAccount)
+</span></span><span style="display:flex;"><span>Status:              Succeeded
+</span></span><span style="display:flex;"><span>Conditions:
+</span></span><span style="display:flex;"><span> PodRunning          False
+</span></span><span style="display:flex;"><span> Completed           True
+</span></span><span style="display:flex;"><span>Created:             Sat May 25 02:58:27 +0800 (10 seconds ago)
+</span></span><span style="display:flex;"><span>Started:             Sat May 25 02:58:27 +0800 (10 seconds ago)
+</span></span><span style="display:flex;"><span>Finished:            Sat May 25 02:58:37 +0800 (now)
+</span></span><span style="display:flex;"><span>Duration:            10 seconds
+</span></span><span style="display:flex;"><span>Progress:            1/1
+</span></span><span style="display:flex;"><span>ResourcesDuration:   0s*(1 cpu),1s*(100Mi memory)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>STEP                  TEMPLATE  PODNAME            DURATION  MESSAGE
+</span></span><span style="display:flex;"><span> ✔ hello-world-852mj  argosay   hello-world-852mj  3s
+</span></span></code></pre></div><h2 id="3-parameters">3 Parameters</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">hello-world-parameters-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># invoke the whalesay template with</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># &#34;hello world&#34; as the argument</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># to the message parameter</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">argosay</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">arguments</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">value</span>: <span style="color:#ae81ff">hello world</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">argosay</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">inputs</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message      </span> <span style="color:#75715e"># parameter declaration</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># run cowsay with that message input parameter as args</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">image</span>: <span style="color:#ae81ff">yky8/argosay:v2</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">command</span>: [ <span style="color:#e6db74">&#34;/usr/local/bin/argosay&#34;</span> ]
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">args</span>: [ <span style="color:#e6db74">&#34;echo&#34;</span> ,<span style="color:#e6db74">&#34;{{inputs.parameters.message}}&#34;</span> ]
+</span></span></code></pre></div><p><strong>第一种: parameter 来自 <code>-p</code> 参数</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>argo submit arguments-parameters.yaml -n argo -p message<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;goodbye world&#34;</span>
+</span></span></code></pre></div><p><strong>第二种: parameter 来自 文件</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#75715e"># params.yaml</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">message</span>: <span style="color:#ae81ff">goodbye world</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>argo submit arguments-parameters.yaml -n argo --parameter-file params.yaml
+</span></span></code></pre></div><p><strong>改写任意spec中的参数</strong>
+命令行参数也可以用于覆盖默认入口点，并调用工作流规范中的任何模板。例如，如果您添加了一个名为 argosay-caps 的新版本的 argosay 模板，但您不想更改默认的入口点，您可以通过以下命令行调用它：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>argo submit arguments-parameters.yaml -n argo --entrypoint argosay-caps
+</span></span></code></pre></div><p>通过结合 <code>--entrypoint</code> 和 <code>-p</code> 参数的使用，您可以调用工作流规范中的任何模板，并传递任何您喜欢的参数。</p>
+<p>在 <code>spec.arguments.parameters</code> 中设置的值是全局作用域的，可以通过 <code>{{workflow.parameters.parameter_name}}</code> 访问。这对于将信息传递给工作流中的多个步骤非常有用。例如，如果您希望以每个容器环境中设置的不同日志级别运行工作流，您可以创建类似以下的 YAML 文件：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">global-parameters-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">A</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">arguments</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">log-level</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">value</span>: <span style="color:#ae81ff">INFO</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">A</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">containerA</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">env</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">LOG_LEVEL</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#34;{{workflow.parameters.log-level}}&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">runA]</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">B</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">containerB</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">env</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">LOG_LEVEL</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#34;{{workflow.parameters.log-level}}&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">runB]</span>
+</span></span></code></pre></div><p>在这个工作流中，步骤 A 和 B 都将日志级别设置为 INFO，并且可以使用 <code>-p</code> 标志在工作流提交之间轻松更改。</p>
+<h3 id="workflowparametersparam_name-和-inputsparametersparam_name-有什么区别">{{workflow.parameters.param_name}} 和 {{inputs.parameters.param_name}} 有什么区别?</h3>
+<ul>
+<li>{{workflow.parameters.param_name}}：这种形式的参数是在工作流级别定义的，也就是说，这些参数是在整个工作流中都可以访问的。这些参数通常在工作流的 spec.arguments.parameters 部分定义，并且可以在提交工作流时通过命令行参数进行覆盖。</li>
+<li>{{inputs.parameters.param_name}}：这种形式的参数是在模板级别定义的，也就是说，这些参数只能在定义它们的模板中访问。这些参数通常在模板的 inputs.parameters 部分定义，并且可以通过工作流或其他模板传递给它们。</li>
+</ul>
+<p>在 Argo Workflow 中，<code>{{workflow.parameters.param_name}}</code> 和 <code>{{inputs.parameters.param_name}}</code> 的使用可以通过以下例子来说明：</p>
+<p>假设我们有一个工作流定义如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">example-workflow-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">main</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">arguments</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">workflow-param</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#34;This is a workflow parameter&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">main</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">steps</span>:
+</span></span><span style="display:flex;"><span>    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">step-one</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">print-message</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">arguments</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#34;{{workflow.parameters.workflow-param}}&#34;</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">print-message</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">inputs</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">alpine:latest</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">echo]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;{{inputs.parameters.message}}&#34;</span>]
+</span></span></code></pre></div><p>在这个例子中，我们定义了一个工作流参数 <code>workflow-param</code>，并在 <code>main</code> 模板中的步骤 <code>step-one</code> 中使用了它。我们通过 <code>{{workflow.parameters.workflow-param}}</code> 来引用这个工作流参数，并将其值传递给 <code>print-message</code> 模板的 <code>message</code> 参数。</p>
+<p>然后，在 <code>print-message</code> 模板中，我们定义了一个输入参数 <code>message</code>，并在容器的命令中使用了它。我们通过 <code>{{inputs.parameters.message}}</code> 来引用这个输入参数。</p>
+<p>所以，当我们运行这个工作流时，<code>print-message</code> 模板的容器会打印出 &ldquo;This is a workflow parameter&rdquo;，这就是 <code>workflow-param</code> 参数的值。</p>
+]]></content>
+        </item>
         
         <item>
             <title>Quick Start With Self Build Image</title>
