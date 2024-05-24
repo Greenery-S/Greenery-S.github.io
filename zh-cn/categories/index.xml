@@ -7,8 +7,22 @@
     <generator>Hugo</generator>
     <language>zh-cn</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Wed, 22 May 2024 23:29:47 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 25 May 2024 02:17:44 +0800</lastBuildDate>
     <atom:link href="https://Greenery-S.github.io/zh-cn/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Devops</title>
+      <link>https://Greenery-S.github.io/zh-cn/categories/devops/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://Greenery-S.github.io/zh-cn/categories/devops/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Devops-Argo-Workflow</title>
+      <link>https://Greenery-S.github.io/zh-cn/categories/devops-argo-workflow/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://Greenery-S.github.io/zh-cn/categories/devops-argo-workflow/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Go</title>
       <link>https://Greenery-S.github.io/zh-cn/categories/go/</link>
@@ -63,20 +77,6 @@
       <link>https://Greenery-S.github.io/zh-cn/categories/hugo/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://Greenery-S.github.io/zh-cn/categories/hugo/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Hugo-Site-Building</title>
-      <link>https://Greenery-S.github.io/zh-cn/categories/hugo-site-building/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://Greenery-S.github.io/zh-cn/categories/hugo-site-building/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>English-Learning</title>
-      <link>https://Greenery-S.github.io/zh-cn/categories/english-learning/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://Greenery-S.github.io/zh-cn/categories/english-learning/</guid>
       <description></description>
     </item>
   </channel>

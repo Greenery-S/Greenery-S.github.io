@@ -7,8 +7,15 @@
     <generator>Hugo</generator>
     <language>zh-cn</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Wed, 22 May 2024 23:29:47 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 25 May 2024 02:17:44 +0800</lastBuildDate>
     <atom:link href="https://Greenery-S.github.io/zh-cn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Quick Start With Self Build Image</title>
+      <link>https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/quick-start-with-self-build-image/</link>
+      <pubDate>Sat, 25 May 2024 02:17:44 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/quick-start-with-self-build-image/</guid>
+      <description>比较坎坷的 &amp;ldquo;Quick&amp;rdquo; Start 最近想复习一下argo workflow，于是打算从官方文档开始，按照文档的步骤一步步来。然而，事情并没有那么顺利。官方的 docker/whalesay 镜像在新的docker版本下不支持了,这导致数百个以此为基础的hello world示例都无法正常运行。于是我决定自己构建一个镜像，来替代官方的docker/whalesay镜像。&#xA;1 创建本地k8s集群 用miniKube创建一个本地的k8s集群，方便测试。&#xA;brew install minikube minikube start 2 下载argo workflow kubectl create namespace argo kubectl apply -n argo -f https://github.com/argoproj/argo-workflows/releases/download/v&amp;lt;&amp;lt;ARGO_WORKFLOWS_VERSION&amp;gt;&amp;gt;/quick-start-minimal.yaml 3 构建自己的镜像 Copy whalesay 的逻辑到 argosay 这个大概用法就是 argosay [command] [args], 然后根据command执行不同的逻辑。&#xA;如果command是空的，就输出&amp;quot;hello argo&amp;quot; 如果command是assert_contains，就在第二个参数中查找第三个参数 如果command是cat，就输出第二个参数的内容 如果command是echo，就输出第二个参数的内容 如果command是exit，就退出 如果command是sleep，就睡眠 如果command是sh，就执行第二个参数的shell命令 其他情况，就退出 # argosay #!/bin/sh set -eu case ${1:-} in &amp;#39;&amp;#39;) echo &amp;#34;hello argo&amp;#34; ;; assert_contains) grep -F &amp;#34;$3&amp;#34; &amp;#34;$2&amp;#34; ;; cat) cat &amp;#34;$2&amp;#34; ;; echo) case $# in 1) echo &amp;#34;hello argo&amp;#34; ;; 2) echo &amp;#34;$2&amp;#34; ;; 3) mkdir -p &amp;#34;$(dirname $3)&amp;#34; echo &amp;#34;$2&amp;#34; &amp;gt; &amp;#34;$3&amp;#34; sleep 0.</description>
+    </item>
     <item>
       <title>Hash Function vs Symmetric Encryption</title>
       <link>https://Greenery-S.github.io/zh-cn/posts/go/encryption/hash-function-vs-symmetric-encryption/</link>
@@ -71,13 +78,6 @@
       <pubDate>Sun, 19 May 2024 21:16:35 +0800</pubDate>
       <guid>https://Greenery-S.github.io/zh-cn/posts/go/database/mysql-optimization/</guid>
       <description>MySQL性能调优 code: https://github.com/Greenery-S/go-database/tree/master/mysql&#xA;实战建议 写sql时一律使用小写&#xA;建表时先判断表是否已存在 if not exists&#xA;所有的列和表都加comment&#xA;字符串长度比较短时尽量使用char，定长有利于内存对齐，读写性能更好，而varchar字段频繁修改时容易产生内存碎片&#xA;满足需求的前提下尽量使用短的数据类型，如tinyint vs int, float vs double, date vs datetime&#xA;CREATE TABLE if not exists `student` ( `id` int(11) NOT NULL AUTO_INCREMENT COMMENT &amp;#39;主键自增id&amp;#39;, `name` char(10) NOT NULL COMMENT &amp;#39;姓名&amp;#39;, `province` char(6) NOT NULL COMMENT &amp;#39;省&amp;#39;, `city` char(10) NOT NULL COMMENT &amp;#39;城市&amp;#39;, `addr` varchar(100) DEFAULT &amp;#39;&amp;#39; COMMENT &amp;#39;地址&amp;#39;, `score` float NOT NULL DEFAULT &amp;#39;0&amp;#39; COMMENT &amp;#39;考试成绩&amp;#39;, `enrollment` date NOT NULL COMMENT &amp;#39;入学时间&amp;#39;, PRIMARY KEY (`id`), UNIQUE KEY `idx_name` (`name`), KEY `idx_location` (`province`,`city`) ) ENGINE=InnoDB AUTO_INCREMENT=100020 DEFAULT CHARSET=utf8 COMMENT=&amp;#39;学员基本信息&amp;#39; 2 null default null有别于default &#39;&#39;和default 0</description>
-    </item>
-    <item>
-      <title>How to Maintain the Site</title>
-      <link>https://Greenery-S.github.io/zh-cn/posts/hugo/site-building/how-to-maintain-the-site/</link>
-      <pubDate>Sun, 19 May 2024 02:32:21 +0800</pubDate>
-      <guid>https://Greenery-S.github.io/zh-cn/posts/hugo/site-building/how-to-maintain-the-site/</guid>
-      <description>如何通过hugo和github维护博客 gitpage是一个非常好的博客托管平台,它可以让你通过git的方式来维护你的博客.这样的方式非常适合程序员,因为我们大多数都会使用git.&#xA;hugo是一个非常好的静态网站生成器,它可以让你通过markdown文件来生成静态网站.这样的方式非常适合程序员,因为我们大多数都会使用markdown.&#xA;这篇文章会教你如何通过hugo和github来维护你的博客.&#xA;安装hugo和git 首先你需要安装hugo和git.你可以通过以下方式安装:&#xA;# 安装hugo brew install hugo # 安装git brew install git 在github上创建2个仓库 你需要在github上创建2个仓库,一个用来存放hugo的源文件,一个用来存放hugo生成的静态网站.&#xA;存放hugo生成的静态网站的仓库名字是&amp;lt;yourname.github.io&amp;gt;,这个仓库是一个公开仓库,用来存放你的hugo源文件.&#xA;本地初始化网站项目 # 初始化hugo项目 hugo new site &amp;lt;site-name&amp;gt; # 初始化git项目 git init # 添加远程仓库 git remote add origin &amp;lt;your-site-source-repo&amp;gt; 创建文章,预览,修改 # 创建文章 hugo new posts/my-first-post.md # 预览 hugo server -D 修改主题 # 下载主题 git submodule add &amp;lt;theme-url&amp;gt; themes/&amp;lt;theme-name&amp;gt; # 修改配置文件 cp themes/&amp;lt;theme-name&amp;gt;/exampleSite/config.toml 配置的修改因主题而异,请参考主题的文档.比如我使用的&amp;rsquo;hello-friend-ng&amp;rsquo;主题,使用建议:&#xA;所有的文章都应该放在content/posts目录下 可以配置config.toml文件来修改menu: [[menu.main]] identifier = &amp;#34;about&amp;#34; name = &amp;#34;About&amp;#34; url = &amp;#34;posts/about&amp;#34; weight = 1 [[menu.</description>
     </item>
   </channel>
 </rss>

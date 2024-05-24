@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>K8s on Greenery&#39;s Blog Site</title>
+    <link>https://Greenery-S.github.io/tags/k8s/</link>
+    <description>Recent content in K8s on Greenery&#39;s Blog Site</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Sat, 25 May 2024 02:17:44 +0800</lastBuildDate>
+    <atom:link href="https://Greenery-S.github.io/tags/k8s/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Quick Start With Self Build Image</title>
+      <link>https://Greenery-S.github.io/posts/devops/argo-workflow/quick-start-with-self-build-image/</link>
+      <pubDate>Sat, 25 May 2024 02:17:44 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/posts/devops/argo-workflow/quick-start-with-self-build-image/</guid>
+      <description>A Somewhat Rocky &amp;ldquo;Quick&amp;rdquo; Start Recently, I wanted to review Argo Workflow, so I decided to start from the official documentation and follow the steps one by one. However, things didn&amp;rsquo;t go as smoothly as expected. The official docker/whalesay image is no longer supported in the latest Docker version, which has caused hundreds of hello world examples based on it to fail to run properly. So, I decided to build my own image to replace the official docker/whalesay image.</description>
+    </item>
+  </channel>
+</rss>

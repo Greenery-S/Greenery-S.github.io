@@ -7,8 +7,15 @@
     <generator>Hugo</generator>
     <language>en</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Wed, 22 May 2024 23:29:47 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 25 May 2024 02:17:44 +0800</lastBuildDate>
     <atom:link href="https://Greenery-S.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Quick Start With Self Build Image</title>
+      <link>https://Greenery-S.github.io/posts/devops/argo-workflow/quick-start-with-self-build-image/</link>
+      <pubDate>Sat, 25 May 2024 02:17:44 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/posts/devops/argo-workflow/quick-start-with-self-build-image/</guid>
+      <description>A Somewhat Rocky &amp;ldquo;Quick&amp;rdquo; Start Recently, I wanted to review Argo Workflow, so I decided to start from the official documentation and follow the steps one by one. However, things didn&amp;rsquo;t go as smoothly as expected. The official docker/whalesay image is no longer supported in the latest Docker version, which has caused hundreds of hello world examples based on it to fail to run properly. So, I decided to build my own image to replace the official docker/whalesay image.</description>
+    </item>
     <item>
       <title>Hash Function vs Symmetric Encryption</title>
       <link>https://Greenery-S.github.io/posts/go/encryption/hash-function-vs-symmetric-encryption/</link>
@@ -71,13 +78,6 @@
       <pubDate>Sun, 19 May 2024 21:16:35 +0800</pubDate>
       <guid>https://Greenery-S.github.io/posts/go/database/mysql-optimization/</guid>
       <description>MySQL Performance Tuning code: https://github.com/Greenery-S/go-database/tree/master/mysql&#xA;1 Practical Recommendations Always use lowercase when writing SQL.&#xA;Check if a table already exists before creating it using if not exists.&#xA;Add comment to all columns and tables.&#xA;Use char for short strings to benefit from fixed length and memory alignment, which improves read/write performance. varchar fields may cause memory fragmentation with frequent modifications.&#xA;Use shorter data types whenever possible, e.g., tinyint vs int, float vs double, date vs datetime.</description>
-    </item>
-    <item>
-      <title>How to Maintain the Site</title>
-      <link>https://Greenery-S.github.io/posts/hugo/site-building/how-to-maintain-the-site/</link>
-      <pubDate>Sun, 19 May 2024 02:32:11 +0800</pubDate>
-      <guid>https://Greenery-S.github.io/posts/hugo/site-building/how-to-maintain-the-site/</guid>
-      <description>How to Maintain a Blog with Hugo and GitHub GitHub Pages is an excellent platform for hosting blogs. It allows you to maintain your blog using Git, making it particularly suitable for programmers, as most of us are familiar with Git.&#xA;Hugo is a great static site generator that lets you create static websites using Markdown files. This method is ideal for programmers since most of us are comfortable with Markdown.</description>
     </item>
   </channel>
 </rss>

@@ -10,6 +10,120 @@
         <atom:link href="https://Greenery-S.github.io/zh-cn/posts/index.xml" rel="self" type="application/rss+xml" />
         
         <item>
+            <title>Quick Start With Self Build Image</title>
+            <link>https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/quick-start-with-self-build-image/</link>
+            <pubDate>Sat, 25 May 2024 02:17:44 +0800</pubDate>
+            
+            <guid>https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/quick-start-with-self-build-image/</guid>
+            <description>比较坎坷的 &amp;ldquo;Quick&amp;rdquo; Start 最近想复习一下argo workflow，于是打算从官方文档开始，按照文档的步骤一步步来。然而，事情并没有那么顺利。官方的 docker/whalesay 镜像在新的docker版本下不支持了,这导致数百个以此为基础的hello world示例都无法正常运行。于是我决定自己构建一个镜像，来替代官方的docker/whalesay镜像。
+1 创建本地k8s集群 用miniKube创建一个本地的k8s集群，方便测试。
+brew install minikube minikube start 2 下载argo workflow kubectl create namespace argo kubectl apply -n argo -f https://github.com/argoproj/argo-workflows/releases/download/v&amp;lt;&amp;lt;ARGO_WORKFLOWS_VERSION&amp;gt;&amp;gt;/quick-start-minimal.yaml 3 构建自己的镜像 Copy whalesay 的逻辑到 argosay 这个大概用法就是 argosay [command] [args], 然后根据command执行不同的逻辑。
+如果command是空的，就输出&amp;quot;hello argo&amp;quot; 如果command是assert_contains，就在第二个参数中查找第三个参数 如果command是cat，就输出第二个参数的内容 如果command是echo，就输出第二个参数的内容 如果command是exit，就退出 如果command是sleep，就睡眠 如果command是sh，就执行第二个参数的shell命令 其他情况，就退出 # argosay #!/bin/sh set -eu case ${1:-} in &amp;#39;&amp;#39;) echo &amp;#34;hello argo&amp;#34; ;; assert_contains) grep -F &amp;#34;$3&amp;#34; &amp;#34;$2&amp;#34; ;; cat) cat &amp;#34;$2&amp;#34; ;; echo) case $# in 1) echo &amp;#34;hello argo&amp;#34; ;; 2) echo &amp;#34;$2&amp;#34; ;; 3) mkdir -p &amp;#34;$(dirname $3)&amp;#34; echo &amp;#34;$2&amp;#34; &amp;gt; &amp;#34;$3&amp;#34; sleep 0.</description>
+            <content type="html"><![CDATA[<h1 id="比较坎坷的-quick-start">比较坎坷的 &ldquo;Quick&rdquo; Start</h1>
+<p>最近想复习一下argo workflow，于是打算从官方文档开始，按照文档的步骤一步步来。然而，事情并没有那么顺利。官方的 docker/whalesay 镜像在新的docker版本下不支持了,这导致数百个以此为基础的hello world示例都无法正常运行。于是我决定自己构建一个镜像，来替代官方的docker/whalesay镜像。</p>
+<h2 id="1-创建本地k8s集群">1 创建本地k8s集群</h2>
+<p>用miniKube创建一个本地的k8s集群，方便测试。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>brew install minikube
+</span></span><span style="display:flex;"><span>minikube start
+</span></span></code></pre></div><h2 id="2-下载argo-workflow">2 下载argo workflow</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>kubectl create namespace argo
+</span></span><span style="display:flex;"><span>kubectl apply -n argo -f https://github.com/argoproj/argo-workflows/releases/download/v&lt;&lt;ARGO_WORKFLOWS_VERSION&gt;&gt;/quick-start-minimal.yaml
+</span></span></code></pre></div><h2 id="3-构建自己的镜像">3 构建自己的镜像</h2>
+<h3 id="copy-whalesay-的逻辑到-argosay">Copy whalesay 的逻辑到 argosay</h3>
+<p>这个大概用法就是 <code>argosay [command] [args]</code>, 然后根据command执行不同的逻辑。</p>
+<ul>
+<li>如果command是空的，就输出&quot;hello argo&quot;</li>
+<li>如果command是assert_contains，就在第二个参数中查找第三个参数</li>
+<li>如果command是cat，就输出第二个参数的内容</li>
+<li>如果command是echo，就输出第二个参数的内容</li>
+<li>如果command是exit，就退出</li>
+<li>如果command是sleep，就睡眠</li>
+<li>如果command是sh，就执行第二个参数的shell命令</li>
+<li>其他情况，就退出</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># argosay</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#!/bin/sh</span>
+</span></span><span style="display:flex;"><span>set -eu
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">case</span> <span style="color:#e6db74">${</span>1<span style="color:#66d9ef">:-</span><span style="color:#e6db74">}</span> in
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    echo <span style="color:#e6db74">&#34;hello argo&#34;</span>
+</span></span><span style="display:flex;"><span>    ;;
+</span></span><span style="display:flex;"><span>  assert_contains<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    grep -F <span style="color:#e6db74">&#34;</span>$3<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$2<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>  ;;
+</span></span><span style="display:flex;"><span>  cat<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    cat <span style="color:#e6db74">&#34;</span>$2<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>  ;;
+</span></span><span style="display:flex;"><span>  echo<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> $# in
+</span></span><span style="display:flex;"><span>    1<span style="color:#f92672">)</span> echo <span style="color:#e6db74">&#34;hello argo&#34;</span> ;;
+</span></span><span style="display:flex;"><span>    2<span style="color:#f92672">)</span> echo <span style="color:#e6db74">&#34;</span>$2<span style="color:#e6db74">&#34;</span> ;;
+</span></span><span style="display:flex;"><span>    3<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      mkdir -p <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>dirname $3<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>      echo <span style="color:#e6db74">&#34;</span>$2<span style="color:#e6db74">&#34;</span> &gt; <span style="color:#e6db74">&#34;</span>$3<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>      sleep 0.1 ;<span style="color:#75715e"># sleep so the PNS executor has time to secure root file</span>
+</span></span><span style="display:flex;"><span>      ;;
+</span></span><span style="display:flex;"><span>    default<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      exit <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">esac</span>
+</span></span><span style="display:flex;"><span>    ;;
+</span></span><span style="display:flex;"><span>  exit<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    exit <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>2<span style="color:#66d9ef">:-</span>0<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>    ;;
+</span></span><span style="display:flex;"><span>  sleep<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    sleep <span style="color:#e6db74">&#34;</span>$2<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>    ;;
+</span></span><span style="display:flex;"><span>  sh<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    sh <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>2<span style="color:#66d9ef">:-</span>0<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>    ;;
+</span></span><span style="display:flex;"><span>  *<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    exit <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">esac</span>
+</span></span></code></pre></div><h3 id="构建镜像">构建镜像</h3>
+<p>先写一个Dockerfile:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-DOCKERFILE" data-lang="DOCKERFILE"><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> alpine:latest</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> argosay /usr/local/bin/argosay<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> chmod +x /usr/local/bin/argosay<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ENTRYPOINT</span> [<span style="color:#e6db74">&#34;/usr/local/bin/argosay&#34;</span>]<span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><p>登录docker hub，创建一个新的repository，然后push镜像。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>docker login
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>docker build -t argosay .
+</span></span><span style="display:flex;"><span>docker tag argosay:latest <span style="color:#e6db74">&lt;&lt;DOCKER_HUB_USERNAME&gt;&gt;/argosay:latest
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">docker push &lt;&lt;DOCKER_HUB_USERNAME</span>&gt;&gt;/argosay:latest
+</span></span></code></pre></div><h3 id="写新的workflow-manifest">写新的workflow manifest</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#75715e"># argo-demo.yaml</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">argosay-example-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">argosay-example</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">argosay-example</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">&lt;&lt;DOCKER_HUB_USERNAME&gt;&gt;/argosay:latest </span> <span style="color:#75715e"># 替换为您在远程仓库中的镜像路径</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#e6db74">&#34;/usr/local/bin/argosay&#34;</span>]
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;echo&#34;</span>, <span style="color:#e6db74">&#34;hello world!&#34;</span>]
+</span></span></code></pre></div><h2 id="4-提交workflow">4 提交workflow</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>argo submit -n argo --watch argo-demo.yaml
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 查看workflow</span>
+</span></span><span style="display:flex;"><span>argo list -n argo
+</span></span><span style="display:flex;"><span>argo get -n argo <span style="color:#e6db74">&lt;&lt;WORKFLOW_NAME&gt;&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">argo logs -n argo &lt;&lt;WORKFLOW_NAME</span>&gt;&gt;
+</span></span></code></pre></div><h2 id="5-ui查看">5 UI查看</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>kubectl port-forward svc/argo-server -n argo 2746:2746
+</span></span><span style="display:flex;"><span>open http://localhost:2746
+</span></span></code></pre></div>]]></content>
+        </item>
+        
+        <item>
             <title>Hash Function vs Symmetric Encryption</title>
             <link>https://Greenery-S.github.io/zh-cn/posts/go/encryption/hash-function-vs-symmetric-encryption/</link>
             <pubDate>Wed, 22 May 2024 23:29:47 +0800</pubDate>
