@@ -7,8 +7,15 @@
     <generator>Hugo</generator>
     <language>zh-cn</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sun, 26 May 2024 00:58:41 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 26 May 2024 14:36:26 +0800</lastBuildDate>
     <atom:link href="https://Greenery-S.github.io/zh-cn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Argo Workflow 6</title>
+      <link>https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/argo-workflow-6/</link>
+      <pubDate>Sun, 26 May 2024 14:36:26 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/argo-workflow-6/</guid>
+      <description>Argo Workflow (6) 1 Conditionals 支持条件执行.语法是由 govaluate 实现的,它提供了对复杂语法的支持.请参见以下示例:&#xA;apiVersion: argoproj.io/v1alpha1 kind: Workflow metadata: generateName: coinflip- spec: entrypoint: coinflip templates: - name: coinflip steps: # flip a coin - - name: flip-coin template: flip-coin # evaluate the result in parallel - - name: heads template: heads # call heads template if &amp;#34;heads&amp;#34; when: &amp;#34;{{steps.flip-coin.outputs.result}} == heads&amp;#34; - name: tails template: tails # call tails template if &amp;#34;tails&amp;#34; when: &amp;#34;{{steps.flip-coin.outputs.result}} == tails&amp;#34; - - name: flip-again template: flip-coin - - name: complex-condition template: heads-tails-or-twice-tails # call heads template if first flip was &amp;#34;heads&amp;#34; and second was &amp;#34;tails&amp;#34; OR both were &amp;#34;tails&amp;#34; when: &amp;gt;- ( {{steps.</description>
+    </item>
     <item>
       <title>Argo Workflow 5</title>
       <link>https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/argo-workflow-5/</link>
@@ -49,7 +56,7 @@
       <link>https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/quick-start-with-self-build-image/</link>
       <pubDate>Sat, 25 May 2024 02:17:44 +0800</pubDate>
       <guid>https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/quick-start-with-self-build-image/</guid>
-      <description>比较坎坷的 &amp;ldquo;Quick&amp;rdquo; Start 最近想复习一下argo workflow，于是打算从官方文档开始，按照文档的步骤一步步来。然而，事情并没有那么顺利。官方的 docker/whalesay 镜像在新的docker版本下不支持了,这导致数百个以此为基础的hello world示例都无法正常运行。于是我决定自己构建一个镜像，来替代官方的docker/whalesay镜像。&#xA;1 创建本地k8s集群 用miniKube创建一个本地的k8s集群，方便测试。&#xA;brew install minikube minikube start 2 下载argo workflow kubectl create namespace argo kubectl apply -n argo -f https://github.com/argoproj/argo-workflows/releases/download/v&amp;lt;&amp;lt;ARGO_WORKFLOWS_VERSION&amp;gt;&amp;gt;/quick-start-minimal.yaml 3 构建自己的镜像 Copy whalesay 的逻辑到 argosay 这个大概用法就是 argosay [command] [args], 然后根据command执行不同的逻辑。&#xA;如果command是空的，就输出&amp;quot;hello argo&amp;quot; 如果command是assert_contains，就在第二个参数中查找第三个参数 如果command是cat，就输出第二个参数的内容 如果command是echo，就输出第二个参数的内容 如果command是exit，就退出 如果command是sleep，就睡眠 如果command是sh，就执行第二个参数的shell命令 其他情况，就退出 # argosay #!/bin/sh set -eu case ${1:-} in &amp;#39;&amp;#39;) echo &amp;#34;hello argo&amp;#34; ;; assert_contains) grep -F &amp;#34;$3&amp;#34; &amp;#34;$2&amp;#34; ;; cat) cat &amp;#34;$2&amp;#34; ;; echo) case $# in 1) echo &amp;#34;hello argo&amp;#34; ;; 2) echo &amp;#34;$2&amp;#34; ;; 3) mkdir -p &amp;#34;$(dirname $3)&amp;#34; echo &amp;#34;$2&amp;#34; &amp;gt; &amp;#34;$3&amp;#34; sleep 0.</description>
+      <description>比较坎坷的 &amp;ldquo;Quick&amp;rdquo; Start 最近想复习一下argo workflow，于是打算从官方文档开始，按照文档的步骤一步步来。然而，事情并没有那么顺利。官方的 docker/whalesay 镜像在新的docker版本下不支持了,这导致数百个以此为基础的hello world示例都无法正常运行。于是我决定自己构建一个镜像，来替代官方的docker/whalesay镜像。&#xA;1 创建本地k8s集群 用miniKube创建一个本地的k8s集群，方便测试。&#xA;brew install minikube minikube start minikube dashboard 2 下载argo workflow kubectl create namespace argo kubectl apply -n argo -f https://github.com/argoproj/argo-workflows/releases/download/v&amp;lt;&amp;lt;ARGO_WORKFLOWS_VERSION&amp;gt;&amp;gt;/quick-start-minimal.yaml 3 构建自己的镜像 Copy whalesay 的逻辑到 argosay 这个大概用法就是 argosay [command] [args], 然后根据command执行不同的逻辑。&#xA;如果command是空的，就输出&amp;quot;hello argo&amp;quot; 如果command是assert_contains，就在第二个参数中查找第三个参数 如果command是cat，就输出第二个参数的内容 如果command是echo，就输出第二个参数的内容 如果command是exit，就退出 如果command是sleep，就睡眠 如果command是sh，就执行第二个参数的shell命令 其他情况，就退出 # argosay #!/bin/sh set -eu case ${1:-} in &amp;#39;&amp;#39;) echo &amp;#34;hello argo&amp;#34; ;; assert_contains) grep -F &amp;#34;$3&amp;#34; &amp;#34;$2&amp;#34; ;; cat) cat &amp;#34;$2&amp;#34; ;; echo) case $# in 1) echo &amp;#34;hello argo&amp;#34; ;; 2) echo &amp;#34;$2&amp;#34; ;; 3) mkdir -p &amp;#34;$(dirname $3)&amp;#34; echo &amp;#34;$2&amp;#34; &amp;gt; &amp;#34;$3&amp;#34; sleep 0.</description>
     </item>
     <item>
       <title>Hash Function vs Symmetric Encryption</title>
@@ -71,13 +78,6 @@
       <pubDate>Wed, 22 May 2024 17:42:47 +0800</pubDate>
       <guid>https://Greenery-S.github.io/zh-cn/posts/go/encryption/file-encryption/</guid>
       <description>文件加密 code: https://github.com/Greenery-S/go-encryption/tree/master/enc_file&#xA;1 对称加密 加密过程的每一步都是可逆的 加密和解密用的是同一组密钥 异或是最简单的对称加密算法 典型对称加密算法：DES（Data Encryption Standard）AES(Advanced Encryption Standard)&#xA;2 分组加密 分组加密：对原始数据（明文）进行分组，每组64位，最后一组不足64位时按一定规则填充。每一组上单独施加DES算法 CBC（Cipher Block Chaining）密文分组链接模式，将当前明文分组与前一个密文分组进行异或运算，然后再进行加密 代码见code链接.&#xA;数字填充 PKCS#5 和 PKCS#7 是两种常见的数据填充标准，它们都属于 PKCS (Public-Key Cryptography Standards) 系列标准的一部分。&#xA;PKCS#5：主要用于描述密码学中的分组密码的填充方式。在实际应用中，当数据块的大小不是密码算法所需要的固定长度时，就需要进行填充。PKCS#5 填充方式是在数据块末尾填充一个字节序列，每个字节的值等于缺少的字节的数量。例如，如果数据块长度为 6，而密码算法需要的长度为 8，则需要在数据块末尾填充两个字节，每个字节的值为 2。 PKCS#7：是 PKCS#5 的扩展，它支持任何长度的数据块，而不仅仅是 8 字节。PKCS#7 的填充方式与 PKCS#5 相同，都是在数据块末尾填充一个字节序列，每个字节的值等于缺少的字节的数量。 // pkcs7padding和pkcs5padding的填充方式相同，填充字节的值都等于填充字节的个数。 // 例如需要填充4个字节，则填充的值为&amp;#34;4 4 4 4&amp;#34;。 var ( // only difference is the block size, PKCS5 is 8 bytes, PKCS7 can be any bytes PKCS5 = &amp;amp;pkcs5{} PKCS7 = &amp;amp;pkcs5{} ErrPaddingSize = errors.</description>
-    </item>
-    <item>
-      <title>Introduction to Clickhouse</title>
-      <link>https://Greenery-S.github.io/zh-cn/posts/go/database/introduction-to-clickhouse/</link>
-      <pubDate>Wed, 22 May 2024 15:08:40 +0800</pubDate>
-      <guid>https://Greenery-S.github.io/zh-cn/posts/go/database/introduction-to-clickhouse/</guid>
-      <description>ClickHouse code: https://github.com/Greenery-S/go-database/tree/master/clickhouse&#xA;1 简介 ClickHouse是一个用于联机分析（OLAP）的列式数据库管理系统（DBMS）。&#xA;在传统的行式数据库系统（MySQL、SQL Server）中，处于同一行中的数据总是被物理的存储在一起。在列式数据库系统（ClickHouse、HBase、Druid）中，来自同一列的数据被存储在一起。&#xA;OLAP场景的关键特征 (基于埋点数据进行业务的统计分析):&#xA;绝大多数是读请求，已添加到数据库的数据不能修改 宽表，即每个表包含着大量的列 对于读取，从数据库中提取相当多的行，但只提取列的一小部分 查询相对较少（通常每台服务器每秒查询数百次或更少） 对于简单查询，允许延迟大约50毫秒 列中的数据相对较小：数字和短字符串（例如，每个URL 60个字节） 处理单个查询时需要高吞吐量（每台服务器每秒可达数十亿行） 事务不是必须的 2 使用方法 它的SQL语法和MySQL类似，但是有一些不同之处。&#xA;创建数据库,表：&#xA;create database test; -- json type is experimental feature set allow_experimental_object_type = 1; CREATE TABLE test.user ( user_id UInt32 comment &amp;#39;用户ID&amp;#39;, -- 用户ID name String comment &amp;#39;用户姓名&amp;#39;, -- 用户名 create_time DateTime comment &amp;#39;注册时间&amp;#39;, -- 注册时间 extra Json comment &amp;#39;附加信息&amp;#39; -- 附加信息,json可自由扩充字段 ) ENGINE = MergeTree() PRIMARY KEY (create_time); 查询数据:</description>
     </item>
   </channel>
 </rss>

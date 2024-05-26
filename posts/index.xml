@@ -1445,6 +1445,7 @@ Command-line arguments can also be used to override the default entry point and 
 <p>Create a local k8s cluster using miniKube for testing convenience.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>brew install minikube
 </span></span><span style="display:flex;"><span>minikube start
+</span></span><span style="display:flex;"><span>minikube dashboard
 </span></span></code></pre></div><h2 id="2-download-argo-workflow">2 Download Argo Workflow</h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>kubectl create namespace argo
 </span></span><span style="display:flex;"><span>kubectl apply -n argo -f https://github.com/argoproj/argo-workflows/releases/download/v&lt;&lt;ARGO_WORKFLOWS_VERSION&gt;&gt;/quick-start-minimal.yaml

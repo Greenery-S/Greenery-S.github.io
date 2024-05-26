@@ -7,8 +7,15 @@
     <generator>Hugo</generator>
     <language>zh-cn</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sun, 26 May 2024 00:58:41 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 26 May 2024 14:36:26 +0800</lastBuildDate>
     <atom:link href="https://Greenery-S.github.io/zh-cn/categories/devops/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Argo Workflow 6</title>
+      <link>https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/argo-workflow-6/</link>
+      <pubDate>Sun, 26 May 2024 14:36:26 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/argo-workflow-6/</guid>
+      <description>Argo Workflow (6) 1 Conditionals 支持条件执行.语法是由 govaluate 实现的,它提供了对复杂语法的支持.请参见以下示例:&#xA;apiVersion: argoproj.io/v1alpha1 kind: Workflow metadata: generateName: coinflip- spec: entrypoint: coinflip templates: - name: coinflip steps: # flip a coin - - name: flip-coin template: flip-coin # evaluate the result in parallel - - name: heads template: heads # call heads template if &amp;#34;heads&amp;#34; when: &amp;#34;{{steps.flip-coin.outputs.result}} == heads&amp;#34; - name: tails template: tails # call tails template if &amp;#34;tails&amp;#34; when: &amp;#34;{{steps.flip-coin.outputs.result}} == tails&amp;#34; - - name: flip-again template: flip-coin - - name: complex-condition template: heads-tails-or-twice-tails # call heads template if first flip was &amp;#34;heads&amp;#34; and second was &amp;#34;tails&amp;#34; OR both were &amp;#34;tails&amp;#34; when: &amp;gt;- ( {{steps.</description>
+    </item>
     <item>
       <title>Argo Workflow 5</title>
       <link>https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/argo-workflow-5/</link>
@@ -49,7 +56,7 @@
       <link>https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/quick-start-with-self-build-image/</link>
       <pubDate>Sat, 25 May 2024 02:17:44 +0800</pubDate>
       <guid>https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/quick-start-with-self-build-image/</guid>
-      <description>比较坎坷的 &amp;ldquo;Quick&amp;rdquo; Start 最近想复习一下argo workflow，于是打算从官方文档开始，按照文档的步骤一步步来。然而，事情并没有那么顺利。官方的 docker/whalesay 镜像在新的docker版本下不支持了,这导致数百个以此为基础的hello world示例都无法正常运行。于是我决定自己构建一个镜像，来替代官方的docker/whalesay镜像。&#xA;1 创建本地k8s集群 用miniKube创建一个本地的k8s集群，方便测试。&#xA;brew install minikube minikube start 2 下载argo workflow kubectl create namespace argo kubectl apply -n argo -f https://github.com/argoproj/argo-workflows/releases/download/v&amp;lt;&amp;lt;ARGO_WORKFLOWS_VERSION&amp;gt;&amp;gt;/quick-start-minimal.yaml 3 构建自己的镜像 Copy whalesay 的逻辑到 argosay 这个大概用法就是 argosay [command] [args], 然后根据command执行不同的逻辑。&#xA;如果command是空的，就输出&amp;quot;hello argo&amp;quot; 如果command是assert_contains，就在第二个参数中查找第三个参数 如果command是cat，就输出第二个参数的内容 如果command是echo，就输出第二个参数的内容 如果command是exit，就退出 如果command是sleep，就睡眠 如果command是sh，就执行第二个参数的shell命令 其他情况，就退出 # argosay #!/bin/sh set -eu case ${1:-} in &amp;#39;&amp;#39;) echo &amp;#34;hello argo&amp;#34; ;; assert_contains) grep -F &amp;#34;$3&amp;#34; &amp;#34;$2&amp;#34; ;; cat) cat &amp;#34;$2&amp;#34; ;; echo) case $# in 1) echo &amp;#34;hello argo&amp;#34; ;; 2) echo &amp;#34;$2&amp;#34; ;; 3) mkdir -p &amp;#34;$(dirname $3)&amp;#34; echo &amp;#34;$2&amp;#34; &amp;gt; &amp;#34;$3&amp;#34; sleep 0.</description>
+      <description>比较坎坷的 &amp;ldquo;Quick&amp;rdquo; Start 最近想复习一下argo workflow，于是打算从官方文档开始，按照文档的步骤一步步来。然而，事情并没有那么顺利。官方的 docker/whalesay 镜像在新的docker版本下不支持了,这导致数百个以此为基础的hello world示例都无法正常运行。于是我决定自己构建一个镜像，来替代官方的docker/whalesay镜像。&#xA;1 创建本地k8s集群 用miniKube创建一个本地的k8s集群，方便测试。&#xA;brew install minikube minikube start minikube dashboard 2 下载argo workflow kubectl create namespace argo kubectl apply -n argo -f https://github.com/argoproj/argo-workflows/releases/download/v&amp;lt;&amp;lt;ARGO_WORKFLOWS_VERSION&amp;gt;&amp;gt;/quick-start-minimal.yaml 3 构建自己的镜像 Copy whalesay 的逻辑到 argosay 这个大概用法就是 argosay [command] [args], 然后根据command执行不同的逻辑。&#xA;如果command是空的，就输出&amp;quot;hello argo&amp;quot; 如果command是assert_contains，就在第二个参数中查找第三个参数 如果command是cat，就输出第二个参数的内容 如果command是echo，就输出第二个参数的内容 如果command是exit，就退出 如果command是sleep，就睡眠 如果command是sh，就执行第二个参数的shell命令 其他情况，就退出 # argosay #!/bin/sh set -eu case ${1:-} in &amp;#39;&amp;#39;) echo &amp;#34;hello argo&amp;#34; ;; assert_contains) grep -F &amp;#34;$3&amp;#34; &amp;#34;$2&amp;#34; ;; cat) cat &amp;#34;$2&amp;#34; ;; echo) case $# in 1) echo &amp;#34;hello argo&amp;#34; ;; 2) echo &amp;#34;$2&amp;#34; ;; 3) mkdir -p &amp;#34;$(dirname $3)&amp;#34; echo &amp;#34;$2&amp;#34; &amp;gt; &amp;#34;$3&amp;#34; sleep 0.</description>
     </item>
   </channel>
 </rss>

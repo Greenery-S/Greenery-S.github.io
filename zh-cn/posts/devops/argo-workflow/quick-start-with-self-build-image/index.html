@@ -8,7 +8,7 @@
 <meta name="author" content="">
 <meta name="description" content="比较坎坷的 &amp;ldquo;Quick&amp;rdquo; Start 最近想复习一下argo workflow，于是打算从官方文档开始，按照文档的步骤一步步来。然而，事情并没有那么顺利。官方的 docker/whalesay 镜像在新的docker版本下不支持了,这导致数百个以此为基础的hello world示例都无法正常运行。于是我决定自己构建一个镜像，来替代官方的docker/whalesay镜像。
 1 创建本地k8s集群 用miniKube创建一个本地的k8s集群，方便测试。
-brew install minikube minikube start 2 下载argo workflow kubectl create namespace argo kubectl apply -n argo -f https://github.com/argoproj/argo-workflows/releases/download/v&amp;lt;&amp;lt;ARGO_WORKFLOWS_VERSION&amp;gt;&amp;gt;/quick-start-minimal.yaml 3 构建自己的镜像 Copy whalesay 的逻辑到 argosay 这个大概用法就是 argosay [command] [args], 然后根据command执行不同的逻辑。
+brew install minikube minikube start minikube dashboard 2 下载argo workflow kubectl create namespace argo kubectl apply -n argo -f https://github.com/argoproj/argo-workflows/releases/download/v&amp;lt;&amp;lt;ARGO_WORKFLOWS_VERSION&amp;gt;&amp;gt;/quick-start-minimal.yaml 3 构建自己的镜像 Copy whalesay 的逻辑到 argosay 这个大概用法就是 argosay [command] [args], 然后根据command执行不同的逻辑。
 如果command是空的，就输出&amp;quot;hello argo&amp;quot; 如果command是assert_contains，就在第二个参数中查找第三个参数 如果command是cat，就输出第二个参数的内容 如果command是echo，就输出第二个参数的内容 如果command是exit，就退出 如果command是sleep，就睡眠 如果command是sh，就执行第二个参数的shell命令 其他情况，就退出 # argosay #!/bin/sh set -eu case ${1:-} in &amp;#39;&amp;#39;) echo &amp;#34;hello argo&amp;#34; ;; assert_contains) grep -F &amp;#34;$3&amp;#34; &amp;#34;$2&amp;#34; ;; cat) cat &amp;#34;$2&amp;#34; ;; echo) case $# in 1) echo &amp;#34;hello argo&amp;#34; ;; 2) echo &amp;#34;$2&amp;#34; ;; 3) mkdir -p &amp;#34;$(dirname $3)&amp;#34; echo &amp;#34;$2&amp;#34; &amp;gt; &amp;#34;$3&amp;#34; sleep 0." />
 <meta name="keywords" content=", argo-workflow, kubernetes, devops, k8s, docker" />
 <meta name="robots" content="noodp" />
@@ -43,18 +43,18 @@ brew install minikube minikube start 2 下载argo workflow kubectl create namesp
   <meta itemprop="name" content="Quick Start With Self Build Image">
   <meta itemprop="description" content="比较坎坷的 &ldquo;Quick&rdquo; Start 最近想复习一下argo workflow，于是打算从官方文档开始，按照文档的步骤一步步来。然而，事情并没有那么顺利。官方的 docker/whalesay 镜像在新的docker版本下不支持了,这导致数百个以此为基础的hello world示例都无法正常运行。于是我决定自己构建一个镜像，来替代官方的docker/whalesay镜像。
 1 创建本地k8s集群 用miniKube创建一个本地的k8s集群，方便测试。
-brew install minikube minikube start 2 下载argo workflow kubectl create namespace argo kubectl apply -n argo -f https://github.com/argoproj/argo-workflows/releases/download/v&lt;&lt;ARGO_WORKFLOWS_VERSION&gt;&gt;/quick-start-minimal.yaml 3 构建自己的镜像 Copy whalesay 的逻辑到 argosay 这个大概用法就是 argosay [command] [args], 然后根据command执行不同的逻辑。
+brew install minikube minikube start minikube dashboard 2 下载argo workflow kubectl create namespace argo kubectl apply -n argo -f https://github.com/argoproj/argo-workflows/releases/download/v&lt;&lt;ARGO_WORKFLOWS_VERSION&gt;&gt;/quick-start-minimal.yaml 3 构建自己的镜像 Copy whalesay 的逻辑到 argosay 这个大概用法就是 argosay [command] [args], 然后根据command执行不同的逻辑。
 如果command是空的，就输出&quot;hello argo&quot; 如果command是assert_contains，就在第二个参数中查找第三个参数 如果command是cat，就输出第二个参数的内容 如果command是echo，就输出第二个参数的内容 如果command是exit，就退出 如果command是sleep，就睡眠 如果command是sh，就执行第二个参数的shell命令 其他情况，就退出 # argosay #!/bin/sh set -eu case ${1:-} in &#39;&#39;) echo &#34;hello argo&#34; ;; assert_contains) grep -F &#34;$3&#34; &#34;$2&#34; ;; cat) cat &#34;$2&#34; ;; echo) case $# in 1) echo &#34;hello argo&#34; ;; 2) echo &#34;$2&#34; ;; 3) mkdir -p &#34;$(dirname $3)&#34; echo &#34;$2&#34; &gt; &#34;$3&#34; sleep 0.">
   <meta itemprop="datePublished" content="2024-05-25T02:17:44+08:00">
   <meta itemprop="dateModified" content="2024-05-25T02:17:44+08:00">
-  <meta itemprop="wordCount" content="222">
+  <meta itemprop="wordCount" content="224">
   <meta itemprop="image" content="https://Greenery-S.github.io/">
   <meta itemprop="keywords" content="Argo-Workflow,Kubernetes,Devops,K8s,Docker">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://Greenery-S.github.io/"><meta name="twitter:title" content="Quick Start With Self Build Image">
 <meta name="twitter:description" content="比较坎坷的 &ldquo;Quick&rdquo; Start 最近想复习一下argo workflow，于是打算从官方文档开始，按照文档的步骤一步步来。然而，事情并没有那么顺利。官方的 docker/whalesay 镜像在新的docker版本下不支持了,这导致数百个以此为基础的hello world示例都无法正常运行。于是我决定自己构建一个镜像，来替代官方的docker/whalesay镜像。
 1 创建本地k8s集群 用miniKube创建一个本地的k8s集群，方便测试。
-brew install minikube minikube start 2 下载argo workflow kubectl create namespace argo kubectl apply -n argo -f https://github.com/argoproj/argo-workflows/releases/download/v&lt;&lt;ARGO_WORKFLOWS_VERSION&gt;&gt;/quick-start-minimal.yaml 3 构建自己的镜像 Copy whalesay 的逻辑到 argosay 这个大概用法就是 argosay [command] [args], 然后根据command执行不同的逻辑。
+brew install minikube minikube start minikube dashboard 2 下载argo workflow kubectl create namespace argo kubectl apply -n argo -f https://github.com/argoproj/argo-workflows/releases/download/v&lt;&lt;ARGO_WORKFLOWS_VERSION&gt;&gt;/quick-start-minimal.yaml 3 构建自己的镜像 Copy whalesay 的逻辑到 argosay 这个大概用法就是 argosay [command] [args], 然后根据command执行不同的逻辑。
 如果command是空的，就输出&quot;hello argo&quot; 如果command是assert_contains，就在第二个参数中查找第三个参数 如果command是cat，就输出第二个参数的内容 如果command是echo，就输出第二个参数的内容 如果command是exit，就退出 如果command是sleep，就睡眠 如果command是sh，就执行第二个参数的shell命令 其他情况，就退出 # argosay #!/bin/sh set -eu case ${1:-} in &#39;&#39;) echo &#34;hello argo&#34; ;; assert_contains) grep -F &#34;$3&#34; &#34;$2&#34; ;; cat) cat &#34;$2&#34; ;; echo) case $# in 1) echo &#34;hello argo&#34; ;; 2) echo &#34;$2&#34; ;; 3) mkdir -p &#34;$(dirname $3)&#34; echo &#34;$2&#34; &gt; &#34;$3&#34; sleep 0.">
 
 
@@ -64,7 +64,7 @@ brew install minikube minikube start 2 下载argo workflow kubectl create namesp
   <meta property="og:title" content="Quick Start With Self Build Image">
   <meta property="og:description" content="比较坎坷的 “Quick” Start 最近想复习一下argo workflow，于是打算从官方文档开始，按照文档的步骤一步步来。然而，事情并没有那么顺利。官方的 docker/whalesay 镜像在新的docker版本下不支持了,这导致数百个以此为基础的hello world示例都无法正常运行。于是我决定自己构建一个镜像，来替代官方的docker/whalesay镜像。
 1 创建本地k8s集群 用miniKube创建一个本地的k8s集群，方便测试。
-brew install minikube minikube start 2 下载argo workflow kubectl create namespace argo kubectl apply -n argo -f https://github.com/argoproj/argo-workflows/releases/download/v&lt;&lt;ARGO_WORKFLOWS_VERSION&gt;&gt;/quick-start-minimal.yaml 3 构建自己的镜像 Copy whalesay 的逻辑到 argosay 这个大概用法就是 argosay [command] [args], 然后根据command执行不同的逻辑。
+brew install minikube minikube start minikube dashboard 2 下载argo workflow kubectl create namespace argo kubectl apply -n argo -f https://github.com/argoproj/argo-workflows/releases/download/v&lt;&lt;ARGO_WORKFLOWS_VERSION&gt;&gt;/quick-start-minimal.yaml 3 构建自己的镜像 Copy whalesay 的逻辑到 argosay 这个大概用法就是 argosay [command] [args], 然后根据command执行不同的逻辑。
 如果command是空的，就输出&#34;hello argo&#34; 如果command是assert_contains，就在第二个参数中查找第三个参数 如果command是cat，就输出第二个参数的内容 如果command是echo，就输出第二个参数的内容 如果command是exit，就退出 如果command是sleep，就睡眠 如果command是sh，就执行第二个参数的shell命令 其他情况，就退出 # argosay #!/bin/sh set -eu case ${1:-} in &#39;&#39;) echo &#34;hello argo&#34; ;; assert_contains) grep -F &#34;$3&#34; &#34;$2&#34; ;; cat) cat &#34;$2&#34; ;; echo) case $# in 1) echo &#34;hello argo&#34; ;; 2) echo &#34;$2&#34; ;; 3) mkdir -p &#34;$(dirname $3)&#34; echo &#34;$2&#34; &gt; &#34;$3&#34; sleep 0.">
   <meta property="og:locale" content="zh-cn">
   <meta property="og:type" content="article">
@@ -198,6 +198,7 @@ brew install minikube minikube start 2 下载argo workflow kubectl create namesp
 <p>用miniKube创建一个本地的k8s集群，方便测试。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>brew install minikube
 </span></span><span style="display:flex;"><span>minikube start
+</span></span><span style="display:flex;"><span>minikube dashboard
 </span></span></code></pre></div><h2 id="2-下载argo-workflow">2 下载argo workflow</h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>kubectl create namespace argo
 </span></span><span style="display:flex;"><span>kubectl apply -n argo -f https://github.com/argoproj/argo-workflows/releases/download/v&lt;&lt;ARGO_WORKFLOWS_VERSION&gt;&gt;/quick-start-minimal.yaml
@@ -330,7 +331,7 @@ brew install minikube minikube start 2 下载argo workflow kubectl create namesp
           <line x1="16" y1="17" x2="8" y2="17"></line>
           <polyline points="10 9 9 9 8 9"></polyline>
         </svg>
-        222字
+        224字
       </p>
 
       <p>

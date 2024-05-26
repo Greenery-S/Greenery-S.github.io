@@ -6,8 +6,162 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sun, 26 May 2024 00:58:41 +0800</lastBuildDate>
+        <lastBuildDate>Sun, 26 May 2024 14:36:26 +0800</lastBuildDate>
         <atom:link href="https://Greenery-S.github.io/zh-cn/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Argo Workflow 6</title>
+            <link>https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/argo-workflow-6/</link>
+            <pubDate>Sun, 26 May 2024 14:36:26 +0800</pubDate>
+            
+            <guid>https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/argo-workflow-6/</guid>
+            <description>Argo Workflow (6) 1 Conditionals 支持条件执行.语法是由 govaluate 实现的,它提供了对复杂语法的支持.请参见以下示例:
+apiVersion: argoproj.io/v1alpha1 kind: Workflow metadata: generateName: coinflip- spec: entrypoint: coinflip templates: - name: coinflip steps: # flip a coin - - name: flip-coin template: flip-coin # evaluate the result in parallel - - name: heads template: heads # call heads template if &amp;#34;heads&amp;#34; when: &amp;#34;{{steps.flip-coin.outputs.result}} == heads&amp;#34; - name: tails template: tails # call tails template if &amp;#34;tails&amp;#34; when: &amp;#34;{{steps.flip-coin.outputs.result}} == tails&amp;#34; - - name: flip-again template: flip-coin - - name: complex-condition template: heads-tails-or-twice-tails # call heads template if first flip was &amp;#34;heads&amp;#34; and second was &amp;#34;tails&amp;#34; OR both were &amp;#34;tails&amp;#34; when: &amp;gt;- ( {{steps.</description>
+            <content type="html"><![CDATA[<h1 id="argo-workflow-6">Argo Workflow (6)</h1>
+<h2 id="1-conditionals">1 Conditionals</h2>
+<p>支持条件执行.语法是由 govaluate 实现的,它提供了对复杂语法的支持.请参见以下示例:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">coinflip-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">coinflip</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">coinflip</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">steps</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># flip a coin</span>
+</span></span><span style="display:flex;"><span>    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">flip-coin</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">flip-coin</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># evaluate the result in parallel</span>
+</span></span><span style="display:flex;"><span>    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">heads</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">heads                      </span> <span style="color:#75715e"># call heads template if &#34;heads&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">when</span>: <span style="color:#e6db74">&#34;{{steps.flip-coin.outputs.result}} == heads&#34;</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">tails</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">tails                      </span> <span style="color:#75715e"># call tails template if &#34;tails&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">when</span>: <span style="color:#e6db74">&#34;{{steps.flip-coin.outputs.result}} == tails&#34;</span>
+</span></span><span style="display:flex;"><span>    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">flip-again</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">flip-coin</span>
+</span></span><span style="display:flex;"><span>    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">complex-condition</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">heads-tails-or-twice-tails</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># call heads template if first flip was &#34;heads&#34; and second was &#34;tails&#34; OR both were &#34;tails&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">when</span>: &gt;-<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            ( {{steps.flip-coin.outputs.result}} == heads &amp;&amp;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">              {{steps.flip-again.outputs.result}} == tails
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            ) ||
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            ( {{steps.flip-coin.outputs.result}} == tails &amp;&amp;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">              {{steps.flip-again.outputs.result}} == tails )</span>            
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">heads-regex</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">heads                      </span> <span style="color:#75715e"># call heads template if ~ &#34;hea&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">when</span>: <span style="color:#e6db74">&#34;{{steps.flip-again.outputs.result}} =~ hea&#34;</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">tails-regex</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">tails                      </span> <span style="color:#75715e"># call heads template if ~ &#34;tai&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">when</span>: <span style="color:#e6db74">&#34;{{steps.flip-again.outputs.result}} =~ tai&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Return heads or tails based on a random number</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">flip-coin</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">script</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">python:alpine3.6</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">python]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">source</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        import random
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        result = &#34;heads&#34; if random.randint(0,1) == 0 else &#34;tails&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        print(result)</span>        
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">heads</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">alpine:3.6</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">sh, -c]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;echo \&#34;it was heads\&#34;&#34;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">tails</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">alpine:3.6</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">sh, -c]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;echo \&#34;it was tails\&#34;&#34;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">heads-tails-or-twice-tails</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">alpine:3.6</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">sh, -c]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;echo \&#34;it was heads the first flip and tails the second. Or it was two times tails.\&#34;&#34;</span>]
+</span></span></code></pre></div>
+    <img src="/images/argo-workflow-conditionals.png"  alt="argo-workflow-conditionals"  class="center"  style="border-radius: 8px;"  />
+
+
+<h2 id="2-recursion">2 Recursion</h2>
+<p>模板之间的递归调用是允许的.请参见以下示例.这个示例会使得翻硬币直到正面朝上,才会结束.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">coinflip-recursive-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">coinflip</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">coinflip</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">steps</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># flip a coin</span>
+</span></span><span style="display:flex;"><span>    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">flip-coin</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">flip-coin</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># evaluate the result in parallel</span>
+</span></span><span style="display:flex;"><span>    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">heads</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">heads                </span> <span style="color:#75715e"># call heads template if &#34;heads&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">when</span>: <span style="color:#e6db74">&#34;{{steps.flip-coin.outputs.result}} == heads&#34;</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">tails                    </span> <span style="color:#75715e"># keep flipping coins if &#34;tails&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">coinflip</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">when</span>: <span style="color:#e6db74">&#34;{{steps.flip-coin.outputs.result}} == tails&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">flip-coin</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">script</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">python:alpine3.6</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">python]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">source</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        import random
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        result = &#34;heads&#34; if random.randint(0,1) == 0 else &#34;tails&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        print(result)</span>        
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">heads</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">alpine:3.6</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">sh, -c]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;echo \&#34;it was heads\&#34;&#34;</span>]
+</span></span></code></pre></div>
+    <img src="/images/argo-workflow-recursion.png"  alt="argo-workflow-recursion"  class="center"  style="border-radius: 8px;"  />
+
+
+<h2 id="3-retry失败或错误的步骤">3 Retry失败或错误的步骤</h2>
+<p>可以指定一个重试策略,该策略将决定如何重试失败或错误的步骤:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#75715e"># 此示例演示了如何使用重试退避</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">retry-backoff-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">retry-backoff</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">retry-backoff</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">retryStrategy</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">limit</span>: <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">retryPolicy</span>: <span style="color:#e6db74">&#34;Always&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">backoff</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">duration</span>: <span style="color:#e6db74">&#34;1&#34;</span>      <span style="color:#75715e"># 必须是字符串。默认单位是秒。也可以是持续时间，例如：&#34;2m&#34;, &#34;6h&#34;, &#34;1d&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">factor</span>: <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">maxDuration</span>: <span style="color:#e6db74">&#34;1m&#34;</span>  <span style="color:#75715e"># 必须是字符串。默认单位是秒。也可以是持续时间，例如：&#34;2m&#34;, &#34;6h&#34;, &#34;1d&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">affinity</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">nodeAntiAffinity</span>: {}
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">python:alpine3.6</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#e6db74">&#34;python&#34;</span>, -<span style="color:#ae81ff">c]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># 有66%的概率失败</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;import random; import sys; exit_code = random.choice([0, 1, 1]); sys.exit(exit_code)&#34;</span>]
+</span></span></code></pre></div><ul>
+<li><code>limit</code> 是容器将被重试的最大次数.</li>
+<li><code>retryPolicy</code> 指定容器在失败,错误,两者都有或仅在瞬态错误(例如 i/o 或 TLS 握手超时)时是否会被重试.&ldquo;Always&rdquo; 在错误和失败时都会重试.也可用:OnFailure(默认),&ldquo;OnError&rdquo;,和 &ldquo;OnTransientError&rdquo;(在 v3.0.0-rc2 之后可用).</li>
+<li><code>backoff</code> 是一个指数退避</li>
+<li><code>nodeAntiAffinity</code> 防止在同一主机上运行步骤.当前实现只允许空的 nodeAntiAffinity(即 nodeAntiAffinity: {}),并且默认使用标签 kubernetes.io/hostname 作为选择器.</li>
+</ul>
+<p>提供一个空的重试策略(即 retryStrategy::{})将导致容器重试直到完成.</p>
+]]></content>
+        </item>
         
         <item>
             <title>Argo Workflow 5</title>
@@ -1441,7 +1595,7 @@ apiVersion: argoproj.io/v1alpha1 kind: Workflow metadata: generateName: steps- s
             <guid>https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/quick-start-with-self-build-image/</guid>
             <description>比较坎坷的 &amp;ldquo;Quick&amp;rdquo; Start 最近想复习一下argo workflow，于是打算从官方文档开始，按照文档的步骤一步步来。然而，事情并没有那么顺利。官方的 docker/whalesay 镜像在新的docker版本下不支持了,这导致数百个以此为基础的hello world示例都无法正常运行。于是我决定自己构建一个镜像，来替代官方的docker/whalesay镜像。
 1 创建本地k8s集群 用miniKube创建一个本地的k8s集群，方便测试。
-brew install minikube minikube start 2 下载argo workflow kubectl create namespace argo kubectl apply -n argo -f https://github.com/argoproj/argo-workflows/releases/download/v&amp;lt;&amp;lt;ARGO_WORKFLOWS_VERSION&amp;gt;&amp;gt;/quick-start-minimal.yaml 3 构建自己的镜像 Copy whalesay 的逻辑到 argosay 这个大概用法就是 argosay [command] [args], 然后根据command执行不同的逻辑。
+brew install minikube minikube start minikube dashboard 2 下载argo workflow kubectl create namespace argo kubectl apply -n argo -f https://github.com/argoproj/argo-workflows/releases/download/v&amp;lt;&amp;lt;ARGO_WORKFLOWS_VERSION&amp;gt;&amp;gt;/quick-start-minimal.yaml 3 构建自己的镜像 Copy whalesay 的逻辑到 argosay 这个大概用法就是 argosay [command] [args], 然后根据command执行不同的逻辑。
 如果command是空的，就输出&amp;quot;hello argo&amp;quot; 如果command是assert_contains，就在第二个参数中查找第三个参数 如果command是cat，就输出第二个参数的内容 如果command是echo，就输出第二个参数的内容 如果command是exit，就退出 如果command是sleep，就睡眠 如果command是sh，就执行第二个参数的shell命令 其他情况，就退出 # argosay #!/bin/sh set -eu case ${1:-} in &amp;#39;&amp;#39;) echo &amp;#34;hello argo&amp;#34; ;; assert_contains) grep -F &amp;#34;$3&amp;#34; &amp;#34;$2&amp;#34; ;; cat) cat &amp;#34;$2&amp;#34; ;; echo) case $# in 1) echo &amp;#34;hello argo&amp;#34; ;; 2) echo &amp;#34;$2&amp;#34; ;; 3) mkdir -p &amp;#34;$(dirname $3)&amp;#34; echo &amp;#34;$2&amp;#34; &amp;gt; &amp;#34;$3&amp;#34; sleep 0.</description>
             <content type="html"><![CDATA[<h1 id="比较坎坷的-quick-start">比较坎坷的 &ldquo;Quick&rdquo; Start</h1>
 <p>最近想复习一下argo workflow，于是打算从官方文档开始，按照文档的步骤一步步来。然而，事情并没有那么顺利。官方的 docker/whalesay 镜像在新的docker版本下不支持了,这导致数百个以此为基础的hello world示例都无法正常运行。于是我决定自己构建一个镜像，来替代官方的docker/whalesay镜像。</p>
@@ -1449,6 +1603,7 @@ brew install minikube minikube start 2 下载argo workflow kubectl create namesp
 <p>用miniKube创建一个本地的k8s集群，方便测试。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>brew install minikube
 </span></span><span style="display:flex;"><span>minikube start
+</span></span><span style="display:flex;"><span>minikube dashboard
 </span></span></code></pre></div><h2 id="2-下载argo-workflow">2 下载argo workflow</h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>kubectl create namespace argo
 </span></span><span style="display:flex;"><span>kubectl apply -n argo -f https://github.com/argoproj/argo-workflows/releases/download/v&lt;&lt;ARGO_WORKFLOWS_VERSION&gt;&gt;/quick-start-minimal.yaml

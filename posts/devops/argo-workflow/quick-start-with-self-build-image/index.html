@@ -41,7 +41,7 @@
   <meta itemprop="description" content="A Somewhat Rocky &ldquo;Quick&rdquo; Start Recently, I wanted to review Argo Workflow, so I decided to start from the official documentation and follow the steps one by one. However, things didn&rsquo;t go as smoothly as expected. The official docker/whalesay image is no longer supported in the latest Docker version, which has caused hundreds of hello world examples based on it to fail to run properly. So, I decided to build my own image to replace the official docker/whalesay image.">
   <meta itemprop="datePublished" content="2024-05-25T02:17:44+08:00">
   <meta itemprop="dateModified" content="2024-05-25T02:17:44+08:00">
-  <meta itemprop="wordCount" content="430">
+  <meta itemprop="wordCount" content="432">
   <meta itemprop="image" content="https://Greenery-S.github.io/">
   <meta itemprop="keywords" content="Argo-Workflow,Kubernetes,Devops,K8s,Docker">
 <meta name="twitter:card" content="summary_large_image">
@@ -186,6 +186,7 @@
 <p>Create a local k8s cluster using miniKube for testing convenience.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>brew install minikube
 </span></span><span style="display:flex;"><span>minikube start
+</span></span><span style="display:flex;"><span>minikube dashboard
 </span></span></code></pre></div><h2 id="2-download-argo-workflow">2 Download Argo Workflow</h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>kubectl create namespace argo
 </span></span><span style="display:flex;"><span>kubectl apply -n argo -f https://github.com/argoproj/argo-workflows/releases/download/v&lt;&lt;ARGO_WORKFLOWS_VERSION&gt;&gt;/quick-start-minimal.yaml
@@ -318,7 +319,7 @@
           <line x1="16" y1="17" x2="8" y2="17"></line>
           <polyline points="10 9 9 9 8 9"></polyline>
         </svg>
-        430 Words
+        432 Words
       </p>
 
       <p>
