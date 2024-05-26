@@ -6,8 +6,29 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sun, 26 May 2024 14:36:26 +0800</lastBuildDate>
+        <lastBuildDate>Sun, 26 May 2024 22:52:54 +0800</lastBuildDate>
         <atom:link href="https://Greenery-S.github.io/zh-cn/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Argo Workflow 7</title>
+            <link>https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/argo-workflow-7/</link>
+            <pubDate>Sun, 26 May 2024 22:52:54 +0800</pubDate>
+            
+            <guid>https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/argo-workflow-7/</guid>
+            <description>Argo Workflow (7) Walk through 章节的相关特性还剩下:
+Kubernetes Resource https://argo-workflows.readthedocs.io/en/latest/walk-through/kubernetes-resources/ Daemon Container Sidecar Container Custom Template Variables Continuous Integration Example 下次有机会再总结. 目前学的这些够用了.</description>
+            <content type="html"><![CDATA[<h1 id="argo-workflow-7">Argo Workflow (7)</h1>
+<p>Walk through 章节的相关特性还剩下:</p>
+<ul>
+<li>Kubernetes Resource <a href="https://argo-workflows.readthedocs.io/en/latest/walk-through/kubernetes-resources/">https://argo-workflows.readthedocs.io/en/latest/walk-through/kubernetes-resources/</a></li>
+<li>Daemon Container</li>
+<li>Sidecar Container</li>
+<li>Custom Template Variables</li>
+<li>Continuous Integration Example</li>
+</ul>
+<p>下次有机会再总结. 目前学的这些够用了.</p>
+]]></content>
+        </item>
         
         <item>
             <title>Argo Workflow 6</title>
@@ -160,6 +181,151 @@ apiVersion: argoproj.io/v1alpha1 kind: Workflow metadata: generateName: coinflip
 <li><code>nodeAntiAffinity</code> 防止在同一主机上运行步骤.当前实现只允许空的 nodeAntiAffinity(即 nodeAntiAffinity: {}),并且默认使用标签 kubernetes.io/hostname 作为选择器.</li>
 </ul>
 <p>提供一个空的重试策略(即 retryStrategy::{})将导致容器重试直到完成.</p>
+<h2 id="4-exit-handlers">4 Exit handlers</h2>
+<p>退出处理器是一个始终在工作流结束时执行的模板，无论成功还是失败。</p>
+<p>退出处理器的一些常见用途包括：</p>
+<ul>
+<li>在工作流运行后进行清理</li>
+<li>发送工作流状态通知（例如，电子邮件/Slack）</li>
+<li>将通过/失败状态发布到web-hook结果（例如，GitHub构建结果）</li>
+<li>重新提交或提交另一个工作流</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">exit-handlers-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">intentional-fail</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">onExit</span>: <span style="color:#ae81ff">exit-handler                 </span> <span style="color:#75715e"># invoke exit-handler template at end of the workflow</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># primary workflow template</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">intentional-fail</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">alpine:latest</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">sh, -c]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;echo intentional failure; exit 1&#34;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Exit handler templates</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># After the completion of the entrypoint template, the status of the</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># workflow is made available in the global variable {{workflow.status}}.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># {{workflow.status}} will be one of: Succeeded, Failed, Error</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">exit-handler</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">steps</span>:
+</span></span><span style="display:flex;"><span>    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">notify</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">send-email</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">celebrate</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">celebrate</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">when</span>: <span style="color:#e6db74">&#34;{{workflow.status}} == Succeeded&#34;</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">cry</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">cry</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">when</span>: <span style="color:#e6db74">&#34;{{workflow.status}} != Succeeded&#34;</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">send-email</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">alpine:latest</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">sh, -c]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;echo send e-mail: {{workflow.name}} {{workflow.status}} {{workflow.duration}}&#34;</span>]
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">celebrate</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">alpine:latest</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">sh, -c]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;echo hooray!&#34;</span>]
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">cry</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">alpine:latest</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">sh, -c]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;echo boohoo!&#34;</span>]
+</span></span></code></pre></div>
+    <img src="/images/argo-workflow-exit-handlers.png"  alt="argo-workflow-exit-handlers"  class="center"  style="border-radius: 8px;"  />
+
+
+<h2 id="5-timeouts">5 Timeouts</h2>
+<p>您可以使用字段 <code>activeDeadlineSeconds</code> 来限制工作流的运行时间:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">timeouts-wf-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">activeDeadlineSeconds</span>: <span style="color:#ae81ff">10</span> <span style="color:#75715e"># 在10秒后终止工作流</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">sleep</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">sleep</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">alpine:latest</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">sh, -c]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;echo sleeping for 1m; sleep 60; echo done&#34;</span>]
+</span></span></code></pre></div><p>您也可以限制特定模板的运行时间:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">timeouts-tpl-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">sleep</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">sleep</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">activeDeadlineSeconds</span>: <span style="color:#ae81ff">10</span> <span style="color:#75715e"># 在10秒后终止容器模板</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">alpine:latest</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">sh, -c]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;echo sleeping for 1m; sleep 60; echo done&#34;</span>]
+</span></span></code></pre></div><h2 id="6-suspending">6 Suspending</h2>
+<p>工作流可以通过以下方式挂起:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>argo suspend WORKFLOW
+</span></span></code></pre></div><p>或者在工作流中指定一个挂起步骤:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">suspend-template-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">suspend</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">suspend</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">steps</span>:
+</span></span><span style="display:flex;"><span>    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">build</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">argosay</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">arguments</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>            - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#34;I am suspended&#34;</span>
+</span></span><span style="display:flex;"><span>    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">approve</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">approve</span>
+</span></span><span style="display:flex;"><span>    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">delay</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">delay</span>
+</span></span><span style="display:flex;"><span>    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">release</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">argosay</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">arguments</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#34;I am released&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">approve</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">suspend</span>: {}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">delay</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">suspend</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">duration</span>: <span style="color:#e6db74">&#34;20&#34;</span>    <span style="color:#75715e"># 必须是字符串。默认单位是秒。也可以是持续时间，例如：&#34;2m&#34;, &#34;6h&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">argosay</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">inputs</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">yky8/argosay:v2</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [ <span style="color:#e6db74">&#34;/usr/local/bin/argosay&#34;</span> ]
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">args</span>: [ <span style="color:#e6db74">&#34;echo&#34;</span> ,<span style="color:#e6db74">&#34;{{inputs.parameters.message}}&#34;</span> ]
+</span></span></code></pre></div><p>一旦挂起,工作流将不会安排任何新的步骤,直到它被恢复.它可以通过以下方式手动恢复:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>argo resume WORKFLOW
+</span></span></code></pre></div><p>或者像上面的例子那样,通过设置一个持续时间限制来自动恢复.</p>
+
+    <img src="/images/argo-workflow-suspending.png"  alt="argo-workflow-suspending"  class="center"  style="border-radius: 8px;"  />
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>&gt; argo resume suspend-template-9plrz -n argo
+</span></span><span style="display:flex;"><span>INFO<span style="color:#f92672">[</span>2024-05-26T22:10:50.883Z<span style="color:#f92672">]</span> Workflow to be dehydrated                     Workflow Size<span style="color:#f92672">=</span><span style="color:#ae81ff">3079</span>
+</span></span><span style="display:flex;"><span>workflow suspend-template-9plrz resumed
+</span></span></code></pre></div>
+    <img src="/images/argo-workflow-resume.png"  alt="argo-workflow-resume"  class="center"  style="border-radius: 8px;"  />
+
+
 ]]></content>
         </item>
         

@@ -6,8 +6,307 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sun, 26 May 2024 00:58:41 +0800</lastBuildDate>
+        <lastBuildDate>Sun, 26 May 2024 14:36:26 +0800</lastBuildDate>
         <atom:link href="https://Greenery-S.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Argo Workflow 6</title>
+            <link>https://Greenery-S.github.io/posts/devops/argo-workflow/argo-workflow-6/</link>
+            <pubDate>Sun, 26 May 2024 14:36:26 +0800</pubDate>
+            
+            <guid>https://Greenery-S.github.io/posts/devops/argo-workflow/argo-workflow-6/</guid>
+            <description>Argo Workflow (6) 1 Conditionals Supports conditional execution. The syntax is implemented by govaluate, which provides support for complex syntax. See the following example:
+apiVersion: argoproj.io/v1alpha1 kind: Workflow metadata: generateName: coinflip- spec: entrypoint: coinflip templates: - name: coinflip steps: # flip a coin - - name: flip-coin template: flip-coin # evaluate the result in parallel - - name: heads template: heads # call heads template if &amp;#34;heads&amp;#34; when: &amp;#34;{{steps.flip-coin.outputs.result}} == heads&amp;#34; - name: tails template: tails # call tails template if &amp;#34;tails&amp;#34; when: &amp;#34;{{steps.</description>
+            <content type="html"><![CDATA[<h1 id="argo-workflow-6">Argo Workflow (6)</h1>
+<h2 id="1-conditionals">1 Conditionals</h2>
+<p>Supports conditional execution. The syntax is implemented by govaluate, which provides support for complex syntax. See the following example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">coinflip-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">coinflip</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">coinflip</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">steps</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># flip a coin</span>
+</span></span><span style="display:flex;"><span>    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">flip-coin</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">flip-coin</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># evaluate the result in parallel</span>
+</span></span><span style="display:flex;"><span>    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">heads</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">heads                      </span> <span style="color:#75715e"># call heads template if &#34;heads&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">when</span>: <span style="color:#e6db74">&#34;{{steps.flip-coin.outputs.result}} == heads&#34;</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">tails</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">tails                      </span> <span style="color:#75715e"># call tails template if &#34;tails&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">when</span>: <span style="color:#e6db74">&#34;{{steps.flip-coin.outputs.result}} == tails&#34;</span>
+</span></span><span style="display:flex;"><span>    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">flip-again</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">flip-coin</span>
+</span></span><span style="display:flex;"><span>    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">complex-condition</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">heads-tails-or-twice-tails</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># call heads template if first flip was &#34;heads&#34; and second was &#34;tails&#34; OR both were &#34;tails&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">when</span>: &gt;-<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            ( {{steps.flip-coin.outputs.result}} == heads &amp;&amp;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">              {{steps.flip-again.outputs.result}} == tails
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            ) ||
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            ( {{steps.flip-coin.outputs.result}} == tails &amp;&amp;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">              {{steps.flip-again.outputs.result}} == tails )</span>            
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">heads-regex</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">heads                      </span> <span style="color:#75715e"># call heads template if ~ &#34;hea&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">when</span>: <span style="color:#e6db74">&#34;{{steps.flip-again.outputs.result}} =~ hea&#34;</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">tails-regex</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">tails                      </span> <span style="color:#75715e"># call heads template if ~ &#34;tai&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">when</span>: <span style="color:#e6db74">&#34;{{steps.flip-again.outputs.result}} =~ tai&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Return heads or tails based on a random number</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">flip-coin</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">script</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">python:alpine3.6</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">python]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">source</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        import random
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        result = &#34;heads&#34; if random.randint(0,1) == 0 else &#34;tails&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        print(result)</span>        
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">heads</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">alpine:3.6</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">sh, -c]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;echo \&#34;it was heads\&#34;&#34;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">tails</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">alpine:3.6</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">sh, -c]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;echo \&#34;it was tails\&#34;&#34;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">heads-tails-or-twice-tails</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">alpine:3.6</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">sh, -c]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;echo \&#34;it was heads the first flip and tails the second. Or it was two times tails.\&#34;&#34;</span>]
+</span></span></code></pre></div>
+    <img src="/images/argo-workflow-conditionals.png"  alt="argo-workflow-conditionals"  class="center"  style="border-radius: 8px;"  />
+
+
+<h2 id="2-recursion">2 Recursion</h2>
+<p>Recursive calls between templates are allowed. See the following example. This example will continue flipping a coin until it lands heads up.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">coinflip-recursive-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">coinflip</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">coinflip</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">steps</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># flip a coin</span>
+</span></span><span style="display:flex;"><span>    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">flip-coin</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">flip-coin</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># evaluate the result in parallel</span>
+</span></span><span style="display:flex;"><span>    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">heads</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">heads                </span> <span style="color:#75715e"># call heads template if &#34;heads&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">when</span>: <span style="color:#e6db74">&#34;{{steps.flip-coin.outputs.result}} == heads&#34;</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">tails                    </span> <span style="color:#75715e"># keep flipping coins if &#34;tails&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">coinflip</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">when</span>: <span style="color:#e6db74">&#34;{{steps.flip-coin.outputs.result}} == tails&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">flip-coin</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">script</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">python:alpine3.6</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">python]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">source</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        import random
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        result = &#34;heads&#34; if random.randint(0,1) == 0 else &#34;tails&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        print(result)</span>        
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">heads</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">alpine:3.6</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">sh, -c]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;echo \&#34;it was heads\&#34;&#34;</span>]
+</span></span></code></pre></div>
+    <img src="/images/argo-workflow-recursion.png"  alt="argo-workflow-recursion"  class="center"  style="border-radius: 8px;"  />
+
+
+<h2 id="3-retry-failed-or-errored-steps">3 Retry Failed or Errored Steps</h2>
+<p>You can specify a retry strategy that determines how to retry failed or errored steps:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#75715e"># This example shows how to use retry backoff</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">retry-backoff-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">retry-backoff</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">retry-backoff</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">retryStrategy</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">limit</span>: <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">retryPolicy</span>: <span style="color:#e6db74">&#34;Always&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">backoff</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">duration</span>: <span style="color:#e6db74">&#34;1&#34;</span>      <span style="color:#75715e"># Must be a string. The default unit is seconds. It can also be a duration like &#34;2m&#34;, &#34;6h&#34;, &#34;1d&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">factor</span>: <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">maxDuration</span>: <span style="color:#e6db74">&#34;1m&#34;</span>  <span style="color:#75715e"># Must be a string. The default unit is seconds. It can also be a duration like &#34;2m&#34;, &#34;6h&#34;, &#34;1d&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">affinity</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">nodeAntiAffinity</span>: {}
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">python:alpine3.6</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#e6db74">&#34;python&#34;</span>, -<span style="color:#ae81ff">c]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># Has a 66% chance to fail</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;import random; import sys; exit_code = random.choice([0, 1, 1]); sys.exit(exit_code)&#34;</span>]
+</span></span></code></pre></div><ul>
+<li><code>limit</code> is the maximum number of times the container will be retried.</li>
+<li><code>retryPolicy</code> specifies whether the container will be retried on failure, error, both, or only on transient errors (e.g., I/O or TLS handshake timeout). &ldquo;Always&rdquo; retries on both error and failure. Other options are: OnFailure (default), &ldquo;OnError&rdquo;, and &ldquo;OnTransientError&rdquo; (available after v3.0.0-rc2).</li>
+<li><code>backoff</code> is an exponential backoff.</li>
+<li><code>nodeAntiAffinity</code> prevents steps from running on the same host. The current implementation only allows an empty nodeAntiAffinity (i.e., nodeAntiAffinity: {}), and by default, uses the label kubernetes.io/hostname as the selector.</li>
+</ul>
+<p>Providing an empty retry strategy (i.e., retryStrategy::{}) will cause the container to retry until it completes.</p>
+<h2 id="4-exit-handlers">4 Exit Handlers</h2>
+<p>Exit handlers are templates that are always executed at the end of a workflow, regardless of success or failure.</p>
+<p>Common uses of exit handlers include:</p>
+<ul>
+<li>Cleaning up after the workflow runs</li>
+<li>Sending workflow status notifications (e.g., email/Slack)</li>
+<li>Posting pass/fail status to web-hook results (e.g., GitHub build results)</li>
+<li>Resubmitting or submitting another workflow</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">exit-handlers-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">intentional-fail</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">onExit</span>: <span style="color:#ae81ff">exit-handler                 </span> <span style="color:#75715e"># invoke exit-handler template at end of the workflow</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># primary workflow template</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">intentional-fail</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">alpine:latest</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">sh, -c]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;echo intentional failure; exit 1&#34;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Exit handler templates</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># After the completion of the entrypoint template, the status of the</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># workflow is made available in the global variable {{workflow.status}}.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># {{workflow.status}} will be one of: Succeeded, Failed, Error</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">exit-handler</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">steps</span>:
+</span></span><span style="display:flex;"><span>    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">notify</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">send-email</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">celebrate</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">celebrate</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">when</span>: <span style="color:#e6db74">&#34;{{workflow.status}} == Succeeded&#34;</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">cry</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">cry</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">when</span>: <span style="color:#e6db74">&#34;{{workflow.status}} != Succeeded&#34;</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">send-email</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">alpine:latest</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">sh, -c]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;echo send e-mail: {{workflow.name}} {{workflow.status}} {{workflow.duration}}&#34;</span>]
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">celebrate</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">alpine:latest</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">sh, -c]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;echo hooray!&#34;</span>]
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">cry</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">alpine:latest</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">sh, -c]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;echo boohoo!&#34;</span>]
+</span></span></code></pre></div>
+    <img src="/images/argo-workflow-exit-handlers.png"  alt="argo-workflow-exit-handlers"  class="center"  style="border-radius: 8px;"  />
+
+
+<h2 id="5-timeouts">5 Timeouts</h2>
+<p>You can use the <code>activeDeadlineSeconds</code> field to limit the runtime of a workflow:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">timeouts-wf-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">activeDeadlineSeconds</span>: <span style="color:#ae81ff">10</span> <span style="color:#75715e"># Terminate the workflow after 10 seconds</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">sleep</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">sleep</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">alpine:latest</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">sh, -c]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;echo sleeping for 1m; sleep 60; echo done&#34;</span>]
+</span></span></code></pre></div><p>You can also limit the runtime of a specific template:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">timeouts-tpl-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">sleep</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">sleep</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">activeDeadlineSeconds</span>: <span style="color:#ae81ff">10</span> <span style="color:#75715e"># Terminate the container template after 10 seconds</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">alpine:latest</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">sh, -c]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;echo sleeping for 1m; sleep 60; echo done&#34;</span>]
+</span></span></code></pre></div><h2 id="6-suspending">6 Suspending</h2>
+<p>Workflows can be suspended in the following ways:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>argo suspend WORKFLOW
+</span></span></code></pre></div><p>Or by specifying a suspend step within the workflow:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">suspend-template-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">suspend</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">suspend</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">steps</span>:
+</span></span><span style="display:flex;"><span>    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">build</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">argosay</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">arguments</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>            - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#34;I am suspended&#34;</span>
+</span></span><span style="display:flex;"><span>    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">approve</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">approve</span>
+</span></span><span style="display:flex;"><span>    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">delay</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">delay</span>
+</span></span><span style="display:flex;"><span>    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">release</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">argosay</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">arguments</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#34;I am released&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">approve</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">suspend</span>: {}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">delay</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">suspend</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">duration</span>: <span style="color:#e6db74">&#34;20&#34;</span>    <span style="color:#75715e"># Must be a string. The default unit is seconds. It can also be a duration like &#34;2m&#34;, &#34;6h&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">argosay</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">inputs</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">yky8/argosay:v2</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [ <span style="color:#e6db74">&#34;/usr/local/bin/argosay&#34;</span> ]
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">args</span>: [ <span style="color:#e6db74">&#34;echo&#34;</span> ,<span style="color:#e6db74">&#34;{{inputs.parameters.message}}&#34;</span> ]
+</span></span></code></pre></div><p>Once suspended, the workflow will not schedule any new steps until it is resumed. It can be manually resumed in the following way:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>argo resume WORKFLOW
+</span></span></code></pre></div><p>Or automatically resumed by setting a duration limit, as in the example above.</p>
+
+    <img src="/images/argo-workflow-suspending.png"  alt="argo-workflow-suspending"  class="center"  style="border-radius: 8px;"  />
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>&gt; argo resume suspend-template-9plrz -n argo
+</span></span><span style="display:flex;"><span>INFO<span style="color:#f92672">[</span>2024-05-26T22:10:50.883Z<span style="color:#f92672">]</span> Workflow to be dehydrated                     Workflow Size<span style="color:#f92672">=</span><span style="color:#ae81ff">3079</span>
+</span></span><span style="display:flex;"><span>workflow suspend-template-9plrz resumed
+</span></span></code></pre></div>
+    <img src="/images/argo-workflow-resume.png"  alt="argo-workflow-resume"  class="center"  style="border-radius: 8px;"  />
+
+
+]]></content>
+        </item>
         
         <item>
             <title>Argo Workflow 5</title>

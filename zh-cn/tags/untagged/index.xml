@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Untagged on Greenery&#39;s Blog Site</title>
+    <link>http://localhost:1313/zh-cn/tags/untagged/</link>
+    <description>Recent content in Untagged on Greenery&#39;s Blog Site</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Sun, 26 May 2024 22:52:54 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/zh-cn/tags/untagged/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Argo Workflow 7</title>
+      <link>http://localhost:1313/zh-cn/posts/devops/argo-workflow/argo-workflow-7/</link>
+      <pubDate>Sun, 26 May 2024 22:52:54 +0800</pubDate>
+      <guid>http://localhost:1313/zh-cn/posts/devops/argo-workflow/argo-workflow-7/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

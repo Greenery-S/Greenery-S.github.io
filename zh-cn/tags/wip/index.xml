@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>WIP on Greenery&#39;s Blog Site</title>
+    <link>https://Greenery-S.github.io/zh-cn/tags/wip/</link>
+    <description>Recent content in WIP on Greenery&#39;s Blog Site</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Sun, 26 May 2024 22:52:54 +0800</lastBuildDate>
+    <atom:link href="https://Greenery-S.github.io/zh-cn/tags/wip/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Argo Workflow 7</title>
+      <link>https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/argo-workflow-7/</link>
+      <pubDate>Sun, 26 May 2024 22:52:54 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/argo-workflow-7/</guid>
+      <description>Argo Workflow (7) Walk through 章节的相关特性还剩下:&#xA;Kubernetes Resource https://argo-workflows.readthedocs.io/en/latest/walk-through/kubernetes-resources/ Daemon Container Sidecar Container Custom Template Variables Continuous Integration Example 下次有机会再总结. 目前学的这些够用了.</description>
+    </item>
+  </channel>
+</rss>
