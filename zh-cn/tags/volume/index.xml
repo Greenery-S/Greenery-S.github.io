@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Volume on Greenery&#39;s Blog Site</title>
+    <link>https://Greenery-S.github.io/zh-cn/tags/volume/</link>
+    <description>Recent content in Volume on Greenery&#39;s Blog Site</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Sat, 25 May 2024 22:25:36 +0800</lastBuildDate>
+    <atom:link href="https://Greenery-S.github.io/zh-cn/tags/volume/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Argo Workflow 4</title>
+      <link>https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/argo-workflow-4/</link>
+      <pubDate>Sat, 25 May 2024 22:25:36 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/argo-workflow-4/</guid>
+      <description>Argo Workflow (4) 1 Secrets Argo Workflow支持在workflow中使用Kubernetes的Secret。Secret是一种用来存储敏感信息的对象，比如密码、OAuth令牌等。Secret可以以明文或base64编码的形式存储在Etcd中。在workflow中使用Secret时，需要在workflow的spec中定义一个secrets字段，然后在workflow的template中使用{{workflow.spec.secrets}}引用。&#xA;先创建一个secret，然后在workflow中使用这个secret。&#xA;kubectl create secret generic my-secret --from-literal=mypassword=S00perS3cretPa55word -n argo # To run this example, first create the secret by running: # kubectl create secret generic my-secret --from-literal=mypassword=S00perS3cretPa55word apiVersion: argoproj.io/v1alpha1 kind: Workflow metadata: generateName: secret-example- spec: entrypoint: argosay # To access secrets as files, add a volume entry in spec.volumes[] and # then in the container template spec, add a mount using volumeMounts. volumes: - name: my-secret-vol secret: secretName: my-secret # name of an existing k8s secret templates: - name: argosay container: image: alpine:3.</description>
+    </item>
+  </channel>
+</rss>

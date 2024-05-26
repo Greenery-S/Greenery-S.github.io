@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="">
+<meta name="description" content="Argo Workflow (3) 1 Artifacts When running workflows, it is very common for steps to generate or use artifacts. Typically, an output artifact from one step may be used as an input artifact by a subsequent step.
+The following workflow specification contains two sequential steps. The first step, named generate-artifact, uses the argosay template to generate an artifact, which is then used by the second step, named print-message, which consumes the generated artifact." />
+<meta name="keywords" content=", argo-workflow, Artifacts" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="" />
+<link rel="canonical" href="https://Greenery-S.github.io/posts/devops/argo-workflow/argo-workflow-3/" />
+
+
+    <title>
+        
+            Argo Workflow 3 :: Greenery&#39;s Blog Site  — Coder, Blogger, Photographer
+        
+    </title>
+
+
+
+
+
+<link rel="stylesheet" href="https://Greenery-S.github.io/main.949191c1dcc9c4a887997048b240354e47152016d821198f89448496ba42e491.css" integrity="sha256-lJGRwdzJxKiHmXBIskA1TkcVIBbYIRmPiUSElrpC5JE=">
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://Greenery-S.github.io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://Greenery-S.github.io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://Greenery-S.github.io/favicon-16x16.png">
+    <link rel="manifest" href="https://Greenery-S.github.io/site.webmanifest">
+    <link rel="mask-icon" href="https://Greenery-S.github.io/safari-pinned-tab.svg" color="">
+    <link rel="shortcut icon" href="https://Greenery-S.github.io/favicon.ico">
+    <meta name="msapplication-TileColor" content="">
+
+
+
+  <meta itemprop="name" content="Argo Workflow 3">
+  <meta itemprop="description" content="Argo Workflow (3) 1 Artifacts When running workflows, it is very common for steps to generate or use artifacts. Typically, an output artifact from one step may be used as an input artifact by a subsequent step.
+The following workflow specification contains two sequential steps. The first step, named generate-artifact, uses the argosay template to generate an artifact, which is then used by the second step, named print-message, which consumes the generated artifact.">
+  <meta itemprop="datePublished" content="2024-05-25T17:14:53+08:00">
+  <meta itemprop="dateModified" content="2024-05-25T17:14:53+08:00">
+  <meta itemprop="wordCount" content="2284">
+  <meta itemprop="image" content="https://Greenery-S.github.io/">
+  <meta itemprop="keywords" content="Argo-Workflow,Artifacts">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://Greenery-S.github.io/"><meta name="twitter:title" content="Argo Workflow 3">
+<meta name="twitter:description" content="Argo Workflow (3) 1 Artifacts When running workflows, it is very common for steps to generate or use artifacts. Typically, an output artifact from one step may be used as an input artifact by a subsequent step.
+The following workflow specification contains two sequential steps. The first step, named generate-artifact, uses the argosay template to generate an artifact, which is then used by the second step, named print-message, which consumes the generated artifact.">
+
+
+
+    <meta property="og:url" content="https://Greenery-S.github.io/posts/devops/argo-workflow/argo-workflow-3/">
+  <meta property="og:site_name" content="Greenery&#39;s Blog Site">
+  <meta property="og:title" content="Argo Workflow 3">
+  <meta property="og:description" content="Argo Workflow (3) 1 Artifacts When running workflows, it is very common for steps to generate or use artifacts. Typically, an output artifact from one step may be used as an input artifact by a subsequent step.
+The following workflow specification contains two sequential steps. The first step, named generate-artifact, uses the argosay template to generate an artifact, which is then used by the second step, named print-message, which consumes the generated artifact.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-05-25T17:14:53+08:00">
+    <meta property="article:modified_time" content="2024-05-25T17:14:53+08:00">
+    <meta property="article:tag" content="Argo-Workflow">
+    <meta property="article:tag" content="Artifacts">
+    <meta property="og:image" content="https://Greenery-S.github.io/">
+
+
+
+
+    <meta property="article:section" content="devops" />
+
+    <meta property="article:section" content="devops-argo-workflow" />
+
+
+
+    <meta property="article:published_time" content="2024-05-25 17:14:53 &#43;0800 &#43;08" />
+
+
+
+
+
+
+
+
+
+
+
+    </head>
+
+    
+        <body>
+    
+    
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://Greenery-S.github.io/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">(</span>
+            <span class="logo__text ">
+                ｡•̀ᴗ-)</span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://Greenery-S.github.io/posts/about">About</a></li><li><a href="https://Greenery-S.github.io/posts/">Posts</a></li><li><a href="https://Greenery-S.github.io/tags/">Tags</a></li><li><a href="https://Greenery-S.github.io/categories/">Categories</a></li><li><a href="https://Greenery-S.github.io/categories/hugo-site-building/">Site-building</a></li>
+        <div class="submenu">
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">en</a>
+                <div class="dropdown-content">
+                    
+                        
+                            <a title="zh-cn" href="https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/argo-workflow-3/">zh-cn</a>
+                        
+                    
+                </div>
+            </li>
+        </div>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+                <span class="theme-toggle not-selectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+   <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+   3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+   13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+ </svg></span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+  <main class="post">
+
+    <div class="post-info">
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+        11 minutes
+
+         | Also available in
+          
+              <a href="https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/argo-workflow-3/"><span class="flag fi fi-cn"></span></a>
+          
+        
+      </p>
+    </div>
+
+    <article>
+      <h1 class="post-title">
+        <a href="https://Greenery-S.github.io/posts/devops/argo-workflow/argo-workflow-3/">Argo Workflow 3</a>
+      </h1>
+
+      
+
+      
+
+      
+
+      <div class="post-content">
+        <h1 id="argo-workflow-3">Argo Workflow (3)</h1>
+<h2 id="1-artifacts">1 Artifacts</h2>
+<p>When running workflows, it is very common for steps to generate or use artifacts. Typically, an output artifact from one step may be used as an input artifact by a subsequent step.</p>
+<p>The following workflow specification contains two sequential steps. The first step, named <code>generate-artifact</code>, uses the <code>argosay</code> template to generate an artifact, which is then used by the second step, named <code>print-message</code>, which consumes the generated artifact.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">artifact-passing-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">artifact-example</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">artifact-example</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">steps</span>:
+</span></span><span style="display:flex;"><span>    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">generate-artifact</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">argosay</span>
+</span></span><span style="display:flex;"><span>    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">consume-artifact</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">print-message</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">arguments</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">artifacts</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#75715e"># bind message to the hello-art artifact</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#75715e"># generated by the generate-artifact step</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">from</span>: <span style="color:#e6db74">&#34;{{steps.generate-artifact.outputs.artifacts.hello-art}}&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">argosay</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">yky8/argosay:v2</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># sh -c allows you to provide a string that sh will execute as a complete shell command</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">sh, -c]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># The tee command reads from standard input and writes to both standard output and files simultaneously</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># Useful for saving command output to a file while viewing it in the terminal</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;/usr/local/bin/argosay echo &#39;hello world&#39; | tee /tmp/hello_world.txt&#34;</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">outputs</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">artifacts</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># generate hello-art artifact from /tmp/hello_world.txt</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># artifacts can be directories as well as files</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">hello-art</span> <span style="color:#75715e"># Used by consume-artifact step, specified with &#34;from&#34; field</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/tmp/hello_world.txt</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">print-message</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">inputs</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">artifacts</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># unpack the message input artifact</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># and put it at /tmp/message</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/tmp/message</span> <span style="color:#75715e"># put it at /tmp/message</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">alpine:latest</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">sh, -c]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;cat /tmp/message&#34;</span>]
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>argo submit artifacts.yaml -n argo
+</span></span></code></pre></div>
+    <img src="https://Greenery-S.github.io/images/argo-workflow-artifacts.png"  alt="argo-workflow-artifacts"  class="center"  style="border-radius: 0px; width: 30%;"  />
+
+
+<h3 id="handling-large-artifacts">Handling Large Artifacts</h3>
+<p>When running workflows, it is very common for steps to generate or use artifacts. Typically, an output artifact from one step may be used as an input artifact by a subsequent step.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ae81ff">&lt;... snipped ...&gt;</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">print-large-artifact</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># below patch gets merged with the actual pod spec and increases the memory</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># request of the init container.</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">podSpecPatch</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      initContainers:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        - name: init
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          resources:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            requests:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">              memory: 2Gi
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">              cpu: 300m</span>      
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">inputs</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">artifacts</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">data</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/tmp/large-file</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">alpine:latest</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">sh, -c]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;cat /tmp/large-file&#34;</span>]
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">&lt;... snipped ...&gt;</span>
+</span></span></code></pre></div><h3 id="artifact-archiving-strategy">Artifact Archiving Strategy</h3>
+<p>In Argo Workflows, artifacts are by default archived as tarballs and compressed with gzip. You can customize this behavior by specifying the archive strategy. Below is an example showing how to customize the archiving strategy using the <code>archive</code> field:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ae81ff">&lt;... snipped ...&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">outputs</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">artifacts</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># default behavior - tar+gzip default compression.</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">hello-art-1</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/tmp/hello_world.txt</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># disable archiving entirely - upload the file / directory as is.</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># this is useful when the container layout matches the desired target repository layout.   </span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">hello-art-2</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/tmp/hello_world.txt</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">archive</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">none</span>: {}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># customize the compression behavior (disabling it here).</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># this is useful for files with varying compression benefits, </span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># e.g. disabling compression for a cached build workspace and large binaries, </span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># or increasing compression for &#34;perfect&#34; textual data - like a json/xml export of a large database.</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">hello-art-3</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/tmp/hello_world.txt</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">archive</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">tar</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># no compression (also accepts the standard gzip 1 to 9 values)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">compressionLevel</span>: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">&lt;... snipped ...&gt;</span>
+</span></span></code></pre></div><h3 id="artifact-garbage-collection">Artifact Garbage Collection</h3>
+<p>Documentation for supported storage engines: <a href="https://argo-workflows.readthedocs.io/en/latest/configure-artifact-repository/">https://argo-workflows.readthedocs.io/en/latest/configure-artifact-repository/</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">artifact-gc-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">main</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">artifactGC</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">strategy</span>: <span style="color:#ae81ff">OnWorkflowDeletion </span> <span style="color:#75715e"># default Strategy set here applies to all Artifacts by default</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">main</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">image</span>: <span style="color:#ae81ff">argoproj/argosay:v2</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">command</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#ae81ff">sh</span>
+</span></span><span style="display:flex;"><span>          - -<span style="color:#ae81ff">c</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">args</span>:
+</span></span><span style="display:flex;"><span>          - |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            echo &#34;can throw this away&#34; &gt; /tmp/temporary-artifact.txt
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            echo &#34;keep this&#34; &gt; /tmp/keep-this.txt</span>            
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">outputs</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">artifacts</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">temporary-artifact</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/tmp/temporary-artifact.txt</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">s3</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">key</span>: <span style="color:#ae81ff">temporary-artifact.txt</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">keep-this</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/tmp/keep-this.txt</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">s3</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">key</span>: <span style="color:#ae81ff">keep-this.txt</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">artifactGC</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">strategy</span>: <span style="color:#ae81ff">Never  </span> <span style="color:#75715e"># optional override for an Artifact</span>
+</span></span></code></pre></div><h3 id="naming-artifacts----parameterization">Naming Artifacts &ndash; Parameterization</h3>
+<p>When there may be concurrent runs of the same workflow, consider using parameterized S3 keys, such as <code>{{workflow.uid}}</code>. This avoids situations where one workflow deletes an artifact while another generates an artifact with the same S3 key.</p>
+<p>For example, if you have two concurrent workflows using the same S3 key to store artifacts, one workflow might delete its artifacts while the other is still generating artifacts. This could result in issues where the second workflow finds its artifacts deleted or overwrites the first workflow’s artifacts.</p>
+<p>To avoid this, use parameterized S3 keys so each workflow has a unique S3 key, such as using <code>{{workflow.uid}}</code> as part of the S3 key.</p>
+<h3 id="service-account-or-iam-annotations-for-storage-services">Service Account or IAM Annotations for Storage Services</h3>
+<p>If you need to use a service account or IAM annotations for storage services, you can specify these annotations in the workflow specification. These annotations are passed to the storage service to control access to the storage bucket.</p>
+<p>You can specify a service account or IAM annotations for the entire workflow or for each artifact.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">artifact-gc-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">main</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">artifactGC</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">strategy</span>: <span style="color:#ae81ff">OnWorkflowDeletion </span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">##############################################################################################</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#    Workflow Level Service Account and Metadata</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">##############################################################################################</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">serviceAccountName</span>: <span style="color:#ae81ff">my-sa</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">podMetadata</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">annotations</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">eks.amazonaws.com/role-arn</span>: <span style="color:#ae81ff">arn:aws:iam::111122223333:role/my-iam-role</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">main</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">image</span>: <span style="color:#ae81ff">argoproj/argosay:v2</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">command</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#ae81ff">sh</span>
+</span></span><span style="display:flex;"><span>          - -<span style="color:#ae81ff">c</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">args</span>:
+</span></span><span style="display:flex;"><span>          - |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            echo &#34;can throw this away&#34; &gt; /tmp/temporary-artifact.txt
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            echo &#34;keep this&#34; &gt; /tmp/keep-this.txt</span>            
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">outputs</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">artifacts</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">temporary-artifact</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/tmp/temporary-artifact.txt</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">s3</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">key</span>: <span style="color:#ae81ff">temporary-artifact-{{workflow.uid}}.txt</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">artifactGC</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#75715e">####################################################################################</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#75715e">#    Optional override capability</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#75715e">####################################################################################</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">serviceAccountName</span>: <span style="color:#ae81ff">artifact-specific-sa</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">podMetadata</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">annotations</span>:
+</span></span><span style="display:flex;"><span>                  <span style="color:#f92672">eks.amazonaws.com/role-arn</span>: <span style="color:#ae81ff">arn:aws:iam::111122223333:role/artifact-specific-iam-role</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">keep-this</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/tmp/keep-this.txt</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">s3</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">key</span>: <span style="color:#ae81ff">keep-this-{{workflow.uid}}.txt</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">artifactGC</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">strategy</span>: <span style="color:#ae81ff">Never</span>
+</span></span></code></pre></div><p>To support custom service accounts, you need to create a Role and RoleBinding and bind the Role to the ServiceAccount:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">rbac.authorization.k8s.io/v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Role</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">annotations</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">workflows.argoproj.io/description</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      This is the minimum recommended permissions needed if you want to use artifact GC.</span>      
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">artifactgc</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">rules</span>:
+</span></span><span style="display:flex;"><span>- <span style="color:#f92672">apiGroups</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">argoproj.io</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">resources</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">workflowartifactgctasks</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">verbs</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">list</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">watch</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#f92672">apiGroups</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">argoproj.io</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">resources</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">workflowartifactgctasks/status</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">verbs</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">patch</span>
+</span></span></code></pre></div><p>If you used the quick start manifest file to install, you get a role named <code>artifactgc</code>. If</p>
+<p>you have installed it using the Helm Chart, you need to install this role manually. You can bind this role to a service account using a role binding:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">rbac.authorization.k8s.io/v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">RoleBinding</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">artifactgc</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">roleRef</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">apiGroup</span>: <span style="color:#ae81ff">rbac.authorization.k8s.io</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Role</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">artifactgc</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">subjects</span>:
+</span></span><span style="display:flex;"><span>- <span style="color:#f92672">kind</span>: <span style="color:#ae81ff">ServiceAccount</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">artifact-specific-sa</span>
+</span></span></code></pre></div><h3 id="what-happens-when-garbage-collection-gc-fails-in-argo-workflow">What Happens When Garbage Collection (GC) Fails in Argo Workflow?</h3>
+<p>If artifact deletion fails for some reason (except when the artifact has already been deleted, which is not considered a failure), the workflow&rsquo;s status will be marked with a new condition to indicate an &ldquo;Artifact GC Failure&rdquo;. Additionally, Kubernetes will emit an event, and the Argo Server UI will display the failure information. To further debug, users should find one or more Pods named <code>&lt;wfName&gt;-artgc-*</code> and check their logs.</p>
+<p>If users need to delete the workflow and its child CRD objects, they need to patch the workflow to remove the finalizer that prevents deletion:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">finalizers</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">workflows.argoproj.io/artifact-gc</span>
+</span></span></code></pre></div><p>You can remove the finalizer with the following command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubectl patch workflow my-wf <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --type json <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --patch<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;[ { &#34;op&#34;: &#34;remove&#34;, &#34;path&#34;: &#34;/metadata/finalizers&#34; } ]&#39;</span>
+</span></span></code></pre></div><p>Alternatively, for easier operation, you can use the <code>argo delete</code> command with the <code>--force</code> flag, which removes the finalizer before performing the delete operation.</p>
+<p>In version 3.5 and higher, a flag named <code>forceFinalizerRemoval</code> has been added to the Workflow Spec, allowing the finalizer to be forcibly removed even if Artifact GC fails:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">artifactGC</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">strategy</span>: <span style="color:#ae81ff">OnWorkflowDeletion </span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">forceFinalizerRemoval</span>: <span style="color:#66d9ef">true</span>
+</span></span></code></pre></div><p>This means the workflow can be deleted even if artifact garbage collection fails.</p>
+<h2 id="2-built-in-artifacts">2 Built-in Artifacts</h2>
+<p>Argo Workflows provides built-in support for several common artifact types. These include git repositories, HTTP resources, GCS buckets, and S3 buckets. While you can use any container for any purpose, these built-in artifact types make it easier to work with these common types.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">hardwired-artifact-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">hardwired-artifact</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">hardwired-artifact</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">podSpecPatch</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        initContainers:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          - name: init
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            resources:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">              requests:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                memory: 2Gi
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                cpu: 300m</span>        
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">inputs</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">artifacts</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#75715e"># Check out the main branch of the argo repo and place it at /src</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#75715e"># revision can be anything that git checkout accepts: branch, commit, tag, etc.</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">argo-source</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/src</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">git</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">repo</span>: <span style="color:#ae81ff">https://github.com/argoproj/argo-workflows.git</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">revision</span>: <span style="color:#e6db74">&#34;main&#34;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#75715e"># Download kubectl 1.8.0 and place it at /bin/kubectl</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">kubectl</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/bin/kubectl</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">mode</span>: <span style="color:#ae81ff">0755</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">http</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">url</span>: <span style="color:#ae81ff">https://storage.googleapis.com/kubernetes-release/release/v1.8.0/bin/linux/amd64/kubectl</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Copy an s3 compatible artifact repository bucket (such as AWS, GCS and MinIO) and place it at /s3</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># - name: objects</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">#   path: /s3</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">#   s3:</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">#     endpoint: storage.googleapis.com</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">#     bucket: my-bucket-name</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">#     key: path/in/bucket</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">#     accessKeySecret:</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">#       name: my-s3-credentials</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">#       key: accessKey</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">#     secretKeySecret:</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">#       name: my-s3-credentials</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">#       key: secretKey</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">image</span>: <span style="color:#ae81ff">debian</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">sh, -c]</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;ls -l /src /bin/kubectl&#34;</span>] <span style="color:#75715e"># /s3 is not tested here</span>
+</span></span></code></pre></div><p>These are examples of using artifacts in Argo Workflow. Artifacts are files or directories generated or used during the workflow execution. In this example, the workflow template defines three input artifacts:</p>
+<ol>
+<li>
+<p><strong><code>argo-source</code></strong>: This artifact uses the git type. It checks out a specified revision (in this case, the &ldquo;main&rdquo; branch) from the specified git repository (in this case, <a href="https://github.com/argoproj/argo-workflows.git">https://github.com/argoproj/argo-workflows.git</a>) and places it in the <code>/src</code> directory.</p>
+</li>
+<li>
+<p><strong><code>kubectl</code></strong>: This artifact uses the HTTP type. It downloads a file from the specified URL (in this case, <a href="https://storage.googleapis.com/kubernetes-release/release/v1.8.0/bin/linux/amd64/kubectl">https://storage.googleapis.com/kubernetes-release/release/v1.8.0/bin/linux/amd64/kubectl</a>) and places it in the <code>/bin/kubectl</code> directory. The <code>mode: 0755</code> setting makes this file executable.</p>
+</li>
+<li>
+<p><strong><code>objects</code></strong>: This artifact uses the S3 type. It downloads files or directories from a specified S3-compatible storage service (in this case, storage.googleapis.com) using the specified bucket (<code>my-bucket-name</code>) and key (<code>path/in/bucket</code>), and places them in the <code>/s3</code> directory. The <code>accessKeySecret</code> and <code>secretKeySecret</code> fields specify the Kubernetes secrets storing the access key and secret key for AWS.</p>
+</li>
+</ol>
+<p>The template then defines a container that runs a command to list the contents of the <code>/src</code>, <code>/bin/kubectl</code>, and <code>/s3</code> directories, where the input artifacts are placed.</p>
+<h2 id="3-script">3 Script</h2>
+<p>Sometimes, you may want the workflow to execute a script rather than directly running a container. In such cases, you can use the <code>script</code> type of artifact. A <code>script</code> type of artifact is a script, which can be a shell script, Python script, Perl script, Ruby script, etc. In this example, we will demonstrate how to use the <code>script</code> type of artifact.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">scripts-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">bash-script-example</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">bash-script-example</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">steps</span>:
+</span></span><span style="display:flex;"><span>    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">generate-from-bash</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">gen-random-int-bash</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">generate-from-python</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">gen-random-int-python</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">generate-from-javascript</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">gen-random-int-javascript</span>
+</span></span><span style="display:flex;"><span>    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">print-for-bash</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">print-message</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">arguments</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#34;[BASH] {{steps.generate-from-bash.outputs.result}}&#34;</span>  <span style="color:#75715e"># The result of the here-script</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">print-for-python</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">print-message</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">arguments</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#34;[PY] {{steps.generate-from-python.outputs.result}}&#34;</span>  <span style="color:#75715e"># The result of the Python script</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">print-for-javascript</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">print-message</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">arguments</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#34;[JS] {{steps.generate-from-javascript.outputs.result}}&#34;</span>  <span style="color:#75715e"># The result of the JavaScript script</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">gen-random-int-bash</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">script</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">debian:9.4</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">bash]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">source</span>: <span style="color:#ae81ff">|                                        </span> <span style="color:#75715e"># Contents of the here-script</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">cat /dev/urandom | od -N2 -An -i | awk -v f=1 -v r=100 &#39;{printf &#34;%i\n&#34;, f + r * $1 / 65536}&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">gen-random-int-python</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">script</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">python:alpine3.6</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">python]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">source</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        import random
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        i = random.randint(1, 100)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        print(i)</span>        
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">gen-random-int-javascript</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">script</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">node:9.1-alpine</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">node]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">source</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        var rand = Math.floor(Math.random() * 100);
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        console.log(rand);</span>        
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">print-message</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">inputs</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">alpine:latest</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">sh, -c]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;echo result was: {{inputs.parameters.message}}&#34;</span>]
+</span></span></code></pre></div><p>The <code>script</code> keyword allows using the <code>source</code> label to specify the script body. This creates a temporary file containing the script body, and the name of this temporary file is passed as the last argument to <code>command</code>. The <code>command</code> should be an interpreter that executes the script body.</p>
+<p>Using the <code>script</code> feature also assigns the standard output of the script to a special output parameter named <code>result</code>. This allows you to use the result of running the script itself in other parts of the workflow specification. In this example, the result is simply echoed by the <code>print-message</code> template.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>argo submit scripts-parallel.yaml -n argo --watch
+</span></span></code></pre></div>
+    <img src="https://Greenery-S.github.io/images/argo-workflow-scripts-parallel.png"  alt="argo-workflow-script"  class="center"  style="border-radius: 0px; width: 50%;"  />
+
+
+<h2 id="4-output-parameters">4 Output Parameters</h2>
+<p>Output parameters provide a general mechanism to use the results of steps as parameters (not just as artifacts). This allows you to use the results of any type of step, not just scripts, for conditional testing, looping, and parameterization. Output parameters work similarly to script results, except the value of the output parameter is set to the contents of a generated file, rather than the contents of stdout.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">output-parameter-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">output-parameter</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">output-parameter</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">steps</span>:
+</span></span><span style="display:flex;"><span>        - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">generate-parameter</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">template</span>: <span style="color:#ae81ff">argosay</span>
+</span></span><span style="display:flex;"><span>        - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">consume-parameter</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">template</span>: <span style="color:#ae81ff">print-message</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">arguments</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># Pass the hello-param output from the generate-parameter step as the message input to print-message</span>
+</span></span><span style="display:flex;"><span>                - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+</span></span><span style="display:flex;"><span>                  <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#34;{{steps.generate-parameter.outputs.parameters.hello-param}}&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">argosay</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">image</span>: <span style="color:#ae81ff">yky8/argosay:v2</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">command</span>: [ <span style="color:#ae81ff">sh, -c ]</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">args</span>: [ <span style="color:#e6db74">&#34;echo -n hello world &gt; /tmp/hello_world.txt&#34;</span> ]  <span style="color:#75715e"># generate the content of hello_world.txt</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">outputs</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">hello-param </span> <span style="color:#75715e"># name of output parameter</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">valueFrom</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/tmp/hello_world.txt</span> <span style="color:#75715e"># set the value of hello-param to the contents of this hello-world.txt</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">print-message</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">inputs</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">image</span>: <span style="color:#ae81ff">yky8/argosay:v2</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">command</span>: [ <span style="color:#e6db74">&#34;/usr/local/bin/argosay&#34;</span> ]
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">args</span>: [ <span style="color:#e6db74">&#34;echo&#34;</span>,<span style="color:#e6db74">&#34;{{inputs.parameters.message}}&#34;</span> ]
+</span></span></code></pre></div><p>Here, a step&rsquo;s output parameter is used as an input parameter, rather than an artifact. In this example, the <code>generate-parameter</code> step generates an output parameter named <code>hello-param</code>, and the <code>consume-parameter</code> step passes this output parameter as an input parameter to the <code>print-message</code> step.</p>
+<p>If using a DAG, you can access the output parameter with <code>{{tasks.generate-parameter.outputs.parameters.hello-param}}</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>argo submit output-params.yaml -n argo --watch
+</span></span></code></pre></div><h3 id="outputsresult-captures-standard-output"><code>outputs.result</code> Captures Standard Output</h3>
+<p>Only 256 KB of the standard output stream will be captured.</p>
+<ul>
+<li>
+<p>The output of a script is captured using <code>outputs.result</code>. Refer to the previous section for details.</p>
+</li>
+<li>
+<p>The standard output of container steps and tasks is also captured and stored in a result parameter.</p>
+<ul>
+<li>For example, if there is a task named <code>log-int</code>, its result can be accessed using <code>{{tasks.log-int.outputs.result}}</code>. If you are using steps, replace <code>tasks</code> with <code>steps</code>, i.e., <code>{{steps.log-int.outputs.result}}</code>. This way, you can use the output result of a step or task in other parts of the workflow.</li>
+</ul>
+</li>
+</ul>
+
+      </div>
+    </article>
+
+    <hr />
+
+    <div class="post-info">
+      
+    <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg>
+
+        <span class="tag"><a href="https://Greenery-S.github.io/tags/argo-workflow/">argo-workflow</a></span>
+        <span class="tag"><a href="https://Greenery-S.github.io/tags/artifacts/">Artifacts</a></span>
+        
+    </p>
+
+      
+    <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder meta-icon"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+
+        <span class="tag"><a href="https://Greenery-S.github.io/categories/devops/">devops</a></span>
+        <span class="tag"><a href="https://Greenery-S.github.io/categories/devops-argo-workflow/">devops-argo-workflow</a></span>
+        
+    </p>
+
+
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+          <polyline points="10 9 9 9 8 9"></polyline>
+        </svg>
+        2284 Words
+      </p>
+
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
+        
+          2024-05-25 17:14
+        
+
+         
+          
+        
+      </p>
+    </div>
+      <hr />
+      <div class="sharing-buttons">
+        
+<a class="resp-sharing-button__link" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fGreenery-S.github.io%2fposts%2fdevops%2fargo-workflow%2fargo-workflow-3%2f" target="_blank" rel="noopener" aria-label="" title="Share on facebook">
+  <div class="resp-sharing-button resp-sharing-button--facebook resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://twitter.com/intent/tweet/?url=https%3a%2f%2fGreenery-S.github.io%2fposts%2fdevops%2fargo-workflow%2fargo-workflow-3%2f" target="_blank" rel="noopener" aria-label="" title="Share on twitter">
+  <div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--small">
+      <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://www.tumblr.com/widgets/share/tool?posttype=link&amp;title=Argo%20Workflow%203&amp;caption=Argo%20Workflow%203&amp;canonicalUrl=https%3a%2f%2fGreenery-S.github.io%2fposts%2fdevops%2fargo-workflow%2fargo-workflow-3%2f" target="_blank" rel="noopener" aria-label="" title="Share on tumblr">
+  <div class="resp-sharing-button resp-sharing-button--tumblr resp-sharing-button--small">
+    <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.563 24c-5.093 0-7.031-3.756-7.031-6.411V9.747H5.116V6.648c3.63-1.313 4.512-4.596 4.71-6.469C9.84.051 9.941 0 9.999 0h3.517v6.114h4.801v3.633h-4.82v7.47c.016 1.001.375 2.371 2.207 2.371h.09c.631-.02 1.486-.205 1.936-.419l1.156 3.425c-.436.636-2.4 1.374-4.156 1.404h-.178l.011.002z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="mailto:?subject=Argo%20Workflow%203&amp;body=https%3a%2f%2fGreenery-S.github.io%2fposts%2fdevops%2fargo-workflow%2fargo-workflow-3%2f" target="_self" rel="noopener" aria-label="" title="Share via email">
+  <div class="resp-sharing-button resp-sharing-button--email resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://pinterest.com/pin/create/button/?url=https%3a%2f%2fGreenery-S.github.io%2fposts%2fdevops%2fargo-workflow%2fargo-workflow-3%2f&amp;media=https%3a%2f%2fGreenery-S.github.io%2fposts%2fdevops%2fargo-workflow%2fargo-workflow-3%2f;description=Argo%20Workflow%203" target="_blank" rel="noopener" aria-label="" title="Share on pinterest">
+  <div class="resp-sharing-button resp-sharing-button--pinterest resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fGreenery-S.github.io%2fposts%2fdevops%2fargo-workflow%2fargo-workflow-3%2f&amp;title=Argo%20Workflow%203&amp;summary=Argo%20Workflow%203&amp;source=https%3a%2f%2fGreenery-S.github.io%2fposts%2fdevops%2fargo-workflow%2fargo-workflow-3%2f" target="_blank" rel="noopener" aria-label="" title="Share on linkedin">
+  <div class="resp-sharing-button resp-sharing-button--linkedin resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://reddit.com/submit/?url=https%3a%2f%2fGreenery-S.github.io%2fposts%2fdevops%2fargo-workflow%2fargo-workflow-3%2f&amp;resubmit=true&amp;title=Argo%20Workflow%203" target="_blank" rel="noopener" aria-label="" title="Share on reddit">
+  <div class="resp-sharing-button resp-sharing-button--reddit resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://www.xing.com/app/user?op=share;url=https%3a%2f%2fGreenery-S.github.io%2fposts%2fdevops%2fargo-workflow%2fargo-workflow-3%2f;title=Argo%20Workflow%203" target="_blank" rel="noopener" aria-label="" title="Share on xing">
+  <div class="resp-sharing-button resp-sharing-button--xing resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M18.188 0c-.517 0-.741.325-.927.66 0 0-7.455 13.224-7.702 13.657.015.024 4.919 9.023 4.919 9.023.17.308.436.66.967.66h3.454c.211 0 .375-.078.463-.22.089-.151.089-.346-.009-.536l-4.879-8.916c-.004-.006-.004-.016 0-.022L22.139.756c.095-.191.097-.387.006-.535C22.056.078 21.894 0 21.686 0h-3.498zM3.648 4.74c-.211 0-.385.074-.473.216-.09.149-.078.339.02.531l2.34 4.05c.004.01.004.016 0 .021L1.86 16.051c-.099.188-.093.381 0 .529.085.142.239.234.45.234h3.461c.518 0 .766-.348.945-.667l3.734-6.609-2.378-4.155c-.172-.315-.434-.659-.962-.659H3.648v.016z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="whatsapp://send?text=Argo%20Workflow%203%20https%3a%2f%2fGreenery-S.github.io%2fposts%2fdevops%2fargo-workflow%2fargo-workflow-3%2f" target="_blank" rel="noopener" aria-label="" title="Share on whatsapp">
+  <div class="resp-sharing-button resp-sharing-button--whatsapp resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://news.ycombinator.com/submitlink?u=https%3a%2f%2fGreenery-S.github.io%2fposts%2fdevops%2fargo-workflow%2fargo-workflow-3%2f&amp;t=Argo%20Workflow%203" target="_blank" rel="noopener" aria-label="" title="Share on hacker news">
+  <div class="resp-sharing-button resp-sharing-button--hackernews resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M0 24V0h24v24H0zM6.951 5.896l4.112 7.708v5.064h1.583v-4.972l4.148-7.799h-1.749l-2.457 4.875c-.372.745-.688 1.434-.688 1.434s-.297-.708-.651-1.434L8.831 5.896h-1.88z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://telegram.me/share/url?text=Argo%20Workflow%203&amp;url=https%3a%2f%2fGreenery-S.github.io%2fposts%2fdevops%2fargo-workflow%2fargo-workflow-3%2f" target="_blank" rel="noopener" aria-label="" title="Share on telegram">
+  <div class="resp-sharing-button resp-sharing-button--telegram resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+    </div>
+  </div>
+</a>
+
+      </div>
+
+    
+    <div class="pagination">
+        
+
+        <div class="pagination__buttons">
+            
+            <span class="button previous">
+                <a href="https://Greenery-S.github.io/posts/devops/argo-workflow/argo-workflow-4/">
+                    <span class="button__icon">←</span>
+                    <span class="button__text">Argo Workflow 4</span>
+                </a>
+            </span>
+            
+
+            
+            <span class="button next">
+                <a href="https://Greenery-S.github.io/posts/devops/argo-workflow/argo-workflow-2/">
+                    <span class="button__text">Argo Workflow 2</span>
+                    <span class="button__icon">→</span>
+                </a>
+            </span>
+            
+        </div>
+    </div>
+
+
+    
+
+    
+
+    
+    <script src="https://utteranc.es/client.js"
+            repo="Greenery-S/Greenery-S.github.io"
+            label="comments"
+            issue-term="pathname"
+            theme="boxy-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    
+
+  </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2023</span>
+            <span><a href="https://Greenery-S.github.io/"></a></span>
+            <span><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></span>
+            <span><a href="https://Greenery-S.github.io/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+            
+        </div>
+    </div>
+    
+    
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Powered by <a href="http://gohugo.io">Hugo</a></span><span>Made with &#10084; by <a href="https://github.com/Greenery-S">Sam, Keyu Yan</a></span>
+        </div>
+    </div>
+    
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+<script type="text/javascript" src="https://Greenery-S.github.io/bundle.min.85fad2de4f13fec3bcb3b3cb10430cdb44a7b4a9749b32938241a5c6e77718df7624f1002b880521fdc26e24ec1077fda214bf1cb36ee3045510760d09638cae.js" integrity="sha512-hfrS3k8T/sO8s7PLEEMM20SntKl0mzKTgkGlxud3GN92JPEAK4gFIf3CbiTsEHf9ohS/HLNu4wRVEHYNCWOMrg=="></script>
+
+
+
+
+    </body>
+</html>

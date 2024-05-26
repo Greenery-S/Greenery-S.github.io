@@ -6,8 +6,1276 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sat, 25 May 2024 03:46:15 +0800</lastBuildDate>
+        <lastBuildDate>Sun, 26 May 2024 00:58:41 +0800</lastBuildDate>
         <atom:link href="https://Greenery-S.github.io/zh-cn/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Argo Workflow 5</title>
+            <link>https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/argo-workflow-5/</link>
+            <pubDate>Sun, 26 May 2024 00:58:41 +0800</pubDate>
+            
+            <guid>https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/argo-workflow-5/</guid>
+            <description>Argo Workflow (5) 1 Loops 编写工作流时，能够迭代一组输入是非常有用的，因为这就是 Argo Workflows 执行循环的方式。
+有三种基本方法可以多次运行一个模板。
+withSequence 迭代一个数字序列。 withItems 接受一个待处理的项目列表，可以是 纯的单个值，在模板中可以通过 {{item}} 使用 JSON 对象，其中每个元素可以通过它的键作为 {{item.key}} 来引用 withParam 接受一个 JSON 数组，并对其进行迭代——同样地，这些项目可以像 withItems 一样是对象。这非常强大，因为你可以在工作流的另一步生成 JSON，从而创建一个动态工作流。 withSequence 示例 apiVersion: argoproj.io/v1alpha1 kind: Workflow metadata: generateName: loop-sequence- spec: entrypoint: loop-sequence-example templates: - name: loop-sequence-example steps: - - name: hello-world-x5 template: hello-world withSequence: count: &amp;#34;5&amp;#34; - name: hello-world container: image: yky8/argosay:v2 command: [ &amp;#34;/usr/local/bin/argosay&amp;#34; ] args: [ &amp;#34;echo&amp;#34;,&amp;#34;hello world!&amp;#34; ] argo submit loop-withsequence.</description>
+            <content type="html"><![CDATA[<h1 id="argo-workflow-5">Argo Workflow (5)</h1>
+<h2 id="1-loops">1 Loops</h2>
+<p>编写工作流时，能够迭代一组输入是非常有用的，因为这就是 Argo Workflows 执行循环的方式。</p>
+<p>有三种基本方法可以多次运行一个模板。</p>
+<ol>
+<li><code>withSequence</code> 迭代一个数字序列。</li>
+<li><code>withItems</code> 接受一个待处理的项目列表，可以是
+<ul>
+<li>纯的单个值，在模板中可以通过 <code>{{item}}</code> 使用</li>
+<li>JSON 对象，其中每个元素可以通过它的键作为 <code>{{item.key}}</code> 来引用</li>
+</ul>
+</li>
+<li><code>withParam</code> 接受一个 JSON 数组，并对其进行迭代——同样地，这些项目可以像 <code>withItems</code> 一样是对象。这非常强大，因为你可以在工作流的另一步生成 JSON，从而创建一个动态工作流。</li>
+</ol>
+<h3 id="withsequence-示例"><code>withSequence</code> 示例</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">loop-sequence-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">loop-sequence-example</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">loop-sequence-example</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">steps</span>:
+</span></span><span style="display:flex;"><span>           - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">hello-world-x5</span>
+</span></span><span style="display:flex;"><span>               <span style="color:#f92672">template</span>: <span style="color:#ae81ff">hello-world</span>
+</span></span><span style="display:flex;"><span>               <span style="color:#f92672">withSequence</span>:
+</span></span><span style="display:flex;"><span>                  <span style="color:#f92672">count</span>: <span style="color:#e6db74">&#34;5&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">hello-world</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>           <span style="color:#f92672">image</span>: <span style="color:#ae81ff">yky8/argosay:v2</span>
+</span></span><span style="display:flex;"><span>           <span style="color:#f92672">command</span>: [ <span style="color:#e6db74">&#34;/usr/local/bin/argosay&#34;</span> ]
+</span></span><span style="display:flex;"><span>           <span style="color:#f92672">args</span>: [ <span style="color:#e6db74">&#34;echo&#34;</span>,<span style="color:#e6db74">&#34;hello world!&#34;</span> ]
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>argo submit loop-withsequence.yaml -n argo
+</span></span></code></pre></div>
+    <img src="/images/argo-workflow-loop-with-sequence.png"  alt="argo-workflow-loop-with-sequence"  class="center"  style="border-radius: 0px; width: 85%;"  />
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Name:                loop-sequence-h5hzj
+</span></span><span style="display:flex;"><span>Namespace:           argo
+</span></span><span style="display:flex;"><span>ServiceAccount:      unset (will run with the default ServiceAccount)
+</span></span><span style="display:flex;"><span>Status:              Succeeded
+</span></span><span style="display:flex;"><span>Conditions:
+</span></span><span style="display:flex;"><span> PodRunning          False
+</span></span><span style="display:flex;"><span> Completed           True
+</span></span><span style="display:flex;"><span>Created:             Sun May 26 11:23:07 +0800 (10 seconds ago)
+</span></span><span style="display:flex;"><span>Started:             Sun May 26 11:23:07 +0800 (10 seconds ago)
+</span></span><span style="display:flex;"><span>Finished:            Sun May 26 11:23:17 +0800 (now)
+</span></span><span style="display:flex;"><span>Duration:            10 seconds
+</span></span><span style="display:flex;"><span>Progress:            5/5
+</span></span><span style="display:flex;"><span>ResourcesDuration:   11s*(100Mi memory),0s*(1 cpu)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>STEP                        TEMPLATE               PODNAME                                     DURATION  MESSAGE
+</span></span><span style="display:flex;"><span> ✔ loop-sequence-h5hzj      loop-sequence-example
+</span></span><span style="display:flex;"><span> └─┬─✔ hello-world-x5(0:0)  hello-world            loop-sequence-h5hzj-hello-world-4274112881  4s
+</span></span><span style="display:flex;"><span>   ├─✔ hello-world-x5(1:1)  hello-world            loop-sequence-h5hzj-hello-world-276427469   4s
+</span></span><span style="display:flex;"><span>   ├─✔ hello-world-x5(2:2)  hello-world            loop-sequence-h5hzj-hello-world-634880841   4s
+</span></span><span style="display:flex;"><span>   ├─✔ hello-world-x5(3:3)  hello-world            loop-sequence-h5hzj-hello-world-2194008477  4s
+</span></span><span style="display:flex;"><span>   └─✔ hello-world-x5(4:4)  hello-world            loop-sequence-h5hzj-hello-world-2552461849  4s
+</span></span></code></pre></div><h3 id="withitems-基础示例"><code>withItems</code> 基础示例</h3>
+<p>这将使用 <code>withItems</code> 遍历一个项目列表,为每个实例化的模板替换一个字符串.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">loops-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">loop-example</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">loop-example</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">steps</span>:
+</span></span><span style="display:flex;"><span>    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">print-message</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">argosay</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">arguments</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#34;{{item}}&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">withItems</span>:              <span style="color:#75715e"># invoke whalesay once for each item in parallel</span>
+</span></span><span style="display:flex;"><span>        - <span style="color:#ae81ff">hello world          </span> <span style="color:#75715e"># item 1</span>
+</span></span><span style="display:flex;"><span>        - <span style="color:#ae81ff">goodbye world        </span> <span style="color:#75715e"># item 2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">argosay</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">inputs</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">yky8/argosay:v2</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [ <span style="color:#e6db74">&#34;/usr/local/bin/argosay&#34;</span> ]
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;echo&#34;</span>, <span style="color:#e6db74">&#34;{{inputs.parameters.message}}&#34;</span>]
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>argo submit loop-withitems-basic.yaml -n argo
+</span></span></code></pre></div>
+    <img src="/images/argo-workflow-loop-with-items.png"  alt="argo-workflow-loop-with-items"  class="center"  style="border-radius: 0px; width: 60%;"  />
+
+
+<h3 id="withitems-json对象示例"><code>withItems</code> json对象示例</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">loops-maps-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">loop-map-example</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">loop-map-example</span> <span style="color:#75715e"># parameter specifies the list to iterate over</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">steps</span>:
+</span></span><span style="display:flex;"><span>    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">test-linux</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">cat-os-release</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">arguments</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">image</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#34;{{item.image}}&#34;</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">tag</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#34;{{item.tag}}&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">withItems</span>:
+</span></span><span style="display:flex;"><span>        - { <span style="color:#f92672">image: &#39;debian&#39;, tag</span>: <span style="color:#e6db74">&#39;9.1&#39;</span> }       <span style="color:#75715e">#item set 1</span>
+</span></span><span style="display:flex;"><span>        - { <span style="color:#f92672">image: &#39;debian&#39;, tag</span>: <span style="color:#e6db74">&#39;8.9&#39;</span> }       <span style="color:#75715e">#item set 2</span>
+</span></span><span style="display:flex;"><span>        - { <span style="color:#f92672">image: &#39;alpine&#39;, tag</span>: <span style="color:#e6db74">&#39;3.6&#39;</span> }       <span style="color:#75715e">#item set 3</span>
+</span></span><span style="display:flex;"><span>        - { <span style="color:#f92672">image: &#39;ubuntu&#39;, tag</span>: <span style="color:#e6db74">&#39;17.10&#39;</span> }     <span style="color:#75715e">#item set 4</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">cat-os-release</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">inputs</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">image</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">tag</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#e6db74">&#34;{{inputs.parameters.image}}:{{inputs.parameters.tag}}&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">cat]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">args</span>: [<span style="color:#ae81ff">/etc/os-release]</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>argo submit loop-withitems-json.yaml -n argo
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Name:                loops-maps-dfkdd
+</span></span><span style="display:flex;"><span>Namespace:           argo
+</span></span><span style="display:flex;"><span>ServiceAccount:      unset (will run with the default ServiceAccount)
+</span></span><span style="display:flex;"><span>Status:              Succeeded
+</span></span><span style="display:flex;"><span>Conditions:
+</span></span><span style="display:flex;"><span> PodRunning          False
+</span></span><span style="display:flex;"><span> Completed           True
+</span></span><span style="display:flex;"><span>Created:             Sun May 26 14:01:38 +0800 (1 minute ago)
+</span></span><span style="display:flex;"><span>Started:             Sun May 26 14:01:38 +0800 (1 minute ago)
+</span></span><span style="display:flex;"><span>Finished:            Sun May 26 14:03:06 +0800 (now)
+</span></span><span style="display:flex;"><span>Duration:            1 minute 28 seconds
+</span></span><span style="display:flex;"><span>Progress:            4/4
+</span></span><span style="display:flex;"><span>ResourcesDuration:   0s*(1 cpu),2m13s*(100Mi memory)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>STEP                                         TEMPLATE          PODNAME                                     DURATION  MESSAGE
+</span></span><span style="display:flex;"><span> ✔ loops-maps-dfkdd                          loop-map-example
+</span></span><span style="display:flex;"><span> └─┬─✔ test-linux(0:image:debian,tag:9.1)    cat-os-release    loops-maps-dfkdd-cat-os-release-1435759788  1m
+</span></span><span style="display:flex;"><span>   ├─✔ test-linux(1:image:debian,tag:8.9)    cat-os-release    loops-maps-dfkdd-cat-os-release-3975793734  1m
+</span></span><span style="display:flex;"><span>   ├─✔ test-linux(2:image:alpine,tag:3.6)    cat-os-release    loops-maps-dfkdd-cat-os-release-3565729669  12s
+</span></span><span style="display:flex;"><span>   └─✔ test-linux(3:image:ubuntu,tag:17.10)  cat-os-release    loops-maps-dfkdd-cat-os-release-1306728920  43s
+</span></span></code></pre></div><h3 id="withparam-示例"><code>withParam</code> 示例</h3>
+<p>为了避免硬编码,可以使用parameters来传递一个json数组.使用<code>withParam</code>迭代这个数组.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">loops-param-arg-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">loop-param-arg-example</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">arguments</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">os-list                                    </span> <span style="color:#75715e"># a list of items</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">value</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        [
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          { &#34;image&#34;: &#34;debian&#34;, &#34;tag&#34;: &#34;9.1&#34; },
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          { &#34;image&#34;: &#34;debian&#34;, &#34;tag&#34;: &#34;8.9&#34; },
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          { &#34;image&#34;: &#34;alpine&#34;, &#34;tag&#34;: &#34;3.6&#34; },
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          { &#34;image&#34;: &#34;ubuntu&#34;, &#34;tag&#34;: &#34;17.10&#34; }
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        ]</span>        
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">loop-param-arg-example</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">inputs</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">os-list</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">steps</span>:
+</span></span><span style="display:flex;"><span>    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">test-linux</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">cat-os-release</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">arguments</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">image</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#34;{{item.image}}&#34;</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">tag</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#34;{{item.tag}}&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">withParam</span>: <span style="color:#e6db74">&#34;{{inputs.parameters.os-list}}&#34;</span>      <span style="color:#75715e"># parameter specifies the list to iterate over</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># This template is the same as in the previous example</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">cat-os-release</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">inputs</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">image</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">tag</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#e6db74">&#34;{{inputs.parameters.image}}:{{inputs.parameters.tag}}&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">cat]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">args</span>: [<span style="color:#ae81ff">/etc/os-release]</span>
+</span></span></code></pre></div><h3 id="withparam-step之间传递数据示例"><code>withParam</code> step之间传递数据示例</h3>
+<p><code>withParam</code> 也可以用来在步骤之间传递数据.这是最有用的.在这个例子中,我们将一个步骤的输出作为另一个步骤的输入.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">loops-param-result-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">loop-param-result-example</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">loop-param-result-example</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">steps</span>:
+</span></span><span style="display:flex;"><span>    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">generate</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">gen-number-list</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Iterate over the list of numbers generated by the generate step above</span>
+</span></span><span style="display:flex;"><span>    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">sleep</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">sleep-n-sec</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">arguments</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">seconds</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#34;{{item}}&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">withParam</span>: <span style="color:#e6db74">&#34;{{steps.generate.outputs.result}}&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Generate a list of numbers in JSON format</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">gen-number-list</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">script</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">python:alpine3.6</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">python]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">source</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        import json
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        import sys
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        json.dump([i for i in range(20, 31)], sys.stdout)</span>        
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">sleep-n-sec</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">inputs</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">seconds</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">alpine:latest</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">sh, -c]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;echo sleeping for {{inputs.parameters.seconds}} seconds; sleep {{inputs.parameters.seconds}}; echo done&#34;</span>]
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>argo submit loop-withparam-advance.yaml -n argo
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>STEP                         TEMPLATE                   PODNAME                                              DURATION  MESSAGE
+</span></span><span style="display:flex;"><span> ✔ loops-param-result-tlqk6  loop-param-result-example
+</span></span><span style="display:flex;"><span> ├───✔ generate              gen-number-list            loops-param-result-tlqk6-gen-number-list-2820570766  3s
+</span></span><span style="display:flex;"><span> └─┬─✔ sleep(0:20)           sleep-n-sec                loops-param-result-tlqk6-sleep-n-sec-2838083538      29s
+</span></span><span style="display:flex;"><span>   ├─✔ sleep(1:21)           sleep-n-sec                loops-param-result-tlqk6-sleep-n-sec-1673755972      27s
+</span></span><span style="display:flex;"><span>   ├─✔ sleep(2:22)           sleep-n-sec                loops-param-result-tlqk6-sleep-n-sec-1057415402      1m
+</span></span><span style="display:flex;"><span>   ├─✔ sleep(3:23)           sleep-n-sec                loops-param-result-tlqk6-sleep-n-sec-3164894936      39s
+</span></span><span style="display:flex;"><span>   ├─✔ sleep(4:24)           sleep-n-sec                loops-param-result-tlqk6-sleep-n-sec-478396042       57s
+</span></span><span style="display:flex;"><span>   ├─✔ sleep(5:25)           sleep-n-sec                loops-param-result-tlqk6-sleep-n-sec-1092769612      1m
+</span></span><span style="display:flex;"><span>   ├─✔ sleep(6:26)           sleep-n-sec                loops-param-result-tlqk6-sleep-n-sec-3524356130      48s
+</span></span><span style="display:flex;"><span>   ├─✔ sleep(7:27)           sleep-n-sec                loops-param-result-tlqk6-sleep-n-sec-803927512       41s
+</span></span><span style="display:flex;"><span>   ├─✔ sleep(8:28)           sleep-n-sec                loops-param-result-tlqk6-sleep-n-sec-1975034882      57s
+</span></span><span style="display:flex;"><span>   ├─✔ sleep(9:29)           sleep-n-sec                loops-param-result-tlqk6-sleep-n-sec-1202660980      49s
+</span></span><span style="display:flex;"><span>   └─✔ sleep(10:30)          sleep-n-sec                loops-param-result-tlqk6-sleep-n-sec-291803978       56s
+</span></span></code></pre></div><h3 id="访问循环的聚合结果">访问循环的聚合结果</h3>
+<p>一旦循环完成,可以将所有迭代的输出作为JSON数组进行访问,下面的示例展示了如何读取它.</p>
+<p>请注意:每次迭代的输出必须是有效的JSON.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">WorkflowTemplate</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">loop-test</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">main</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">main</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">steps</span>:
+</span></span><span style="display:flex;"><span>    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">execute-parallel-steps</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">print-json-entry</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">arguments</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">index</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#39;{{item}}&#39;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">withParam</span>: <span style="color:#e6db74">&#39;[1, 2, 3]&#39;</span>
+</span></span><span style="display:flex;"><span>    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">call-access-aggregate-output</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">access-aggregate-output</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">arguments</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">aggregate-results</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># If the value of each loop iteration isn&#39;t a valid JSON,</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># you get a JSON parse error:</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#39;{{steps.execute-parallel-steps.outputs.result}}&#39;</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">print-json-entry</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">inputs</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">index</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># The output must be a valid JSON</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">script</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">alpine:latest</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">sh]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">source</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        cat &lt;&lt;EOF
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        {
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#34;input&#34;: &#34;{{inputs.parameters.index}}&#34;,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#34;transformed-input&#34;: &#34;{{inputs.parameters.index}}.jpeg&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        }
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        EOF</span>        
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">access-aggregate-output</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">inputs</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">aggregate-results</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#39;no-value&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">script</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">alpine:latest</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">sh]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">source</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        echo &#39;inputs.parameters.aggregate-results: &#34;{{inputs.parameters.aggregate-results}}&#34;&#39;</span>        
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>argo submit loop-withparam-aggr-result.yaml -n argo
+</span></span></code></pre></div>
+    <img src="/images/argo-workflow-loop-withparam-aggr-result.png"  alt="argo-workflow-loop-withparam-aggr-result"  class="center"  style="border-radius: 0px; width: 60%;"  />
+
+
+<p>上述工作流的最后一步应该有以下输出: inputs.parameters.aggregate-results: &ldquo;[{&ldquo;input&rdquo;:&ldquo;1&rdquo;,&ldquo;transformed-input&rdquo;:&ldquo;1.jpeg&rdquo;},{&ldquo;input&rdquo;:&ldquo;2&rdquo;,&ldquo;transformed-input&rdquo;:&ldquo;2.jpeg&rdquo;},{&ldquo;input&rdquo;:&ldquo;3&rdquo;,&ldquo;transformed-input&rdquo;:&ldquo;3.jpeg&rdquo;}]&rdquo;</p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Argo Workflow 4</title>
+            <link>https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/argo-workflow-4/</link>
+            <pubDate>Sat, 25 May 2024 22:25:36 +0800</pubDate>
+            
+            <guid>https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/argo-workflow-4/</guid>
+            <description>Argo Workflow (4) 1 Secrets Argo Workflow支持在workflow中使用Kubernetes的Secret。Secret是一种用来存储敏感信息的对象，比如密码、OAuth令牌等。Secret可以以明文或base64编码的形式存储在Etcd中。在workflow中使用Secret时，需要在workflow的spec中定义一个secrets字段，然后在workflow的template中使用{{workflow.spec.secrets}}引用。
+先创建一个secret，然后在workflow中使用这个secret。
+kubectl create secret generic my-secret --from-literal=mypassword=S00perS3cretPa55word -n argo # To run this example, first create the secret by running: # kubectl create secret generic my-secret --from-literal=mypassword=S00perS3cretPa55word apiVersion: argoproj.io/v1alpha1 kind: Workflow metadata: generateName: secret-example- spec: entrypoint: argosay # To access secrets as files, add a volume entry in spec.volumes[] and # then in the container template spec, add a mount using volumeMounts. volumes: - name: my-secret-vol secret: secretName: my-secret # name of an existing k8s secret templates: - name: argosay container: image: alpine:3.</description>
+            <content type="html"><![CDATA[<h1 id="argo-workflow-4">Argo Workflow (4)</h1>
+<h2 id="1-secrets">1 Secrets</h2>
+<p>Argo Workflow支持在workflow中使用Kubernetes的Secret。Secret是一种用来存储敏感信息的对象，比如密码、OAuth令牌等。Secret可以以明文或base64编码的形式存储在Etcd中。在workflow中使用Secret时，需要在workflow的spec中定义一个<code>secrets</code>字段，然后在workflow的template中使用<code>{{workflow.spec.secrets}}</code>引用。</p>
+<p>先创建一个secret，然后在workflow中使用这个secret。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubectl create secret generic my-secret --from-literal<span style="color:#f92672">=</span>mypassword<span style="color:#f92672">=</span>S00perS3cretPa55word -n argo
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#75715e"># To run this example, first create the secret by running:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># kubectl create secret generic my-secret --from-literal=mypassword=S00perS3cretPa55word</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">secret-example-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">argosay</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># To access secrets as files, add a volume entry in spec.volumes[] and</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># then in the container template spec, add a mount using volumeMounts.</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">volumes</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">my-secret-vol</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">secret</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">secretName</span>: <span style="color:#ae81ff">my-secret    </span> <span style="color:#75715e"># name of an existing k8s secret</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">argosay</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">alpine:3.7</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">sh, -c]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        echo &#34;secret from env: $MYSECRETPASSWORD&#34;;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        echo &#34;secret from file: `cat /secret/mountpath/mypassword`&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      &#39;</span>]
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># To access secrets as environment variables, use the k8s valueFrom and</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># secretKeyRef constructs.</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">env</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">MYSECRETPASSWORD </span> <span style="color:#75715e"># name of env var</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">valueFrom</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">secretKeyRef</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">name</span>: <span style="color:#ae81ff">my-secret    </span> <span style="color:#75715e"># name of an existing k8s secret</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">key</span>: <span style="color:#ae81ff">mypassword    </span> <span style="color:#75715e"># &#39;key&#39; subcomponent of the secret</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">volumeMounts</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">my-secret-vol    </span> <span style="color:#75715e"># mount file containing secret at /secret/mountpath</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">mountPath</span>: <span style="color:#e6db74">&#34;/secret/mountpath&#34;</span>
+</span></span></code></pre></div><h2 id="2-volumes">2 Volumes</h2>
+<p>一下例子会动态创建一个volume,然后在2步的workflow中使用这个volume.</p>
+<p>pv是一个持久卷，pvc是一个持久卷声明，pv和pvc是k8s中的两个资源对象。pv是一个持久卷的实际对象，pvc是一个持久卷的声明对象。pv是一个集群级别的资源，pvc是一个命名空间级别的资源。pv是一个持久卷的实际对象，pvc是一个持久卷的声明对象。pv是一个集群级别的资源，pvc是一个命名空间级别的资源。</p>
+<p>这里的pvc是临时存在的,workflow结束后会被删除.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">volumes-pvc-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">volumes-pvc-example</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">volumeClaimTemplates</span>:                 <span style="color:#75715e"># define volume, same syntax as k8s Pod spec</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">name</span>: <span style="color:#ae81ff">workdir                    </span> <span style="color:#75715e"># name of volume claim</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">accessModes</span>: [ <span style="color:#e6db74">&#34;ReadWriteOnce&#34;</span> ]
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">resources</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">requests</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">storage</span>: <span style="color:#ae81ff">1Gi                 </span> <span style="color:#75715e"># Gi =&gt; 1024 * 1024 * 1024</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">volumes-pvc-example</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">steps</span>:
+</span></span><span style="display:flex;"><span>    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">generate</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">argosay</span>
+</span></span><span style="display:flex;"><span>    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">print</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">print-message</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">argosay</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">yky8/argosay:v2</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">sh, -c]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;echo generating message in volume; cowsay hello world | tee /mnt/vol/hello_world.txt&#34;</span>]
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># Mount workdir volume at /mnt/vol before invoking docker/whalesay</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">volumeMounts</span>:                     <span style="color:#75715e"># same syntax as k8s Pod spec</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">workdir</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">mountPath</span>: <span style="color:#ae81ff">/mnt/vol</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">print-message</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">alpine:latest</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">sh, -c]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;echo getting message from volume; find /mnt/vol; cat /mnt/vol/hello_world.txt&#34;</span>]
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># Mount workdir volume at /mnt/vol before invoking docker/whalesay</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">volumeMounts</span>:                     <span style="color:#75715e"># same syntax as k8s Pod spec</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">workdir</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">mountPath</span>: <span style="color:#ae81ff">/mnt/vol</span>
+</span></span></code></pre></div><p>Volume 是一种非常有效的方式,可以将大量数据从工作流的一个步骤移动到另一个步骤.根据系统的不同,一些卷可能可以从多个步骤同时访问.</p>
+<p>有些时候,我们想要去获取已经存在的卷,而不是动态创建一个新的卷:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#75715e"># Define Kubernetes PVC</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">PersistentVolumeClaim</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">my-existing-volume</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">accessModes</span>: [ <span style="color:#e6db74">&#34;ReadWriteOnce&#34;</span> ]
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">resources</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">requests</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">storage</span>: <span style="color:#ae81ff">1Gi</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">volumes-existing-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">volumes-existing-example</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">volumes</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Pass my-existing-volume as an argument to the volumes-existing-example template</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Same syntax as k8s Pod spec</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">workdir</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">persistentVolumeClaim</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">claimName</span>: <span style="color:#ae81ff">my-existing-volume</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">volumes-existing-example</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">steps</span>:
+</span></span><span style="display:flex;"><span>    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">generate</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">argosay</span>
+</span></span><span style="display:flex;"><span>    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">print</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">print-message</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">argosay</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">yky8/argosay:v2</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">sh, -c]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;echo generating message in volume; cowsay hello world | tee /mnt/vol/hello_world.txt&#34;</span>]
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">volumeMounts</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">workdir</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">mountPath</span>: <span style="color:#ae81ff">/mnt/vol</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">print-message</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">alpine:latest</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">sh, -c]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;echo getting message from volume; find /mnt/vol; cat /mnt/vol/hello_world.txt&#34;</span>]
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">volumeMounts</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">workdir</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">mountPath</span>: <span style="color:#ae81ff">/mnt/vol</span>
+</span></span></code></pre></div><p>也可以在workflow的template字段下使用<strong>resource</strong>步骤来定义volume,这样可以在workflow的spec字段下定义volume,然后在workflow的template中使用这个volume.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">template-level-volume-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">generate-and-use-volume</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">generate-and-use-volume</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">steps</span>:
+</span></span><span style="display:flex;"><span>    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">generate-volume</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">generate-volume</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">arguments</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>            - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">pvc-size</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#75715e"># In a real-world example, this could be generated by a previous workflow step.</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#39;1Gi&#39;</span>
+</span></span><span style="display:flex;"><span>    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">generate</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">argosay</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">arguments</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>            - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">pvc-name</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#39;{{steps.generate-volume.outputs.parameters.pvc-name}}&#39;</span>
+</span></span><span style="display:flex;"><span>    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">print</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">print-message</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">arguments</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>            - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">pvc-name</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#39;{{steps.generate-volume.outputs.parameters.pvc-name}}&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">generate-volume</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">inputs</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">pvc-size</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">resource</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">action</span>: <span style="color:#ae81ff">create</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">setOwnerReference</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">manifest</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        apiVersion: v1
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        kind: PersistentVolumeClaim
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        metadata:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          generateName: pvc-example-
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        spec:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          accessModes: [&#39;ReadWriteOnce&#39;, &#39;ReadOnlyMany&#39;]
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          resources:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            requests:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">              storage: &#39;{{inputs.parameters.pvc-size}}&#39;</span>        
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">outputs</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">pvc-name</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">valueFrom</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">jsonPath</span>: <span style="color:#e6db74">&#39;{.metadata.name}&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">argosay</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">inputs</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">pvc-name</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">volumes</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">workdir</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">persistentVolumeClaim</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">claimName</span>: <span style="color:#e6db74">&#39;{{inputs.parameters.pvc-name}}&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">yky8/argosay:v2</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">sh, -c]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;echo generating message in volume; cowsay hello world | tee /mnt/vol/hello_world.txt&#34;</span>]
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">volumeMounts</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">workdir</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">mountPath</span>: <span style="color:#ae81ff">/mnt/vol</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">print-message</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">inputs</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">pvc-name</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">volumes</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">workdir</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">persistentVolumeClaim</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">claimName</span>: <span style="color:#e6db74">&#39;{{inputs.parameters.pvc-name}}&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">alpine:latest</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">sh, -c]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;echo getting message from volume; find /mnt/vol; cat /mnt/vol/hello_world.txt&#34;</span>]
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">volumeMounts</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">workdir</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">mountPath</span>: <span style="color:#ae81ff">/mnt/vol</span>
+</span></span></code></pre></div><p>如果要执行这个,需要先确定argo的namespace下有default service account的权限,否则会报错.</p>
+<p>像我这个开始是没有pvc创建权限的,需要给default service account添加权限.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#75715e"># role.yaml</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">rbac.authorization.k8s.io/v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Role</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">argo</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">pvc-creator</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">rules</span>:
+</span></span><span style="display:flex;"><span>- <span style="color:#f92672">apiGroups</span>: [<span style="color:#e6db74">&#34;&#34;</span>]
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">resources</span>: [<span style="color:#e6db74">&#34;persistentvolumeclaims&#34;</span>]
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">verbs</span>: [<span style="color:#e6db74">&#34;create&#34;</span>, <span style="color:#e6db74">&#34;delete&#34;</span>, <span style="color:#e6db74">&#34;get&#34;</span>, <span style="color:#e6db74">&#34;list&#34;</span>, <span style="color:#e6db74">&#34;watch&#34;</span>]
+</span></span><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># rolebinding.yaml</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">rbac.authorization.k8s.io/v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">RoleBinding</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">pvc-creator-binding</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">argo</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">subjects</span>:
+</span></span><span style="display:flex;"><span>- <span style="color:#f92672">kind</span>: <span style="color:#ae81ff">ServiceAccount</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">default</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">argo</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">roleRef</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Role</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">pvc-creator</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">apiGroup</span>: <span style="color:#ae81ff">rbac.authorization.k8s.io</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubectl apply -f role_bind.yaml
+</span></span><span style="display:flex;"><span>argo submit volume-tpl.yaml -n argo
+</span></span></code></pre></div>
+    <img src="/images/argo-workflow-pvc-tpl.png"  alt="argo-workflow-tpl"  class="center"  style="border-radius: 0px; width: 80%;"  />
+
+
+]]></content>
+        </item>
+        
+        <item>
+            <title>Argo Workflow 3</title>
+            <link>https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/argo-workflow-3/</link>
+            <pubDate>Sat, 25 May 2024 17:14:53 +0800</pubDate>
+            
+            <guid>https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/argo-workflow-3/</guid>
+            <description>Argo Workflow (3) 1 Artifacts 在运行工作流时，步骤生成或使用工件是非常常见的情况。通常，一个步骤的输出工件可能会被后续步骤作为输入工件使用。
+下面的工作流规范包含两个按顺序运行的步骤。第一个名为 generate-artifact 的步骤将使用 argosay 模板生成一个工件，该工件将被第二个名为 print-message 的步骤使用，print-message 将消费生成的工件。
+apiVersion: argoproj.io/v1alpha1 kind: Workflow metadata: generateName: artifact-passing- spec: entrypoint: artifact-example templates: - name: artifact-example steps: - - name: generate-artifact template: argosay - - name: consume-artifact template: print-message arguments: artifacts: # bind message to the hello-art artifact # generated by the generate-artifact step - name: message from: &amp;#34;{{steps.generate-artifact.outputs.artifacts.hello-art}}&amp;#34; - name: argosay container: image: yky8/argosay:v2 # sh -c，你可以在其后面提供一个字符串， # 这个字符串将被 sh 作为一个完整的 shell 命令来执行 command: [sh, -c] # The tee command is used in Linux and Unix systems.</description>
+            <content type="html"><![CDATA[<h1 id="argo-workflow-3">Argo Workflow (3)</h1>
+<h2 id="1-artifacts">1 Artifacts</h2>
+<p>在运行工作流时，步骤生成或使用工件是非常常见的情况。通常，一个步骤的输出工件可能会被后续步骤作为输入工件使用。</p>
+<p>下面的工作流规范包含两个按顺序运行的步骤。第一个名为 generate-artifact 的步骤将使用 argosay 模板生成一个工件，该工件将被第二个名为 print-message 的步骤使用，print-message 将消费生成的工件。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">artifact-passing-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">artifact-example</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">artifact-example</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">steps</span>:
+</span></span><span style="display:flex;"><span>    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">generate-artifact</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">argosay</span>
+</span></span><span style="display:flex;"><span>    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">consume-artifact</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">print-message</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">arguments</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">artifacts</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#75715e"># bind message to the hello-art artifact</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#75715e"># generated by the generate-artifact step</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">from</span>: <span style="color:#e6db74">&#34;{{steps.generate-artifact.outputs.artifacts.hello-art}}&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">argosay</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">yky8/argosay:v2</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># sh -c，你可以在其后面提供一个字符串，</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># 这个字符串将被 sh 作为一个完整的 shell 命令来执行</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">sh, -c]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># The tee command is used in Linux and Unix systems. </span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># It reads from the standard input and writes to both standard output and one or more files simultaneously. </span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># This can be useful when you want to save the output of a command to a file while also viewing it in the terminal.</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;/usr/local/bin/argosay echo &#39;hello world&#39; | tee /tmp/hello_world.txt&#34;</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">outputs</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">artifacts</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># generate hello-art artifact from /tmp/hello_world.txt</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># artifacts can be directories as well as files</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">hello-art</span> <span style="color:#75715e"># 被 consume-artifact 步骤使用,&#34;from&#34;字段指定</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/tmp/hello_world.txt</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">print-message</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">inputs</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">artifacts</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># unpack the message input artifact</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># and put it at /tmp/message</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/tmp/message</span> <span style="color:#75715e"># put it at /tmp/message</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">alpine:latest</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">sh, -c]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;cat /tmp/message&#34;</span>]
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>argo submit artifacts.yaml -n argo
+</span></span></code></pre></div>
+    <img src="/images/argo-workflow-artifacts.png"  alt="argo-workflow-artifacts"  class="center"  style="border-radius: 0px; width: 30%;"  />
+
+
+<h3 id="对于过大的工件artifact">对于过大的工件Artifact</h3>
+<p>在运行工作流时，步骤生成或使用工件是非常常见的情况。通常，一个步骤的输出工件可能会被后续步骤作为输入工件使用。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ae81ff">&lt;... snipped ...&gt;</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">print-large-artifact</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># below patch gets merged with the actual pod spec and increses the memory</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># request of the init container.</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">podSpecPatch</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      initContainers:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        - name: init
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          resources:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            requests:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">              memory: 2Gi
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">              cpu: 300m</span>      
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">inputs</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">artifacts</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">data</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/tmp/large-file</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">alpine:latest</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">sh, -c]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;cat /tmp/large-file&#34;</span>]
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">&lt;... snipped ...&gt;</span>
+</span></span></code></pre></div><h3 id="工件打包策略">工件打包策略</h3>
+<p>在 Argo Workflows 中，工件默认被打包为 Tarball 并进行 gzip 压缩。您可以通过指定存档策略（archive strategy）来自定义此行为。以下是一个示例，展示了如何使用 archive 字段来自定义工件的存档策略：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ae81ff">&lt;... snipped ...&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">outputs</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">artifacts</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># default behavior - tar+gzip default compression.</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">hello-art-1</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/tmp/hello_world.txt</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># disable archiving entirely - upload the file / directory as is.</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># this is useful when the container layout matches the desired target repository layout.   </span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">hello-art-2</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/tmp/hello_world.txt</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">archive</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">none</span>: {}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># customize the compression behavior (disabling it here).</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># this is useful for files with varying compression benefits, </span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># e.g. disabling compression for a cached build workspace and large binaries, </span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># or increasing compression for &#34;perfect&#34; textual data - like a json/xml export of a large database.</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">hello-art-3</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/tmp/hello_world.txt</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">archive</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">tar</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># no compression (also accepts the standard gzip 1 to 9 values)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">compressionLevel</span>: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">&lt;... snipped ...&gt;</span>
+</span></span></code></pre></div><h3 id="工件的垃圾收集">工件的垃圾收集</h3>
+<p>存储引擎支持,文档: <a href="https://argo-workflows.readthedocs.io/en/latest/configure-artifact-repository/">https://argo-workflows.readthedocs.io/en/latest/configure-artifact-repository/</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">artifact-gc-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">main</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">artifactGC</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">strategy</span>: <span style="color:#ae81ff">OnWorkflowDeletion </span> <span style="color:#75715e"># default Strategy set here applies to all Artifacts by default</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">main</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">image</span>: <span style="color:#ae81ff">argoproj/argosay:v2</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">command</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#ae81ff">sh</span>
+</span></span><span style="display:flex;"><span>          - -<span style="color:#ae81ff">c</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">args</span>:
+</span></span><span style="display:flex;"><span>          - |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            echo &#34;can throw this away&#34; &gt; /tmp/temporary-artifact.txt
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            echo &#34;keep this&#34; &gt; /tmp/keep-this.txt</span>            
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">outputs</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">artifacts</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">temporary-artifact</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/tmp/temporary-artifact.txt</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">s3</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">key</span>: <span style="color:#ae81ff">temporary-artifact.txt</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">keep-this</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/tmp/keep-this.txt</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">s3</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">key</span>: <span style="color:#ae81ff">keep-this.txt</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">artifactGC</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">strategy</span>: <span style="color:#ae81ff">Never  </span> <span style="color:#75715e"># optional override for an Artifact</span>
+</span></span></code></pre></div><h3 id="工件命名建议--参数化">工件命名建议&ndash;参数化</h3>
+<p>如果有可能存在并发运行的相同工作流，那么应该考虑使用参数化的S3键，例如使用<code>{{workflow.uid}}</code>等。这样做的目的是为了避免一个工作流正在删除一个工件，而另一个工作流正在为同一个S3键生成工件的情况。</p>
+<p>例如，假设你有两个并发运行的工作流，它们都使用相同的S3键来存储工件。如果一个工作流完成并删除了它的工件，而另一个工作流还在生成工件，那么可能会出现问题。因为第二个工作流可能会发现它的工件已经被删除，或者它可能会覆盖第一个工作流的工件。</p>
+<p>为了避免这种情况，你可以使用参数化的S3键，这样每个工作流都会有一个唯一的S3键。例如，你可以使用<code>{{workflow.uid}}</code>作为S3键的一部分，这样每个工作流都会有一个唯一的S3键，因为每个工作流的<code>uid</code>都是唯一的。</p>
+<h3 id="存储服务的服务账号或iam注释">存储服务的服务账号或IAM注释</h3>
+<p>如果要使用存储服务的服务账号或IAM注释，可以在工作流规范中指定这些注释。这些注释将被传递给存储服务，以便存储服务可以使用这些注释来控制对存储桶的访问。</p>
+<p>可以改整个workflow的存储服务的服务账号或IAM注释，也可以为每个工件指定不同的服务账号或IAM注释。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">artifact-gc-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">main</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">artifactGC</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">strategy</span>: <span style="color:#ae81ff">OnWorkflowDeletion </span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">##############################################################################################</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#    Workflow Level Service Account and Metadata</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">##############################################################################################</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">serviceAccountName</span>: <span style="color:#ae81ff">my-sa</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">podMetadata</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">annotations</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">eks.amazonaws.com/role-arn</span>: <span style="color:#ae81ff">arn:aws:iam::111122223333:role/my-iam-role</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">main</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">image</span>: <span style="color:#ae81ff">argoproj/argosay:v2</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">command</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#ae81ff">sh</span>
+</span></span><span style="display:flex;"><span>          - -<span style="color:#ae81ff">c</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">args</span>:
+</span></span><span style="display:flex;"><span>          - |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            echo &#34;can throw this away&#34; &gt; /tmp/temporary-artifact.txt
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            echo &#34;keep this&#34; &gt; /tmp/keep-this.txt</span>            
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">outputs</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">artifacts</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">temporary-artifact</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/tmp/temporary-artifact.txt</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">s3</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">key</span>: <span style="color:#ae81ff">temporary-artifact-{{workflow.uid}}.txt</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">artifactGC</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#75715e">####################################################################################</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#75715e">#    Optional override capability</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#75715e">####################################################################################</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">serviceAccountName</span>: <span style="color:#ae81ff">artifact-specific-sa</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">podMetadata</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">annotations</span>:
+</span></span><span style="display:flex;"><span>                  <span style="color:#f92672">eks.amazonaws.com/role-arn</span>: <span style="color:#ae81ff">arn:aws:iam::111122223333:role/artifact-specific-iam-role</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">keep-this</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/tmp/keep-this.txt</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">s3</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">key</span>: <span style="color:#ae81ff">keep-this-{{workflow.uid}}.txt</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">artifactGC</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">strategy</span>: <span style="color:#ae81ff">Never</span>
+</span></span></code></pre></div><p>要支持自建服务账号,需要创建Role和RoleBinding,并将Role绑定到ServiceAccount上:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">rbac.authorization.k8s.io/v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Role</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">annotations</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">workflows.argoproj.io/description</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      This is the minimum recommended permissions needed if you want to use artifact GC.</span>      
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">artifactgc</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">rules</span>:
+</span></span><span style="display:flex;"><span>- <span style="color:#f92672">apiGroups</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">argoproj.io</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">resources</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">workflowartifactgctasks</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">verbs</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">list</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">watch</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#f92672">apiGroups</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">argoproj.io</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">resources</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">workflowartifactgctasks/status</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">verbs</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">patch</span>
+</span></span></code></pre></div><p>如果你使用了快速启动的manifest文件进行安装，那么你会得到一个名为artifactgc的角色（Role）。如果你使用的是发布版本的install.yaml文件进行安装，那么同样的权限会在argo-cluster-role中。</p>
+<p>如果你没有使用自己的ServiceAccount，而是使用默认的ServiceAccount，那么你需要创建一个RoleBinding或ClusterRoleBinding，将artifactgc角色或argo-cluster-role绑定到默认的ServiceAccount上。这样，当Argo Workflow运行时，它就可以使用这些角色的权限。</p>
+<h3 id="argo-workflow中的垃圾收集garbage-collectiongc失败时会发生什么">Argo Workflow中的垃圾收集（Garbage Collection，GC）失败时会发生什么?</h3>
+<p>如果由于某种原因（除了工件已经被删除，这不被视为失败）删除工件失败，工作流的状态将被标记为新的条件，以指示&quot;Artifact GC Failure&quot;。同时，Kubernetes会发出一个事件，Argo Server UI也会显示失败信息。为了进一步调试，用户应该找到一个或多个名为<code>&lt;wfName&gt;-artgc-*</code>的Pod，并查看其日志。</p>
+<p>如果用户需要删除工作流及其子CRD对象，他们需要修补工作流以删除阻止删除的终结器（finalizer）：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">finalizers</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">workflows.argoproj.io/artifact-gc</span>
+</span></span></code></pre></div><p>可以通过以下命令删除终结器：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>kubectl patch workflow my-wf <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --type json <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    --patch<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;[ { &#34;op&#34;: &#34;remove&#34;, &#34;path&#34;: &#34;/metadata/finalizers&#34; } ]&#39;</span>
+</span></span></code></pre></div><p>或者为了简化操作，可以使用Argo CLI的<code>argo delete</code>命令并带上<code>--force</code>标志，这在底层会在执行删除操作前移除终结器。</p>
+<p>在3.5及更高版本的发布版本中，Workflow Spec中添加了一个名为<code>forceFinalizerRemoval</code>的标志，即使Artifact GC失败，也可以强制移除终结器：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">artifactGC</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">strategy</span>: <span style="color:#ae81ff">OnWorkflowDeletion </span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">forceFinalizerRemoval</span>: <span style="color:#66d9ef">true</span>
+</span></span></code></pre></div><p>这意味着，即使工件的垃圾收集失败，也可以强制删除工作流。</p>
+<h2 id="2-内置工件">2 内置工件</h2>
+<p>有一些非常常见的工件类型，Argo Workflows提供了内置支持。这些工件类型包括：git仓库,http资源,GCS存储桶,S3存储桶的支持. 当然,你可以用任何容器做任何事情,但是这些内置工件类型可以让你更容易地使用这些常见的工件类型。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">hardwired-artifact-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">hardwired-artifact</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">hardwired-artifact</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">podSpecPatch</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        initContainers:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          - name: init
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            resources:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">              requests:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                memory: 2Gi
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                cpu: 300m</span>        
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">inputs</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">artifacts</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#75715e"># Check out the main branch of the argo repo and place it at /src</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#75715e"># revision can be anything that git checkout accepts: branch, commit, tag, etc.</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">argo-source</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/src</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">git</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">repo</span>: <span style="color:#ae81ff">https://github.com/argoproj/argo-workflows.git</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">revision</span>: <span style="color:#e6db74">&#34;main&#34;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#75715e"># Download kubectl 1.8.0 and place it at /bin/kubectl</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">kubectl</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/bin/kubectl</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">mode</span>: <span style="color:#ae81ff">0755</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">http</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">url</span>: <span style="color:#ae81ff">https://storage.googleapis.com/kubernetes-release/release/v1.8.0/bin/linux/amd64/kubectl</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Copy an s3 compatible artifact repository bucket (such as AWS, GCS and MinIO) and place it at /s3</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># - name: objects</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">#   path: /s3</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">#   s3:</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">#     endpoint: storage.googleapis.com</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">#     bucket: my-bucket-name</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">#     key: path/in/bucket</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">#     accessKeySecret:</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">#       name: my-s3-credentials</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">#       key: accessKey</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">#     secretKeySecret:</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">#       name: my-s3-credentials</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">#       key: secretKey</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">image</span>: <span style="color:#ae81ff">debian</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">sh, -c]</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;ls -l /src /bin/kubectl&#34;</span>] <span style="color:#75715e"># /s3 is not tested here</span>
+</span></span></code></pre></div><p>这些是Argo Workflow中的工件（Artifacts）的使用示例。工件是在工作流执行过程中生成或使用的文件或目录。在这个例子中，工作流的模板定义了三个输入工件：</p>
+<ol>
+<li>
+<p><code>argo-source</code>：这个工件使用git类型，它会从指定的git仓库（在这个例子中是https://github.com/argoproj/argo-workflows.git）检出指定的版本（在这个例子中是&quot;main&quot;分支），并将其放在<code>/src</code>目录下。</p>
+</li>
+<li>
+<p><code>kubectl</code>：这个工件使用HTTP类型，它会从指定的URL（在这个例子中是https://storage.googleapis.com/kubernetes-release/release/v1.8.0/bin/linux/amd64/kubectl）下载文件，并将其放在<code>/bin/kubectl</code>。<code>mode: 0755</code>表示这个文件将被设置为可执行。</p>
+</li>
+<li>
+<p><code>objects</code>：这个工件使用S3类型，它会从指定的S3兼容的存储服务（在这个例子中是storage.googleapis.com）的指定存储桶（在这个例子中是<code>my-bucket-name</code>）和键（在这个例子中是<code>path/in/bucket</code>）下载文件或目录，并将其放在<code>/s3</code>目录下。<code>accessKeySecret</code>和<code>secretKeySecret</code>字段指定了存储AWS访问密钥和秘密密钥的Kubernetes secrets。</p>
+</li>
+</ol>
+<p>然后，这个模板定义了一个容器，这个容器会运行一个命令来列出<code>/src</code>、<code>/bin/kubectl</code>和<code>/s3</code>目录的内容，这些目录就是上面定义的输入工件被放置的地方。</p>
+<h2 id="3-script">3 Script</h2>
+<p>有时候我们想让工作流执行一些脚本，而不是直接运行一个容器。这时候我们可以使用<code>script</code>类型的工件。<code>script</code>类型的工件是一个脚本，它可以是一个shell脚本、Python脚本、Perl脚本、Ruby脚本等等。在这个例子中，我们将展示如何使用<code>script</code>类型的工件。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">scripts-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">bash-script-example</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">bash-script-example</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">steps</span>:
+</span></span><span style="display:flex;"><span>    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">generate-from-bash</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">gen-random-int-bash</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">generate-from-python</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">gen-random-int-python</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">generate-from-javascript</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">gen-random-int-javascript</span>
+</span></span><span style="display:flex;"><span>    - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">print-for-bash</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">print-message</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">arguments</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#34;[BASH] {{steps.generate-from-bash.outputs.result}}&#34;</span>  <span style="color:#75715e"># The result of the here-script</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">print-for-python</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">print-message</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">arguments</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#34;[PY] {{steps.generate-from-python.outputs.result}}&#34;</span>  <span style="color:#75715e"># The result of the Python script</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">print-for-javascript</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">template</span>: <span style="color:#ae81ff">print-message</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">arguments</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#34;[JS] {{steps.generate-from-javascript.outputs.result}}&#34;</span>  <span style="color:#75715e"># The result of the JavaScript script</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">gen-random-int-bash</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">script</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">debian:9.4</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">bash]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">source</span>: <span style="color:#ae81ff">|                                        </span> <span style="color:#75715e"># Contents of the here-script</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">cat /dev/urandom | od -N2 -An -i | awk -v f=1 -v r=100 &#39;{printf &#34;%i\n&#34;, f + r * $1 / 65536}&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">gen-random-int-python</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">script</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">python:alpine3.6</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">python]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">source</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        import random
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        i = random.randint(1, 100)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        print(i)</span>        
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">gen-random-int-javascript</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">script</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">node:9.1-alpine</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">node]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">source</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        var rand = Math.floor(Math.random() * 100);
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        console.log(rand);</span>        
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">print-message</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">inputs</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">alpine:latest</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">command</span>: [<span style="color:#ae81ff">sh, -c]</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">args</span>: [<span style="color:#e6db74">&#34;echo result was: {{inputs.parameters.message}}&#34;</span>]
+</span></span></code></pre></div><p>&ldquo;script&quot;关键字允许<strong>使用&quot;source&quot;标签来指定脚本体</strong>。这将创建一个包含脚本体的临时文件，然后将<strong>临时文件的名称作为最后一个参数传递给&quot;command&rdquo;</strong>，&ldquo;command&quot;应该是一个执行脚本体的解释器。</p>
+<p>使用&quot;script&quot;特性还会将<strong>运行脚本的标准输出分配给一个名为&quot;result&quot;的特殊输出参数</strong>。这允许你在工作流规范的其余部分中使用运行脚本本身的结果。在这个例子中，结果简单地被&quot;print-message&quot;模板回显。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>argo submit scripts-parallel.yaml -n argo --watch
+</span></span></code></pre></div>
+    <img src="/images/argo-workflow-scripts-parallel.png"  alt="argo-workflow-script"  class="center"  style="border-radius: 0px; width: 50%;"  />
+
+
+<h2 id="4-outputs-parameters">4 Outputs Parameters</h2>
+<p>输出参数提供了一种通用机制,可以将步骤的结果用作参数(而不仅仅是作为工件).这允许你使用任何类型步骤的结果,而不仅仅是脚本. 用于条件测试,循环和参数. 输出参数的工作方式类似于脚本结果,只是输出参数的值被设置为生成的文件的内容,而不是stdout的内容.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">output-parameter-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">output-parameter</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">output-parameter</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">steps</span>:
+</span></span><span style="display:flex;"><span>        - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">generate-parameter</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">template</span>: <span style="color:#ae81ff">argosay</span>
+</span></span><span style="display:flex;"><span>        - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">consume-parameter</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">template</span>: <span style="color:#ae81ff">print-message</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">arguments</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># Pass the hello-param output from the generate-parameter step as the message input to print-message</span>
+</span></span><span style="display:flex;"><span>                - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+</span></span><span style="display:flex;"><span>                  <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#34;{{steps.generate-parameter.outputs.parameters.hello-param}}&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">argosay</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">image</span>: <span style="color:#ae81ff">yky8/argosay:v2</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">command</span>: [ <span style="color:#ae81ff">sh, -c ]</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">args</span>: [ <span style="color:#e6db74">&#34;echo -n hello world &gt; /tmp/hello_world.txt&#34;</span> ]  <span style="color:#75715e"># generate the content of hello_world.txt</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">outputs</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">hello-param </span> <span style="color:#75715e"># name of output parameter</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">valueFrom</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/tmp/hello_world.txt</span> <span style="color:#75715e"># set the value of hello-param to the contents of this hello-world.txt</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">print-message</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">inputs</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">image</span>: <span style="color:#ae81ff">yky8/argosay:v2</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">command</span>: [ <span style="color:#e6db74">&#34;/usr/local/bin/argosay&#34;</span> ]
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">args</span>: [ <span style="color:#e6db74">&#34;echo&#34;</span>,<span style="color:#e6db74">&#34;{{inputs.parameters.message}}&#34;</span> ]
+</span></span></code></pre></div><p>这里拿取step的输出参数作为输入参数,而不是工件.这个例子中,<code>generate-parameter</code>步骤生成一个名为<code>hello-param</code>的输出参数,然后<code>consume-parameter</code>步骤将这个输出参数作为输入参数传递给<code>print-message</code>步骤。</p>
+<p>如果是dag的话,可以使用<code>{{tasks.generate-parameter.outputs.parameters.hello-param}}</code>来获取输出参数.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>argo submit output-params.yaml -n argo --watch
+</span></span></code></pre></div><h3 id="outputsresult捕获标准输出"><code>outputs.result</code>捕获标准输出</h3>
+<p>只有标准输出流的256 kb会被捕获.</p>
+<ul>
+<li>
+<p>script的输出就是用过<code>outputs.result</code>来捕获的.可以参考上一节的内容.</p>
+</li>
+<li>
+<p>容器Steps和Tasks的标准输出也会被捕获并存储在结果参数中.</p>
+<ul>
+<li>例如,如果有一个名为 log-int 的任务,那么它的结果可以通过 {{ tasks.log-int.outputs.result }} 来访问. 如果你在使用步骤,那么可以将 tasks 替换为 steps,即 {{ steps.log-int.outputs.result }}.这样,你就可以在工作流的其他部分使用这个步骤或任务的输出结果.</li>
+</ul>
+</li>
+</ul>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Argo Workflow 2</title>
+            <link>https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/argo-workflow-2/</link>
+            <pubDate>Sat, 25 May 2024 14:30:03 +0800</pubDate>
+            
+            <guid>https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/argo-workflow-2/</guid>
+            <description>Argo Workflow (2) 1 Steps 多步骤的工作流可以通过steps字段来定义。每个步骤都是一个独立的容器，可以并行执行。
+apiVersion: argoproj.io/v1alpha1 kind: Workflow metadata: generateName: steps- spec: entrypoint: hello-hello-hello # This spec contains two templates: hello-hello-hello and whalesay templates: - name: hello-hello-hello # Instead of just running a container # This template has a sequence of steps steps: - - name: hello1 # hello1 is run before the following steps template: argosay arguments: parameters: - name: message value: &amp;#34;hello1&amp;#34; - - name: hello2a # double dash =&amp;gt; run after previous step template: argosay arguments: parameters: - name: message value: &amp;#34;hello2a&amp;#34; - name: hello2b # single dash =&amp;gt; run in parallel with previous step template: argosay arguments: parameters: - name: message value: &amp;#34;hello2b&amp;#34; # This is the same template as from the previous example - name: argosay inputs: parameters: - name: message container: image: yky8/argosay:v2 command: [ &amp;#34;/usr/local/bin/argosay&amp;#34; ] args: [ &amp;#34;echo&amp;#34;,&amp;#34;{{inputs.</description>
+            <content type="html"><![CDATA[<h1 id="argo-workflow-2">Argo Workflow (2)</h1>
+<h2 id="1-steps">1 Steps</h2>
+<p>多步骤的工作流可以通过<code>steps</code>字段来定义。每个步骤都是一个独立的容器，可以并行执行。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">steps-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">hello-hello-hello</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># This spec contains two templates: hello-hello-hello and whalesay</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">hello-hello-hello</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># Instead of just running a container</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># This template has a sequence of steps</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">steps</span>:
+</span></span><span style="display:flex;"><span>        - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">hello1           </span> <span style="color:#75715e"># hello1 is run before the following steps</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">template</span>: <span style="color:#ae81ff">argosay</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">arguments</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>                - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+</span></span><span style="display:flex;"><span>                  <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#34;hello1&#34;</span>
+</span></span><span style="display:flex;"><span>        - - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">hello2a          </span> <span style="color:#75715e"># double dash =&gt; run after previous step</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">template</span>: <span style="color:#ae81ff">argosay</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">arguments</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>                - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+</span></span><span style="display:flex;"><span>                  <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#34;hello2a&#34;</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">hello2b          </span> <span style="color:#75715e"># single dash =&gt; run in parallel with previous step</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">template</span>: <span style="color:#ae81ff">argosay</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">arguments</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>                - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+</span></span><span style="display:flex;"><span>                  <span style="color:#f92672">value</span>: <span style="color:#e6db74">&#34;hello2b&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># This is the same template as from the previous example</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">argosay</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">inputs</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">image</span>: <span style="color:#ae81ff">yky8/argosay:v2</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">command</span>: [ <span style="color:#e6db74">&#34;/usr/local/bin/argosay&#34;</span> ]
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">args</span>: [ <span style="color:#e6db74">&#34;echo&#34;</span>,<span style="color:#e6db74">&#34;{{inputs.parameters.message}}&#34;</span> ]
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>argo submit multi-steps.yaml -n argo --watch
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Name:                steps-kl27q
+</span></span><span style="display:flex;"><span>Namespace:           argo
+</span></span><span style="display:flex;"><span>ServiceAccount:      unset (will run with the default ServiceAccount)
+</span></span><span style="display:flex;"><span>Status:              Succeeded
+</span></span><span style="display:flex;"><span>Conditions:
+</span></span><span style="display:flex;"><span> PodRunning          False
+</span></span><span style="display:flex;"><span> Completed           True
+</span></span><span style="display:flex;"><span>Created:             Sat May 25 14:44:26 +0800 (20 seconds ago)
+</span></span><span style="display:flex;"><span>Started:             Sat May 25 14:44:26 +0800 (20 seconds ago)
+</span></span><span style="display:flex;"><span>Finished:            Sat May 25 14:44:46 +0800 (now)
+</span></span><span style="display:flex;"><span>Duration:            20 seconds
+</span></span><span style="display:flex;"><span>Progress:            3/3
+</span></span><span style="display:flex;"><span>ResourcesDuration:   0s*(1 cpu),6s*(100Mi memory)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>STEP            TEMPLATE           PODNAME                         DURATION  MESSAGE
+</span></span><span style="display:flex;"><span> ✔ steps-kl27q  hello-hello-hello
+</span></span><span style="display:flex;"><span> ├───✔ hello1   argosay            steps-kl27q-argosay-3962065941  3s
+</span></span><span style="display:flex;"><span> └─┬─✔ hello2a  argosay            steps-kl27q-argosay-3285575750  3s
+</span></span><span style="display:flex;"><span>   └─✔ hello2b  argosay            steps-kl27q-argosay-3268798131  3s
+</span></span></code></pre></div><h2 id="2-dag">2 DAG</h2>
+<p>作为指定步骤序列的替代方案,您可以通过指定每个任务的依赖关系,将工作流定义为有向无环图(DAG)
+.对于复杂的工作流,DAGs可能更容易维护,并且允许任务在运行时达到最大的并行性.</p>
+<p>在以下工作流中,步骤 A 首先运行,因为它没有依赖关系.一旦 A 完成,步骤 B 和 C 并行运行.最后,一旦 B 和 C 完成,步骤 D 运行.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">dag-diamond-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">diamond</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">echo</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">inputs</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">image</span>: <span style="color:#ae81ff">alpine:3.7</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">command</span>: [ <span style="color:#ae81ff">echo, &#34;{{inputs.parameters.message}}&#34; ]</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">diamond</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">dag</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">tasks</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">A</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">template</span>: <span style="color:#ae81ff">echo</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">arguments</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">parameters</span>: [ { <span style="color:#f92672">name: message, value</span>: <span style="color:#ae81ff">A } ]</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">B</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">dependencies</span>: [ <span style="color:#ae81ff">A ]</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">template</span>: <span style="color:#ae81ff">echo</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">arguments</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">parameters</span>: [ { <span style="color:#f92672">name: message, value</span>: <span style="color:#ae81ff">B } ]</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">C</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">dependencies</span>: [ <span style="color:#ae81ff">A ]</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">template</span>: <span style="color:#ae81ff">echo</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">arguments</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">parameters</span>: [ { <span style="color:#f92672">name: message, value</span>: <span style="color:#ae81ff">C } ]</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">D</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">dependencies</span>: [ <span style="color:#ae81ff">B, C ]</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">template</span>: <span style="color:#ae81ff">echo</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">arguments</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">parameters</span>: [ { <span style="color:#f92672">name: message, value</span>: <span style="color:#ae81ff">D } ]</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>argo submit dag.yaml -n argo --watch
+</span></span></code></pre></div>
+    <img src="/images/argo-workflow-dag.png"  alt="argo-workflow-dag"  class="center"  style="border-radius: 0px; width: 30%;"  />
+
+
+<h3 id="加强的depends">加强的Depends</h3>
+<p>depend字段可以加强, 例如<code>depends: &quot;A &amp;&amp; B&quot;</code>表示任务D依赖于任务A和任务B同时完成,等价于<code>depends: [A, B]</code>.
+还可以考察task的终态,例如<code>depends: &quot;A.Succeeded&quot;</code>表示任务D依赖于任务A成功完成.</p>
+<p>这是您要的 Markdown 表格：</p>
+<table>
+<thead>
+<tr>
+<th>Task Result</th>
+<th>Description</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>.Succeeded</td>
+<td>Task Succeeded</td>
+<td>Task finished with no error</td>
+</tr>
+<tr>
+<td>.Failed</td>
+<td>Task Failed</td>
+<td>Task exited with a non-0 exit code</td>
+</tr>
+<tr>
+<td>.Errored</td>
+<td>Task Errored</td>
+<td>Task had an error other than a non-0 exit code</td>
+</tr>
+<tr>
+<td>.Skipped</td>
+<td>Task Skipped</td>
+<td>Task was skipped</td>
+</tr>
+<tr>
+<td>.Omitted</td>
+<td>Task Omitted</td>
+<td>Task was omitted</td>
+</tr>
+<tr>
+<td>.Daemoned</td>
+<td>Task is Daemoned and is not Pending</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>默认省略状态就是成功状态, 例如:</p>
+<ul>
+<li><code>depends: &quot;A&quot;</code>等价于<code>depends: &quot;(A.Succeeded || A.Skipped || A.Daemoned)&quot;</code>.</li>
+<li><code>depends: &quot;task || task-2.Failed&quot;</code>
+等价于 <code>depends: (task.Succeeded || task.Skipped || task.Daemoned) || task-2.Failed</code>.</li>
+</ul>
+<p>逻辑运算符有: <code>&amp;&amp;</code>,<code>||</code>,<code>!</code>.</p>
+<h3 id="multi-root-dag">multi-root DAG</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#75715e"># The following workflow executes a multi-root workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   A   B</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#  / \ /</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># C   D</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">argoproj.io/v1alpha1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Workflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">generateName</span>: <span style="color:#ae81ff">dag-multiroot-</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">entrypoint</span>: <span style="color:#ae81ff">multiroot</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">templates</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">echo</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">inputs</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">parameters</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">message</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">container</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">image</span>: <span style="color:#ae81ff">alpine:3.7</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">command</span>: [ <span style="color:#ae81ff">echo, &#34;{{inputs.parameters.message}}&#34; ]</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">multiroot</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">dag</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">tasks</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">A</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">template</span>: <span style="color:#ae81ff">echo</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">arguments</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">parameters</span>: [ { <span style="color:#f92672">name: message, value</span>: <span style="color:#ae81ff">A } ]</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">B</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">template</span>: <span style="color:#ae81ff">echo</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">arguments</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">parameters</span>: [ { <span style="color:#f92672">name: message, value</span>: <span style="color:#ae81ff">B } ]</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">C</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">depends</span>: <span style="color:#e6db74">&#34;A&#34;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">template</span>: <span style="color:#ae81ff">echo</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">arguments</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">parameters</span>: [ { <span style="color:#f92672">name: message, value</span>: <span style="color:#ae81ff">C } ]</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">D</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">depends</span>: <span style="color:#e6db74">&#34;A &amp;&amp; B&#34;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">template</span>: <span style="color:#ae81ff">echo</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">arguments</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">parameters</span>: [ { <span style="color:#f92672">name: message, value</span>: <span style="color:#ae81ff">D } ]</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>argo submit multi-root-dag.yaml -n argo --watch
+</span></span></code></pre></div>
+    <img src="/images/argo-workflow-multi-root.png"  alt="argo-workflow-multiroot-dag"  class="center"  style="border-radius: 0px; width: 40%;"  />
+
+
+<h2 id="3-工作流规范的结构">3 工作流规范的结构</h2>
+<p>现在我们已经对工作流规范的基本组成部分有了足够的了解。回顾一下其基本结构：</p>
+<ul>
+<li>Kubernetes头部，包括元数据</li>
+<li>规范主体
+<ul>
+<li>入口点调用，可选参数</li>
+<li>模板定义列表
+<ul>
+<li>对于每个模板定义
+<ul>
+<li>模板的名称</li>
+<li>可选的输入列表</li>
+<li>可选的输出列表</li>
+<li>容器调用（叶模板）或步骤列表
+<ul>
+<li>对于每个步骤，模板调用</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>总结一下，工作流规范由一组 Argo 模板组成，每个模板由一个可选的输入部分、一个可选的输出部分以及<strong>一个容器调用</strong>或<strong>一组步骤组成</strong>，<strong>每个步骤都调用另一个模板</strong>。</p>
+<p>请注意，工作流规范的容器部分将接受与 pod 规范的容器部分相同的选项，包括但不限于环境变量、秘密和卷挂载。同样，对于卷声明和卷。</p>
+]]></content>
+        </item>
         
         <item>
             <title>Argo Workflow 1</title>

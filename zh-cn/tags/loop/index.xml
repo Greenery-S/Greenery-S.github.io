@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Loop on Greenery&#39;s Blog Site</title>
+    <link>https://Greenery-S.github.io/zh-cn/tags/loop/</link>
+    <description>Recent content in Loop on Greenery&#39;s Blog Site</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Sun, 26 May 2024 00:58:41 +0800</lastBuildDate>
+    <atom:link href="https://Greenery-S.github.io/zh-cn/tags/loop/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Argo Workflow 5</title>
+      <link>https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/argo-workflow-5/</link>
+      <pubDate>Sun, 26 May 2024 00:58:41 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/argo-workflow-5/</guid>
+      <description>Argo Workflow (5) 1 Loops 编写工作流时，能够迭代一组输入是非常有用的，因为这就是 Argo Workflows 执行循环的方式。&#xA;有三种基本方法可以多次运行一个模板。&#xA;withSequence 迭代一个数字序列。 withItems 接受一个待处理的项目列表，可以是 纯的单个值，在模板中可以通过 {{item}} 使用 JSON 对象，其中每个元素可以通过它的键作为 {{item.key}} 来引用 withParam 接受一个 JSON 数组，并对其进行迭代——同样地，这些项目可以像 withItems 一样是对象。这非常强大，因为你可以在工作流的另一步生成 JSON，从而创建一个动态工作流。 withSequence 示例 apiVersion: argoproj.io/v1alpha1 kind: Workflow metadata: generateName: loop-sequence- spec: entrypoint: loop-sequence-example templates: - name: loop-sequence-example steps: - - name: hello-world-x5 template: hello-world withSequence: count: &amp;#34;5&amp;#34; - name: hello-world container: image: yky8/argosay:v2 command: [ &amp;#34;/usr/local/bin/argosay&amp;#34; ] args: [ &amp;#34;echo&amp;#34;,&amp;#34;hello world!&amp;#34; ] argo submit loop-withsequence.</description>
+    </item>
+  </channel>
+</rss>

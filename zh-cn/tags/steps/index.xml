@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Steps on Greenery&#39;s Blog Site</title>
+    <link>https://Greenery-S.github.io/zh-cn/tags/steps/</link>
+    <description>Recent content in Steps on Greenery&#39;s Blog Site</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Sat, 25 May 2024 14:30:03 +0800</lastBuildDate>
+    <atom:link href="https://Greenery-S.github.io/zh-cn/tags/steps/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Argo Workflow 2</title>
+      <link>https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/argo-workflow-2/</link>
+      <pubDate>Sat, 25 May 2024 14:30:03 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/argo-workflow-2/</guid>
+      <description>Argo Workflow (2) 1 Steps 多步骤的工作流可以通过steps字段来定义。每个步骤都是一个独立的容器，可以并行执行。&#xA;apiVersion: argoproj.io/v1alpha1 kind: Workflow metadata: generateName: steps- spec: entrypoint: hello-hello-hello # This spec contains two templates: hello-hello-hello and whalesay templates: - name: hello-hello-hello # Instead of just running a container # This template has a sequence of steps steps: - - name: hello1 # hello1 is run before the following steps template: argosay arguments: parameters: - name: message value: &amp;#34;hello1&amp;#34; - - name: hello2a # double dash =&amp;gt; run after previous step template: argosay arguments: parameters: - name: message value: &amp;#34;hello2a&amp;#34; - name: hello2b # single dash =&amp;gt; run in parallel with previous step template: argosay arguments: parameters: - name: message value: &amp;#34;hello2b&amp;#34; # This is the same template as from the previous example - name: argosay inputs: parameters: - name: message container: image: yky8/argosay:v2 command: [ &amp;#34;/usr/local/bin/argosay&amp;#34; ] args: [ &amp;#34;echo&amp;#34;,&amp;#34;{{inputs.</description>
+    </item>
+  </channel>
+</rss>

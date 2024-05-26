@@ -7,8 +7,36 @@
     <generator>Hugo</generator>
     <language>en</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sat, 25 May 2024 03:46:15 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 26 May 2024 00:58:41 +0800</lastBuildDate>
     <atom:link href="https://Greenery-S.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Argo Workflow 5</title>
+      <link>https://Greenery-S.github.io/posts/devops/argo-workflow/argo-workflow-5/</link>
+      <pubDate>Sun, 26 May 2024 00:58:41 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/posts/devops/argo-workflow/argo-workflow-5/</guid>
+      <description>Argo Workflow (5) 1 Loops When writing workflows, it is often useful to iterate over a set of inputs. This is how Argo Workflows handle looping.&#xA;There are three basic ways to run a template multiple times:&#xA;withSequence iterates over a sequence of numbers. withItems accepts a list of items to process, which can be: Plain single values, accessible via {{item}} in the template. JSON objects, where each element can be referenced by its key as {{item.</description>
+    </item>
+    <item>
+      <title>Argo Workflow 4</title>
+      <link>https://Greenery-S.github.io/posts/devops/argo-workflow/argo-workflow-4/</link>
+      <pubDate>Sat, 25 May 2024 22:25:36 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/posts/devops/argo-workflow/argo-workflow-4/</guid>
+      <description>Argo Workflow (4) 1 Secrets Argo Workflow supports the use of Kubernetes Secrets within workflows. A Secret is an object used to store sensitive information, such as passwords, OAuth tokens, etc. Secrets can be stored in Etcd in plain text or base64 encoded form. When using a Secret in a workflow, you need to define a secrets field in the workflow spec, and then reference it in the workflow template using {{workflow.</description>
+    </item>
+    <item>
+      <title>Argo Workflow 3</title>
+      <link>https://Greenery-S.github.io/posts/devops/argo-workflow/argo-workflow-3/</link>
+      <pubDate>Sat, 25 May 2024 17:14:53 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/posts/devops/argo-workflow/argo-workflow-3/</guid>
+      <description>Argo Workflow (3) 1 Artifacts When running workflows, it is very common for steps to generate or use artifacts. Typically, an output artifact from one step may be used as an input artifact by a subsequent step.&#xA;The following workflow specification contains two sequential steps. The first step, named generate-artifact, uses the argosay template to generate an artifact, which is then used by the second step, named print-message, which consumes the generated artifact.</description>
+    </item>
+    <item>
+      <title>Argo Workflow 2</title>
+      <link>https://Greenery-S.github.io/posts/devops/argo-workflow/argo-workflow-2/</link>
+      <pubDate>Sat, 25 May 2024 14:30:03 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/posts/devops/argo-workflow/argo-workflow-2/</guid>
+      <description>Argo Workflow (2) 1 Steps Multi-step workflows can be defined through the steps field. Each step is an independent container that can be executed in parallel.&#xA;apiVersion: argoproj.io/v1alpha1 kind: Workflow metadata: generateName: steps- spec: entrypoint: hello-hello-hello # This spec contains two templates: hello-hello-hello and whalesay templates: - name: hello-hello-hello # Instead of just running a container # This template has a sequence of steps steps: - - name: hello1 # hello1 is run before the following steps template: argosay arguments: parameters: - name: message value: &amp;#34;hello1&amp;#34; - - name: hello2a # double dash =&amp;gt; run after previous step template: argosay arguments: parameters: - name: message value: &amp;#34;hello2a&amp;#34; - name: hello2b # single dash =&amp;gt; run in parallel with previous step template: argosay arguments: parameters: - name: message value: &amp;#34;hello2b&amp;#34; # This is the same template as from the previous example - name: argosay inputs: parameters: - name: message container: image: yky8/argosay:v2 command: [ &amp;#34;/usr/local/bin/argosay&amp;#34; ] args: [ &amp;#34;echo&amp;#34;,&amp;#34;{{inputs.</description>
+    </item>
     <item>
       <title>Argo Workflow 1</title>
       <link>https://Greenery-S.github.io/posts/devops/argo-workflow/argo-workflow-1/</link>
@@ -50,34 +78,6 @@
       <pubDate>Wed, 22 May 2024 15:08:40 +0800</pubDate>
       <guid>https://Greenery-S.github.io/posts/go/database/introduction-to-clickhouse/</guid>
       <description>ClickHouse code: https://github.com/Greenery-S/go-database/tree/master/clickhouse&#xA;1 Introduction ClickHouse is a columnar database management system (DBMS) for online analytical processing (OLAP).&#xA;In traditional row-based database systems (MySQL, SQL Server), data in the same row is always physically stored together. In columnar database systems (ClickHouse, HBase, Druid), data from the same column is stored together.&#xA;Key characteristics of OLAP scenarios (statistical analysis based on event tracking data):&#xA;The vast majority are read requests, and data added to the database cannot be modified.</description>
-    </item>
-    <item>
-      <title>Introduction to Mongo</title>
-      <link>https://Greenery-S.github.io/posts/go/database/introduction-to-mongo/</link>
-      <pubDate>Wed, 22 May 2024 01:23:35 +0800</pubDate>
-      <guid>https://Greenery-S.github.io/posts/go/database/introduction-to-mongo/</guid>
-      <description>MongoDB code: https://github.com/Greenery-S/go-database/tree/master/mongo&#xA;1 Introduction Mongo is a document-oriented database, and it contrasts with relational databases as follows. Mongo&amp;rsquo;s greatest feature is its schema flexibility, meaning you can store documents with completely different structures in the same collection. This is especially useful in the early stages of a project when the table fields are not yet stable. Compared to MySQL, Mongo is better suited for storing large, low-value data. The read and write performance for large documents is better in Mongo than in MySQL.</description>
-    </item>
-    <item>
-      <title>Be Careful When Choosing House</title>
-      <link>https://Greenery-S.github.io/posts/life/singapore/be-careful-when-choosing-house/</link>
-      <pubDate>Wed, 22 May 2024 00:43:27 +0800</pubDate>
-      <guid>https://Greenery-S.github.io/posts/life/singapore/be-careful-when-choosing-house/</guid>
-      <description>Be Careful When Choosing a Place to Stay in Singapore When you come to Singapore, be careful when choosing a place to stay.&#xA;What is a poor person&amp;rsquo;s house? I refer to those who rent out a room in their own residence.&#xA;These landlords usually have significant financial pressures. On the one hand, they bought an HDB flat but need to rent out a room to help with their mortgage payments; on the other hand, they may be very picky about tenants, leading to conflicts and an atmosphere that feels more like a student dormitory than a home.</description>
-    </item>
-    <item>
-      <title>Introduction to Redis</title>
-      <link>https://Greenery-S.github.io/posts/go/database/introduction-to-redis/</link>
-      <pubDate>Sun, 19 May 2024 22:11:16 +0800</pubDate>
-      <guid>https://Greenery-S.github.io/posts/go/database/introduction-to-redis/</guid>
-      <description>Redis Code: https://github.com/Greenery-S/go-database/tree/master/redis&#xA;1 Introduction Redis is an in-memory data storage system. Since it is based on memory, it is fast, being 10 to 100 times faster than MySQL. To prevent data loss, data is periodically persisted to disk. Redis is deployed separately from the business application, so it can serve as a distributed cache. It supports a rich variety of data types: strings, hashes, lists, sets, and sorted sets. It supports the publish/subscribe model, where publishers send messages to specified channels, and subscribers can receive and process these messages.</description>
-    </item>
-    <item>
-      <title>ORM Realized by Reflect</title>
-      <link>https://Greenery-S.github.io/posts/go/database/orm-realized-by-reflect/</link>
-      <pubDate>Sun, 19 May 2024 21:50:59 +0800</pubDate>
-      <guid>https://Greenery-S.github.io/posts/go/database/orm-realized-by-reflect/</guid>
-      <description>Core Technology of ORM—Reflection Tutorial, Reflection Guide: https://zhuanlan.zhihu.com/p/411313885&#xA;code: https://github.com/Greenery-S/go-database/tree/master/orm&#xA;1 Reflection What is Reflection&#xA;Reflection is the ability to inspect and modify an object’s type information and memory structure, update variables, and call methods during runtime (not compile time). When to Use Reflection&#xA;When a function’s parameter type is interface{}, and you need to determine the original type at runtime to handle different types accordingly. For example, json.Marshal(v interface{}). When you need to dynamically decide which function to call at runtime based on certain conditions, such as executing the appropriate operator function based on a configuration file.</description>
     </item>
   </channel>
 </rss>

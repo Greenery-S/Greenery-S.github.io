@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Conditionals on Greenery&#39;s Blog Site</title>
+    <link>https://Greenery-S.github.io/tags/conditionals/</link>
+    <description>Recent content in Conditionals on Greenery&#39;s Blog Site</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Sun, 26 May 2024 00:58:41 +0800</lastBuildDate>
+    <atom:link href="https://Greenery-S.github.io/tags/conditionals/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Argo Workflow 5</title>
+      <link>https://Greenery-S.github.io/posts/devops/argo-workflow/argo-workflow-5/</link>
+      <pubDate>Sun, 26 May 2024 00:58:41 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/posts/devops/argo-workflow/argo-workflow-5/</guid>
+      <description>Argo Workflow (5) 1 Loops When writing workflows, it is often useful to iterate over a set of inputs. This is how Argo Workflows handle looping.&#xA;There are three basic ways to run a template multiple times:&#xA;withSequence iterates over a sequence of numbers. withItems accepts a list of items to process, which can be: Plain single values, accessible via {{item}} in the template. JSON objects, where each element can be referenced by its key as {{item.</description>
+    </item>
+  </channel>
+</rss>
