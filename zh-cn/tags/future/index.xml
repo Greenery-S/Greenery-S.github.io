@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Future on Greenery&#39;s Blog Site</title>
+    <link>https://Greenery-S.github.io/zh-cn/tags/future/</link>
+    <description>Recent content in Future on Greenery&#39;s Blog Site</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Fri, 31 May 2024 12:42:42 +0800</lastBuildDate>
+    <atom:link href="https://Greenery-S.github.io/zh-cn/tags/future/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>The Road to Next Life Stage</title>
+      <link>https://Greenery-S.github.io/zh-cn/posts/life/the-road-to-next-life-stage/</link>
+      <pubDate>Fri, 31 May 2024 12:42:42 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/zh-cn/posts/life/the-road-to-next-life-stage/</guid>
+      <description>通向下一个阶段的路 最近缺乏动力,感觉自己的生活失去了方向.我在身心上都遇到了一些挑战或抉择.我需要重新审视自己的生活,并为未来做出一些计划.&#xA;1 在人生的路口,我有什么选择? 我的NUS master也即将结束,我需要决定未来的方向.我有几个选择:&#xA;留在新加坡,找一份工作: 在新加坡,我有非常满意的实习,我有希望留在tt公司转正.当然能否转正,这是取决于当地政策,部门需求和个人能力.主要的卡点在于当地政策,我需要和leader double check EP是否有名额. 其他的新加坡公司,我感觉机会比较少,主要是技术栈的适配上,还有腾讯和米哈游可以看看.腾讯相关的就是运维开发,需要再复习一下k8s的东西.米哈游看上去是后端开发,需要继续学习go后端的内容. 回国,找一份工作: 国内的互联网公司稳定性比较缺乏. 国内的量化公司的it岗可以考虑,k8s的AI集群建设方面. 国内家乡找躺平工作,银行和小厂都是使用JAVA. 继续读博 港新的计算机博士,DL/RL方向可以看看,主要还是要把python/pytorch系统学起来. 2 面对这些选择,我该做些什么? 在技术层面我大概还要做到这些方面:&#xA;Golang的后端技术学习完, 还有我自己定下的那部分知识. python和pytorch需要再重拾一下,我购买了udmey的课程. k8s我也寻得了一些资料&amp;hellip;不看浪费.需要再看一下. cpp我觉得周期太长了,也没有什么实际的项目,暂时放一放. 摊子不能铺太大.我需要把自己的精力集中在一两个方向上.我需要做出一些选择,并且坚持下去.&#xA;3 自己的身体健康 我最近的身体状况也不是很好.六月中我会回一趟中国,做一些医学检查.&#xA;我需要多运动,多锻炼.每周可以去参加一次羽毛球,早睡早起,多喝水,多吃水果.我需要保持好的身体状态,才能更好的工作和学习.</description>
+    </item>
+  </channel>
+</rss>

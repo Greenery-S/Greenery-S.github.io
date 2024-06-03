@@ -2,11 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/argo-workflow-7/</loc>
-    <lastmod>2024-05-26T22:52:54+08:00</lastmod>
+    <loc>https://Greenery-S.github.io/zh-cn/tags/career/</loc>
+    <lastmod>2024-05-31T12:42:42+08:00</lastmod>
   </url><url>
     <loc>https://Greenery-S.github.io/zh-cn/categories/</loc>
-    <lastmod>2024-05-26T22:52:54+08:00</lastmod>
+    <lastmod>2024-05-31T12:42:42+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -17,6 +17,66 @@
                 hreflang="zh-cn"
                 href="https://Greenery-S.github.io/zh-cn/categories/"
                 />
+  </url><url>
+    <loc>https://Greenery-S.github.io/zh-cn/tags/future/</loc>
+    <lastmod>2024-05-31T12:42:42+08:00</lastmod>
+  </url><url>
+    <loc>https://Greenery-S.github.io/zh-cn/</loc>
+    <lastmod>2024-05-31T12:42:42+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://Greenery-S.github.io/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://Greenery-S.github.io/zh-cn/"
+                />
+  </url><url>
+    <loc>https://Greenery-S.github.io/zh-cn/tags/life/</loc>
+    <lastmod>2024-05-31T12:42:42+08:00</lastmod>
+  </url><url>
+    <loc>https://Greenery-S.github.io/zh-cn/categories/life/</loc>
+    <lastmod>2024-05-31T12:42:42+08:00</lastmod>
+  </url><url>
+    <loc>https://Greenery-S.github.io/zh-cn/categories/life-plan-career/</loc>
+    <lastmod>2024-05-31T12:42:42+08:00</lastmod>
+  </url><url>
+    <loc>https://Greenery-S.github.io/zh-cn/posts/</loc>
+    <lastmod>2024-05-31T12:42:42+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://Greenery-S.github.io/posts/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://Greenery-S.github.io/zh-cn/posts/"
+                />
+  </url><url>
+    <loc>https://Greenery-S.github.io/zh-cn/tags/self-improvement/</loc>
+    <lastmod>2024-05-31T12:42:42+08:00</lastmod>
+  </url><url>
+    <loc>https://Greenery-S.github.io/zh-cn/tags/</loc>
+    <lastmod>2024-05-31T12:42:42+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://Greenery-S.github.io/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://Greenery-S.github.io/zh-cn/tags/"
+                />
+  </url><url>
+    <loc>https://Greenery-S.github.io/zh-cn/posts/life/the-road-to-next-life-stage/</loc>
+    <lastmod>2024-05-31T12:42:42+08:00</lastmod>
+  </url><url>
+    <loc>https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/argo-workflow-7/</loc>
+    <lastmod>2024-05-26T22:52:54+08:00</lastmod>
   </url><url>
     <loc>https://Greenery-S.github.io/zh-cn/categories/devops/</loc>
     <lastmod>2024-05-26T22:52:54+08:00</lastmod>
@@ -42,45 +102,6 @@
                 rel="alternate"
                 hreflang="zh-cn"
                 href="https://Greenery-S.github.io/zh-cn/categories/devops-argo-workflow/"
-                />
-  </url><url>
-    <loc>https://Greenery-S.github.io/zh-cn/</loc>
-    <lastmod>2024-05-26T22:52:54+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://Greenery-S.github.io/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://Greenery-S.github.io/zh-cn/"
-                />
-  </url><url>
-    <loc>https://Greenery-S.github.io/zh-cn/posts/</loc>
-    <lastmod>2024-05-26T22:52:54+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://Greenery-S.github.io/posts/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://Greenery-S.github.io/zh-cn/posts/"
-                />
-  </url><url>
-    <loc>https://Greenery-S.github.io/zh-cn/tags/</loc>
-    <lastmod>2024-05-26T22:52:54+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://Greenery-S.github.io/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://Greenery-S.github.io/zh-cn/tags/"
                 />
   </url><url>
     <loc>https://Greenery-S.github.io/zh-cn/tags/wip/</loc>

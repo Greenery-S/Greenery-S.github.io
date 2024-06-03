@@ -6,17 +6,21 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="author" content="">
-<meta name="description" content="Argo Workflow (7) Walk through 章节的相关特性还剩下:
-Kubernetes Resource https://argo-workflows.readthedocs.io/en/latest/walk-through/kubernetes-resources/ Daemon Container Sidecar Container Custom Template Variables Continuous Integration Example 下次有机会再总结. 目前学的这些够用了." />
-<meta name="keywords" content=", WIP" />
+<meta name="description" content="通向下一个阶段的路 最近缺乏动力,感觉自己的生活失去了方向.我在身心上都遇到了一些挑战或抉择.我需要重新审视自己的生活,并为未来做出一些计划.
+1 在人生的路口,我有什么选择? 我的NUS master也即将结束,我需要决定未来的方向.我有几个选择:
+留在新加坡,找一份工作: 在新加坡,我有非常满意的实习,我有希望留在tt公司转正.当然能否转正,这是取决于当地政策,部门需求和个人能力.主要的卡点在于当地政策,我需要和leader double check EP是否有名额. 其他的新加坡公司,我感觉机会比较少,主要是技术栈的适配上,还有腾讯和米哈游可以看看.腾讯相关的就是运维开发,需要再复习一下k8s的东西.米哈游看上去是后端开发,需要继续学习go后端的内容. 回国,找一份工作: 国内的互联网公司稳定性比较缺乏. 国内的量化公司的it岗可以考虑,k8s的AI集群建设方面. 国内家乡找躺平工作,银行和小厂都是使用JAVA. 继续读博 港新的计算机博士,DL/RL方向可以看看,主要还是要把python/pytorch系统学起来. 2 面对这些选择,我该做些什么? 在技术层面我大概还要做到这些方面:
+Golang的后端技术学习完, 还有我自己定下的那部分知识. python和pytorch需要再重拾一下,我购买了udmey的课程. k8s我也寻得了一些资料&amp;hellip;不看浪费.需要再看一下. cpp我觉得周期太长了,也没有什么实际的项目,暂时放一放. 摊子不能铺太大.我需要把自己的精力集中在一两个方向上.我需要做出一些选择,并且坚持下去.
+3 自己的身体健康 我最近的身体状况也不是很好.六月中我会回一趟中国,做一些医学检查.
+我需要多运动,多锻炼.每周可以去参加一次羽毛球,早睡早起,多喝水,多吃水果.我需要保持好的身体状态,才能更好的工作和学习." />
+<meta name="keywords" content=", life, career, future, self-improvement" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="" />
-<link rel="canonical" href="https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/argo-workflow-7/" />
+<link rel="canonical" href="https://Greenery-S.github.io/zh-cn/posts/life/the-road-to-next-life-stage/" />
 
 
     <title>
         
-            Argo Workflow 7 :: Greenery&#39;s Blog Site  — Coder, Blogger, Photographer
+            The Road to Next Life Stage :: Greenery&#39;s Blog Site  — Coder, Blogger, Photographer
         
     </title>
 
@@ -38,44 +42,59 @@ Kubernetes Resource https://argo-workflows.readthedocs.io/en/latest/walk-through
 
 
 
-  <meta itemprop="name" content="Argo Workflow 7">
-  <meta itemprop="description" content="Argo Workflow (7) Walk through 章节的相关特性还剩下:
-Kubernetes Resource https://argo-workflows.readthedocs.io/en/latest/walk-through/kubernetes-resources/ Daemon Container Sidecar Container Custom Template Variables Continuous Integration Example 下次有机会再总结. 目前学的这些够用了.">
-  <meta itemprop="datePublished" content="2024-05-26T22:52:54+08:00">
-  <meta itemprop="dateModified" content="2024-05-26T22:52:54+08:00">
-  <meta itemprop="wordCount" content="21">
+  <meta itemprop="name" content="The Road to Next Life Stage">
+  <meta itemprop="description" content="通向下一个阶段的路 最近缺乏动力,感觉自己的生活失去了方向.我在身心上都遇到了一些挑战或抉择.我需要重新审视自己的生活,并为未来做出一些计划.
+1 在人生的路口,我有什么选择? 我的NUS master也即将结束,我需要决定未来的方向.我有几个选择:
+留在新加坡,找一份工作: 在新加坡,我有非常满意的实习,我有希望留在tt公司转正.当然能否转正,这是取决于当地政策,部门需求和个人能力.主要的卡点在于当地政策,我需要和leader double check EP是否有名额. 其他的新加坡公司,我感觉机会比较少,主要是技术栈的适配上,还有腾讯和米哈游可以看看.腾讯相关的就是运维开发,需要再复习一下k8s的东西.米哈游看上去是后端开发,需要继续学习go后端的内容. 回国,找一份工作: 国内的互联网公司稳定性比较缺乏. 国内的量化公司的it岗可以考虑,k8s的AI集群建设方面. 国内家乡找躺平工作,银行和小厂都是使用JAVA. 继续读博 港新的计算机博士,DL/RL方向可以看看,主要还是要把python/pytorch系统学起来. 2 面对这些选择,我该做些什么? 在技术层面我大概还要做到这些方面:
+Golang的后端技术学习完, 还有我自己定下的那部分知识. python和pytorch需要再重拾一下,我购买了udmey的课程. k8s我也寻得了一些资料&hellip;不看浪费.需要再看一下. cpp我觉得周期太长了,也没有什么实际的项目,暂时放一放. 摊子不能铺太大.我需要把自己的精力集中在一两个方向上.我需要做出一些选择,并且坚持下去.
+3 自己的身体健康 我最近的身体状况也不是很好.六月中我会回一趟中国,做一些医学检查.
+我需要多运动,多锻炼.每周可以去参加一次羽毛球,早睡早起,多喝水,多吃水果.我需要保持好的身体状态,才能更好的工作和学习.">
+  <meta itemprop="datePublished" content="2024-05-31T12:42:42+08:00">
+  <meta itemprop="dateModified" content="2024-05-31T12:42:42+08:00">
+  <meta itemprop="wordCount" content="31">
   <meta itemprop="image" content="https://Greenery-S.github.io/">
-  <meta itemprop="keywords" content="WIP">
+  <meta itemprop="keywords" content="Life,Career,Future,Self-Improvement">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://Greenery-S.github.io/"><meta name="twitter:title" content="Argo Workflow 7">
-<meta name="twitter:description" content="Argo Workflow (7) Walk through 章节的相关特性还剩下:
-Kubernetes Resource https://argo-workflows.readthedocs.io/en/latest/walk-through/kubernetes-resources/ Daemon Container Sidecar Container Custom Template Variables Continuous Integration Example 下次有机会再总结. 目前学的这些够用了.">
+<meta name="twitter:image" content="https://Greenery-S.github.io/"><meta name="twitter:title" content="The Road to Next Life Stage">
+<meta name="twitter:description" content="通向下一个阶段的路 最近缺乏动力,感觉自己的生活失去了方向.我在身心上都遇到了一些挑战或抉择.我需要重新审视自己的生活,并为未来做出一些计划.
+1 在人生的路口,我有什么选择? 我的NUS master也即将结束,我需要决定未来的方向.我有几个选择:
+留在新加坡,找一份工作: 在新加坡,我有非常满意的实习,我有希望留在tt公司转正.当然能否转正,这是取决于当地政策,部门需求和个人能力.主要的卡点在于当地政策,我需要和leader double check EP是否有名额. 其他的新加坡公司,我感觉机会比较少,主要是技术栈的适配上,还有腾讯和米哈游可以看看.腾讯相关的就是运维开发,需要再复习一下k8s的东西.米哈游看上去是后端开发,需要继续学习go后端的内容. 回国,找一份工作: 国内的互联网公司稳定性比较缺乏. 国内的量化公司的it岗可以考虑,k8s的AI集群建设方面. 国内家乡找躺平工作,银行和小厂都是使用JAVA. 继续读博 港新的计算机博士,DL/RL方向可以看看,主要还是要把python/pytorch系统学起来. 2 面对这些选择,我该做些什么? 在技术层面我大概还要做到这些方面:
+Golang的后端技术学习完, 还有我自己定下的那部分知识. python和pytorch需要再重拾一下,我购买了udmey的课程. k8s我也寻得了一些资料&hellip;不看浪费.需要再看一下. cpp我觉得周期太长了,也没有什么实际的项目,暂时放一放. 摊子不能铺太大.我需要把自己的精力集中在一两个方向上.我需要做出一些选择,并且坚持下去.
+3 自己的身体健康 我最近的身体状况也不是很好.六月中我会回一趟中国,做一些医学检查.
+我需要多运动,多锻炼.每周可以去参加一次羽毛球,早睡早起,多喝水,多吃水果.我需要保持好的身体状态,才能更好的工作和学习.">
 
 
 
-    <meta property="og:url" content="https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/argo-workflow-7/">
+    <meta property="og:url" content="https://Greenery-S.github.io/zh-cn/posts/life/the-road-to-next-life-stage/">
   <meta property="og:site_name" content="Greenery&#39;s Blog Site">
-  <meta property="og:title" content="Argo Workflow 7">
-  <meta property="og:description" content="Argo Workflow (7) Walk through 章节的相关特性还剩下:
-Kubernetes Resource https://argo-workflows.readthedocs.io/en/latest/walk-through/kubernetes-resources/ Daemon Container Sidecar Container Custom Template Variables Continuous Integration Example 下次有机会再总结. 目前学的这些够用了.">
+  <meta property="og:title" content="The Road to Next Life Stage">
+  <meta property="og:description" content="通向下一个阶段的路 最近缺乏动力,感觉自己的生活失去了方向.我在身心上都遇到了一些挑战或抉择.我需要重新审视自己的生活,并为未来做出一些计划.
+1 在人生的路口,我有什么选择? 我的NUS master也即将结束,我需要决定未来的方向.我有几个选择:
+留在新加坡,找一份工作: 在新加坡,我有非常满意的实习,我有希望留在tt公司转正.当然能否转正,这是取决于当地政策,部门需求和个人能力.主要的卡点在于当地政策,我需要和leader double check EP是否有名额. 其他的新加坡公司,我感觉机会比较少,主要是技术栈的适配上,还有腾讯和米哈游可以看看.腾讯相关的就是运维开发,需要再复习一下k8s的东西.米哈游看上去是后端开发,需要继续学习go后端的内容. 回国,找一份工作: 国内的互联网公司稳定性比较缺乏. 国内的量化公司的it岗可以考虑,k8s的AI集群建设方面. 国内家乡找躺平工作,银行和小厂都是使用JAVA. 继续读博 港新的计算机博士,DL/RL方向可以看看,主要还是要把python/pytorch系统学起来. 2 面对这些选择,我该做些什么? 在技术层面我大概还要做到这些方面:
+Golang的后端技术学习完, 还有我自己定下的那部分知识. python和pytorch需要再重拾一下,我购买了udmey的课程. k8s我也寻得了一些资料…不看浪费.需要再看一下. cpp我觉得周期太长了,也没有什么实际的项目,暂时放一放. 摊子不能铺太大.我需要把自己的精力集中在一两个方向上.我需要做出一些选择,并且坚持下去.
+3 自己的身体健康 我最近的身体状况也不是很好.六月中我会回一趟中国,做一些医学检查.
+我需要多运动,多锻炼.每周可以去参加一次羽毛球,早睡早起,多喝水,多吃水果.我需要保持好的身体状态,才能更好的工作和学习.">
   <meta property="og:locale" content="zh-cn">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
-    <meta property="article:published_time" content="2024-05-26T22:52:54+08:00">
-    <meta property="article:modified_time" content="2024-05-26T22:52:54+08:00">
-    <meta property="article:tag" content="WIP">
+    <meta property="article:published_time" content="2024-05-31T12:42:42+08:00">
+    <meta property="article:modified_time" content="2024-05-31T12:42:42+08:00">
+    <meta property="article:tag" content="Life">
+    <meta property="article:tag" content="Career">
+    <meta property="article:tag" content="Future">
+    <meta property="article:tag" content="Self-Improvement">
     <meta property="og:image" content="https://Greenery-S.github.io/">
 
 
 
 
-    <meta property="article:section" content="devops" />
+    <meta property="article:section" content="life" />
 
-    <meta property="article:section" content="devops-argo-workflow" />
+    <meta property="article:section" content="life-plan-career" />
 
 
 
-    <meta property="article:published_time" content="2024-05-26 22:52:54 &#43;0800 &#43;08" />
+    <meta property="article:published_time" content="2024-05-31 12:42:42 &#43;0800 &#43;08" />
 
 
 
@@ -164,7 +183,7 @@ Kubernetes Resource https://argo-workflows.readthedocs.io/en/latest/walk-through
 
     <article>
       <h1 class="post-title">
-        <a href="https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/argo-workflow-7/">Argo Workflow 7</a>
+        <a href="https://Greenery-S.github.io/zh-cn/posts/life/the-road-to-next-life-stage/">The Road to Next Life Stage</a>
       </h1>
 
       
@@ -174,16 +193,42 @@ Kubernetes Resource https://argo-workflows.readthedocs.io/en/latest/walk-through
       
 
       <div class="post-content">
-        <h1 id="argo-workflow-7">Argo Workflow (7)</h1>
-<p>Walk through 章节的相关特性还剩下:</p>
-<ul>
-<li>Kubernetes Resource <a href="https://argo-workflows.readthedocs.io/en/latest/walk-through/kubernetes-resources/">https://argo-workflows.readthedocs.io/en/latest/walk-through/kubernetes-resources/</a></li>
-<li>Daemon Container</li>
-<li>Sidecar Container</li>
-<li>Custom Template Variables</li>
-<li>Continuous Integration Example</li>
-</ul>
-<p>下次有机会再总结. 目前学的这些够用了.</p>
+        <h1 id="通向下一个阶段的路">通向下一个阶段的路</h1>
+<p>最近缺乏动力,感觉自己的生活失去了方向.我在身心上都遇到了一些挑战或抉择.我需要重新审视自己的生活,并为未来做出一些计划.</p>
+<h2 id="1-在人生的路口我有什么选择">1 在人生的路口,我有什么选择?</h2>
+<p>我的NUS master也即将结束,我需要决定未来的方向.我有几个选择:</p>
+<ol>
+<li>留在新加坡,找一份工作:
+<ol>
+<li>在新加坡,我有非常满意的实习,我有希望留在tt公司转正.当然能否转正,这是取决于当地政策,部门需求和个人能力.主要的卡点在于当地政策,我需要和leader double check EP是否有名额.</li>
+<li>其他的新加坡公司,我感觉机会比较少,主要是技术栈的适配上,还有腾讯和米哈游可以看看.腾讯相关的就是运维开发,需要再复习一下k8s的东西.米哈游看上去是后端开发,需要继续学习go后端的内容.</li>
+</ol>
+</li>
+<li>回国,找一份工作:
+<ol>
+<li>国内的互联网公司稳定性比较缺乏.</li>
+<li>国内的量化公司的it岗可以考虑,k8s的AI集群建设方面.</li>
+<li>国内家乡找躺平工作,银行和小厂都是使用JAVA.</li>
+</ol>
+</li>
+<li>继续读博
+<ol>
+<li>港新的计算机博士,DL/RL方向可以看看,主要还是要把python/pytorch系统学起来.</li>
+</ol>
+</li>
+</ol>
+<h2 id="2-面对这些选择我该做些什么">2 面对这些选择,我该做些什么?</h2>
+<p>在技术层面我大概还要做到这些方面:</p>
+<ol>
+<li>Golang的后端技术学习完, 还有我自己定下的那部分知识.</li>
+<li>python和pytorch需要再重拾一下,我购买了udmey的课程.</li>
+<li>k8s我也寻得了一些资料&hellip;不看浪费.需要再看一下.</li>
+<li>cpp我觉得周期太长了,也没有什么实际的项目,暂时放一放.</li>
+</ol>
+<p>摊子不能铺太大.我需要把自己的精力集中在一两个方向上.我需要做出一些选择,并且坚持下去.</p>
+<h2 id="3-自己的身体健康">3 自己的身体健康</h2>
+<p>我最近的身体状况也不是很好.六月中我会回一趟中国,做一些医学检查.</p>
+<p>我需要多运动,多锻炼.每周可以去参加一次羽毛球,早睡早起,多喝水,多吃水果.我需要保持好的身体状态,才能更好的工作和学习.</p>
 
       </div>
     </article>
@@ -195,7 +240,10 @@ Kubernetes Resource https://argo-workflows.readthedocs.io/en/latest/walk-through
     <p>
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg>
 
-        <span class="tag"><a href="https://Greenery-S.github.io/zh-cn/tags/wip/">WIP</a></span>
+        <span class="tag"><a href="https://Greenery-S.github.io/zh-cn/tags/life/">life</a></span>
+        <span class="tag"><a href="https://Greenery-S.github.io/zh-cn/tags/career/">career</a></span>
+        <span class="tag"><a href="https://Greenery-S.github.io/zh-cn/tags/future/">future</a></span>
+        <span class="tag"><a href="https://Greenery-S.github.io/zh-cn/tags/self-improvement/">self-improvement</a></span>
         
     </p>
 
@@ -203,8 +251,8 @@ Kubernetes Resource https://argo-workflows.readthedocs.io/en/latest/walk-through
     <p>
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder meta-icon"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
 
-        <span class="tag"><a href="https://Greenery-S.github.io/zh-cn/categories/devops/">devops</a></span>
-        <span class="tag"><a href="https://Greenery-S.github.io/zh-cn/categories/devops-argo-workflow/">devops-argo-workflow</a></span>
+        <span class="tag"><a href="https://Greenery-S.github.io/zh-cn/categories/life/">life</a></span>
+        <span class="tag"><a href="https://Greenery-S.github.io/zh-cn/categories/life-plan-career/">life-plan-career</a></span>
         
     </p>
 
@@ -217,7 +265,7 @@ Kubernetes Resource https://argo-workflows.readthedocs.io/en/latest/walk-through
           <line x1="16" y1="17" x2="8" y2="17"></line>
           <polyline points="10 9 9 9 8 9"></polyline>
         </svg>
-        21字
+        31字
       </p>
 
       <p>
@@ -228,7 +276,7 @@ Kubernetes Resource https://argo-workflows.readthedocs.io/en/latest/walk-through
           <line x1="3" y1="10" x2="21" y2="10"></line>
         </svg>
         
-          2024-05-26 22:52
+          2024-05-31 12:42
         
 
          
@@ -239,7 +287,7 @@ Kubernetes Resource https://argo-workflows.readthedocs.io/en/latest/walk-through
       <hr />
       <div class="sharing-buttons">
         
-<a class="resp-sharing-button__link" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2fdevops%2fargo-workflow%2fargo-workflow-7%2f" target="_blank" rel="noopener" aria-label="" title="Share on facebook">
+<a class="resp-sharing-button__link" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2flife%2fthe-road-to-next-life-stage%2f" target="_blank" rel="noopener" aria-label="" title="Share on facebook">
   <div class="resp-sharing-button resp-sharing-button--facebook resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
     </div>
@@ -247,7 +295,7 @@ Kubernetes Resource https://argo-workflows.readthedocs.io/en/latest/walk-through
 </a>
 
 
-<a class="resp-sharing-button__link" href="https://twitter.com/intent/tweet/?url=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2fdevops%2fargo-workflow%2fargo-workflow-7%2f" target="_blank" rel="noopener" aria-label="" title="Share on twitter">
+<a class="resp-sharing-button__link" href="https://twitter.com/intent/tweet/?url=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2flife%2fthe-road-to-next-life-stage%2f" target="_blank" rel="noopener" aria-label="" title="Share on twitter">
   <div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--small">
       <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
@@ -256,7 +304,7 @@ Kubernetes Resource https://argo-workflows.readthedocs.io/en/latest/walk-through
 </a>
 
 
-<a class="resp-sharing-button__link" href="https://www.tumblr.com/widgets/share/tool?posttype=link&amp;title=Argo%20Workflow%207&amp;caption=Argo%20Workflow%207&amp;canonicalUrl=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2fdevops%2fargo-workflow%2fargo-workflow-7%2f" target="_blank" rel="noopener" aria-label="" title="Share on tumblr">
+<a class="resp-sharing-button__link" href="https://www.tumblr.com/widgets/share/tool?posttype=link&amp;title=The%20Road%20to%20Next%20Life%20Stage&amp;caption=The%20Road%20to%20Next%20Life%20Stage&amp;canonicalUrl=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2flife%2fthe-road-to-next-life-stage%2f" target="_blank" rel="noopener" aria-label="" title="Share on tumblr">
   <div class="resp-sharing-button resp-sharing-button--tumblr resp-sharing-button--small">
     <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.563 24c-5.093 0-7.031-3.756-7.031-6.411V9.747H5.116V6.648c3.63-1.313 4.512-4.596 4.71-6.469C9.84.051 9.941 0 9.999 0h3.517v6.114h4.801v3.633h-4.82v7.47c.016 1.001.375 2.371 2.207 2.371h.09c.631-.02 1.486-.205 1.936-.419l1.156 3.425c-.436.636-2.4 1.374-4.156 1.404h-.178l.011.002z"/></svg>
@@ -265,7 +313,7 @@ Kubernetes Resource https://argo-workflows.readthedocs.io/en/latest/walk-through
 </a>
 
 
-<a class="resp-sharing-button__link" href="mailto:?subject=Argo%20Workflow%207&amp;body=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2fdevops%2fargo-workflow%2fargo-workflow-7%2f" target="_self" rel="noopener" aria-label="" title="Share via email">
+<a class="resp-sharing-button__link" href="mailto:?subject=The%20Road%20to%20Next%20Life%20Stage&amp;body=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2flife%2fthe-road-to-next-life-stage%2f" target="_self" rel="noopener" aria-label="" title="Share via email">
   <div class="resp-sharing-button resp-sharing-button--email resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
     </div>
@@ -273,7 +321,7 @@ Kubernetes Resource https://argo-workflows.readthedocs.io/en/latest/walk-through
 </a>
 
 
-<a class="resp-sharing-button__link" href="https://pinterest.com/pin/create/button/?url=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2fdevops%2fargo-workflow%2fargo-workflow-7%2f&amp;media=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2fdevops%2fargo-workflow%2fargo-workflow-7%2f;description=Argo%20Workflow%207" target="_blank" rel="noopener" aria-label="" title="Share on pinterest">
+<a class="resp-sharing-button__link" href="https://pinterest.com/pin/create/button/?url=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2flife%2fthe-road-to-next-life-stage%2f&amp;media=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2flife%2fthe-road-to-next-life-stage%2f;description=The%20Road%20to%20Next%20Life%20Stage" target="_blank" rel="noopener" aria-label="" title="Share on pinterest">
   <div class="resp-sharing-button resp-sharing-button--pinterest resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/></svg>
     </div>
@@ -281,7 +329,7 @@ Kubernetes Resource https://argo-workflows.readthedocs.io/en/latest/walk-through
 </a>
 
 
-<a class="resp-sharing-button__link" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2fdevops%2fargo-workflow%2fargo-workflow-7%2f&amp;title=Argo%20Workflow%207&amp;summary=Argo%20Workflow%207&amp;source=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2fdevops%2fargo-workflow%2fargo-workflow-7%2f" target="_blank" rel="noopener" aria-label="" title="Share on linkedin">
+<a class="resp-sharing-button__link" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2flife%2fthe-road-to-next-life-stage%2f&amp;title=The%20Road%20to%20Next%20Life%20Stage&amp;summary=The%20Road%20to%20Next%20Life%20Stage&amp;source=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2flife%2fthe-road-to-next-life-stage%2f" target="_blank" rel="noopener" aria-label="" title="Share on linkedin">
   <div class="resp-sharing-button resp-sharing-button--linkedin resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
     </div>
@@ -289,7 +337,7 @@ Kubernetes Resource https://argo-workflows.readthedocs.io/en/latest/walk-through
 </a>
 
 
-<a class="resp-sharing-button__link" href="https://reddit.com/submit/?url=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2fdevops%2fargo-workflow%2fargo-workflow-7%2f&amp;resubmit=true&amp;title=Argo%20Workflow%207" target="_blank" rel="noopener" aria-label="" title="Share on reddit">
+<a class="resp-sharing-button__link" href="https://reddit.com/submit/?url=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2flife%2fthe-road-to-next-life-stage%2f&amp;resubmit=true&amp;title=The%20Road%20to%20Next%20Life%20Stage" target="_blank" rel="noopener" aria-label="" title="Share on reddit">
   <div class="resp-sharing-button resp-sharing-button--reddit resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/></svg>
     </div>
@@ -297,7 +345,7 @@ Kubernetes Resource https://argo-workflows.readthedocs.io/en/latest/walk-through
 </a>
 
 
-<a class="resp-sharing-button__link" href="https://www.xing.com/app/user?op=share;url=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2fdevops%2fargo-workflow%2fargo-workflow-7%2f;title=Argo%20Workflow%207" target="_blank" rel="noopener" aria-label="" title="Share on xing">
+<a class="resp-sharing-button__link" href="https://www.xing.com/app/user?op=share;url=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2flife%2fthe-road-to-next-life-stage%2f;title=The%20Road%20to%20Next%20Life%20Stage" target="_blank" rel="noopener" aria-label="" title="Share on xing">
   <div class="resp-sharing-button resp-sharing-button--xing resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M18.188 0c-.517 0-.741.325-.927.66 0 0-7.455 13.224-7.702 13.657.015.024 4.919 9.023 4.919 9.023.17.308.436.66.967.66h3.454c.211 0 .375-.078.463-.22.089-.151.089-.346-.009-.536l-4.879-8.916c-.004-.006-.004-.016 0-.022L22.139.756c.095-.191.097-.387.006-.535C22.056.078 21.894 0 21.686 0h-3.498zM3.648 4.74c-.211 0-.385.074-.473.216-.09.149-.078.339.02.531l2.34 4.05c.004.01.004.016 0 .021L1.86 16.051c-.099.188-.093.381 0 .529.085.142.239.234.45.234h3.461c.518 0 .766-.348.945-.667l3.734-6.609-2.378-4.155c-.172-.315-.434-.659-.962-.659H3.648v.016z"/></svg>
     </div>
@@ -305,7 +353,7 @@ Kubernetes Resource https://argo-workflows.readthedocs.io/en/latest/walk-through
 </a>
 
 
-<a class="resp-sharing-button__link" href="whatsapp://send?text=Argo%20Workflow%207%20https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2fdevops%2fargo-workflow%2fargo-workflow-7%2f" target="_blank" rel="noopener" aria-label="" title="Share on whatsapp">
+<a class="resp-sharing-button__link" href="whatsapp://send?text=The%20Road%20to%20Next%20Life%20Stage%20https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2flife%2fthe-road-to-next-life-stage%2f" target="_blank" rel="noopener" aria-label="" title="Share on whatsapp">
   <div class="resp-sharing-button resp-sharing-button--whatsapp resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
     </div>
@@ -313,7 +361,7 @@ Kubernetes Resource https://argo-workflows.readthedocs.io/en/latest/walk-through
 </a>
 
 
-<a class="resp-sharing-button__link" href="https://news.ycombinator.com/submitlink?u=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2fdevops%2fargo-workflow%2fargo-workflow-7%2f&amp;t=Argo%20Workflow%207" target="_blank" rel="noopener" aria-label="" title="Share on hacker news">
+<a class="resp-sharing-button__link" href="https://news.ycombinator.com/submitlink?u=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2flife%2fthe-road-to-next-life-stage%2f&amp;t=The%20Road%20to%20Next%20Life%20Stage" target="_blank" rel="noopener" aria-label="" title="Share on hacker news">
   <div class="resp-sharing-button resp-sharing-button--hackernews resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
 			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M0 24V0h24v24H0zM6.951 5.896l4.112 7.708v5.064h1.583v-4.972l4.148-7.799h-1.749l-2.457 4.875c-.372.745-.688 1.434-.688 1.434s-.297-.708-.651-1.434L8.831 5.896h-1.88z"/></svg>
     </div>
@@ -321,7 +369,7 @@ Kubernetes Resource https://argo-workflows.readthedocs.io/en/latest/walk-through
 </a>
 
 
-<a class="resp-sharing-button__link" href="https://telegram.me/share/url?text=Argo%20Workflow%207&amp;url=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2fdevops%2fargo-workflow%2fargo-workflow-7%2f" target="_blank" rel="noopener" aria-label="" title="Share on telegram">
+<a class="resp-sharing-button__link" href="https://telegram.me/share/url?text=The%20Road%20to%20Next%20Life%20Stage&amp;url=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2flife%2fthe-road-to-next-life-stage%2f" target="_blank" rel="noopener" aria-label="" title="Share on telegram">
   <div class="resp-sharing-button resp-sharing-button--telegram resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
     </div>
@@ -336,18 +384,11 @@ Kubernetes Resource https://argo-workflows.readthedocs.io/en/latest/walk-through
 
         <div class="pagination__buttons">
             
-            <span class="button previous">
-                <a href="https://Greenery-S.github.io/zh-cn/posts/life/the-road-to-next-life-stage/">
-                    <span class="button__icon">←</span>
-                    <span class="button__text">The Road to Next Life Stage</span>
-                </a>
-            </span>
-            
 
             
             <span class="button next">
-                <a href="https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/argo-workflow-6/">
-                    <span class="button__text">Argo Workflow 6</span>
+                <a href="https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/argo-workflow-7/">
+                    <span class="button__text">Argo Workflow 7</span>
                     <span class="button__icon">→</span>
                 </a>
             </span>
