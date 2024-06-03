@@ -7,8 +7,36 @@
     <generator>Hugo</generator>
     <language>en</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sun, 26 May 2024 14:36:26 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 04 Jun 2024 00:31:42 +0800</lastBuildDate>
     <atom:link href="https://Greenery-S.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Jupyter</title>
+      <link>https://Greenery-S.github.io/tags/jupyter/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://Greenery-S.github.io/tags/jupyter/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Mps</title>
+      <link>https://Greenery-S.github.io/tags/mps/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://Greenery-S.github.io/tags/mps/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Python</title>
+      <link>https://Greenery-S.github.io/tags/python/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://Greenery-S.github.io/tags/python/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Pytorch</title>
+      <link>https://Greenery-S.github.io/tags/pytorch/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://Greenery-S.github.io/tags/pytorch/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Argo-Workflow</title>
       <link>https://Greenery-S.github.io/tags/argo-workflow/</link>
@@ -49,34 +77,6 @@
       <link>https://Greenery-S.github.io/tags/artifacts/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://Greenery-S.github.io/tags/artifacts/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Devops</title>
-      <link>https://Greenery-S.github.io/tags/devops/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://Greenery-S.github.io/tags/devops/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Docker</title>
-      <link>https://Greenery-S.github.io/tags/docker/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://Greenery-S.github.io/tags/docker/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>K8s</title>
-      <link>https://Greenery-S.github.io/tags/k8s/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://Greenery-S.github.io/tags/k8s/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Kubernetes</title>
-      <link>https://Greenery-S.github.io/tags/kubernetes/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://Greenery-S.github.io/tags/kubernetes/</guid>
       <description></description>
     </item>
   </channel>

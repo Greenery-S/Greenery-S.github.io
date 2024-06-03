@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Jupyter on Greenery&#39;s Blog Site</title>
+    <link>https://Greenery-S.github.io/tags/jupyter/</link>
+    <description>Recent content in Jupyter on Greenery&#39;s Blog Site</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Tue, 04 Jun 2024 00:31:42 +0800</lastBuildDate>
+    <atom:link href="https://Greenery-S.github.io/tags/jupyter/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Setup Local Pytorch</title>
+      <link>https://Greenery-S.github.io/posts/pytorch/setup-local-pytorch/</link>
+      <pubDate>Tue, 04 Jun 2024 00:31:42 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/posts/pytorch/setup-local-pytorch/</guid>
+      <description>Setting up Pytorch Locally 1. Install miniconda You can use PyCharm for automatic installation, or you can install it manually.&#xA;Check if you have Jupyter Notebook and Jupyter Lab.&#xA;If the above are all okay, then you can install Pytorch.&#xA;2. Create a new conda environment conda create -n torch-gpu python=3.9 conda activate torch-gpu 3. Install Pytorch Go to the official website to download the Pytorch installation command https://pytorch.org/ It can be a conda/pip command.</description>
+    </item>
+  </channel>
+</rss>

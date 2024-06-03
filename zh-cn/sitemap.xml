@@ -2,11 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://Greenery-S.github.io/zh-cn/tags/career/</loc>
-    <lastmod>2024-05-31T12:42:42+08:00</lastmod>
-  </url><url>
     <loc>https://Greenery-S.github.io/zh-cn/categories/</loc>
-    <lastmod>2024-05-31T12:42:42+08:00</lastmod>
+    <lastmod>2024-06-04T00:31:42+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -18,11 +15,8 @@
                 href="https://Greenery-S.github.io/zh-cn/categories/"
                 />
   </url><url>
-    <loc>https://Greenery-S.github.io/zh-cn/tags/future/</loc>
-    <lastmod>2024-05-31T12:42:42+08:00</lastmod>
-  </url><url>
     <loc>https://Greenery-S.github.io/zh-cn/</loc>
-    <lastmod>2024-05-31T12:42:42+08:00</lastmod>
+    <lastmod>2024-06-04T00:31:42+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -34,17 +28,34 @@
                 href="https://Greenery-S.github.io/zh-cn/"
                 />
   </url><url>
-    <loc>https://Greenery-S.github.io/zh-cn/tags/life/</loc>
-    <lastmod>2024-05-31T12:42:42+08:00</lastmod>
+    <loc>https://Greenery-S.github.io/zh-cn/tags/jupyter/</loc>
+    <lastmod>2024-06-04T00:31:42+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://Greenery-S.github.io/tags/jupyter/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://Greenery-S.github.io/zh-cn/tags/jupyter/"
+                />
   </url><url>
-    <loc>https://Greenery-S.github.io/zh-cn/categories/life/</loc>
-    <lastmod>2024-05-31T12:42:42+08:00</lastmod>
-  </url><url>
-    <loc>https://Greenery-S.github.io/zh-cn/categories/life-plan-career/</loc>
-    <lastmod>2024-05-31T12:42:42+08:00</lastmod>
+    <loc>https://Greenery-S.github.io/zh-cn/tags/mps/</loc>
+    <lastmod>2024-06-04T00:31:42+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://Greenery-S.github.io/tags/mps/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://Greenery-S.github.io/zh-cn/tags/mps/"
+                />
   </url><url>
     <loc>https://Greenery-S.github.io/zh-cn/posts/</loc>
-    <lastmod>2024-05-31T12:42:42+08:00</lastmod>
+    <lastmod>2024-06-04T00:31:42+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -56,11 +67,73 @@
                 href="https://Greenery-S.github.io/zh-cn/posts/"
                 />
   </url><url>
-    <loc>https://Greenery-S.github.io/zh-cn/tags/self-improvement/</loc>
-    <lastmod>2024-05-31T12:42:42+08:00</lastmod>
+    <loc>https://Greenery-S.github.io/zh-cn/tags/python/</loc>
+    <lastmod>2024-06-04T00:31:42+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://Greenery-S.github.io/tags/python/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://Greenery-S.github.io/zh-cn/tags/python/"
+                />
+  </url><url>
+    <loc>https://Greenery-S.github.io/zh-cn/tags/pytorch/</loc>
+    <lastmod>2024-06-04T00:31:42+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://Greenery-S.github.io/tags/pytorch/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://Greenery-S.github.io/zh-cn/tags/pytorch/"
+                />
+  </url><url>
+    <loc>https://Greenery-S.github.io/zh-cn/categories/pytorch/</loc>
+    <lastmod>2024-06-04T00:31:42+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://Greenery-S.github.io/categories/pytorch/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://Greenery-S.github.io/zh-cn/categories/pytorch/"
+                />
+  </url><url>
+    <loc>https://Greenery-S.github.io/zh-cn/categories/pytorch-setup/</loc>
+    <lastmod>2024-06-04T00:31:42+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://Greenery-S.github.io/categories/pytorch-setup/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://Greenery-S.github.io/zh-cn/categories/pytorch-setup/"
+                />
+  </url><url>
+    <loc>https://Greenery-S.github.io/zh-cn/posts/pytorch/setup-local-pytorch/</loc>
+    <lastmod>2024-06-04T00:31:42+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://Greenery-S.github.io/posts/pytorch/setup-local-pytorch/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://Greenery-S.github.io/zh-cn/posts/pytorch/setup-local-pytorch/"
+                />
   </url><url>
     <loc>https://Greenery-S.github.io/zh-cn/tags/</loc>
-    <lastmod>2024-05-31T12:42:42+08:00</lastmod>
+    <lastmod>2024-06-04T00:31:42+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -71,6 +144,50 @@
                 hreflang="zh-cn"
                 href="https://Greenery-S.github.io/zh-cn/tags/"
                 />
+  </url><url>
+    <loc>https://Greenery-S.github.io/zh-cn/posts/pytorch/review/fundamental/</loc>
+    <lastmod>2024-06-04T00:05:06+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://Greenery-S.github.io/posts/pytorch/review/fundamental/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://Greenery-S.github.io/zh-cn/posts/pytorch/review/fundamental/"
+                />
+  </url><url>
+    <loc>https://Greenery-S.github.io/zh-cn/categories/pytorch-review/</loc>
+    <lastmod>2024-06-04T00:05:06+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://Greenery-S.github.io/categories/pytorch-review/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://Greenery-S.github.io/zh-cn/categories/pytorch-review/"
+                />
+  </url><url>
+    <loc>https://Greenery-S.github.io/zh-cn/tags/career/</loc>
+    <lastmod>2024-05-31T12:42:42+08:00</lastmod>
+  </url><url>
+    <loc>https://Greenery-S.github.io/zh-cn/tags/future/</loc>
+    <lastmod>2024-05-31T12:42:42+08:00</lastmod>
+  </url><url>
+    <loc>https://Greenery-S.github.io/zh-cn/tags/life/</loc>
+    <lastmod>2024-05-31T12:42:42+08:00</lastmod>
+  </url><url>
+    <loc>https://Greenery-S.github.io/zh-cn/categories/life/</loc>
+    <lastmod>2024-05-31T12:42:42+08:00</lastmod>
+  </url><url>
+    <loc>https://Greenery-S.github.io/zh-cn/categories/life-plan-career/</loc>
+    <lastmod>2024-05-31T12:42:42+08:00</lastmod>
+  </url><url>
+    <loc>https://Greenery-S.github.io/zh-cn/tags/self-improvement/</loc>
+    <lastmod>2024-05-31T12:42:42+08:00</lastmod>
   </url><url>
     <loc>https://Greenery-S.github.io/zh-cn/posts/life/the-road-to-next-life-stage/</loc>
     <lastmod>2024-05-31T12:42:42+08:00</lastmod>

@@ -7,8 +7,36 @@
     <generator>Hugo</generator>
     <language>zh-cn</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Fri, 31 May 2024 12:42:42 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 04 Jun 2024 00:31:42 +0800</lastBuildDate>
     <atom:link href="https://Greenery-S.github.io/zh-cn/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Jupyter</title>
+      <link>https://Greenery-S.github.io/zh-cn/tags/jupyter/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://Greenery-S.github.io/zh-cn/tags/jupyter/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Mps</title>
+      <link>https://Greenery-S.github.io/zh-cn/tags/mps/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://Greenery-S.github.io/zh-cn/tags/mps/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Python</title>
+      <link>https://Greenery-S.github.io/zh-cn/tags/python/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://Greenery-S.github.io/zh-cn/tags/python/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Pytorch</title>
+      <link>https://Greenery-S.github.io/zh-cn/tags/pytorch/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://Greenery-S.github.io/zh-cn/tags/pytorch/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Career</title>
       <link>https://Greenery-S.github.io/zh-cn/tags/career/</link>
@@ -49,34 +77,6 @@
       <link>https://Greenery-S.github.io/zh-cn/tags/argo-workflow/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://Greenery-S.github.io/zh-cn/tags/argo-workflow/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Conditionals</title>
-      <link>https://Greenery-S.github.io/zh-cn/tags/conditionals/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://Greenery-S.github.io/zh-cn/tags/conditionals/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Loop</title>
-      <link>https://Greenery-S.github.io/zh-cn/tags/loop/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://Greenery-S.github.io/zh-cn/tags/loop/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Secret</title>
-      <link>https://Greenery-S.github.io/zh-cn/tags/secret/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://Greenery-S.github.io/zh-cn/tags/secret/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Volume</title>
-      <link>https://Greenery-S.github.io/zh-cn/tags/volume/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://Greenery-S.github.io/zh-cn/tags/volume/</guid>
       <description></description>
     </item>
   </channel>

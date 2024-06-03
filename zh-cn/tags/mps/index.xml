@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Mps on Greenery&#39;s Blog Site</title>
+    <link>https://Greenery-S.github.io/zh-cn/tags/mps/</link>
+    <description>Recent content in Mps on Greenery&#39;s Blog Site</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Tue, 04 Jun 2024 00:31:42 +0800</lastBuildDate>
+    <atom:link href="https://Greenery-S.github.io/zh-cn/tags/mps/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Setup Local Pytorch</title>
+      <link>https://Greenery-S.github.io/zh-cn/posts/pytorch/setup-local-pytorch/</link>
+      <pubDate>Tue, 04 Jun 2024 00:31:42 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/zh-cn/posts/pytorch/setup-local-pytorch/</guid>
+      <description>本地建设pytorch环境 1. 安装miniconda 可以使用pycharm自动安装,也可以手动安装.&#xA;检查是不是有jupyter notebook 和 jupyter lab&#xA;如果上面的都ok,那么就可以安装pytorch了.&#xA;2. 创建一个新的conda环境 conda create -n torch-gpu python=3.9 conda activate torch-gpu 3. 安装pytorch 到官网下载pytorch的安装命令 https://pytorch.org/ 可以是conda/pip的命令&#xA;4. 将kernel注册到jupyter lab conda install ipykernel sudo python -m ipykernel install --name=torch-gpu 5. 打开jupyter lab jupyter lab 6. 测试pytorch (apple silicon m1) 选取注册的kernel,然后运行代码:&#xA;test1.py&#xA;import torch import math # this ensures that the current MacOS version is at least 12.3+ print(torch.backends.mps.is_available()) # this ensures that the current current PyTorch installation was built with MPS activated.</description>
+    </item>
+  </channel>
+</rss>

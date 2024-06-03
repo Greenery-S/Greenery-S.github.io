@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="">
+<meta name="description" content="fundamentals import torch torch.__version__ &#39;2.4.0.dev20240602&#39; 1 Tensor #TODO: 读文档 torch.Tensor
+1.1 scalar scalar = torch.tensor(9) scalar tensor(9) scalar.ndim, scalar.ndimension() (0, 0) scalar.item() 9 1.2 vector vector = torch.tensor([9, 9, 9]) vector tensor([9, 9, 9]) vector.ndim 1 vector.shape torch.Size([3]) 1.3 matrix matrix = torch.tensor([[9, 9, 9], [9, 9, 9]]) matrix tensor([[9, 9, 9], [9, 9, 9]]) matrix.ndim 2 matrix.shape torch.Size([2, 3]) matrix.size() torch.Size([2, 3]) 1.4 tensor tensor = torch.tensor( [ #dim0, 这对括号里面有两个matrix [ #dim1, 这对括号里面有三个vector [ #dim2, 这对括号里面有三个scalar 1, 2, 3, ], [1, 2, 3], [1, 2, 3] ], [ #dim1 [1, 2, 3], [1, 2, 3], [1, 2, 3] ] ] ) tensor tensor([[[1, 2, 3], [1, 2, 3], [1, 2, 3]], [[1, 2, 3], [1, 2, 3], [1, 2, 3]]]) tensor." />
+<meta name="keywords" content=", python, pytorch" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="" />
+<link rel="canonical" href="https://Greenery-S.github.io/zh-cn/posts/pytorch/review/fundamental/" />
+
+
+    <title>
+        
+            Fundamental :: Greenery&#39;s Blog Site  — Coder, Blogger, Photographer
+        
+    </title>
+
+
+
+
+
+<link rel="stylesheet" href="https://Greenery-S.github.io/main.949191c1dcc9c4a887997048b240354e47152016d821198f89448496ba42e491.css" integrity="sha256-lJGRwdzJxKiHmXBIskA1TkcVIBbYIRmPiUSElrpC5JE=">
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://Greenery-S.github.io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://Greenery-S.github.io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://Greenery-S.github.io/favicon-16x16.png">
+    <link rel="manifest" href="https://Greenery-S.github.io/site.webmanifest">
+    <link rel="mask-icon" href="https://Greenery-S.github.io/safari-pinned-tab.svg" color="">
+    <link rel="shortcut icon" href="https://Greenery-S.github.io/favicon.ico">
+    <meta name="msapplication-TileColor" content="">
+
+
+
+  <meta itemprop="name" content="Fundamental">
+  <meta itemprop="description" content="fundamentals import torch torch.__version__ &#39;2.4.0.dev20240602&#39; 1 Tensor #TODO: 读文档 torch.Tensor
+1.1 scalar scalar = torch.tensor(9) scalar tensor(9) scalar.ndim, scalar.ndimension() (0, 0) scalar.item() 9 1.2 vector vector = torch.tensor([9, 9, 9]) vector tensor([9, 9, 9]) vector.ndim 1 vector.shape torch.Size([3]) 1.3 matrix matrix = torch.tensor([[9, 9, 9], [9, 9, 9]]) matrix tensor([[9, 9, 9], [9, 9, 9]]) matrix.ndim 2 matrix.shape torch.Size([2, 3]) matrix.size() torch.Size([2, 3]) 1.4 tensor tensor = torch.tensor( [ #dim0, 这对括号里面有两个matrix [ #dim1, 这对括号里面有三个vector [ #dim2, 这对括号里面有三个scalar 1, 2, 3, ], [1, 2, 3], [1, 2, 3] ], [ #dim1 [1, 2, 3], [1, 2, 3], [1, 2, 3] ] ] ) tensor tensor([[[1, 2, 3], [1, 2, 3], [1, 2, 3]], [[1, 2, 3], [1, 2, 3], [1, 2, 3]]]) tensor.">
+  <meta itemprop="datePublished" content="2024-06-04T00:05:06+08:00">
+  <meta itemprop="dateModified" content="2024-06-04T00:05:06+08:00">
+  <meta itemprop="wordCount" content="2279">
+  <meta itemprop="image" content="https://Greenery-S.github.io/">
+  <meta itemprop="keywords" content="Python,Pytorch">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://Greenery-S.github.io/"><meta name="twitter:title" content="Fundamental">
+<meta name="twitter:description" content="fundamentals import torch torch.__version__ &#39;2.4.0.dev20240602&#39; 1 Tensor #TODO: 读文档 torch.Tensor
+1.1 scalar scalar = torch.tensor(9) scalar tensor(9) scalar.ndim, scalar.ndimension() (0, 0) scalar.item() 9 1.2 vector vector = torch.tensor([9, 9, 9]) vector tensor([9, 9, 9]) vector.ndim 1 vector.shape torch.Size([3]) 1.3 matrix matrix = torch.tensor([[9, 9, 9], [9, 9, 9]]) matrix tensor([[9, 9, 9], [9, 9, 9]]) matrix.ndim 2 matrix.shape torch.Size([2, 3]) matrix.size() torch.Size([2, 3]) 1.4 tensor tensor = torch.tensor( [ #dim0, 这对括号里面有两个matrix [ #dim1, 这对括号里面有三个vector [ #dim2, 这对括号里面有三个scalar 1, 2, 3, ], [1, 2, 3], [1, 2, 3] ], [ #dim1 [1, 2, 3], [1, 2, 3], [1, 2, 3] ] ] ) tensor tensor([[[1, 2, 3], [1, 2, 3], [1, 2, 3]], [[1, 2, 3], [1, 2, 3], [1, 2, 3]]]) tensor.">
+
+
+
+    <meta property="og:url" content="https://Greenery-S.github.io/zh-cn/posts/pytorch/review/fundamental/">
+  <meta property="og:site_name" content="Greenery&#39;s Blog Site">
+  <meta property="og:title" content="Fundamental">
+  <meta property="og:description" content="fundamentals import torch torch.__version__ &#39;2.4.0.dev20240602&#39; 1 Tensor #TODO: 读文档 torch.Tensor
+1.1 scalar scalar = torch.tensor(9) scalar tensor(9) scalar.ndim, scalar.ndimension() (0, 0) scalar.item() 9 1.2 vector vector = torch.tensor([9, 9, 9]) vector tensor([9, 9, 9]) vector.ndim 1 vector.shape torch.Size([3]) 1.3 matrix matrix = torch.tensor([[9, 9, 9], [9, 9, 9]]) matrix tensor([[9, 9, 9], [9, 9, 9]]) matrix.ndim 2 matrix.shape torch.Size([2, 3]) matrix.size() torch.Size([2, 3]) 1.4 tensor tensor = torch.tensor( [ #dim0, 这对括号里面有两个matrix [ #dim1, 这对括号里面有三个vector [ #dim2, 这对括号里面有三个scalar 1, 2, 3, ], [1, 2, 3], [1, 2, 3] ], [ #dim1 [1, 2, 3], [1, 2, 3], [1, 2, 3] ] ] ) tensor tensor([[[1, 2, 3], [1, 2, 3], [1, 2, 3]], [[1, 2, 3], [1, 2, 3], [1, 2, 3]]]) tensor.">
+  <meta property="og:locale" content="zh-cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-06-04T00:05:06+08:00">
+    <meta property="article:modified_time" content="2024-06-04T00:05:06+08:00">
+    <meta property="article:tag" content="Python">
+    <meta property="article:tag" content="Pytorch">
+    <meta property="og:image" content="https://Greenery-S.github.io/">
+
+
+
+
+    <meta property="article:section" content="pytorch" />
+
+    <meta property="article:section" content="pytorch-review" />
+
+
+
+    <meta property="article:published_time" content="2024-06-04 00:05:06 &#43;0800 &#43;08" />
+
+
+
+
+
+
+
+
+
+
+
+    </head>
+
+    
+        <body>
+    
+    
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://Greenery-S.github.io/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">(</span>
+            <span class="logo__text ">
+                ｡•̀ᴗ-)</span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://Greenery-S.github.io/zh-cn/posts/about">About</a></li><li><a href="https://Greenery-S.github.io/zh-cn/posts/">Posts</a></li><li><a href="https://Greenery-S.github.io/zh-cn/tags/">Tags</a></li><li><a href="https://Greenery-S.github.io/zh-cn/categories/">Categories</a></li><li><a href="https://Greenery-S.github.io/zh-cn/categories/hugo-site-building/">Site-building</a></li>
+        <div class="submenu">
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">zh-cn</a>
+                <div class="dropdown-content">
+                    
+                        
+                            <a title="en" href="https://Greenery-S.github.io/posts/pytorch/review/fundamental/">en</a>
+                        
+                    
+                </div>
+            </li>
+        </div>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+                <span class="theme-toggle not-selectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+   <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+   3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+   13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+ </svg></span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+  <main class="post">
+
+    <div class="post-info">
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+        11分钟
+
+         | 其他语言
+          
+              <a href="https://Greenery-S.github.io/posts/pytorch/review/fundamental/"><span class="flag fi fi-gb"></span></a>
+          
+        
+      </p>
+    </div>
+
+    <article>
+      <h1 class="post-title">
+        <a href="https://Greenery-S.github.io/zh-cn/posts/pytorch/review/fundamental/">Fundamental</a>
+      </h1>
+
+      
+
+      
+
+      
+
+      <div class="post-content">
+        <h1 id="fundamentals">fundamentals</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> torch
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>torch<span style="color:#f92672">.</span>__version__
+</span></span></code></pre></div><pre><code>'2.4.0.dev20240602'
+</code></pre>
+<h2 id="1-tensor">1 Tensor</h2>
+<p>#TODO: 读文档 <a href="https://pytorch.org/docs/stable/tensors.html"><code>torch.Tensor</code></a></p>
+<h3 id="11-scalar">1.1 scalar</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>scalar <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor(<span style="color:#ae81ff">9</span>)
+</span></span><span style="display:flex;"><span>scalar
+</span></span></code></pre></div><pre><code>tensor(9)
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>scalar<span style="color:#f92672">.</span>ndim, scalar<span style="color:#f92672">.</span>ndimension()
+</span></span></code></pre></div><pre><code>(0, 0)
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>scalar<span style="color:#f92672">.</span>item()
+</span></span></code></pre></div><pre><code>9
+</code></pre>
+<h3 id="12-vector">1.2 vector</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>vector <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor([<span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">9</span>])
+</span></span><span style="display:flex;"><span>vector
+</span></span></code></pre></div><pre><code>tensor([9, 9, 9])
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>vector<span style="color:#f92672">.</span>ndim
+</span></span></code></pre></div><pre><code>1
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>vector<span style="color:#f92672">.</span>shape
+</span></span></code></pre></div><pre><code>torch.Size([3])
+</code></pre>
+<h3 id="13-matrix">1.3 matrix</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>matrix <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor([[<span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">9</span>],
+</span></span><span style="display:flex;"><span>                       [<span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">9</span>]])
+</span></span><span style="display:flex;"><span>matrix
+</span></span></code></pre></div><pre><code>tensor([[9, 9, 9],
+        [9, 9, 9]])
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>matrix<span style="color:#f92672">.</span>ndim
+</span></span></code></pre></div><pre><code>2
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>matrix<span style="color:#f92672">.</span>shape
+</span></span></code></pre></div><pre><code>torch.Size([2, 3])
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>matrix<span style="color:#f92672">.</span>size()
+</span></span></code></pre></div><pre><code>torch.Size([2, 3])
+</code></pre>
+<h3 id="14-tensor">1.4 tensor</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>tensor <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor(
+</span></span><span style="display:flex;"><span>    [  <span style="color:#75715e">#dim0, 这对括号里面有两个matrix</span>
+</span></span><span style="display:flex;"><span>        [  <span style="color:#75715e">#dim1, 这对括号里面有三个vector</span>
+</span></span><span style="display:flex;"><span>            [  <span style="color:#75715e">#dim2, 这对括号里面有三个scalar</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#ae81ff">2</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#ae81ff">3</span>,
+</span></span><span style="display:flex;"><span>            ],
+</span></span><span style="display:flex;"><span>            [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>],
+</span></span><span style="display:flex;"><span>            [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>]
+</span></span><span style="display:flex;"><span>        ],
+</span></span><span style="display:flex;"><span>        [  <span style="color:#75715e">#dim1</span>
+</span></span><span style="display:flex;"><span>            [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>],
+</span></span><span style="display:flex;"><span>            [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>],
+</span></span><span style="display:flex;"><span>            [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>]
+</span></span><span style="display:flex;"><span>        ]
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>tensor
+</span></span></code></pre></div><pre><code>tensor([[[1, 2, 3],
+         [1, 2, 3],
+         [1, 2, 3]],
+
+        [[1, 2, 3],
+         [1, 2, 3],
+         [1, 2, 3]]])
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>tensor<span style="color:#f92672">.</span>ndim
+</span></span></code></pre></div><pre><code>3
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>tensor<span style="color:#f92672">.</span>shape
+</span></span></code></pre></div><pre><code>torch.Size([2, 3, 3])
+</code></pre>
+<h2 id="2-random-tensor">2 random tensor</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>ramdom_tensor <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>rand(size<span style="color:#f92672">=</span>(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span>ramdom_tensor, ramdom_tensor<span style="color:#f92672">.</span>dtype
+</span></span></code></pre></div><pre><code>(tensor([[0.9508, 0.0344, 0.1949, 0.2121],
+         [0.6301, 0.8800, 0.0905, 0.8551],
+         [0.1719, 0.8458, 0.5306, 0.7635]]),
+ torch.float32)
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>random_image_size_tensor <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>rand(size<span style="color:#f92672">=</span>(<span style="color:#ae81ff">224</span>, <span style="color:#ae81ff">224</span>, <span style="color:#ae81ff">3</span>))
+</span></span><span style="display:flex;"><span>random_image_size_tensor<span style="color:#f92672">.</span>shape, random_image_size_tensor<span style="color:#f92672">.</span>ndim
+</span></span></code></pre></div><pre><code>(torch.Size([224, 224, 3]), 3)
+</code></pre>
+<h2 id="3-zeros-and-ones">3 zeros and ones</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>zeros <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>zeros(size<span style="color:#f92672">=</span>(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span>zeros, zeros<span style="color:#f92672">.</span>dtype
+</span></span></code></pre></div><pre><code>(tensor([[0., 0., 0., 0.],
+         [0., 0., 0., 0.],
+         [0., 0., 0., 0.]]),
+ torch.float32)
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>ones <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>ones(size<span style="color:#f92672">=</span>(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span>ones, ones<span style="color:#f92672">.</span>dtype
+</span></span></code></pre></div><pre><code>(tensor([[1., 1., 1., 1.],
+         [1., 1., 1., 1.],
+         [1., 1., 1., 1.]]),
+ torch.float32)
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Use torch.arange(), torch.range() is deprecated </span>
+</span></span><span style="display:flex;"><span>zero_to_ten_deprecated <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>range(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>zero_to_ten <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>arange(start<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, end<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>, step<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>zero_to_ten
+</span></span></code></pre></div><pre><code>/var/folders/jw/r2366h9x7y99tvnxp8fzcrdh0000gn/T/ipykernel_18720/2515304713.py:2: UserWarning: torch.range is deprecated and will be removed in a future release because its behavior is inconsistent with Python's range builtin. Instead, use torch.arange, which produces values in [start, end).
+  zero_to_ten_deprecated = torch.range(0, 10)
+
+
+
+
+
+tensor([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>ten_zeros <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>zeros_like(input<span style="color:#f92672">=</span>zero_to_ten)
+</span></span><span style="display:flex;"><span>ten_zeros
+</span></span></code></pre></div><pre><code>tensor([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+</code></pre>
+<h2 id="4-tensor-data-type">4 tensor data type</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>float_32_tensor <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor([<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>],
+</span></span><span style="display:flex;"><span>                               dtype<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>,  <span style="color:#75715e"># default is float32</span>
+</span></span><span style="display:flex;"><span>                               device<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>,  <span style="color:#75715e"># default is cpu</span>
+</span></span><span style="display:flex;"><span>                               requires_grad<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>,
+</span></span><span style="display:flex;"><span>                               <span style="color:#75715e"># if True, the tensor will keep track of the operations that created it</span>
+</span></span><span style="display:flex;"><span>                               )
+</span></span><span style="display:flex;"><span>float_32_tensor<span style="color:#f92672">.</span>shape, float_32_tensor<span style="color:#f92672">.</span>dtype, float_32_tensor<span style="color:#f92672">.</span>device, float_32_tensor<span style="color:#f92672">.</span>requires_grad
+</span></span></code></pre></div><pre><code>(torch.Size([3]), torch.int64, device(type='cpu'), False)
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>float_16_tensor <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor([<span style="color:#ae81ff">3.0</span>, <span style="color:#ae81ff">6.0</span>, <span style="color:#ae81ff">9.0</span>],
+</span></span><span style="display:flex;"><span>                               dtype<span style="color:#f92672">=</span>torch<span style="color:#f92672">.</span>float16)  <span style="color:#75715e"># torch.half would also work</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>float_16_tensor<span style="color:#f92672">.</span>dtype
+</span></span></code></pre></div><pre><code>torch.float16
+</code></pre>
+<h2 id="5-tensor-operations">5 tensor operations</h2>
+<p>These operations are often a wonderful dance between:</p>
+<ul>
+<li>Addition</li>
+<li>Substraction</li>
+<li>Multiplication (element-wise)</li>
+<li>Division</li>
+<li>Matrix multiplication</li>
+</ul>
+<h3 id="51-basic-operations">5.1 basic operations</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>tensor <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor([<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>])
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Tensors don&#39;t change unless reassigned, when you do an operation, you need to assign it to a new tensor</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>tensor <span style="color:#f92672">+</span> <span style="color:#ae81ff">10</span>, torch<span style="color:#f92672">.</span>add(tensor, <span style="color:#ae81ff">10</span>)
+</span></span></code></pre></div><pre><code>(tensor([11, 12, 13]), tensor([11, 12, 13]))
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>tensor <span style="color:#f92672">-</span> <span style="color:#ae81ff">10</span>, torch<span style="color:#f92672">.</span>sub(tensor, <span style="color:#ae81ff">10</span>)
+</span></span></code></pre></div><pre><code>(tensor([-9, -8, -7]), tensor([-9, -8, -7]))
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>tensor <span style="color:#f92672">*</span> <span style="color:#ae81ff">10</span>, torch<span style="color:#f92672">.</span>multiply(tensor, <span style="color:#ae81ff">10</span>), torch<span style="color:#f92672">.</span>mul(tensor, <span style="color:#ae81ff">10</span>)
+</span></span></code></pre></div><pre><code>(tensor([10, 20, 30]), tensor([10, 20, 30]), tensor([10, 20, 30]))
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>tensor <span style="color:#f92672">/</span> <span style="color:#ae81ff">10</span>, torch<span style="color:#f92672">.</span>divide(tensor, <span style="color:#ae81ff">10</span>), torch<span style="color:#f92672">.</span>div(tensor, <span style="color:#ae81ff">10</span>)
+</span></span></code></pre></div><pre><code>(tensor([0.1000, 0.2000, 0.3000]),
+ tensor([0.1000, 0.2000, 0.3000]),
+ tensor([0.1000, 0.2000, 0.3000]))
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Element-wise multiplication (each element multiplies its equivalent, index 0-&gt;0, 1-&gt;1, 2-&gt;2)</span>
+</span></span><span style="display:flex;"><span>tensor <span style="color:#f92672">*</span> tensor, torch<span style="color:#f92672">.</span>mul(tensor, tensor)
+</span></span></code></pre></div><pre><code>(tensor([1, 4, 9]), tensor([1, 4, 9]))
+</code></pre>
+<h3 id="52-matrix-multiplication-is-all-you-need">5.2 matrix multiplication (is all you need)</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> torch
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>tensor <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor([<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>])
+</span></span><span style="display:flex;"><span>tensor<span style="color:#f92672">.</span>shape
+</span></span></code></pre></div><pre><code>torch.Size([3])
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>tensor <span style="color:#f92672">*</span> tensor, torch<span style="color:#f92672">.</span>mul(tensor, tensor)
+</span></span></code></pre></div><pre><code>(tensor([1, 4, 9]), tensor([1, 4, 9]))
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>tensor <span style="color:#f92672">@</span> tensor, torch<span style="color:#f92672">.</span>matmul(tensor, tensor)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># torch.mm(tensor, tensor) this will error, as the tensors are not matrices</span>
+</span></span></code></pre></div><pre><code>(tensor(14), tensor(14))
+</code></pre>
+<h3 id="53-common-error-shape-mismatch">5.3 common error, shape mismatch</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Shapes need to be in the right way  </span>
+</span></span><span style="display:flex;"><span>tensor_A <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor([[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>],
+</span></span><span style="display:flex;"><span>                         [<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>],
+</span></span><span style="display:flex;"><span>                         [<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>]], dtype<span style="color:#f92672">=</span>torch<span style="color:#f92672">.</span>float32)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>tensor_B <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor([[<span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">10</span>],
+</span></span><span style="display:flex;"><span>                         [<span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">11</span>],  <span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span>                         [<span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">12</span>]], dtype<span style="color:#f92672">=</span>torch<span style="color:#f92672">.</span>float32)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>torch<span style="color:#f92672">.</span>matmul(tensor_A, tensor_B)  <span style="color:#75715e"># (this will error)</span>
+</span></span></code></pre></div><pre><code>---------------------------------------------------------------------------
+
+RuntimeError                              Traceback (most recent call last)
+
+Cell In[32], line 10
+      2 tensor_A = torch.tensor([[1, 2],
+      3                          [3, 4],
+      4                          [5, 6]], dtype=torch.float32)
+      6 tensor_B = torch.tensor([[7, 10],
+      7                          [8, 11],  #
+      8                          [9, 12]], dtype=torch.float32)
+---&gt; 10 torch.matmul(tensor_A, tensor_B)
+
+
+RuntimeError: mat1 and mat2 shapes cannot be multiplied (3x2 and 3x2)
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>print(tensor_A)
+</span></span><span style="display:flex;"><span>print(tensor_B)
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>print(tensor_A)
+</span></span><span style="display:flex;"><span>print(tensor_B<span style="color:#f92672">.</span>T)
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># The operation works when tensor_B is transposed</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Original shapes: tensor_A = </span><span style="color:#e6db74">{</span>tensor_A<span style="color:#f92672">.</span>shape<span style="color:#e6db74">}</span><span style="color:#e6db74">, tensor_B = </span><span style="color:#e6db74">{</span>tensor_B<span style="color:#f92672">.</span>shape<span style="color:#e6db74">}</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;New shapes: tensor_A = </span><span style="color:#e6db74">{</span>tensor_A<span style="color:#f92672">.</span>shape<span style="color:#e6db74">}</span><span style="color:#e6db74"> (same as above), tensor_B.T = </span><span style="color:#e6db74">{</span>tensor_B<span style="color:#f92672">.</span>T<span style="color:#f92672">.</span>shape<span style="color:#e6db74">}</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Multiplying: </span><span style="color:#e6db74">{</span>tensor_A<span style="color:#f92672">.</span>shape<span style="color:#e6db74">}</span><span style="color:#e6db74"> * </span><span style="color:#e6db74">{</span>tensor_B<span style="color:#f92672">.</span>T<span style="color:#f92672">.</span>shape<span style="color:#e6db74">}</span><span style="color:#e6db74"> &lt;- inner dimensions match</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;Output:</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>output <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>matmul(tensor_A, tensor_B<span style="color:#f92672">.</span>T)
+</span></span><span style="display:flex;"><span>print(output)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Output shape: </span><span style="color:#e6db74">{</span>output<span style="color:#f92672">.</span>shape<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>tensor_A <span style="color:#f92672">@</span> tensor_B<span style="color:#f92672">.</span>T, torch<span style="color:#f92672">.</span>matmul(tensor_A, tensor_B<span style="color:#f92672">.</span>T), torch<span style="color:#f92672">.</span>mm(tensor_A, tensor_B<span style="color:#f92672">.</span>T)
+</span></span></code></pre></div><h3 id="54-linear-layer">5.4 linear layer</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>torch<span style="color:#f92672">.</span>manual_seed(<span style="color:#ae81ff">42</span>)
+</span></span><span style="display:flex;"><span>linear <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Linear(in_features<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, out_features<span style="color:#f92672">=</span><span style="color:#ae81ff">6</span>)
+</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> tensor_A
+</span></span><span style="display:flex;"><span>output <span style="color:#f92672">=</span> linear(x)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Input shape: </span><span style="color:#e6db74">{</span>x<span style="color:#f92672">.</span>shape<span style="color:#e6db74">}</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Output:</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">{</span>output<span style="color:#e6db74">}</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">Output shape: </span><span style="color:#e6db74">{</span>output<span style="color:#f92672">.</span>shape<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span></code></pre></div><pre><code>Input shape: torch.Size([3, 2])
+
+Output:
+tensor([[2.2368, 1.2292, 0.4714, 0.3864, 0.1309, 0.9838],
+        [4.4919, 2.1970, 0.4469, 0.5285, 0.3401, 2.4777],
+        [6.7469, 3.1648, 0.4224, 0.6705, 0.5493, 3.9716]],
+       grad_fn=&lt;AddmmBackward0&gt;)
+
+Output shape: torch.Size([3, 6])
+</code></pre>
+<h2 id="6-aggregation-sum-mean-max-min-etc">6 aggregation: sum, mean, max, min, etc</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>x, x<span style="color:#f92672">.</span>dtype
+</span></span></code></pre></div><pre><code>(tensor([ 0, 10, 20, 30, 40, 50, 60, 70, 80, 90]), torch.int64)
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Minimum: </span><span style="color:#e6db74">{</span>x<span style="color:#f92672">.</span>min()<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Maximum: </span><span style="color:#e6db74">{</span>x<span style="color:#f92672">.</span>max()<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># print(f&#34;Mean: {x.mean()}&#34;) # this will error</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Mean: </span><span style="color:#e6db74">{</span>x<span style="color:#f92672">.</span>type(torch<span style="color:#f92672">.</span>float32)<span style="color:#f92672">.</span>mean()<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)  <span style="color:#75715e"># won&#39;t work without float datatype</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Sum: </span><span style="color:#e6db74">{</span>x<span style="color:#f92672">.</span>sum()<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span></code></pre></div><pre><code>Minimum: 0
+Maximum: 90
+Mean: 45.0
+Sum: 450
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>torch<span style="color:#f92672">.</span>max(x), torch<span style="color:#f92672">.</span>min(x), torch<span style="color:#f92672">.</span>mean(x<span style="color:#f92672">.</span>type(torch<span style="color:#f92672">.</span>float32)), torch<span style="color:#f92672">.</span>sum(x)
+</span></span></code></pre></div><pre><code>(tensor(90), tensor(0), tensor(45.), tensor(450))
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Create a tensor</span>
+</span></span><span style="display:flex;"><span>tensor <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Tensor: </span><span style="color:#e6db74">{</span>tensor<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Returns index of max and min values</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Index where max value occurs: </span><span style="color:#e6db74">{</span>tensor<span style="color:#f92672">.</span>argmax()<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Index where min value occurs: </span><span style="color:#e6db74">{</span>tensor<span style="color:#f92672">.</span>argmin()<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span></code></pre></div><pre><code>Tensor: tensor([10, 20, 30, 40, 50, 60, 70, 80, 90])
+Index where max value occurs: 8
+Index where min value occurs: 0
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>torch<span style="color:#f92672">.</span>argmax(tensor), torch<span style="color:#f92672">.</span>argmin(tensor)
+</span></span></code></pre></div><pre><code>(tensor(8), tensor(0))
+</code></pre>
+<h2 id="7-change-data-type">7 change data type</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>tensor<span style="color:#f92672">.</span>type(torch<span style="color:#f92672">.</span>float16)
+</span></span></code></pre></div><pre><code>tensor([10., 20., 30., 40., 50., 60., 70., 80., 90.], dtype=torch.float16)
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>tensor<span style="color:#f92672">.</span>type(torch<span style="color:#f92672">.</span>int8)
+</span></span></code></pre></div><pre><code>tensor([10, 20, 30, 40, 50, 60, 70, 80, 90], dtype=torch.int8)
+</code></pre>
+<h2 id="8-reshapestackingsqueezeunsqueeze">8 <strong>reshape,stacking,squeeze,unsqueeze</strong></h2>
+<p>Often times you&rsquo;ll want to reshape or change the dimensions of your tensors without actually changing the values inside them.</p>
+<p>To do so, some popular methods are:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>One-line description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://pytorch.org/docs/stable/generated/torch.reshape.html#torch.reshape"><code>torch.reshape(input, shape)</code></a></td>
+<td>Reshapes <code>input</code> to <code>shape</code> (if compatible), can also use <code>torch.Tensor.reshape()</code>.</td>
+</tr>
+<tr>
+<td><a href="https://pytorch.org/docs/stable/generated/torch.Tensor.view.html"><code>Tensor.view(shape)</code></a></td>
+<td>Returns a view of the original tensor in a different <code>shape</code> but shares the same data as the original tensor.</td>
+</tr>
+<tr>
+<td><a href="https://pytorch.org/docs/1.9.1/generated/torch.stack.html"><code>torch.stack(tensors, dim=0)</code></a></td>
+<td>Concatenates a sequence of <code>tensors</code> along a new dimension (<code>dim</code>), all <code>tensors</code> must be same size.</td>
+</tr>
+<tr>
+<td><a href="https://pytorch.org/docs/stable/generated/torch.squeeze.html"><code>torch.squeeze(input)</code></a></td>
+<td>Squeezes <code>input</code> to remove all the dimenions with value <code>1</code>.</td>
+</tr>
+<tr>
+<td><a href="https://pytorch.org/docs/1.9.1/generated/torch.unsqueeze.html"><code>torch.unsqueeze(input, dim)</code></a></td>
+<td>Returns <code>input</code> with a dimension value of <code>1</code> added at <code>dim</code>.</td>
+</tr>
+<tr>
+<td><a href="https://pytorch.org/docs/stable/generated/torch.permute.html"><code>torch.permute(input, dims)</code></a></td>
+<td>Returns a <em>view</em> of the original <code>input</code> with its dimensions permuted (rearranged) to <code>dims</code>.</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Create a tensor</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> torch
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">1.</span>, <span style="color:#ae81ff">8.</span>)
+</span></span><span style="display:flex;"><span>x, x<span style="color:#f92672">.</span>shape
+</span></span></code></pre></div><pre><code>(tensor([1., 2., 3., 4., 5., 6., 7.]), torch.Size([7]))
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>x_reshaped <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>reshape(x, (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">7</span>))
+</span></span><span style="display:flex;"><span>x_reshaped, x_reshaped<span style="color:#f92672">.</span>shape
+</span></span></code></pre></div><pre><code>(tensor([[1., 2., 3., 4., 5., 6., 7.]]), torch.Size([1, 7]))
+</code></pre>
+<p>#TODO: 阅读 <a href="https://stackoverflow.com/a/54507446/7900723">https://stackoverflow.com/a/54507446/7900723</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>x_view <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>view(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">7</span>)
+</span></span><span style="display:flex;"><span>x_view, x_view<span style="color:#f92672">.</span>shape
+</span></span></code></pre></div><pre><code>(tensor([[1., 2., 3., 4., 5., 6., 7.]]), torch.Size([1, 7]))
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># change x_view, x_reshaped will also change</span>
+</span></span><span style="display:flex;"><span>x_view[:, <span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">7</span>
+</span></span><span style="display:flex;"><span>x_view, x
+</span></span></code></pre></div><pre><code>(tensor([[7., 2., 3., 4., 5., 6., 7.]]), tensor([7., 2., 3., 4., 5., 6., 7.]))
+</code></pre>
+<p>If we wanted to stack our new tensor on top of itself five times, we could do so with <code>torch.stack()</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>x_stacked <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>stack([x, x, x, x, x], dim<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>x_stacked, x_stacked<span style="color:#f92672">.</span>shape
+</span></span></code></pre></div><pre><code>(tensor([[7., 2., 3., 4., 5., 6., 7.],
+         [7., 2., 3., 4., 5., 6., 7.],
+         [7., 2., 3., 4., 5., 6., 7.],
+         [7., 2., 3., 4., 5., 6., 7.],
+         [7., 2., 3., 4., 5., 6., 7.]]),
+ torch.Size([5, 7]))
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>x_stacked <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>stack([x, x, x, x, x], dim<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>x_stacked, x_stacked<span style="color:#f92672">.</span>shape
+</span></span></code></pre></div><pre><code>(tensor([[7., 7., 7., 7., 7.],
+         [2., 2., 2., 2., 2.],
+         [3., 3., 3., 3., 3.],
+         [4., 4., 4., 4., 4.],
+         [5., 5., 5., 5., 5.],
+         [6., 6., 6., 6., 6.],
+         [7., 7., 7., 7., 7.]]),
+ torch.Size([7, 5]))
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Previous tensor: </span><span style="color:#e6db74">{</span>x_reshaped<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Previous shape: </span><span style="color:#e6db74">{</span>x_reshaped<span style="color:#f92672">.</span>shape<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Remove extra dimension from x_reshaped</span>
+</span></span><span style="display:flex;"><span>x_squeezed <span style="color:#f92672">=</span> x_reshaped<span style="color:#f92672">.</span>squeeze()
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">New tensor: </span><span style="color:#e6db74">{</span>x_squeezed<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;New shape: </span><span style="color:#e6db74">{</span>x_squeezed<span style="color:#f92672">.</span>shape<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span></code></pre></div><pre><code>Previous tensor: tensor([[7., 2., 3., 4., 5., 6., 7.]])
+Previous shape: torch.Size([1, 7])
+
+New tensor: tensor([7., 2., 3., 4., 5., 6., 7.])
+New shape: torch.Size([7])
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Previous tensor: </span><span style="color:#e6db74">{</span>x_squeezed<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Previous shape: </span><span style="color:#e6db74">{</span>x_squeezed<span style="color:#f92672">.</span>shape<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">## Add an extra dimension with unsqueeze</span>
+</span></span><span style="display:flex;"><span>x_unsqueezed <span style="color:#f92672">=</span> x_squeezed<span style="color:#f92672">.</span>unsqueeze(dim<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">New tensor: </span><span style="color:#e6db74">{</span>x_unsqueezed<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;New shape: </span><span style="color:#e6db74">{</span>x_unsqueezed<span style="color:#f92672">.</span>shape<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span></code></pre></div><pre><code>Previous tensor: tensor([7., 2., 3., 4., 5., 6., 7.])
+Previous shape: torch.Size([7])
+
+New tensor: tensor([[7., 2., 3., 4., 5., 6., 7.]])
+New shape: torch.Size([1, 7])
+</code></pre>
+<p>You can also rearrange the order of axes values with <code>torch.permute(input, dims)</code>, where the <code>input</code> gets turned into a <em>view</em> with new <code>dims</code>.</p>
+<blockquote>
+<p><strong>Note</strong>: Because permuting returns a <em>view</em> (shares the same data as the original), the values in the permuted tensor will be the same as the original tensor and if you change the values in the view, it will change the values of the original.</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Create tensor with specific shape</span>
+</span></span><span style="display:flex;"><span>x_original <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>rand(size<span style="color:#f92672">=</span>(<span style="color:#ae81ff">224</span>, <span style="color:#ae81ff">224</span>, <span style="color:#ae81ff">3</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Permute the original tensor to rearrange the axis order</span>
+</span></span><span style="display:flex;"><span>x_permuted <span style="color:#f92672">=</span> x_original<span style="color:#f92672">.</span>permute(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>)  <span style="color:#75715e"># shifts axis 0-&gt;1, 1-&gt;2, 2-&gt;0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Previous shape: </span><span style="color:#e6db74">{</span>x_original<span style="color:#f92672">.</span>shape<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;New shape: </span><span style="color:#e6db74">{</span>x_permuted<span style="color:#f92672">.</span>shape<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span></code></pre></div><pre><code>Previous shape: torch.Size([224, 224, 3])
+New shape: torch.Size([3, 224, 224])
+</code></pre>
+<h2 id="9-indexing-select-data-from-tensor">9 indexing: select data from tensor</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Create a tensor </span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> torch
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">10</span>)<span style="color:#f92672">.</span>reshape(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>)
+</span></span><span style="display:flex;"><span>x, x<span style="color:#f92672">.</span>shape
+</span></span></code></pre></div><pre><code>(tensor([[[1, 2, 3],
+          [4, 5, 6],
+          [7, 8, 9]]]),
+ torch.Size([1, 3, 3]))
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Let&#39;s index bracket by bracket</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;First square bracket:</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">{</span>x[<span style="color:#ae81ff">0</span>]<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Second square bracket: </span><span style="color:#e6db74">{</span>x[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">0</span>]<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Third square bracket: </span><span style="color:#e6db74">{</span>x[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">0</span>]<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span></code></pre></div><pre><code>First square bracket:
+tensor([[1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9]])
+Second square bracket: tensor([1, 2, 3])
+Third square bracket: 1
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>x[<span style="color:#ae81ff">0</span>], x[<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>], x[<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>]
+</span></span></code></pre></div><pre><code>(tensor([[1, 2, 3],
+         [4, 5, 6],
+         [7, 8, 9]]),
+ tensor([1, 2, 3]),
+ tensor(1))
+</code></pre>
+<p>You can also use <code>:</code> to specify &ldquo;all values in this dimension&rdquo; and then use a comma (<code>,</code>) to add another dimension.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Get all values of 0th dimension and the 0 index of 1st dimension</span>
+</span></span><span style="display:flex;"><span>x[:, <span style="color:#ae81ff">0</span>]
+</span></span></code></pre></div><pre><code>tensor([[1, 2, 3]])
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Get all values of 0th &amp; 1st dimensions but only index 1 of 2nd dimension</span>
+</span></span><span style="display:flex;"><span>x[:, :, <span style="color:#ae81ff">1</span>]
+</span></span></code></pre></div><pre><code>tensor([[2, 5, 8]])
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Get all values of the 0 dimension but only the 1 index value of the 1st and 2nd dimension</span>
+</span></span><span style="display:flex;"><span>x[:, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>]
+</span></span></code></pre></div><pre><code>tensor([5])
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Get index 0 of 0th and 1st dimension and all values of 2nd dimension </span>
+</span></span><span style="display:flex;"><span>x[<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, :]  <span style="color:#75715e"># same as x[0][0]</span>
+</span></span></code></pre></div><pre><code>tensor([1, 2, 3])
+</code></pre>
+<h2 id="10-pytorch-tensors--numpy">10 PyTorch tensors &amp; NumPy</h2>
+<p>Since NumPy is a popular Python numerical computing library, PyTorch has functionality to interact with it nicely.</p>
+<p>The two main methods you&rsquo;ll want to use for NumPy to PyTorch (and back again) are:</p>
+<ul>
+<li><a href="https://pytorch.org/docs/stable/generated/torch.from_numpy.html"><code>torch.from_numpy(ndarray)</code></a> - NumPy array -&gt; PyTorch tensor.</li>
+<li><a href="https://pytorch.org/docs/stable/generated/torch.Tensor.numpy.html"><code>torch.Tensor.numpy()</code></a> - PyTorch tensor -&gt; NumPy array.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># NumPy array to tensor</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> torch
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span>array <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">1.0</span>, <span style="color:#ae81ff">8.0</span>)
+</span></span><span style="display:flex;"><span>tensor <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>from_numpy(array)
+</span></span><span style="display:flex;"><span>array, tensor
+</span></span></code></pre></div><pre><code>(array([1., 2., 3., 4., 5., 6., 7.]),
+ tensor([1., 2., 3., 4., 5., 6., 7.], dtype=torch.float64))
+</code></pre>
+<p>By default, NumPy arrays are created with the datatype <code>float64</code> and if you convert it to a PyTorch tensor, it&rsquo;ll keep the same datatype (as above).</p>
+<p>However, many PyTorch calculations default to using <code>float32</code>.</p>
+<p>So if you want to convert your NumPy array (float64) -&gt; PyTorch tensor (float64) -&gt; PyTorch tensor (float32), you can use <code>tensor = torch.from_numpy(array).type(torch.float32)</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>tensor<span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>from_numpy(array)<span style="color:#f92672">.</span>type(torch<span style="color:#f92672">.</span>float32)
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Tensor to NumPy array</span>
+</span></span><span style="display:flex;"><span>tensor <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>ones(<span style="color:#ae81ff">7</span>) <span style="color:#75715e"># create a tensor of ones with dtype=float32</span>
+</span></span><span style="display:flex;"><span>numpy_tensor <span style="color:#f92672">=</span> tensor<span style="color:#f92672">.</span>numpy() <span style="color:#75715e"># will be dtype=float32 unless changed</span>
+</span></span><span style="display:flex;"><span>tensor, numpy_tensor
+</span></span></code></pre></div><pre><code>(tensor([1., 1., 1., 1., 1., 1., 1.]),
+ array([1., 1., 1., 1., 1., 1., 1.], dtype=float32))
+</code></pre>
+<h2 id="11-reproducibility-trying-to-take-the-random-out-of-random">11 Reproducibility: trying to take the random out of random</h2>
+<p>#TODO: <a href="https://pytorch.org/docs/stable/notes/randomness.html">The PyTorch reproducibility documentation</a></p>
+<p>#TODO: <a href="https://en.wikipedia.org/wiki/Random_seed">The Wikipedia random seed page</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> torch
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Create two random tensors</span>
+</span></span><span style="display:flex;"><span>random_tensor_A <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>rand(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>)
+</span></span><span style="display:flex;"><span>random_tensor_B <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>rand(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Tensor A:</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">{</span>random_tensor_A<span style="color:#e6db74">}</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Tensor B:</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">{</span>random_tensor_B<span style="color:#e6db74">}</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Does Tensor A equal Tensor B? (anywhere)&#34;</span>)
+</span></span><span style="display:flex;"><span>random_tensor_A <span style="color:#f92672">==</span> random_tensor_B
+</span></span></code></pre></div><pre><code>Tensor A:
+tensor([[0.8016, 0.3649, 0.6286, 0.9663],
+        [0.7687, 0.4566, 0.5745, 0.9200],
+        [0.3230, 0.8613, 0.0919, 0.3102]])
+
+Tensor B:
+tensor([[0.9536, 0.6002, 0.0351, 0.6826],
+        [0.3743, 0.5220, 0.1336, 0.9666],
+        [0.9754, 0.8474, 0.8988, 0.1105]])
+
+Does Tensor A equal Tensor B? (anywhere)
+
+
+
+
+
+tensor([[False, False, False, False],
+        [False, False, False, False],
+        [False, False, False, False]])
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> torch
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> random
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># # Set the random seed</span>
+</span></span><span style="display:flex;"><span>RANDOM_SEED<span style="color:#f92672">=</span><span style="color:#ae81ff">42</span> <span style="color:#75715e"># try changing this to different values and see what happens to the numbers below</span>
+</span></span><span style="display:flex;"><span>torch<span style="color:#f92672">.</span>manual_seed(seed<span style="color:#f92672">=</span>RANDOM_SEED) 
+</span></span><span style="display:flex;"><span>random_tensor_C <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>rand(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Have to reset the seed every time a new rand() is called </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Without this, tensor_D would be different to tensor_C </span>
+</span></span><span style="display:flex;"><span>torch<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>manual_seed(seed<span style="color:#f92672">=</span>RANDOM_SEED) <span style="color:#75715e"># try commenting this line out and seeing what happens</span>
+</span></span><span style="display:flex;"><span>random_tensor_D <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>rand(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Tensor C:</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">{</span>random_tensor_C<span style="color:#e6db74">}</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Tensor D:</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">{</span>random_tensor_D<span style="color:#e6db74">}</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Does Tensor C equal Tensor D? (anywhere)&#34;</span>)
+</span></span><span style="display:flex;"><span>random_tensor_C <span style="color:#f92672">==</span> random_tensor_D
+</span></span></code></pre></div><pre><code>Tensor C:
+tensor([[0.8823, 0.9150, 0.3829, 0.9593],
+        [0.3904, 0.6009, 0.2566, 0.7936],
+        [0.9408, 0.1332, 0.9346, 0.5936]])
+
+Tensor D:
+tensor([[0.8823, 0.9150, 0.3829, 0.9593],
+        [0.3904, 0.6009, 0.2566, 0.7936],
+        [0.9408, 0.1332, 0.9346, 0.5936]])
+
+Does Tensor C equal Tensor D? (anywhere)
+
+
+
+
+
+tensor([[True, True, True, True],
+        [True, True, True, True],
+        [True, True, True, True]])
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> torch
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> random
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># # Set the random seed</span>
+</span></span><span style="display:flex;"><span>RANDOM_SEED<span style="color:#f92672">=</span><span style="color:#ae81ff">42</span> <span style="color:#75715e"># try changing this to different values and see what happens to the numbers below</span>
+</span></span><span style="display:flex;"><span>torch<span style="color:#f92672">.</span>manual_seed(seed<span style="color:#f92672">=</span>RANDOM_SEED) 
+</span></span><span style="display:flex;"><span>random_tensor_C <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>rand(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Have to reset the seed every time a new rand() is called </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Without this, tensor_D would be different to tensor_C </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># torch.random.manual_seed(seed=RANDOM_SEED) # try commenting this line out and seeing what happens</span>
+</span></span><span style="display:flex;"><span>random_tensor_D <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>rand(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Tensor C:</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">{</span>random_tensor_C<span style="color:#e6db74">}</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Tensor D:</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">{</span>random_tensor_D<span style="color:#e6db74">}</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Does Tensor C equal Tensor D? (anywhere)&#34;</span>)
+</span></span><span style="display:flex;"><span>random_tensor_C <span style="color:#f92672">==</span> random_tensor_D
+</span></span></code></pre></div><pre><code>Tensor C:
+tensor([[0.8823, 0.9150, 0.3829, 0.9593],
+        [0.3904, 0.6009, 0.2566, 0.7936],
+        [0.9408, 0.1332, 0.9346, 0.5936]])
+
+Tensor D:
+tensor([[0.8694, 0.5677, 0.7411, 0.4294],
+        [0.8854, 0.5739, 0.2666, 0.6274],
+        [0.2696, 0.4414, 0.2969, 0.8317]])
+
+Does Tensor C equal Tensor D? (anywhere)
+
+
+
+
+
+tensor([[False, False, False, False],
+        [False, False, False, False],
+        [False, False, False, False]])
+</code></pre>
+<h2 id="12-use-gpu">12 use gpu</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> torch<span style="color:#f92672">.</span>cuda<span style="color:#f92672">.</span>is_available():
+</span></span><span style="display:flex;"><span>    device <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;cuda&#34;</span> <span style="color:#75715e"># Use NVIDIA GPU (if available)</span>
+</span></span><span style="display:flex;"><span>    print(torch<span style="color:#f92672">.</span>cuda<span style="color:#f92672">.</span>device_count())
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">elif</span> torch<span style="color:#f92672">.</span>backends<span style="color:#f92672">.</span>mps<span style="color:#f92672">.</span>is_available():
+</span></span><span style="display:flex;"><span>    device <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;mps&#34;</span> <span style="color:#75715e"># Use Apple Silicon GPU (if available)</span>
+</span></span><span style="display:flex;"><span>    print(torch<span style="color:#f92672">.</span>mps<span style="color:#f92672">.</span>device_count())
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>    device <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;cpu&#34;</span> <span style="color:#75715e"># Default to CPU if no GPU is available</span>
+</span></span><span style="display:flex;"><span>    print(torch<span style="color:#f92672">.</span>cpu<span style="color:#f92672">.</span>device_count())
+</span></span><span style="display:flex;"><span>device
+</span></span></code></pre></div><pre><code>1
+
+
+
+
+
+'mps'
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Create tensor (default on CPU)</span>
+</span></span><span style="display:flex;"><span>tensor <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor([<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Tensor not on GPU</span>
+</span></span><span style="display:flex;"><span>print(tensor, tensor<span style="color:#f92672">.</span>device)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Move tensor to GPU (if available)</span>
+</span></span><span style="display:flex;"><span>tensor_on_gpu <span style="color:#f92672">=</span> tensor<span style="color:#f92672">.</span>to(device)
+</span></span><span style="display:flex;"><span>tensor_on_gpu
+</span></span></code></pre></div><pre><code>tensor([1, 2, 3]) cpu
+
+
+
+
+
+tensor([1, 2, 3], device='mps:0')
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># If tensor is on GPU, can&#39;t transform it to NumPy (this will error)</span>
+</span></span><span style="display:flex;"><span>tensor_on_gpu<span style="color:#f92672">.</span>numpy()
+</span></span></code></pre></div><pre><code>---------------------------------------------------------------------------
+
+TypeError                                 Traceback (most recent call last)
+
+Cell In[65], line 2
+      1 # If tensor is on GPU, can't transform it to NumPy (this will error)
+----&gt; 2 tensor_on_gpu.numpy()
+
+
+TypeError: can't convert mps:0 device type tensor to numpy. Use Tensor.cpu() to copy the tensor to host memory first.
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Instead, copy the tensor back to cpu</span>
+</span></span><span style="display:flex;"><span>tensor_back_on_cpu <span style="color:#f92672">=</span> tensor_on_gpu<span style="color:#f92672">.</span>cpu()<span style="color:#f92672">.</span>numpy()
+</span></span><span style="display:flex;"><span>tensor_back_on_cpu
+</span></span></code></pre></div><pre><code>array([1, 2, 3])
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>tensor_on_gpu
+</span></span></code></pre></div><pre><code>tensor([1, 2, 3], device='mps:0')
+</code></pre>
+
+      </div>
+    </article>
+
+    <hr />
+
+    <div class="post-info">
+      
+    <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg>
+
+        <span class="tag"><a href="https://Greenery-S.github.io/zh-cn/tags/python/">python</a></span>
+        <span class="tag"><a href="https://Greenery-S.github.io/zh-cn/tags/pytorch/">pytorch</a></span>
+        
+    </p>
+
+      
+    <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder meta-icon"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+
+        <span class="tag"><a href="https://Greenery-S.github.io/zh-cn/categories/pytorch/">pytorch</a></span>
+        <span class="tag"><a href="https://Greenery-S.github.io/zh-cn/categories/pytorch-review/">pytorch-review</a></span>
+        
+    </p>
+
+
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+          <polyline points="10 9 9 9 8 9"></polyline>
+        </svg>
+        2279字
+      </p>
+
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
+        
+          2024-06-04 00:05
+        
+
+         
+          
+        
+      </p>
+    </div>
+      <hr />
+      <div class="sharing-buttons">
+        
+<a class="resp-sharing-button__link" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2fpytorch%2freview%2ffundamental%2f" target="_blank" rel="noopener" aria-label="" title="Share on facebook">
+  <div class="resp-sharing-button resp-sharing-button--facebook resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://twitter.com/intent/tweet/?url=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2fpytorch%2freview%2ffundamental%2f" target="_blank" rel="noopener" aria-label="" title="Share on twitter">
+  <div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--small">
+      <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://www.tumblr.com/widgets/share/tool?posttype=link&amp;title=Fundamental&amp;caption=Fundamental&amp;canonicalUrl=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2fpytorch%2freview%2ffundamental%2f" target="_blank" rel="noopener" aria-label="" title="Share on tumblr">
+  <div class="resp-sharing-button resp-sharing-button--tumblr resp-sharing-button--small">
+    <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.563 24c-5.093 0-7.031-3.756-7.031-6.411V9.747H5.116V6.648c3.63-1.313 4.512-4.596 4.71-6.469C9.84.051 9.941 0 9.999 0h3.517v6.114h4.801v3.633h-4.82v7.47c.016 1.001.375 2.371 2.207 2.371h.09c.631-.02 1.486-.205 1.936-.419l1.156 3.425c-.436.636-2.4 1.374-4.156 1.404h-.178l.011.002z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="mailto:?subject=Fundamental&amp;body=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2fpytorch%2freview%2ffundamental%2f" target="_self" rel="noopener" aria-label="" title="Share via email">
+  <div class="resp-sharing-button resp-sharing-button--email resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://pinterest.com/pin/create/button/?url=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2fpytorch%2freview%2ffundamental%2f&amp;media=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2fpytorch%2freview%2ffundamental%2f;description=Fundamental" target="_blank" rel="noopener" aria-label="" title="Share on pinterest">
+  <div class="resp-sharing-button resp-sharing-button--pinterest resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2fpytorch%2freview%2ffundamental%2f&amp;title=Fundamental&amp;summary=Fundamental&amp;source=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2fpytorch%2freview%2ffundamental%2f" target="_blank" rel="noopener" aria-label="" title="Share on linkedin">
+  <div class="resp-sharing-button resp-sharing-button--linkedin resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://reddit.com/submit/?url=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2fpytorch%2freview%2ffundamental%2f&amp;resubmit=true&amp;title=Fundamental" target="_blank" rel="noopener" aria-label="" title="Share on reddit">
+  <div class="resp-sharing-button resp-sharing-button--reddit resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://www.xing.com/app/user?op=share;url=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2fpytorch%2freview%2ffundamental%2f;title=Fundamental" target="_blank" rel="noopener" aria-label="" title="Share on xing">
+  <div class="resp-sharing-button resp-sharing-button--xing resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M18.188 0c-.517 0-.741.325-.927.66 0 0-7.455 13.224-7.702 13.657.015.024 4.919 9.023 4.919 9.023.17.308.436.66.967.66h3.454c.211 0 .375-.078.463-.22.089-.151.089-.346-.009-.536l-4.879-8.916c-.004-.006-.004-.016 0-.022L22.139.756c.095-.191.097-.387.006-.535C22.056.078 21.894 0 21.686 0h-3.498zM3.648 4.74c-.211 0-.385.074-.473.216-.09.149-.078.339.02.531l2.34 4.05c.004.01.004.016 0 .021L1.86 16.051c-.099.188-.093.381 0 .529.085.142.239.234.45.234h3.461c.518 0 .766-.348.945-.667l3.734-6.609-2.378-4.155c-.172-.315-.434-.659-.962-.659H3.648v.016z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="whatsapp://send?text=Fundamental%20https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2fpytorch%2freview%2ffundamental%2f" target="_blank" rel="noopener" aria-label="" title="Share on whatsapp">
+  <div class="resp-sharing-button resp-sharing-button--whatsapp resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://news.ycombinator.com/submitlink?u=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2fpytorch%2freview%2ffundamental%2f&amp;t=Fundamental" target="_blank" rel="noopener" aria-label="" title="Share on hacker news">
+  <div class="resp-sharing-button resp-sharing-button--hackernews resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M0 24V0h24v24H0zM6.951 5.896l4.112 7.708v5.064h1.583v-4.972l4.148-7.799h-1.749l-2.457 4.875c-.372.745-.688 1.434-.688 1.434s-.297-.708-.651-1.434L8.831 5.896h-1.88z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://telegram.me/share/url?text=Fundamental&amp;url=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2fpytorch%2freview%2ffundamental%2f" target="_blank" rel="noopener" aria-label="" title="Share on telegram">
+  <div class="resp-sharing-button resp-sharing-button--telegram resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+    </div>
+  </div>
+</a>
+
+      </div>
+
+    
+    <div class="pagination">
+        
+
+        <div class="pagination__buttons">
+            
+            <span class="button previous">
+                <a href="https://Greenery-S.github.io/zh-cn/posts/pytorch/setup-local-pytorch/">
+                    <span class="button__icon">←</span>
+                    <span class="button__text">Setup Local Pytorch</span>
+                </a>
+            </span>
+            
+
+            
+            <span class="button next">
+                <a href="https://Greenery-S.github.io/zh-cn/posts/life/the-road-to-next-life-stage/">
+                    <span class="button__text">The Road to Next Life Stage</span>
+                    <span class="button__icon">→</span>
+                </a>
+            </span>
+            
+        </div>
+    </div>
+
+
+    
+
+    
+
+    
+    <script src="https://utteranc.es/client.js"
+            repo="Greenery-S/Greenery-S.github.io"
+            label="comments"
+            issue-term="pathname"
+            theme="boxy-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    
+
+  </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2023</span>
+            <span><a href="https://Greenery-S.github.io/"></a></span>
+            <span><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></span>
+            <span><a href="https://Greenery-S.github.io/zh-cn/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+            
+        </div>
+    </div>
+    
+    
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Powered by <a href="http://gohugo.io">Hugo</a></span><span>Made with &#10084; by <a href="https://github.com/Greenery-S">Sam, Keyu Yan</a></span>
+        </div>
+    </div>
+    
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+<script type="text/javascript" src="https://Greenery-S.github.io/bundle.min.85fad2de4f13fec3bcb3b3cb10430cdb44a7b4a9749b32938241a5c6e77718df7624f1002b880521fdc26e24ec1077fda214bf1cb36ee3045510760d09638cae.js" integrity="sha512-hfrS3k8T/sO8s7PLEEMM20SntKl0mzKTgkGlxud3GN92JPEAK4gFIf3CbiTsEHf9ohS/HLNu4wRVEHYNCWOMrg=="></script>
+
+
+
+
+    </body>
+</html>

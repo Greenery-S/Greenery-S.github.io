@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Pytorch on Greenery&#39;s Blog Site</title>
+    <link>https://Greenery-S.github.io/categories/pytorch/</link>
+    <description>Recent content in Pytorch on Greenery&#39;s Blog Site</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Tue, 04 Jun 2024 00:31:42 +0800</lastBuildDate>
+    <atom:link href="https://Greenery-S.github.io/categories/pytorch/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Setup Local Pytorch</title>
+      <link>https://Greenery-S.github.io/posts/pytorch/setup-local-pytorch/</link>
+      <pubDate>Tue, 04 Jun 2024 00:31:42 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/posts/pytorch/setup-local-pytorch/</guid>
+      <description>Setting up Pytorch Locally 1. Install miniconda You can use PyCharm for automatic installation, or you can install it manually.&#xA;Check if you have Jupyter Notebook and Jupyter Lab.&#xA;If the above are all okay, then you can install Pytorch.&#xA;2. Create a new conda environment conda create -n torch-gpu python=3.9 conda activate torch-gpu 3. Install Pytorch Go to the official website to download the Pytorch installation command https://pytorch.org/ It can be a conda/pip command.</description>
+    </item>
+    <item>
+      <title>Fundamental</title>
+      <link>https://Greenery-S.github.io/posts/pytorch/review/fundamental/</link>
+      <pubDate>Tue, 04 Jun 2024 00:05:06 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/posts/pytorch/review/fundamental/</guid>
+      <description>fundamentals import torch torch.__version__ &#39;2.4.0.dev20240602&#39; 1 Tensor #TODO: 读文档 torch.Tensor&#xA;1.1 scalar scalar = torch.tensor(9) scalar tensor(9) scalar.ndim, scalar.ndimension() (0, 0) scalar.item() 9 1.2 vector vector = torch.tensor([9, 9, 9]) vector tensor([9, 9, 9]) vector.ndim 1 vector.shape torch.Size([3]) 1.3 matrix matrix = torch.tensor([[9, 9, 9], [9, 9, 9]]) matrix tensor([[9, 9, 9], [9, 9, 9]]) matrix.ndim 2 matrix.shape torch.Size([2, 3]) matrix.size() torch.Size([2, 3]) 1.4 tensor tensor = torch.tensor( [ #dim0, 这对括号里面有两个matrix [ #dim1, 这对括号里面有三个vector [ #dim2, 这对括号里面有三个scalar 1, 2, 3, ], [1, 2, 3], [1, 2, 3] ], [ #dim1 [1, 2, 3], [1, 2, 3], [1, 2, 3] ] ] ) tensor tensor([[[1, 2, 3], [1, 2, 3], [1, 2, 3]], [[1, 2, 3], [1, 2, 3], [1, 2, 3]]]) tensor.</description>
+    </item>
+  </channel>
+</rss>
