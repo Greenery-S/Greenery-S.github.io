@@ -10,6 +10,39 @@
         <atom:link href="https://Greenery-S.github.io/zh-cn/posts/index.xml" rel="self" type="application/rss+xml" />
         
         <item>
+            <title>Why Open This Series</title>
+            <link>https://Greenery-S.github.io/zh-cn/posts/go/design-pattern/why-open-this-series/</link>
+            <pubDate>Fri, 07 Jun 2024 17:37:02 +0800</pubDate>
+            
+            <guid>https://Greenery-S.github.io/zh-cn/posts/go/design-pattern/why-open-this-series/</guid>
+            <description>为什么开启设计模式系列 我发现我写的代码越来越难维护,越来越难扩展.我需要学习一些设计模式,来提高代码的质量.
+有用的参考资料:
+https://refactoringguru.cn/design-patterns/catalog : 图文并茂,很容易理解. 23种全,但是不深入.因为有付费版. https://github.com/mohuishou/go-design-pattern : 是极客时间设计模式之美的笔记, 我觉得不需要买这个,因为他是java的 这个有博客讲解的,比较推荐. https://github.com/senghoo/golang-design-pattern : 这是&amp;lt;研磨设计模式&amp;gt;的go实现, 比较推荐. 来源:https://www.javaweb.shop/ </description>
+            <content type="html"><![CDATA[<h1 id="为什么开启设计模式系列">为什么开启设计模式系列</h1>
+<p>我发现我写的代码越来越难维护,越来越难扩展.我需要学习一些设计模式,来提高代码的质量.</p>
+<p>有用的参考资料:</p>
+<ul>
+<li><a href="https://refactoringguru.cn/design-patterns/catalog">https://refactoringguru.cn/design-patterns/catalog</a> :
+<ul>
+<li>图文并茂,很容易理解. 23种全,但是不深入.因为有付费版.</li>
+</ul>
+</li>
+<li><a href="https://github.com/mohuishou/go-design-pattern">https://github.com/mohuishou/go-design-pattern</a> :
+<ul>
+<li>是极客时间<a href="https://time.geekbang.org/column/intro/100039001?utm_campaign=geektime_search&utm_content=geektime_search&utm_medium=geektime_search&utm_source=geektime_search&utm_term=geektime_search&tab=intro">设计模式之美</a>的笔记, 我觉得不需要买这个,因为他是java的</li>
+<li>这个有博客讲解的,比较推荐.</li>
+</ul>
+</li>
+<li><a href="https://github.com/senghoo/golang-design-pattern">https://github.com/senghoo/golang-design-pattern</a> :
+<ul>
+<li>这是&lt;研磨设计模式&gt;的go实现, 比较推荐. 来源:https://www.javaweb.shop/</li>
+</ul>
+</li>
+</ul>
+]]></content>
+        </item>
+        
+        <item>
             <title>Setup Local Pytorch</title>
             <link>https://Greenery-S.github.io/zh-cn/posts/pytorch/setup-local-pytorch/</link>
             <pubDate>Tue, 04 Jun 2024 00:31:42 +0800</pubDate>

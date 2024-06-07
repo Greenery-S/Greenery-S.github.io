@@ -7,8 +7,15 @@
     <generator>Hugo</generator>
     <language>zh-cn</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Tue, 04 Jun 2024 00:31:42 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 07 Jun 2024 17:37:02 +0800</lastBuildDate>
     <atom:link href="https://Greenery-S.github.io/zh-cn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Why Open This Series</title>
+      <link>https://Greenery-S.github.io/zh-cn/posts/go/design-pattern/why-open-this-series/</link>
+      <pubDate>Fri, 07 Jun 2024 17:37:02 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/zh-cn/posts/go/design-pattern/why-open-this-series/</guid>
+      <description>为什么开启设计模式系列 我发现我写的代码越来越难维护,越来越难扩展.我需要学习一些设计模式,来提高代码的质量.&#xA;有用的参考资料:&#xA;https://refactoringguru.cn/design-patterns/catalog : 图文并茂,很容易理解. 23种全,但是不深入.因为有付费版. https://github.com/mohuishou/go-design-pattern : 是极客时间设计模式之美的笔记, 我觉得不需要买这个,因为他是java的 这个有博客讲解的,比较推荐. https://github.com/senghoo/golang-design-pattern : 这是&amp;lt;研磨设计模式&amp;gt;的go实现, 比较推荐. 来源:https://www.javaweb.shop/ </description>
+    </item>
     <item>
       <title>Setup Local Pytorch</title>
       <link>https://Greenery-S.github.io/zh-cn/posts/pytorch/setup-local-pytorch/</link>
@@ -71,13 +78,6 @@
       <pubDate>Sat, 25 May 2024 14:30:03 +0800</pubDate>
       <guid>https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/argo-workflow-2/</guid>
       <description>Argo Workflow (2) 1 Steps 多步骤的工作流可以通过steps字段来定义。每个步骤都是一个独立的容器，可以并行执行。&#xA;apiVersion: argoproj.io/v1alpha1 kind: Workflow metadata: generateName: steps- spec: entrypoint: hello-hello-hello # This spec contains two templates: hello-hello-hello and whalesay templates: - name: hello-hello-hello # Instead of just running a container # This template has a sequence of steps steps: - - name: hello1 # hello1 is run before the following steps template: argosay arguments: parameters: - name: message value: &amp;#34;hello1&amp;#34; - - name: hello2a # double dash =&amp;gt; run after previous step template: argosay arguments: parameters: - name: message value: &amp;#34;hello2a&amp;#34; - name: hello2b # single dash =&amp;gt; run in parallel with previous step template: argosay arguments: parameters: - name: message value: &amp;#34;hello2b&amp;#34; # This is the same template as from the previous example - name: argosay inputs: parameters: - name: message container: image: yky8/argosay:v2 command: [ &amp;#34;/usr/local/bin/argosay&amp;#34; ] args: [ &amp;#34;echo&amp;#34;,&amp;#34;{{inputs.</description>
-    </item>
-    <item>
-      <title>Argo Workflow 1</title>
-      <link>https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/argo-workflow-1/</link>
-      <pubDate>Sat, 25 May 2024 03:46:15 +0800</pubDate>
-      <guid>https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/argo-workflow-1/</guid>
-      <description>Argo Workflow (1) 大量例子在此: https://github.com/argoproj/argo-workflows/tree/main/examples 但是,由于docker/whalesay镜像不再支持,导致很多例子无法运行,需要自己构建一个镜像来替代它.&#xA;1 Argo CLI argo submit hello-world.yaml # submit a workflow spec to Kubernetes argo list # list current workflows argo get hello-world-xxx # get info about a specific workflow argo logs hello-world-xxx # print the logs from a workflow argo delete hello-world-xxx # delete workflow 用kubectl也可以, 都要指定namespace&#xA;2 Hello World apiVersion: argoproj.io/v1alpha1 kind: Workflow # new type of k8s spec metadata: generateName: hello-world- # name of the workflow spec spec: entrypoint: argosay # invoke the whalesay template templates: - name: argosay # name of the template container: image: yky8/argosay:v2 command: [&amp;#34;/usr/local/bin/argosay&amp;#34;] args: [&amp;#34;echo&amp;#34;, &amp;#34;hello world!</description>
     </item>
   </channel>
 </rss>

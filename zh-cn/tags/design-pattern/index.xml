@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Design-Pattern on Greenery&#39;s Blog Site</title>
+    <link>https://Greenery-S.github.io/zh-cn/tags/design-pattern/</link>
+    <description>Recent content in Design-Pattern on Greenery&#39;s Blog Site</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Fri, 07 Jun 2024 17:37:02 +0800</lastBuildDate>
+    <atom:link href="https://Greenery-S.github.io/zh-cn/tags/design-pattern/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Why Open This Series</title>
+      <link>https://Greenery-S.github.io/zh-cn/posts/go/design-pattern/why-open-this-series/</link>
+      <pubDate>Fri, 07 Jun 2024 17:37:02 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/zh-cn/posts/go/design-pattern/why-open-this-series/</guid>
+      <description>为什么开启设计模式系列 我发现我写的代码越来越难维护,越来越难扩展.我需要学习一些设计模式,来提高代码的质量.&#xA;有用的参考资料:&#xA;https://refactoringguru.cn/design-patterns/catalog : 图文并茂,很容易理解. 23种全,但是不深入.因为有付费版. https://github.com/mohuishou/go-design-pattern : 是极客时间设计模式之美的笔记, 我觉得不需要买这个,因为他是java的 这个有博客讲解的,比较推荐. https://github.com/senghoo/golang-design-pattern : 这是&amp;lt;研磨设计模式&amp;gt;的go实现, 比较推荐. 来源:https://www.javaweb.shop/ </description>
+    </item>
+  </channel>
+</rss>

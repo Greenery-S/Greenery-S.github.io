@@ -2,6 +2,51 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://Greenery-S.github.io/zh-cn/categories/</loc>
+    <lastmod>2024-06-07T17:37:02+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://Greenery-S.github.io/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://Greenery-S.github.io/zh-cn/categories/"
+                />
+  </url><url>
+    <loc>https://Greenery-S.github.io/zh-cn/tags/design-pattern/</loc>
+    <lastmod>2024-06-07T17:37:02+08:00</lastmod>
+  </url><url>
+    <loc>https://Greenery-S.github.io/zh-cn/tags/go/</loc>
+    <lastmod>2024-06-07T17:37:02+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://Greenery-S.github.io/tags/go/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://Greenery-S.github.io/zh-cn/tags/go/"
+                />
+  </url><url>
+    <loc>https://Greenery-S.github.io/zh-cn/categories/go/</loc>
+    <lastmod>2024-06-07T17:37:02+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://Greenery-S.github.io/categories/go/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://Greenery-S.github.io/zh-cn/categories/go/"
+                />
+  </url><url>
+    <loc>https://Greenery-S.github.io/zh-cn/categories/go-design-pattern/</loc>
+    <lastmod>2024-06-07T17:37:02+08:00</lastmod>
+  </url><url>
     <loc>https://Greenery-S.github.io/zh-cn/</loc>
     <lastmod>2024-06-07T17:37:02+08:00</lastmod>
     <xhtml:link
@@ -28,18 +73,21 @@
                 href="https://Greenery-S.github.io/zh-cn/posts/"
                 />
   </url><url>
-    <loc>https://Greenery-S.github.io/zh-cn/categories/</loc>
-    <lastmod>2024-06-04T00:31:42+08:00</lastmod>
+    <loc>https://Greenery-S.github.io/zh-cn/tags/</loc>
+    <lastmod>2024-06-07T17:37:02+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://Greenery-S.github.io/categories/"
+                href="https://Greenery-S.github.io/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="https://Greenery-S.github.io/zh-cn/categories/"
+                href="https://Greenery-S.github.io/zh-cn/tags/"
                 />
+  </url><url>
+    <loc>https://Greenery-S.github.io/zh-cn/posts/go/design-pattern/why-open-this-series/</loc>
+    <lastmod>2024-06-07T17:37:02+08:00</lastmod>
   </url><url>
     <loc>https://Greenery-S.github.io/zh-cn/tags/jupyter/</loc>
     <lastmod>2024-06-04T00:31:42+08:00</lastmod>
@@ -130,19 +178,6 @@
                 rel="alternate"
                 hreflang="zh-cn"
                 href="https://Greenery-S.github.io/zh-cn/posts/pytorch/setup-local-pytorch/"
-                />
-  </url><url>
-    <loc>https://Greenery-S.github.io/zh-cn/tags/</loc>
-    <lastmod>2024-06-04T00:31:42+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://Greenery-S.github.io/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://Greenery-S.github.io/zh-cn/tags/"
                 />
   </url><url>
     <loc>https://Greenery-S.github.io/zh-cn/posts/pytorch/review/fundamental/</loc>
@@ -451,19 +486,6 @@
                 href="https://Greenery-S.github.io/zh-cn/posts/devops/argo-workflow/quick-start-with-self-build-image/"
                 />
   </url><url>
-    <loc>https://Greenery-S.github.io/zh-cn/categories/go/</loc>
-    <lastmod>2024-05-22T23:29:47+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://Greenery-S.github.io/categories/go/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://Greenery-S.github.io/zh-cn/categories/go/"
-                />
-  </url><url>
     <loc>https://Greenery-S.github.io/zh-cn/categories/go-basics/</loc>
     <lastmod>2024-05-22T23:29:47+08:00</lastmod>
     <xhtml:link
@@ -540,19 +562,6 @@
                 rel="alternate"
                 hreflang="zh-cn"
                 href="https://Greenery-S.github.io/zh-cn/tags/file/"
-                />
-  </url><url>
-    <loc>https://Greenery-S.github.io/zh-cn/tags/go/</loc>
-    <lastmod>2024-05-22T22:15:28+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://Greenery-S.github.io/tags/go/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://Greenery-S.github.io/zh-cn/tags/go/"
                 />
   </url><url>
     <loc>https://Greenery-S.github.io/zh-cn/categories/go-memo/</loc>
