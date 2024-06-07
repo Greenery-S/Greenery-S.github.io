@@ -2,6 +2,32 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://Greenery-S.github.io/zh-cn/</loc>
+    <lastmod>2024-06-07T17:37:02+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://Greenery-S.github.io/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://Greenery-S.github.io/zh-cn/"
+                />
+  </url><url>
+    <loc>https://Greenery-S.github.io/zh-cn/posts/</loc>
+    <lastmod>2024-06-07T17:37:02+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://Greenery-S.github.io/posts/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://Greenery-S.github.io/zh-cn/posts/"
+                />
+  </url><url>
     <loc>https://Greenery-S.github.io/zh-cn/categories/</loc>
     <lastmod>2024-06-04T00:31:42+08:00</lastmod>
     <xhtml:link
@@ -13,19 +39,6 @@
                 rel="alternate"
                 hreflang="zh-cn"
                 href="https://Greenery-S.github.io/zh-cn/categories/"
-                />
-  </url><url>
-    <loc>https://Greenery-S.github.io/zh-cn/</loc>
-    <lastmod>2024-06-04T00:31:42+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://Greenery-S.github.io/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://Greenery-S.github.io/zh-cn/"
                 />
   </url><url>
     <loc>https://Greenery-S.github.io/zh-cn/tags/jupyter/</loc>
@@ -52,19 +65,6 @@
                 rel="alternate"
                 hreflang="zh-cn"
                 href="https://Greenery-S.github.io/zh-cn/tags/mps/"
-                />
-  </url><url>
-    <loc>https://Greenery-S.github.io/zh-cn/posts/</loc>
-    <lastmod>2024-06-04T00:31:42+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://Greenery-S.github.io/posts/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://Greenery-S.github.io/zh-cn/posts/"
                 />
   </url><url>
     <loc>https://Greenery-S.github.io/zh-cn/tags/python/</loc>
