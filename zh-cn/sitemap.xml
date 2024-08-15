@@ -43,6 +43,16 @@
   </url><url>
     <loc>https://Greenery-S.github.io/zh-cn/categories/go-lo/</loc>
     <lastmod>2024-08-15T17:46:09+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://Greenery-S.github.io/categories/go-lo/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://Greenery-S.github.io/zh-cn/categories/go-lo/"
+                />
   </url><url>
     <loc>https://Greenery-S.github.io/zh-cn/</loc>
     <lastmod>2024-08-15T17:46:09+08:00</lastmod>
@@ -59,9 +69,29 @@
   </url><url>
     <loc>https://Greenery-S.github.io/zh-cn/tags/lo/</loc>
     <lastmod>2024-08-15T17:46:09+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://Greenery-S.github.io/tags/lo/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://Greenery-S.github.io/zh-cn/tags/lo/"
+                />
   </url><url>
     <loc>https://Greenery-S.github.io/zh-cn/posts/go/awsome-go/lo-all-examples/</loc>
     <lastmod>2024-08-15T17:46:09+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://Greenery-S.github.io/posts/go/awsome-go/lo-all-examples/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://Greenery-S.github.io/zh-cn/posts/go/awsome-go/lo-all-examples/"
+                />
   </url><url>
     <loc>https://Greenery-S.github.io/zh-cn/posts/</loc>
     <lastmod>2024-08-15T17:46:09+08:00</lastmod>
@@ -91,6 +121,16 @@
   </url><url>
     <loc>https://Greenery-S.github.io/zh-cn/posts/go/awsome-go/lo-is-an-efficient-toolbox-for-go/</loc>
     <lastmod>2024-08-15T16:39:29+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://Greenery-S.github.io/posts/go/awsome-go/lo-is-an-efficient-toolbox-for-go/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://Greenery-S.github.io/zh-cn/posts/go/awsome-go/lo-is-an-efficient-toolbox-for-go/"
+                />
   </url><url>
     <loc>https://Greenery-S.github.io/zh-cn/tags/design-pattern/</loc>
     <lastmod>2024-06-07T17:37:02+08:00</lastmod>

@@ -7,8 +7,22 @@
     <generator>Hugo</generator>
     <language>en</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Tue, 04 Jun 2024 00:31:42 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 15 Aug 2024 17:46:09 +0800</lastBuildDate>
     <atom:link href="https://Greenery-S.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Lo All Examples</title>
+      <link>https://Greenery-S.github.io/posts/go/awsome-go/lo-all-examples/</link>
+      <pubDate>Thu, 15 Aug 2024 17:46:09 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/posts/go/awsome-go/lo-all-examples/</guid>
+      <description>Lo Learn Examples Demo for slices: demos for filter Iterates over a collection and returns an array of all the elements the predicate function returns true for.&#xA;Running example: Result: Even numbers:[2 4 6 8 10] Odd numbers:[1 3 5 7 9] Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/filter.go:34 Demo for slices: demos for map Manipulates a slice of one type and transforms it into a slice of another type&#xA;Running example: Result: [2 4 6 8] [1x2=2 2x2=4 3x2=6 4x2=8] Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/map.</description>
+    </item>
+    <item>
+      <title>Lo Is an Efficient Toolbox for Go</title>
+      <link>https://Greenery-S.github.io/posts/go/awsome-go/lo-is-an-efficient-toolbox-for-go/</link>
+      <pubDate>Thu, 15 Aug 2024 16:39:29 +0800</pubDate>
+      <guid>https://Greenery-S.github.io/posts/go/awsome-go/lo-is-an-efficient-toolbox-for-go/</guid>
+      <description>Comprehensive Evaluation of Lo Library: Core Advantages and Meaningful Features Core Advantages Functional Programming Paradigm Enhances Native Data Structures&#xA;Lo library enhances Go&amp;rsquo;s native data structures through functional programming paradigms rather than object-oriented methods. Avoids creating new wrapper types, eliminating compatibility issues when using these enhanced features across different projects. Allows enhanced functionality to be used directly on native data types without type conversion, improving code conciseness and portability. Simplifies Advanced Go Programming Concepts</description>
+    </item>
     <item>
       <title>Setup Local Pytorch</title>
       <link>https://Greenery-S.github.io/posts/pytorch/setup-local-pytorch/</link>
@@ -64,20 +78,6 @@
       <pubDate>Sat, 25 May 2024 03:46:15 +0800</pubDate>
       <guid>https://Greenery-S.github.io/posts/devops/argo-workflow/argo-workflow-1/</guid>
       <description>Argo Workflow (1) A lot of examples can be found here: https://github.com/argoproj/argo-workflows/tree/main/examples However, since the docker/whalesay image is no longer supported, many examples cannot run, and you need to build an image to replace it.&#xA;1 Argo CLI argo submit hello-world.yaml # submit a workflow spec to Kubernetes argo list # list current workflows argo get hello-world-xxx # get info about a specific workflow argo logs hello-world-xxx # print the logs from a workflow argo delete hello-world-xxx # delete workflow You can also use kubectl, but you need to specify the namespace.</description>
-    </item>
-    <item>
-      <title>Quick Start With Self Build Image</title>
-      <link>https://Greenery-S.github.io/posts/devops/argo-workflow/quick-start-with-self-build-image/</link>
-      <pubDate>Sat, 25 May 2024 02:17:44 +0800</pubDate>
-      <guid>https://Greenery-S.github.io/posts/devops/argo-workflow/quick-start-with-self-build-image/</guid>
-      <description>A Somewhat Rocky &amp;ldquo;Quick&amp;rdquo; Start Recently, I wanted to review Argo Workflow, so I decided to start from the official documentation and follow the steps one by one. However, things didn&amp;rsquo;t go as smoothly as expected. The official docker/whalesay image is no longer supported in the latest Docker version, which has caused hundreds of hello world examples based on it to fail to run properly. So, I decided to build my own image to replace the official docker/whalesay image.</description>
-    </item>
-    <item>
-      <title>Hash Function vs Symmetric Encryption</title>
-      <link>https://Greenery-S.github.io/posts/go/encryption/hash-function-vs-symmetric-encryption/</link>
-      <pubDate>Wed, 22 May 2024 23:29:47 +0800</pubDate>
-      <guid>https://Greenery-S.github.io/posts/go/encryption/hash-function-vs-symmetric-encryption/</guid>
-      <description>Core Differences between Symmetric Encryption and Hash Functions 1 Symmetric Encryption Purpose: Protect the confidentiality of data, preventing unauthorized access.&#xA;Working Principle: Utilizes the same key for both encryption and decryption of data.&#xA;Characteristics:&#xA;Reversibility: Decrypting ciphertext to retrieve the original data using the same key is possible. Key Management: Securely sharing the key is crucial, as data remains inaccessible without it. Applications: Secure communication, data storage, digital signatures, etc.</description>
     </item>
   </channel>
 </rss>

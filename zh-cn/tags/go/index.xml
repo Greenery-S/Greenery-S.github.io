@@ -14,7 +14,7 @@
       <link>https://Greenery-S.github.io/zh-cn/posts/go/awsome-go/lo-all-examples/</link>
       <pubDate>Thu, 15 Aug 2024 17:46:09 +0800</pubDate>
       <guid>https://Greenery-S.github.io/zh-cn/posts/go/awsome-go/lo-all-examples/</guid>
-      <description>Lo Learn - all examples https://github.com/samber/lo&#xA;Demo for slices: demos for filter Iterates over a collection and returns an array of all the elements the predicate function returns true for.&#xA;Running example: Result: Even numbers:[2 4 6 8 10] Odd numbers:[1 3 5 7 9] Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/filter.go:34 Demo for slices: demos for map Manipulates a slice of one type and transforms it into a slice of another type&#xA;Running example: Result: [2 4 6 8] [1x2=2 2x2=4 3x2=6 4x2=8] Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/map.</description>
+      <description>Lo Learn Examples Demo for slices: demos for filter Iterates over a collection and returns an array of all the elements the predicate function returns true for.&#xA;Running example: Result: Even numbers:[2 4 6 8 10] Odd numbers:[1 3 5 7 9] Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/filter.go:34 Demo for slices: demos for map Manipulates a slice of one type and transforms it into a slice of another type&#xA;Running example: Result: [2 4 6 8] [1x2=2 2x2=4 3x2=6 4x2=8] Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/map.</description>
     </item>
     <item>
       <title>Lo Is an Efficient Toolbox for Go</title>
