@@ -1,0 +1,2368 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="">
+<meta name="description" content="Lo Learn - all examples https://github.com/samber/lo
+Demo for slices: demos for filter Iterates over a collection and returns an array of all the elements the predicate function returns true for.
+Running example: Result: Even numbers:[2 4 6 8 10] Odd numbers:[1 3 5 7 9] Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/filter.go:34 Demo for slices: demos for map Manipulates a slice of one type and transforms it into a slice of another type
+Running example: Result: [2 4 6 8] [1x2=2 2x2=4 3x2=6 4x2=8] Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/map." />
+<meta name="keywords" content=", go, lo" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="" />
+<link rel="canonical" href="https://Greenery-S.github.io/zh-cn/posts/go/awsome-go/lo-all-examples/" />
+
+
+    <title>
+        
+            Lo All Examples :: Greenery&#39;s Blog Site  — Coder, Blogger, Photographer
+        
+    </title>
+
+
+
+
+
+<link rel="stylesheet" href="https://Greenery-S.github.io/main.949191c1dcc9c4a887997048b240354e47152016d821198f89448496ba42e491.css" integrity="sha256-lJGRwdzJxKiHmXBIskA1TkcVIBbYIRmPiUSElrpC5JE=">
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://Greenery-S.github.io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://Greenery-S.github.io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://Greenery-S.github.io/favicon-16x16.png">
+    <link rel="manifest" href="https://Greenery-S.github.io/site.webmanifest">
+    <link rel="mask-icon" href="https://Greenery-S.github.io/safari-pinned-tab.svg" color="">
+    <link rel="shortcut icon" href="https://Greenery-S.github.io/favicon.ico">
+    <meta name="msapplication-TileColor" content="">
+
+
+
+  <meta itemprop="name" content="Lo All Examples">
+  <meta itemprop="description" content="Lo Learn - all examples https://github.com/samber/lo
+Demo for slices: demos for filter Iterates over a collection and returns an array of all the elements the predicate function returns true for.
+Running example: Result: Even numbers:[2 4 6 8 10] Odd numbers:[1 3 5 7 9] Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/filter.go:34 Demo for slices: demos for map Manipulates a slice of one type and transforms it into a slice of another type
+Running example: Result: [2 4 6 8] [1x2=2 2x2=4 3x2=6 4x2=8] Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/map.">
+  <meta itemprop="datePublished" content="2024-08-15T17:46:09+08:00">
+  <meta itemprop="dateModified" content="2024-08-15T17:46:09+08:00">
+  <meta itemprop="wordCount" content="6027">
+  <meta itemprop="image" content="https://Greenery-S.github.io/">
+  <meta itemprop="keywords" content="Go,Lo">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://Greenery-S.github.io/"><meta name="twitter:title" content="Lo All Examples">
+<meta name="twitter:description" content="Lo Learn - all examples https://github.com/samber/lo
+Demo for slices: demos for filter Iterates over a collection and returns an array of all the elements the predicate function returns true for.
+Running example: Result: Even numbers:[2 4 6 8 10] Odd numbers:[1 3 5 7 9] Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/filter.go:34 Demo for slices: demos for map Manipulates a slice of one type and transforms it into a slice of another type
+Running example: Result: [2 4 6 8] [1x2=2 2x2=4 3x2=6 4x2=8] Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/map.">
+
+
+
+    <meta property="og:url" content="https://Greenery-S.github.io/zh-cn/posts/go/awsome-go/lo-all-examples/">
+  <meta property="og:site_name" content="Greenery&#39;s Blog Site">
+  <meta property="og:title" content="Lo All Examples">
+  <meta property="og:description" content="Lo Learn - all examples https://github.com/samber/lo
+Demo for slices: demos for filter Iterates over a collection and returns an array of all the elements the predicate function returns true for.
+Running example: Result: Even numbers:[2 4 6 8 10] Odd numbers:[1 3 5 7 9] Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/filter.go:34 Demo for slices: demos for map Manipulates a slice of one type and transforms it into a slice of another type
+Running example: Result: [2 4 6 8] [1x2=2 2x2=4 3x2=6 4x2=8] Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/map.">
+  <meta property="og:locale" content="zh-cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-08-15T17:46:09+08:00">
+    <meta property="article:modified_time" content="2024-08-15T17:46:09+08:00">
+    <meta property="article:tag" content="Go">
+    <meta property="article:tag" content="Lo">
+    <meta property="og:image" content="https://Greenery-S.github.io/">
+
+
+
+
+    <meta property="article:section" content="go" />
+
+    <meta property="article:section" content="go-lo" />
+
+
+
+    <meta property="article:published_time" content="2024-08-15 17:46:09 &#43;0800 &#43;08" />
+
+
+
+
+
+
+
+
+
+
+
+    </head>
+
+    
+        <body>
+    
+    
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://Greenery-S.github.io/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">(</span>
+            <span class="logo__text ">
+                ｡•̀ᴗ-)</span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://Greenery-S.github.io/zh-cn/posts/about">About</a></li><li><a href="https://Greenery-S.github.io/zh-cn/posts/">Posts</a></li><li><a href="https://Greenery-S.github.io/zh-cn/tags/">Tags</a></li><li><a href="https://Greenery-S.github.io/zh-cn/categories/">Categories</a></li><li><a href="https://Greenery-S.github.io/zh-cn/categories/hugo-site-building/">Site-building</a></li>
+        <div class="submenu">
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">zh-cn</a>
+                <div class="dropdown-content">
+                    
+                        
+                    
+                </div>
+            </li>
+        </div>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+                <span class="theme-toggle not-selectable"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+   <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+   3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+   13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+ </svg></span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+  <main class="post">
+
+    <div class="post-info">
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+        29分钟
+
+        
+      </p>
+    </div>
+
+    <article>
+      <h1 class="post-title">
+        <a href="https://Greenery-S.github.io/zh-cn/posts/go/awsome-go/lo-all-examples/">Lo All Examples</a>
+      </h1>
+
+      
+
+      
+        <hr />
+        <aside id="toc">
+          <div class="toc-title">目录</div>
+          <nav id="TableOfContents">
+  <ul>
+    <li><a href="#demo-for-slices-demos-for-filter">Demo for slices: demos for filter</a></li>
+    <li><a href="#demo-for-slices-demos-for-map">Demo for slices: demos for map</a></li>
+    <li><a href="#demo-for-slices-demos-for-filter_map">Demo for slices: demos for filter_map</a></li>
+    <li><a href="#demo-for-slices-demos-for-flat_slice">Demo for slices: demos for flat_slice</a></li>
+    <li><a href="#demo-for-slices-demos-for-reduce">Demo for slices: demos for reduce</a></li>
+    <li><a href="#demo-for-slices-demos-for-reduce_right">Demo for slices: demos for reduce_right</a></li>
+    <li><a href="#demo-for-slices-demos-for-for_each">Demo for slices: demos for for_each</a></li>
+    <li><a href="#demo-for-slices-demos-for-for_each_parallel">Demo for slices: demos for for_each_parallel</a></li>
+    <li><a href="#demo-for-slices-demos-for-for_each_while">Demo for slices: demos for for_each_while</a></li>
+    <li><a href="#demo-for-slices-demos-for-times">Demo for slices: demos for times</a></li>
+    <li><a href="#demo-for-slices-demos-for-times_parallel">Demo for slices: demos for times_parallel</a></li>
+    <li><a href="#demo-for-slices-demos-for-uniq">Demo for slices: demos for uniq</a></li>
+    <li><a href="#demo-for-slices-demos-for-uniq_by">Demo for slices: demos for uniq_by</a></li>
+    <li><a href="#demo-for-slices-demos-for-group_by">Demo for slices: demos for group_by</a></li>
+    <li><a href="#demo-for-slices-demos-for-chunk">Demo for slices: demos for chunk</a></li>
+    <li><a href="#demo-for-slices-demos-for-partition_by">Demo for slices: demos for partition_by</a></li>
+    <li><a href="#demo-for-slices-demos-for-partition_parallel">Demo for slices: demos for partition_parallel</a></li>
+    <li><a href="#demo-for-slices-demos-for-flatten">Demo for slices: demos for flatten</a></li>
+    <li><a href="#demo-for-slices-demos-for-interleave">Demo for slices: demos for interleave</a></li>
+    <li><a href="#demo-for-slices-demos-for-shuffle">Demo for slices: demos for shuffle</a></li>
+    <li><a href="#demo-for-slices-demos-for-reverse">Demo for slices: demos for reverse</a></li>
+    <li><a href="#demo-for-slices-demos-for-fill">Demo for slices: demos for fill</a></li>
+    <li><a href="#demo-for-slices-demos-for-repeat">Demo for slices: demos for repeat</a></li>
+    <li><a href="#demo-for-slices-demos-for-repeat_by">Demo for slices: demos for repeat_by</a></li>
+    <li><a href="#demo-for-slices-demos-for-key_by">Demo for slices: demos for key_by</a></li>
+    <li><a href="#demo-for-slices-demos-for-associate">Demo for slices: demos for associate</a></li>
+    <li><a href="#demo-for-slices-demos-for-drop">Demo for slices: demos for drop</a></li>
+    <li><a href="#demo-for-slices-demos-for-dropright">Demo for slices: demos for dropRight</a></li>
+    <li><a href="#demo-for-slices-demos-for-dropwhile">Demo for slices: demos for dropWhile</a></li>
+    <li><a href="#demo-for-slices-demos-for-droprightwhile">Demo for slices: demos for dropRightWhile</a></li>
+    <li><a href="#demo-for-slices-demos-for-dropbyindex">Demo for slices: demos for dropByIndex</a></li>
+    <li><a href="#demo-for-slices-demos-for-reject">Demo for slices: demos for reject</a></li>
+    <li><a href="#demo-for-slices-demos-for-rejectmap">Demo for slices: demos for rejectMap</a></li>
+    <li><a href="#demo-for-slices-demos-for-filterreject">Demo for slices: demos for filterReject</a></li>
+    <li><a href="#demo-for-slices-demos-for-count">Demo for slices: demos for count</a></li>
+    <li><a href="#demo-for-slices-demos-for-countby">Demo for slices: demos for countBy</a></li>
+    <li><a href="#demo-for-slices-demos-for-countvalues">Demo for slices: demos for countValues</a></li>
+    <li><a href="#demo-for-slices-demos-for-countvaluesby">Demo for slices: demos for countValuesBy</a></li>
+    <li><a href="#demo-for-slices-demos-for-subset">Demo for slices: demos for subset</a></li>
+    <li><a href="#demo-for-slices-demos-for-slice">Demo for slices: demos for slice</a></li>
+    <li><a href="#demo-for-slices-demos-for-replace">Demo for slices: demos for replace</a></li>
+    <li><a href="#demo-for-slices-demos-for-replaceall">Demo for slices: demos for replaceAll</a></li>
+    <li><a href="#demo-for-slices-demos-for-compact">Demo for slices: demos for compact</a></li>
+    <li><a href="#demo-for-slices-demos-for-issort">Demo for slices: demos for isSort</a></li>
+    <li><a href="#demo-for-slices-demos-for-issortedbykey">Demo for slices: demos for isSortedByKey</a></li>
+    <li><a href="#demo-for-slices-demos-for-splice">Demo for slices: demos for splice</a></li>
+    <li><a href="#demo-for-maps-demos-for-keys">Demo for maps: demos for keys</a></li>
+    <li><a href="#demo-for-maps-demos-for-haskey">Demo for maps: demos for hasKey</a></li>
+    <li><a href="#demo-for-maps-demos-for-values">Demo for maps: demos for values</a></li>
+    <li><a href="#demo-for-maps-demos-for-valueor">Demo for maps: demos for valueOr</a></li>
+    <li><a href="#demo-for-maps-demos-for-pickby">Demo for maps: demos for pickBy</a></li>
+    <li><a href="#demo-for-maps-demos-for-pickbykeys">Demo for maps: demos for pickByKeys</a></li>
+    <li><a href="#demo-for-maps-demos-for-pickbyvalues">Demo for maps: demos for pickByValues</a></li>
+    <li><a href="#demo-for-maps-demos-for-omitby">Demo for maps: demos for omitBy</a></li>
+    <li><a href="#demo-for-maps-demos-for-omitbykeys">Demo for maps: demos for omitByKeys</a></li>
+    <li><a href="#demo-for-maps-demos-for-omitbyvalues">Demo for maps: demos for omitByValues</a></li>
+    <li><a href="#demo-for-maps-demos-for-entries">Demo for maps: demos for entries</a></li>
+    <li><a href="#demo-for-maps-demos-for-fromentries">Demo for maps: demos for fromEntries</a></li>
+    <li><a href="#demo-for-maps-demos-for-invert">Demo for maps: demos for invert</a></li>
+    <li><a href="#demo-for-maps-demos-for-assign">Demo for maps: demos for assign</a></li>
+    <li><a href="#demo-for-maps-demos-for-mapkeys">Demo for maps: demos for mapKeys</a></li>
+    <li><a href="#demo-for-maps-demos-for-mapvalues">Demo for maps: demos for mapValues</a></li>
+    <li><a href="#demo-for-maps-demos-for-mapentries">Demo for maps: demos for mapEntries</a></li>
+    <li><a href="#demo-for-maps-demos-for-maptoslice">Demo for maps: demos for mapToSlice</a></li>
+    <li><a href="#demo-for-math-demos-for-rangerangefromrangewithsteps">Demo for math: demos for range/rangeFrom/RangeWithSteps</a></li>
+    <li><a href="#demo-for-math-demos-for-clamp">Demo for math: demos for clamp</a></li>
+    <li><a href="#demo-for-math-demos-for-sum">Demo for math: demos for sum</a></li>
+    <li><a href="#demo-for-math-demos-for-mean">Demo for math: demos for mean</a></li>
+    <li><a href="#demo-for-math-demos-for-meanby">Demo for math: demos for meanBy</a></li>
+    <li><a href="#demo-for-strings-demos-for-randomstring">Demo for strings: demos for randomString</a></li>
+    <li><a href="#demo-for-strings-demos-for-substring">Demo for strings: demos for substring</a></li>
+    <li><a href="#demo-for-strings-demos-for-chunkstring">Demo for strings: demos for chunkString</a></li>
+    <li><a href="#demo-for-strings-demos-for-runelength">Demo for strings: demos for runeLength</a></li>
+    <li><a href="#demo-for-strings-demos-for-elipse">Demo for strings: demos for elipse</a></li>
+    <li><a href="#demo-for-strings-demos-for-pascalcase">Demo for strings: demos for PascalCase</a></li>
+    <li><a href="#demo-for-strings-demos-for-camelcase">Demo for strings: demos for CamelCase</a></li>
+    <li><a href="#demo-for-strings-demos-for-kebabcase">Demo for strings: demos for KebabCase</a></li>
+    <li><a href="#demo-for-strings-demos-for-snakecase">Demo for strings: demos for SnakeCase</a></li>
+    <li><a href="#demo-for-strings-demos-for-words">Demo for strings: demos for Words</a></li>
+    <li><a href="#demo-for-strings-demos-for-capitalize">Demo for strings: demos for Capitalize</a></li>
+    <li><a href="#demo-for-tuples-demos-for-tuple-and-named-tuple-1-9">Demo for tuples: demos for tuple and named tuple 1-9</a></li>
+    <li><a href="#demo-for-tuples-demos-for-unpack">Demo for tuples: demos for unpack</a></li>
+    <li><a href="#demo-for-tuples-demos-for-zip">Demo for tuples: demos for zip</a></li>
+    <li><a href="#demo-for-tuples-demos-for-zipby">Demo for tuples: demos for zipBy</a></li>
+    <li><a href="#demo-for-tuples-demos-for-unzip">Demo for tuples: demos for unzip</a></li>
+    <li><a href="#demo-for-tuples-demos-for-unzipby">Demo for tuples: demos for unzipBy</a></li>
+    <li><a href="#demo-for-time-and-duration-demos-for-duration">Demo for time and duration: demos for duration</a></li>
+    <li><a href="#demo-for-channels-demos-for-channel-dispatcher">Demo for channels: demos for channel dispatcher</a></li>
+    <li><a href="#demo-for-channels-slice-to-channel">Demo for channels: slice to channel</a></li>
+    <li><a href="#demo-for-channels-channel-to-slice">Demo for channels: channel to slice</a></li>
+    <li><a href="#demo-for-channels-demo-for-generator">Demo for channels: demo for generator</a></li>
+    <li><a href="#demo-for-channels-demo-for-buffer">Demo for channels: demo for buffer</a></li>
+    <li><a href="#demo-for-channels-demo-for-buffer-with-timeout">Demo for channels: demo for buffer with timeout</a></li>
+    <li><a href="#demo-for-channels-demo-for-fan-in">Demo for channels: demo for fan in</a></li>
+    <li><a href="#demo-for-channels-demo-for-fan-out">Demo for channels: demo for fan out</a></li>
+    <li><a href="#demo-for-intersection-demo-for-contains">Demo for intersection: demo for contains</a></li>
+    <li><a href="#demo-for-intersection-demo-for-contains-by">Demo for intersection: demo for contains by</a></li>
+    <li><a href="#demo-for-intersection-demo-for-every">Demo for intersection: demo for every</a></li>
+    <li><a href="#demo-for-intersection-demo-for-every-by">Demo for intersection: demo for every by</a></li>
+    <li><a href="#demo-for-intersection-demo-for-some">Demo for intersection: demo for some</a></li>
+    <li><a href="#demo-for-intersection-demo-for-some-by">Demo for intersection: demo for some by</a></li>
+    <li><a href="#demo-for-intersection-demo-for-none">Demo for intersection: demo for none</a></li>
+    <li><a href="#demo-for-intersection-demo-for-none-by">Demo for intersection: demo for none by</a></li>
+    <li><a href="#demo-for-intersection-demo-for-intersect">Demo for intersection: demo for intersect</a></li>
+    <li><a href="#demo-for-intersection-demo-for-difference">Demo for intersection: demo for difference</a></li>
+    <li><a href="#demo-for-intersection-demo-for-union">Demo for intersection: demo for union</a></li>
+    <li><a href="#demo-for-intersection-demo-for-without">Demo for intersection: demo for without</a></li>
+    <li><a href="#demo-for-intersection-demo-for-without-empty">Demo for intersection: demo for without empty</a></li>
+    <li><a href="#demo-for-search-demo-for-index-of">Demo for search: demo for index of</a></li>
+    <li><a href="#demo-for-search-demo-for-last-index-of">Demo for search: demo for last index of</a></li>
+    <li><a href="#demo-for-search-demo-for-find">Demo for search: demo for find</a></li>
+    <li><a href="#demo-for-search-demo-for-find-index-of">Demo for search: demo for find index of</a></li>
+    <li><a href="#demo-for-search-demo-for-find-last-index-of">Demo for search: demo for find last index of</a></li>
+    <li><a href="#demo-for-search-demo-for-find-or-else">Demo for search: demo for find or else</a></li>
+    <li><a href="#demo-for-search-demo-for-find-key">Demo for search: demo for find key</a></li>
+    <li><a href="#demo-for-search-demo-for-find-key-by">Demo for search: demo for find key by</a></li>
+    <li><a href="#demo-for-search-demo-for-find-uniques">Demo for search: demo for find uniques</a></li>
+    <li><a href="#demo-for-search-demo-for-find-uniques-by">Demo for search: demo for find uniques by</a></li>
+    <li><a href="#demo-for-search-demo-for-find-duplicates">Demo for search: demo for find duplicates</a></li>
+    <li><a href="#demo-for-search-demo-for-find-duplicates-by">Demo for search: demo for find duplicates by</a></li>
+    <li><a href="#demo-for-search-demo-for-min">Demo for search: demo for min</a></li>
+    <li><a href="#demo-for-search-demo-for-min-by">Demo for search: demo for min by</a></li>
+    <li><a href="#demo-for-search-demo-for-earliest">Demo for search: demo for earliest</a></li>
+    <li><a href="#demo-for-search-demo-for-earliest-by">Demo for search: demo for earliest by</a></li>
+    <li><a href="#demo-for-search-demo-for-max">Demo for search: demo for max</a></li>
+    <li><a href="#demo-for-search-demo-for-max-by">Demo for search: demo for max by</a></li>
+    <li><a href="#demo-for-search-demo-for-latest">Demo for search: demo for latest</a></li>
+    <li><a href="#demo-for-search-demo-for-latest-by">Demo for search: demo for latest by</a></li>
+    <li><a href="#demo-for-search-demo-for-first">Demo for search: demo for first</a></li>
+    <li><a href="#demo-for-search-demo-for-first-or-empty">Demo for search: demo for first or empty</a></li>
+    <li><a href="#demo-for-search-demo-for-first-or">Demo for search: demo for first or</a></li>
+    <li><a href="#demo-for-search-demo-for-last">Demo for search: demo for last</a></li>
+    <li><a href="#demo-for-search-demo-for-last-or-empty">Demo for search: demo for last or empty</a></li>
+    <li><a href="#demo-for-search-demo-for-last-or">Demo for search: demo for last or</a></li>
+    <li><a href="#demo-for-search-demo-for-nth">Demo for search: demo for nth</a></li>
+    <li><a href="#demo-for-search-demo-for-sample">Demo for search: demo for sample</a></li>
+    <li><a href="#demo-for-conditional-demo-for-conditional-statements">Demo for conditional: demo for conditional statements</a></li>
+    <li><a href="#demo-for-manipulation-demo-for-manipulation">Demo for manipulation: demo for manipulation</a></li>
+    <li><a href="#demo-for-function-demo-for-partial">Demo for function: demo for partial</a></li>
+    <li><a href="#demo-for-concurrency-demo-for-attempt">Demo for concurrency: demo for attempt</a></li>
+    <li><a href="#demo-for-concurrency-demo-for-attempt-with-delay">Demo for concurrency: demo for attempt with delay</a></li>
+    <li><a href="#demo-for-concurrency-demo-for-attempt-while">Demo for concurrency: demo for attempt while</a></li>
+    <li><a href="#demo-for-concurrency-demo-for-attempt-while-with-delay">Demo for concurrency: demo for attempt while with delay</a></li>
+    <li><a href="#demo-for-concurrency-demo-for-debounce">Demo for concurrency: demo for debounce</a></li>
+    <li><a href="#demo-for-concurrency-demo-for-debounce-by">Demo for concurrency: demo for debounce by</a></li>
+    <li><a href="#demo-for-concurrency-demo-for-synchronize">Demo for concurrency: demo for synchronize</a></li>
+    <li><a href="#demo-for-concurrency-demo-for-async">Demo for concurrency: demo for async</a></li>
+    <li><a href="#demo-for-concurrency-demo-for-transact">Demo for concurrency: demo for transact</a></li>
+    <li><a href="#demo-for-concurrency-demo-for-wait-for">Demo for concurrency: demo for wait for</a></li>
+    <li><a href="#demo-for-concurrency-demo-for-wait-for-with-context">Demo for concurrency: demo for wait for with context</a></li>
+    <li><a href="#demo-for-error-handling-validate">Demo for error handling: Validate</a></li>
+    <li><a href="#demo-for-error-handling-erroras">Demo for error handling: ErrorAs</a></li>
+    <li><a href="#demo-for-error-handling-must">Demo for error handling: Must</a></li>
+    <li><a href="#demo-for-error-handling-try">Demo for error handling: Try</a></li>
+    <li><a href="#demo-for-error-handling-trycatch">Demo for error handling: TryCatch</a></li>
+    <li><a href="#demo-for-error-handling-trycatchwitherrorvalue">Demo for error handling: TryCatchWithErrorValue</a></li>
+  </ul>
+</nav>
+        </aside>
+        <hr />
+
+      
+
+      <div class="post-content">
+        <h1 id="lo-learn---all-examples">Lo Learn - all examples</h1>
+<blockquote>
+<p><a href="https://github.com/samber/lo">https://github.com/samber/lo</a></p>
+</blockquote>
+<hr>
+<h2 id="demo-for-slices-demos-for-filter">Demo for slices: demos for filter</h2>
+<blockquote>
+<p>Iterates over a collection and returns an array of all the elements the predicate function returns true for.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+Even numbers:[2 4 6 8 10]
+Odd numbers:[1 3 5 7 9]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/filter.go:34
+</code></pre><hr>
+<h2 id="demo-for-slices-demos-for-map">Demo for slices: demos for map</h2>
+<blockquote>
+<p>Manipulates a slice of one type and transforms it into a slice of another type</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[2 4 6 8]
+[1x2=2 2x2=4 3x2=6 4x2=8]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/map.go:31
+</code></pre><hr>
+<h2 id="demo-for-slices-demos-for-filter_map">Demo for slices: demos for filter_map</h2>
+<blockquote>
+<p>Returns a slice which obtained after both filtering and mapping using the given callback function.
+The callback function should return two values: the result of the mapping operation and whether the result element should be included or not.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[4 8]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/filter_map.go:28
+</code></pre><hr>
+<h2 id="demo-for-slices-demos-for-flat_slice">Demo for slices: demos for flat_slice</h2>
+<blockquote>
+<p>Manipulates a slice and transforms and flattens it to a slice of another type. The transform function can either return a slice or a nil, and in the nil case no value is added to the final slice.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[11 3 3 3 110 6 6 6 1001 11 9 9 1100 14 12 c]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/flat_slice.go:32
+</code></pre><hr>
+<h2 id="demo-for-slices-demos-for-reduce">Demo for slices: demos for reduce</h2>
+<blockquote>
+<p>Reduces a collection to a single value. The value is calculated by accumulating the result of running each element in the collection through an accumulator function. Each successive invocation is supplied with the return value returned by the previous call.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+10
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/reduce.go:27
+</code></pre><hr>
+<h2 id="demo-for-slices-demos-for-reduce_right">Demo for slices: demos for reduce_right</h2>
+<blockquote>
+<p>Like lo.Reduce except that it iterates over elements of collection from right to left.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[10086 8848 7 8 9 4 5 6 1 2 3]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/reduce_right.go:31
+</code></pre><hr>
+<h2 id="demo-for-slices-demos-for-for_each">Demo for slices: demos for for_each</h2>
+<blockquote>
+<p>Iterates over a collection and applies a function to each element.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+index: 0, value: 1
+index: 1, value: 2
+index: 2, value: 3
+index: 3, value: 4
+index: 4, value: 5
+index: 5, value: 6
+index: 6, value: 7
+index: 7, value: 8
+index: 8, value: 9
+index: 9, value: 10
+Result:
+Sequential execution
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/for_each.go:29
+</code></pre><hr>
+<h2 id="demo-for-slices-demos-for-for_each_parallel">Demo for slices: demos for for_each_parallel</h2>
+<blockquote>
+<p>Like lo.ForEach except that it runs the iteratee function in parallel.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+index: 9, value: 10
+index: 0, value: 1
+index: 4, value: 5
+index: 1, value: 2
+index: 5, value: 6
+index: 7, value: 8
+index: 8, value: 9
+index: 3, value: 4
+index: 2, value: 3
+index: 6, value: 7
+Result:
+Parallel execution
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/for_each.go:51
+</code></pre><hr>
+<h2 id="demo-for-slices-demos-for-for_each_while">Demo for slices: demos for for_each_while</h2>
+<blockquote>
+<p>Iterates over a collection and applies a function to each element. The iteratee function can return false to break the loop.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+index: 0, value: 1
+index: 1, value: 2
+index: 2, value: 3
+index: 3, value: 4
+index: 4, value: 5
+Result:
+Sequential execution
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/for_each.go:74
+</code></pre><hr>
+<h2 id="demo-for-slices-demos-for-times">Demo for slices: demos for times</h2>
+<blockquote>
+<p>Times invokes the iteratee n times, returning an array of the results of each invocation. The iteratee is invoked with index as argument.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+406.918375ms
+[banana bananana banananana bananananana banananananana]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/times.go:30
+</code></pre><hr>
+<h2 id="demo-for-slices-demos-for-times_parallel">Demo for slices: demos for times_parallel</h2>
+<blockquote>
+<p>Like lo.Times except that it runs the iteratee function in parallel.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+101.138959ms
+[banana bananana banananana bananananana banananananana]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/times.go:55
+</code></pre><hr>
+<h2 id="demo-for-slices-demos-for-uniq">Demo for slices: demos for uniq</h2>
+<blockquote>
+<p>Creates a duplicate-free version of an array.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[1 2 3 4 5 6 7 8 9 10]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/uniq.go:23
+</code></pre><hr>
+<h2 id="demo-for-slices-demos-for-uniq_by">Demo for slices: demos for uniq_by</h2>
+<blockquote>
+<p>Creates a duplicate-free version of an array, using a function to determine uniqueness.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[1 2]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/uniq.go:43
+</code></pre><hr>
+<h2 id="demo-for-slices-demos-for-group_by">Demo for slices: demos for group_by</h2>
+<blockquote>
+<p>Groups the elements of a collection based on the given function.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+map[0:[3 6 9] 1:[1 4 7 10] 2:[2 5 8]]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/group_by.go:27
+</code></pre><hr>
+<h2 id="demo-for-slices-demos-for-chunk">Demo for slices: demos for chunk</h2>
+<blockquote>
+<p>Creates an array of elements split into groups the length of size.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[[1 2 3] [4 5 6] [7 8 9] [10]]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/chunk.go:25
+</code></pre><hr>
+<h2 id="demo-for-slices-demos-for-partition_by">Demo for slices: demos for partition_by</h2>
+<blockquote>
+<p>Returns an array of elements split into groups. The order of grouped values is determined by the order they occur in collection. The grouping is generated from the results of running each element of collection through iteratee.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[[-2 -1] [1 3 5 7 9] [2 4 6 8 10]]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/partition_by.go:34
+</code></pre><hr>
+<h2 id="demo-for-slices-demos-for-partition_parallel">Demo for slices: demos for partition_parallel</h2>
+<blockquote>
+<p>Like lo.PartitionBy except that it runs the iteratee function in parallel.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[[10 2 4 6 8] [-2 -1] [1 3 5 7 9]]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/partition_by.go:62
+</code></pre><hr>
+<h2 id="demo-for-slices-demos-for-flatten">Demo for slices: demos for flatten</h2>
+<blockquote>
+<p>Returns an array a single level deep.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[1 2 3 4]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/flatten.go:23
+</code></pre><hr>
+<h2 id="demo-for-slices-demos-for-interleave">Demo for slices: demos for interleave</h2>
+<blockquote>
+<p>Round-robin alternating input slices and sequentially appending value at index into result.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[a 1 x b 2 z c 3 4 5]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/interleave.go:25
+</code></pre><hr>
+<h2 id="demo-for-slices-demos-for-shuffle">Demo for slices: demos for shuffle</h2>
+<blockquote>
+<p>Returns an array of shuffled values. Uses the Fisher-Yates shuffle algorithm.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[10 7 9 1 2 8 6 3 4 5]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/shuffle.go:21
+</code></pre><hr>
+<h2 id="demo-for-slices-demos-for-reverse">Demo for slices: demos for reverse</h2>
+<blockquote>
+<p>Reverses a slice.This helper is mutable. This behavior might change in v2.0.0.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[5 4 3 2 1]
+[5 4 3 2 1]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/reverse.go:21
+</code></pre><hr>
+<h2 id="demo-for-slices-demos-for-fill">Demo for slices: demos for fill</h2>
+<blockquote>
+<p>Fills elements of slice with value.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[[-1 -1 -1] [-1 -1 -1] [-1 -1 -1]]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/fill.go:28
+</code></pre><hr>
+<h2 id="demo-for-slices-demos-for-repeat">Demo for slices: demos for repeat</h2>
+<blockquote>
+<p>Creates a slice with n values of v.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[[1 2 3] [1 2 3]]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/repeat.go:21
+</code></pre><hr>
+<h2 id="demo-for-slices-demos-for-repeat_by">Demo for slices: demos for repeat_by</h2>
+<blockquote>
+<p>Builds a slice with values returned by N calls of callback.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[0 1 4]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/repeat_by.go:24
+</code></pre><hr>
+<h2 id="demo-for-slices-demos-for-key_by">Demo for slices: demos for key_by</h2>
+<blockquote>
+<p>Transforms a slice or an array of structs to a map based on a pivot callback.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+map[001:{001 Alice 20} 002:{002 Alice 20} 003:{003 Bob 21} 004:{004 Charlie 22} 005:{005 David 23}]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/key_by.go:37
+</code></pre><hr>
+<h2 id="demo-for-slices-demos-for-associate">Demo for slices: demos for associate</h2>
+<blockquote>
+<p>Returns a map containing key-value pairs provided by transform function applied to elements of the given slice. If any of two pairs would have the same key the last one gets added to the map.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+map[001:Alice is 20 years old 002:Alice is 20 years old 003:Bob is 21 years old 004:Charlie is 22 years old 005:David is 23 years old]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/associate.go:32
+</code></pre><hr>
+<h2 id="demo-for-slices-demos-for-drop">Demo for slices: demos for drop</h2>
+<blockquote>
+<p>Removes n elements from the beginning of slice.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[1 2 3 4 5]
+[3 4 5]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/drop.go:21
+</code></pre><hr>
+<h2 id="demo-for-slices-demos-for-dropright">Demo for slices: demos for dropRight</h2>
+<blockquote>
+<p>Removes n elements from the end of slice.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[1 2 3 4 5]
+[1 2 3]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/drop.go:37
+</code></pre><hr>
+<h2 id="demo-for-slices-demos-for-dropwhile">Demo for slices: demos for dropWhile</h2>
+<blockquote>
+<p>Removes elements from slice until predicate returns false.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[1 2 3 2 1]
+[3 2 1]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/drop.go:55
+</code></pre><hr>
+<h2 id="demo-for-slices-demos-for-droprightwhile">Demo for slices: demos for dropRightWhile</h2>
+<blockquote>
+<p>Removes elements from slice until predicate returns false.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[1 2 3 2 1]
+[1 2 3]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/drop.go:73
+</code></pre><hr>
+<h2 id="demo-for-slices-demos-for-dropbyindex">Demo for slices: demos for dropByIndex</h2>
+<blockquote>
+<p>Drops elements from a slice or array by the index. A negative index will drop elements from the end of the slice.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[0 1 2 3 4 5]
+[0 2 4]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/drop.go:89
+</code></pre><hr>
+<h2 id="demo-for-slices-demos-for-reject">Demo for slices: demos for reject</h2>
+<blockquote>
+<p>Rejects elements of slice with predicate.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[1 2 3 4 5]
+[1 3 5]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/reject.go:24
+</code></pre><hr>
+<h2 id="demo-for-slices-demos-for-rejectmap">Demo for slices: demos for rejectMap</h2>
+<blockquote>
+<p>Rejects elements of slice with predicate and maps the result.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[1 2 3 4 5]
+[ood:1 ood:3 ood:5]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/reject.go:42
+</code></pre><hr>
+<h2 id="demo-for-slices-demos-for-filterreject">Demo for slices: demos for filterReject</h2>
+<blockquote>
+<p>Mixes Filter and Reject, this method returns two slices, one for the elements of collection that predicate returns truthy for and one for the elements that predicate does not return truthy for.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[2 4]
+[1 3 5]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/reject.go:60
+</code></pre><hr>
+<h2 id="demo-for-slices-demos-for-count">Demo for slices: demos for count</h2>
+<blockquote>
+<p>Counts the number of elements in the collection that compare equal to value.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+2
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/count.go:21
+</code></pre><hr>
+<h2 id="demo-for-slices-demos-for-countby">Demo for slices: demos for countBy</h2>
+<blockquote>
+<p>Counts the number of elements in the collection that predicate returns truthy for.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+2
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/count.go:39
+</code></pre><hr>
+<h2 id="demo-for-slices-demos-for-countvalues">Demo for slices: demos for countValues</h2>
+<blockquote>
+<p>Counts the number of each element in the collection.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+map[a:3 b:2 c:1 d:3]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/count.go:55
+</code></pre><hr>
+<h2 id="demo-for-slices-demos-for-countvaluesby">Demo for slices: demos for countValuesBy</h2>
+<blockquote>
+<p>Counts the number of each element in the collection. It ss equivalent to chaining lo.Map and lo.CountValues.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+map[false:5 true:5]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/count.go:73
+</code></pre><hr>
+<h2 id="demo-for-slices-demos-for-subset">Demo for slices: demos for subset</h2>
+<blockquote>
+<p>Returns a copy of a slice from offset up to length elements. Like slice[start:start+length], but does not panic on overflow.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[3 4]
+[4 5]
+[]
+[2]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/subset.go:24
+</code></pre><hr>
+<h2 id="demo-for-slices-demos-for-slice">Demo for slices: demos for slice</h2>
+<blockquote>
+<p>Returns a copy of a slice from start up to end elements. Like slice[start:end], but does not panic on overflow.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[3 4 5]
+[4 5]
+[]
+[1]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/subset.go:45
+</code></pre><hr>
+<h2 id="demo-for-slices-demos-for-replace">Demo for slices: demos for replace</h2>
+<blockquote>
+<p>Returns a copy of the slice with the first n non-overlapping instances of old replaced by new.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[0 1 1 1 1 1 1 1 1 1]
+[0 0 1 1 1 1 1 1 1 1]
+[0 0 0 1 1 1 1 1 1 1]
+[0 0 0 0 1 1 1 1 1 1]
+[0 0 0 0 0 1 1 1 1 1]
+[0 0 0 0 0 0 0 0 0 0]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/replace.go:20
+</code></pre><hr>
+<h2 id="demo-for-slices-demos-for-replaceall">Demo for slices: demos for replaceAll</h2>
+<blockquote>
+<p>Returns a copy of the slice with all non-overlapping instances of old replaced by new.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[0 0 0 0 0 0 0 0 0 0]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/replace.go:42
+</code></pre><hr>
+<h2 id="demo-for-slices-demos-for-compact">Demo for slices: demos for compact</h2>
+<blockquote>
+<p>Returns a slice of all non-zero elements.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[1 2 3 4 5]
+[a b c]
+[true true]
+[1 2 3]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/compact.go:19
+</code></pre><hr>
+<h2 id="demo-for-slices-demos-for-issort">Demo for slices: demos for isSort</h2>
+<blockquote>
+<p>Returns true if the slice is sorted.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+true
+false
+false
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/is_sort.go:19
+</code></pre><hr>
+<h2 id="demo-for-slices-demos-for-issortedbykey">Demo for slices: demos for isSortedByKey</h2>
+<blockquote>
+<p>Checks if a slice is sorted by iteratee.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+true
+false
+false
+false
+true
+true
+true
+false
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/is_sort.go:37
+</code></pre><hr>
+<h2 id="demo-for-slices-demos-for-splice">Demo for slices: demos for splice</h2>
+<blockquote>
+<p>Splice inserts multiple elements at index i. A negative index counts back from the end of the slice. The helper is protected against overflow errors.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[1 2 -1 -2 -3 3 4 5]
+[1 2 3 4 -1 -2 -3 5]
+[1 2 3 4 5 -1 -2 -3]
+[-1 -2 -3 1 2 3 4 5]
+[1 2 3 -1 -2 -3 4 5]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/slices/splice.go:20
+</code></pre><hr>
+<h2 id="demo-for-maps-demos-for-keys">Demo for maps: demos for keys</h2>
+<blockquote>
+<p>Returns a slice of keys in the map.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[a b c]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/maps/keys.go:20
+</code></pre><hr>
+<h2 id="demo-for-maps-demos-for-haskey">Demo for maps: demos for hasKey</h2>
+<blockquote>
+<p>Checks if a key exists in the map.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+true
+false
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/maps/keys.go:37
+</code></pre><hr>
+<h2 id="demo-for-maps-demos-for-values">Demo for maps: demos for values</h2>
+<blockquote>
+<p>Returns a slice of values in the map.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[1 2 3 3]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/maps/values.go:20
+</code></pre><hr>
+<h2 id="demo-for-maps-demos-for-valueor">Demo for maps: demos for valueOr</h2>
+<blockquote>
+<p>Returns the value for key in the map. If the key does not exist, it returns the default value.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+1
+8848
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/maps/values.go:37
+</code></pre><hr>
+<h2 id="demo-for-maps-demos-for-pickby">Demo for maps: demos for pickBy</h2>
+<blockquote>
+<p>Returns same map type filtered by given predicate.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+map[b:2 d:4 f:6 h:8 j:10]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/maps/pick_by.go:20
+</code></pre><hr>
+<h2 id="demo-for-maps-demos-for-pickbykeys">Demo for maps: demos for pickByKeys</h2>
+<blockquote>
+<p>Returns same map type filtered by given keys.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+map[a:1 b:2 i:9]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/maps/pick_by.go:39
+</code></pre><hr>
+<h2 id="demo-for-maps-demos-for-pickbyvalues">Demo for maps: demos for pickByValues</h2>
+<blockquote>
+<p>Returns same map type filtered by given values.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+map[a:1 b:2 i:9 j:9]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/maps/pick_by.go:56
+</code></pre><hr>
+<h2 id="demo-for-maps-demos-for-omitby">Demo for maps: demos for omitBy</h2>
+<blockquote>
+<p>Creates an object composed of the properties the given function returns falsey for.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+map[a:1 b:2 c:3 d:4 e:5]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/maps/omit_by.go:20
+</code></pre><hr>
+<h2 id="demo-for-maps-demos-for-omitbykeys">Demo for maps: demos for omitByKeys</h2>
+<blockquote>
+<p>Creates an object composed of the properties not in the given keys.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+map[c:3 d:4 e:5 f:6 g:7 h:8 j:10]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/maps/omit_by.go:37
+</code></pre><hr>
+<h2 id="demo-for-maps-demos-for-omitbyvalues">Demo for maps: demos for omitByValues</h2>
+<blockquote>
+<p>Creates an object composed of the properties not in the given values.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+map[c:3 d:4 e:5 f:6 g:7 h:8]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/maps/omit_by.go:54
+</code></pre><hr>
+<h2 id="demo-for-maps-demos-for-entries">Demo for maps: demos for entries</h2>
+<blockquote>
+<p>Transforms a map into array of key/value pairs.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[{c 3} {a 1} {b 2}]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/maps/entries.go:20
+</code></pre><hr>
+<h2 id="demo-for-maps-demos-for-fromentries">Demo for maps: demos for fromEntries</h2>
+<blockquote>
+<p>Transforms an array of key/value pairs into a map.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+map[a:1 b:2 c:3]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/maps/entries.go:41
+</code></pre><hr>
+<h2 id="demo-for-maps-demos-for-invert">Demo for maps: demos for invert</h2>
+<blockquote>
+<p>Creates a map composed of the inverted keys and values. If map contains duplicate values, subsequent values overwrite property assignments of previous values.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+map[1:a 2:d 3:c]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/maps/invert.go:20
+</code></pre><hr>
+<h2 id="demo-for-maps-demos-for-assign">Demo for maps: demos for assign</h2>
+<blockquote>
+<p>Merges multiple maps from left to right.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+map[a:1 b:3 c:4 d:5]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/maps/invert.go:39
+</code></pre><hr>
+<h2 id="demo-for-maps-demos-for-mapkeys">Demo for maps: demos for mapKeys</h2>
+<blockquote>
+<p>Manipulates a map keys and transforms it to a map of another type.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+map[A:1 B:2 C:3]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/maps/map.go:21
+</code></pre><hr>
+<h2 id="demo-for-maps-demos-for-mapvalues">Demo for maps: demos for mapValues</h2>
+<blockquote>
+<p>Manipulates a map values and transforms it to a map of another type.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+map[1:A 2:B 3:C]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/maps/map.go:38
+</code></pre><hr>
+<h2 id="demo-for-maps-demos-for-mapentries">Demo for maps: demos for mapEntries</h2>
+<blockquote>
+<p>Manipulates a map entries and transforms it to a map of another type.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+map[A:a B:b C:c]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/maps/map.go:55
+</code></pre><hr>
+<h2 id="demo-for-maps-demos-for-maptoslice">Demo for maps: demos for mapToSlice</h2>
+<blockquote>
+<p>Transforms a map into a slice based on specific iteratee.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[a::1 b::2 c::3]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/maps/map.go:74
+</code></pre><hr>
+<h2 id="demo-for-math-demos-for-rangerangefromrangewithsteps">Demo for math: demos for range/rangeFrom/RangeWithSteps</h2>
+<blockquote>
+<p>Creates an array of numbers (positive and/or negative) progressing from start up to, but not including end.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[0 1 2 3 4]
+[0 -1 -2 -3 -4]
+[2 3 4 5 6]
+[5 6]
+[1 3]
+[5 3]
+[1 2 3 4 5]
+[1 2 3 4 5]
+[1 1.3 1.6 1.9000000000000001 2.2 2.5 2.8 3.0999999999999996 3.3999999999999995 3.6999999999999993 3.999999999999999 4.299999999999999 4.599999999999999 4.899999999999999]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/math/range.go:19
+</code></pre><hr>
+<h2 id="demo-for-math-demos-for-clamp">Demo for math: demos for clamp</h2>
+<blockquote>
+<p>Clamps number within the inclusive lower and upper bounds.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+5
+0
+10
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/math/clamp.go:19
+</code></pre><hr>
+<h2 id="demo-for-math-demos-for-sum">Demo for math: demos for sum</h2>
+<blockquote>
+<p>Calculates the sum of numbers. If collection is empty 0 is returned.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+6
+0
+6.3
+6.300000000000001
+6
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/math/sum.go:19
+</code></pre><hr>
+<h2 id="demo-for-math-demos-for-mean">Demo for math: demos for mean</h2>
+<blockquote>
+<p>Calculates the mean of the numbers.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+2
+0
+2.1000001
+2.1
+2
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/math/mean.go:19
+</code></pre><hr>
+<h2 id="demo-for-math-demos-for-meanby">Demo for math: demos for meanBy</h2>
+<blockquote>
+<p>Calculates the mean of the numbers by the given function.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+6.6
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/math/mean.go:39
+</code></pre><hr>
+<h2 id="demo-for-strings-demos-for-randomstring">Demo for strings: demos for randomString</h2>
+<blockquote>
+<p>Generates a random string of specified length</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+ahjjb
+NORVK
+84220
+&#39;%.]]
+OYSXraRlwv
+PrLMYZm4xU9ZNLX
+&#39;N$#xEWv(4._$Q}FybWz
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/strings/string.go:19
+</code></pre><hr>
+<h2 id="demo-for-strings-demos-for-substring">Demo for strings: demos for substring</h2>
+<blockquote>
+<p>Gets the substring of string from the start index up to, but not including, the end index.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+Wor
+rl
+lo, World!
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/strings/string.go:41
+</code></pre><hr>
+<h2 id="demo-for-strings-demos-for-chunkstring">Demo for strings: demos for chunkString</h2>
+<blockquote>
+<p>Splits string into an array of chunks.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[1 2 3 4 5 6 7 8 9 0]
+[12 34 56 78 90]
+[123 456 789 0]
+[1234 5678 90]
+[1234567890]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/strings/string.go:59
+</code></pre><hr>
+<h2 id="demo-for-strings-demos-for-runelength">Demo for strings: demos for runeLength</h2>
+<blockquote>
+<p>Gets the number of characters in string.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+13
+6
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/strings/string.go:79
+</code></pre><hr>
+<h2 id="demo-for-strings-demos-for-elipse">Demo for strings: demos for elipse</h2>
+<blockquote>
+<p>Truncates string to a specified length.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+He...
+...
+Hello, ...
+Hello, World!
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/strings/string.go:96
+</code></pre><hr>
+<h2 id="demo-for-strings-demos-for-pascalcase">Demo for strings: demos for PascalCase</h2>
+<blockquote>
+<p>Converts a string to PascalCase.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+LoLearn
+LoLearn
+LoLearn
+LoLearn
+LoLearn
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/strings/word.go:19
+</code></pre><hr>
+<h2 id="demo-for-strings-demos-for-camelcase">Demo for strings: demos for CamelCase</h2>
+<blockquote>
+<p>Converts a string to camelCase.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+loLearn
+loLearn
+loLearn
+loLearn
+loLearn
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/strings/word.go:39
+</code></pre><hr>
+<h2 id="demo-for-strings-demos-for-kebabcase">Demo for strings: demos for KebabCase</h2>
+<blockquote>
+<p>Converts a string to kebab-case.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+lo-learn
+lo-learn
+lo-learn
+lo-learn
+lo-learn
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/strings/word.go:59
+</code></pre><hr>
+<h2 id="demo-for-strings-demos-for-snakecase">Demo for strings: demos for SnakeCase</h2>
+<blockquote>
+<p>Converts a string to snake_case.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+lo_learn
+lo_learn
+lo_learn
+lo_learn
+lo_learn
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/strings/word.go:79
+</code></pre><hr>
+<h2 id="demo-for-strings-demos-for-words">Demo for strings: demos for Words</h2>
+<blockquote>
+<p>Splits string into an array of its words.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[lo Learn]
+[Lo Learn]
+[lo learn]
+[lo learn]
+[lo learn]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/strings/word.go:99
+</code></pre><hr>
+<h2 id="demo-for-strings-demos-for-capitalize">Demo for strings: demos for Capitalize</h2>
+<blockquote>
+<p>Converts the first character of string to upper case and the remaining to lower case.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+Hello
+Hello
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/strings/word.go:119
+</code></pre><hr>
+<h2 id="demo-for-tuples-demos-for-tuple-and-named-tuple-1-9">Demo for tuples: demos for tuple and named tuple 1-9</h2>
+<blockquote>
+<p>demos for tuple and named tuple 1-9</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+{hello 2}
+{hello 2 true}
+{hello 2 true {bar}}
+{hello 2 true {bar} 4.2}
+{hello 2 true {bar} 4.2 plop}
+{hello 2 true {bar} 4.2 plop false}
+{hello 2 true {bar} 4.2 plop false 42}
+{hello 2 true {bar} 4.2 plop false 42 hello world}
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/tuples/tuple.go:24
+</code></pre><hr>
+<h2 id="demo-for-tuples-demos-for-unpack">Demo for tuples: demos for unpack</h2>
+<blockquote>
+<p>Unpacks a tuple.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+hello2
+hello2 true
+hello2 true {bar}
+hello2 true {bar} 4.2
+hello2 true {bar} 4.2plop
+hello2 true {bar} 4.2plopfalse
+hello2 true {bar} 4.2plopfalse 42
+hello2 true {bar} 4.2plopfalse 42hello world
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/tuples/tuple.go:47
+</code></pre><hr>
+<h2 id="demo-for-tuples-demos-for-zip">Demo for tuples: demos for zip</h2>
+<blockquote>
+<p>Zip creates a slice of grouped elements, the first of which contains the first elements of the given arrays, the second of which contains the second elements of the given arrays, and so on.
+When collections have different size, the Tuple attributes are filled with zero value.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[{hello 2} {world 3}]
+[{hello 2} {world 3} { 4} { 5}]
+[{hello 2}]
+[{hello 2 true}]
+[{hello 2 true {bar}}]
+[{hello 2 true {bar} 4.2}]
+[{hello 2 true {bar} 4.2 plop}]
+[{hello 2 true {bar} 4.2 plop false}]
+[{hello 2 true {bar} 4.2 plop false 42}]
+[{hello 2 true {bar} 4.2 plop false 42 hello world}]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/tuples/zip.go:20
+</code></pre><hr>
+<h2 id="demo-for-tuples-demos-for-zipby">Demo for tuples: demos for zipBy</h2>
+<blockquote>
+<p>ZipBy creates a slice of grouped elements, the first of which contains the result of applying the given function to the first elements of the given arrays, the second of which contains the result of applying the given function to the second elements of the given arrays, and so on.
+When collections have different size, the Tuple attributes are filled with zero value.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[hello::2 world::3 !::0]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/tuples/zip.go:46
+</code></pre><hr>
+<h2 id="demo-for-tuples-demos-for-unzip">Demo for tuples: demos for unzip</h2>
+<blockquote>
+<p>Unzip converts a slice of grouped elements into a slice of arrays.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[hello world ! plop plop] [2 3 4 5 6]
+[hello] [2] [true]
+[hello] [2] [true] [{bar}]
+[hello] [2] [true] [{bar}] [4.2]
+[hello] [2] [true] [{bar}] [4.2] [plop]
+[hello] [2] [true] [{bar}] [4.2] [plop] [false]
+[hello] [2] [true] [{bar}] [4.2] [plop] [false] [42]
+[hello] [2] [true] [{bar}] [4.2] [plop] [false] [42] [hello world]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/tuples/zip.go:74
+</code></pre><hr>
+<h2 id="demo-for-tuples-demos-for-unzipby">Demo for tuples: demos for unzipBy</h2>
+<blockquote>
+<p>UnzipBy converts a slice of grouped elements into a slice of arrays by applying the given function.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[Alice Bob Charlie]
+[1 2 3]
+[20 30 40]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/tuples/zip.go:110
+</code></pre><hr>
+<h2 id="demo-for-time-and-duration-demos-for-duration">Demo for time and duration: demos for duration</h2>
+<blockquote>
+<p>Returns the time taken to execute a function.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+11.018666ms
+11.019458ms
+1 10.992834ms
+1 2 10.613417ms
+1 2 3 11.013292ms
+1 2 3 4 11.019416ms
+1 2 3 4 5 10.264833ms
+1 2 3 4 5 6 11.017542ms
+1 2 3 4 5 6 7 11.017167ms
+1 2 3 4 5 6 7 8 11.019291ms
+1 2 3 4 5 6 7 8 9 11.017167ms
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/duration/duration.go:36
+</code></pre><hr>
+<h2 id="demo-for-channels-demos-for-channel-dispatcher">Demo for channels: demos for channel dispatcher</h2>
+<blockquote>
+<p>Distributes messages from input channels into N child channels. Close events are propagated to children.
+Underlying channels can have a fixed buffer capacity or be unbuffered when cap is 0.</p>
+</blockquote>
+<p>Many distributions strategies are available:</p>
+<ul>
+<li>lo.DispatchingStrategyRoundRobin: Distributes messages in a rotating sequential manner.</li>
+<li>lo.DispatchingStrategyRandom: Distributes messages in a random manner.</li>
+<li>lo.DispatchingStrategyWeightedRandom: Distributes messages in a weighted manner.</li>
+<li>lo.DispatchingStrategyFirst: Distributes messages in the first non-full channel.</li>
+<li>lo.DispatchingStrategyLeast: Distributes messages in the emptiest channel.</li>
+<li>lo.DispatchingStrategyMost: Distributes to the fullest channel.</li>
+</ul>
+<p>Some strategies bring fallback, in order to favor non-blocking behaviors. See implementations.</p>
+<p>For custom strategies, just implement the lo.DispatchingStrategy prototype</p>
+<pre tabindex="0"><code>Running example:
+comsumer 0 gets msg 0
+comsumer 3 gets msg 3
+comsumer 1 gets msg 1
+comsumer 2 gets msg 2
+comsumer 4 gets msg 4
+comsumer 4 gets msg 9
+comsumer 1 gets msg 6
+comsumer 3 gets msg 8
+comsumer 2 gets msg 7
+comsumer 0 gets msg 5
+comsumer 0 gets msg 10
+comsumer 1 gets msg 11
+comsumer 4 gets msg 14
+comsumer 3 gets msg 13
+comsumer 2 gets msg 12
+comsumer 2 gets msg 17
+comsumer 1 gets msg 16
+comsumer 4 gets msg 19
+comsumer 0 gets msg 15
+comsumer 3 gets msg 18
+closed
+closed
+closed
+closed
+closed
+Result:
+done
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/channels/channel_dispatcher.go:67
+</code></pre><hr>
+<h2 id="demo-for-channels-slice-to-channel">Demo for channels: slice to channel</h2>
+<blockquote>
+<p>Returns a read-only channels of collection elements. Channel is closed after last element. Channel capacity can be customized.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+1
+2
+3
+4
+5
+Result:
+done
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/channels/slice_to_channel.go:27
+</code></pre><hr>
+<h2 id="demo-for-channels-channel-to-slice">Demo for channels: channel to slice</h2>
+<blockquote>
+<p>Collects messages from a channel into a slice. Channel is closed after last element.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[1 2 3 4 5]
+[0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/channels/slice_to_channel.go:55
+</code></pre><hr>
+<h2 id="demo-for-channels-demo-for-generator">Demo for channels: demo for generator</h2>
+<blockquote>
+<p>Implements the generator design pattern. Channel is closed after last element. Channel capacity can be customized.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[0 1 1 2 3 5 8 13 21 34]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/channels/generator.go:32
+</code></pre><hr>
+<h2 id="demo-for-channels-demo-for-buffer">Demo for channels: demo for buffer</h2>
+<blockquote>
+<p>Implements the buffer design pattern. Channel is closed after last element. Channel capacity can be customized.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+items: [1 2 3], buffer length=3, read duration is 1.875µs, channel is open? - true
+items: [4 5], buffer length=2, read duration is 625ns, channel is open? - false
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/channels/buffer.go:25
+</code></pre><hr>
+<h2 id="demo-for-channels-demo-for-buffer-with-timeout">Demo for channels: demo for buffer with timeout</h2>
+<blockquote>
+<p>Implements the buffer design pattern with timeout. Channel is closed after last element. Channel capacity can be customized.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+items: [0 1], buffer length=2, read duration is 101.0195ms, channel is open? - true
+items: [2 3 4], buffer length=3, read duration is 78.830292ms, channel is open? - true
+items: [], buffer length=0, read duration is 1.041µs, channel is open? - false
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/channels/buffer.go:55
+</code></pre><hr>
+<h2 id="demo-for-channels-demo-for-fan-in">Demo for channels: demo for fan in</h2>
+<blockquote>
+<p>Merge messages from multiple input channels into a single buffered channel. Output messages has no priority. When all upstream channels reach EOF, downstream channel closes.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[1 1 1 3 3 3 3 3 2 2 2 2 2 1 1]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/channels/fan.go:25
+</code></pre><hr>
+<h2 id="demo-for-channels-demo-for-fan-out">Demo for channels: demo for fan out</h2>
+<blockquote>
+<p>Broadcasts all the upstream messages to multiple downstream channels. When upstream channel reach EOF, downstream channels close. If any downstream channels is full, broadcasting is paused.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[1 2 3 4 5]
+[1 2 3 4 5]
+[1 2 3 4 5]
+[1 2 3 4 5]
+[1 2 3 4 5]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/channels/fan.go:45
+</code></pre><hr>
+<h2 id="demo-for-intersection-demo-for-contains">Demo for intersection: demo for contains</h2>
+<blockquote>
+<p>Returns true if an element is present in a collection.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+true
+false
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/intersection/contains.go:19
+</code></pre><hr>
+<h2 id="demo-for-intersection-demo-for-contains-by">Demo for intersection: demo for contains by</h2>
+<blockquote>
+<p>Returns true if the predicate function returns true.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+false
+true
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/intersection/contains.go:36
+</code></pre><hr>
+<h2 id="demo-for-intersection-demo-for-every">Demo for intersection: demo for every</h2>
+<blockquote>
+<p>Returns true if all elements of a subset are contained into a collection or if the subset is empty.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+true
+false
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/intersection/every.go:19
+</code></pre><hr>
+<h2 id="demo-for-intersection-demo-for-every-by">Demo for intersection: demo for every by</h2>
+<blockquote>
+<p>Returns true if the predicate function returns true for all elements of a subset.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+true
+false
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/intersection/every.go:36
+</code></pre><hr>
+<h2 id="demo-for-intersection-demo-for-some">Demo for intersection: demo for some</h2>
+<blockquote>
+<p>Returns true if at least one element of a subset is contained into a collection.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+false
+true
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/intersection/some.go:19
+</code></pre><hr>
+<h2 id="demo-for-intersection-demo-for-some-by">Demo for intersection: demo for some by</h2>
+<blockquote>
+<p>Returns true if the predicate function returns true for at least one element of a subset.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+true
+false
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/intersection/some.go:36
+</code></pre><hr>
+<h2 id="demo-for-intersection-demo-for-none">Demo for intersection: demo for none</h2>
+<blockquote>
+<p>Returns true if none of the elements of a subset are contained into a collection.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+true
+false
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/intersection/none.go:19
+</code></pre><hr>
+<h2 id="demo-for-intersection-demo-for-none-by">Demo for intersection: demo for none by</h2>
+<blockquote>
+<p>Returns true if the predicate function returns false for all elements of a subset.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+false
+true
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/intersection/none.go:36
+</code></pre><hr>
+<h2 id="demo-for-intersection-demo-for-intersect">Demo for intersection: demo for intersect</h2>
+<blockquote>
+<p>Returns a new collection containing all elements that are present in all given collections.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[3 4 5]
+[]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/intersection/intersect.go:20
+</code></pre><hr>
+<h2 id="demo-for-intersection-demo-for-difference">Demo for intersection: demo for difference</h2>
+<blockquote>
+<p>Returns the difference between two collections.</p>
+</blockquote>
+<ul>
+<li>The first value is the collection of element absent of list2.</li>
+<li>The second value is the collection of element absent of list1.</li>
+</ul>
+<pre tabindex="0"><code>Running example:
+Result:
+[1 2] [6]
+[1 2 3 4 5] [6 7 8 9]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/intersection/intersect.go:39
+</code></pre><hr>
+<h2 id="demo-for-intersection-demo-for-union">Demo for intersection: demo for union</h2>
+<blockquote>
+<p>Returns all distinct elements from given collections. Result will not change the order of elements relatively.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[1 2 3 4 5 6 69]
+[1 2 3 4 5 6 7 8 9]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/intersection/intersect.go:56
+</code></pre><hr>
+<h2 id="demo-for-intersection-demo-for-without">Demo for intersection: demo for without</h2>
+<blockquote>
+<p>Returns a collection without the elements of a subset.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[1 2 5]
+[1 2 3 4]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/intersection/without.go:19
+</code></pre><hr>
+<h2 id="demo-for-intersection-demo-for-without-empty">Demo for intersection: demo for without empty</h2>
+<blockquote>
+<p>Deprecated: Use lo.Compact instead. Returns slice excluding empty values.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[1 3 5]
+[1 2 3 4 5]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/intersection/without.go:36
+</code></pre><hr>
+<h2 id="demo-for-search-demo-for-index-of">Demo for search: demo for index of</h2>
+<blockquote>
+<p>Returns the index at which the first occurrence of a value is found in an array or return -1 if the value cannot be found.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+2
+-1
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/search/index.go:21
+</code></pre><hr>
+<h2 id="demo-for-search-demo-for-last-index-of">Demo for search: demo for last index of</h2>
+<blockquote>
+<p>Returns the index at which the last occurrence of a value is found in an array or return -1 if the value cannot be found.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+3
+-1
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/search/index.go:40
+</code></pre><hr>
+<h2 id="demo-for-search-demo-for-find">Demo for search: demo for find</h2>
+<blockquote>
+<p>Search an element in a slice based on a predicate. It returns element and true if element was found.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+2 true
+0 false
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/search/find.go:20
+</code></pre><hr>
+<h2 id="demo-for-search-demo-for-find-index-of">Demo for search: demo for find index of</h2>
+<blockquote>
+<p>FindIndexOf searches an element in a slice based on a predicate and returns the index and true. It returns -1 and false if the element is not found.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+demo for search
+</code></pre><hr>
+<h2 id="demo-for-search-demo-for-find-last-index-of">Demo for search: demo for find last index of</h2>
+<blockquote>
+<p>FindLastIndexOf searches an element in a slice based on a predicate and returns the index and true. It returns -1 and false if the element is not found.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+3 3 true
+0 -1 false
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/search/find.go:47
+</code></pre><hr>
+<h2 id="demo-for-search-demo-for-find-or-else">Demo for search: demo for find or else</h2>
+<blockquote>
+<p>FindOrElse searches an element in a slice based on a predicate and returns the element if found. It returns the default value if the element is not found.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+2
+8848
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/search/find.go:64
+</code></pre><hr>
+<h2 id="demo-for-search-demo-for-find-key">Demo for search: demo for find key</h2>
+<blockquote>
+<p>Returns the key of the first value matching.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+ctrue
+false
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/search/find.go:81
+</code></pre><hr>
+<h2 id="demo-for-search-demo-for-find-key-by">Demo for search: demo for find key by</h2>
+<blockquote>
+<p>Returns the key of the first value matching the predicate.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+btrue
+false
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/search/find.go:98
+</code></pre><hr>
+<h2 id="demo-for-search-demo-for-find-uniques">Demo for search: demo for find uniques</h2>
+<blockquote>
+<p>Returns a slice with all the unique elements of the collection. The order of result values is determined by the order they occur in the array.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[4 5]
+[1 2 3 4 5]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/search/find.go:115
+</code></pre><hr>
+<h2 id="demo-for-search-demo-for-find-uniques-by">Demo for search: demo for find uniques by</h2>
+<blockquote>
+<p>Returns a slice with all the unique elements of the collection. The order of result values is determined by the order they occur in the array.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[]
+[3]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/search/find.go:132
+</code></pre><hr>
+<h2 id="demo-for-search-demo-for-find-duplicates">Demo for search: demo for find duplicates</h2>
+<blockquote>
+<p>Returns a slice with all the duplicate elements of the collection.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[1 2 3]
+[]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/search/find.go:149
+</code></pre><hr>
+<h2 id="demo-for-search-demo-for-find-duplicates-by">Demo for search: demo for find duplicates by</h2>
+<blockquote>
+<p>Returns a slice with all the duplicate elements of the collection.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+[1 2]
+[1 2]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/search/find.go:166
+</code></pre><hr>
+<h2 id="demo-for-search-demo-for-min">Demo for search: demo for min</h2>
+<blockquote>
+<p>Returns the minimum element in a collection.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+1
+1
+0
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/search/min.go:22
+</code></pre><hr>
+<h2 id="demo-for-search-demo-for-min-by">Demo for search: demo for min by</h2>
+<blockquote>
+<p>Search the minimum value of a collection using the given comparison function.
+If several values of the collection are equal to the smallest value, returns the first such value.
+Returns zero value when the collection is empty.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+sit
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/search/min.go:44
+</code></pre><hr>
+<h2 id="demo-for-search-demo-for-earliest">Demo for search: demo for earliest</h2>
+<blockquote>
+<p>Search the minimum time.Time of a collection.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+0001-01-01 00:00:00 +0000 UTC
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/search/min.go:62
+</code></pre><hr>
+<h2 id="demo-for-search-demo-for-earliest-by">Demo for search: demo for earliest by</h2>
+<blockquote>
+<p>Search the minimum time.Time of a collection using the given comparison function.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+{{0 0 &lt;nil&gt;}}
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/search/min.go:88
+</code></pre><hr>
+<h2 id="demo-for-search-demo-for-max">Demo for search: demo for max</h2>
+<blockquote>
+<p>Returns the maximum element in a collection.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+5
+5
+0
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/search/min.go:104
+</code></pre><hr>
+<h2 id="demo-for-search-demo-for-max-by">Demo for search: demo for max by</h2>
+<blockquote>
+<p>Search the maximum value of a collection using the given comparison function.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+lorem
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/search/min.go:124
+</code></pre><hr>
+<h2 id="demo-for-search-demo-for-latest">Demo for search: demo for latest</h2>
+<blockquote>
+<p>Search the maximum time.Time of a collection.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+2024-08-15 17:42:45.005862 +0800 +08 m=+1.034297001
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/search/min.go:142
+</code></pre><hr>
+<h2 id="demo-for-search-demo-for-latest-by">Demo for search: demo for latest by</h2>
+<blockquote>
+<p>Search the maximum time.Time of a collection using the given comparison function.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+{{13954281697065351968 1050503001 0x100f70700}}
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/search/min.go:168
+</code></pre><hr>
+<h2 id="demo-for-search-demo-for-first">Demo for search: demo for first</h2>
+<blockquote>
+<p>Returns the first element in a collection.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+1
+true
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/search/first.go:19
+</code></pre><hr>
+<h2 id="demo-for-search-demo-for-first-or-empty">Demo for search: demo for first or empty</h2>
+<blockquote>
+<p>Returns the first element in a collection or zero value if the collection is empty.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+1
+0
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/search/first.go:33
+</code></pre><hr>
+<h2 id="demo-for-search-demo-for-first-or">Demo for search: demo for first or</h2>
+<blockquote>
+<p>Returns the first element in a collection or a default value.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+1
+8848
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/search/first.go:52
+</code></pre><hr>
+<h2 id="demo-for-search-demo-for-last">Demo for search: demo for last</h2>
+<blockquote>
+<p>Returns the last element in a collection.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+5
+true
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/search/first.go:71
+</code></pre><hr>
+<h2 id="demo-for-search-demo-for-last-or-empty">Demo for search: demo for last or empty</h2>
+<blockquote>
+<p>Returns the last element in a collection or zero value if the collection is empty.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+5
+0
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/search/first.go:87
+</code></pre><hr>
+<h2 id="demo-for-search-demo-for-last-or">Demo for search: demo for last or</h2>
+<blockquote>
+<p>Returns the last element in a collection or a default value.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+5
+8848
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/search/first.go:106
+</code></pre><hr>
+<h2 id="demo-for-search-demo-for-nth">Demo for search: demo for nth</h2>
+<blockquote>
+<p>Returns the nth element in a collection.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+3
+&lt;nil&gt;
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/search/sample.go:19
+</code></pre><hr>
+<h2 id="demo-for-search-demo-for-sample">Demo for search: demo for sample</h2>
+<blockquote>
+<p>Returns a random sample of elements from a collection.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+3
+[5 2 3]
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/search/sample.go:33
+</code></pre><hr>
+<h2 id="demo-for-conditional-demo-for-conditional-statements">Demo for conditional: demo for conditional statements</h2>
+<blockquote>
+<p>demo for conditional statements</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+1
+2
+1
+1
+2
+3
+1
+1
+2
+3
+1
+1
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/conditional/conditional.go:23
+</code></pre><hr>
+<h2 id="demo-for-manipulation-demo-for-manipulation">Demo for manipulation: demo for manipulation</h2>
+<blockquote>
+<p>demo for manipulation</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+true
+true
+0x1400018c5b0
+&lt;nil&gt;
+&lt;nil&gt;
+&amp;[]
+0x1400018c5d0
+1
+1
+42
+[0x14000184018 0x14000184020 0x14000184028]
+[1 2 3]
+[hello world]
+[1 2 3] true
+{ 0}
+true
+true
+hello worldtrue
+hello world
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/manipulation/manipulation.go:27
+</code></pre><hr>
+<h2 id="demo-for-function-demo-for-partial">Demo for function: demo for partial</h2>
+<blockquote>
+<p>demo for partial</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+11
+20
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/function/partial.go:28
+</code></pre><hr>
+<h2 id="demo-for-concurrency-demo-for-attempt">Demo for concurrency: demo for attempt</h2>
+<blockquote>
+<p>Invokes a function N times until it returns valid output. Returning either the caught error or nil. When first argument is less than 1, the function runs until a successful response is returned.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+5 error
+11 &lt;nil&gt;
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/concurrency/attempt.go:23
+</code></pre><hr>
+<h2 id="demo-for-concurrency-demo-for-attempt-with-delay">Demo for concurrency: demo for attempt with delay</h2>
+<blockquote>
+<p>Invokes a function N times with a delay until it returns valid output. Returning either the caught error or nil. When first argument is less than 1, the function runs until a successful response is returned.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+error and wait for 125ns
+error and wait for 201.029917ms
+error and wait for 402.121709ms
+error and wait for 602.724917ms
+error and wait for 803.908667ms
+error and wait for 41ns
+error and wait for 200.453666ms
+error and wait for 401.839125ms
+error and wait for 603.21225ms
+error and wait for 803.675708ms
+error and wait for 1.004945625s
+error and wait for 1.206059291s
+error and wait for 1.406657125s
+error and wait for 1.607693875s
+error and wait for 1.808765708s
+Result:
+5 804.218084ms error
+11 2.014077291s &lt;nil&gt;
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/concurrency/attempt.go:48
+</code></pre><hr>
+<h2 id="demo-for-concurrency-demo-for-attempt-while">Demo for concurrency: demo for attempt while</h2>
+<blockquote>
+<p>Invokes a function repeatedly until it returns true. Returning either the caught error or nil. When the predicate function returns false, the function stops.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+2 retryable error
+6 non-retryable error
+6 non-retryable error
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/concurrency/attempt.go:74
+</code></pre><hr>
+<h2 id="demo-for-concurrency-demo-for-attempt-while-with-delay">Demo for concurrency: demo for attempt while with delay</h2>
+<blockquote>
+<p>Invokes a function with a delay until it returns true. Returning either the caught error or nil. When the predicate function returns false, the function stops.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+retryable error and wait for 42ns
+retryable error and wait for 201.151792ms
+retryable error and wait for 83ns
+retryable error and wait for 205.137167ms
+retryable error and wait for 405.55475ms
+retryable error and wait for 606.751042ms
+retryable error and wait for 807.184708ms
+non-retryable error and wait for 1.008335417s
+retryable error and wait for 42ns
+retryable error and wait for 200.704834ms
+retryable error and wait for 401.757792ms
+retryable error and wait for 602.504209ms
+retryable error and wait for 804.3005ms
+non-retryable error and wait for 1.005693792s
+Result:
+2 201.316708ms retryable error
+6 1.008395875s non-retryable error
+6 1.00583475s non-retryable error
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/concurrency/attempt.go:103
+</code></pre><hr>
+<h2 id="demo-for-concurrency-demo-for-debounce">Demo for concurrency: demo for debounce</h2>
+<blockquote>
+<p>NewDebounce creates a debounced instance that delays invoking functions given until after wait milliseconds have elapsed, until cancel is called.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+call once
+will be debounced, if called multiple times within 10ms
+call multiple times
+will be debounced, if called multiple times within 10ms
+will be debounced, if called multiple times within 10ms
+will be debounced, if called multiple times within 10ms
+will be debounced, if called multiple times within 10ms
+will be debounced, if called multiple times within 10ms
+will be debounced, if called multiple times within 10ms
+will be debounced, if called multiple times within 10ms
+will be debounced, if called multiple times within 10ms
+will be debounced, if called multiple times within 10ms
+cancel, nothing will be printed
+Result:
+done
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/concurrency/debounce.go:51
+</code></pre><hr>
+<h2 id="demo-for-concurrency-demo-for-debounce-by">Demo for concurrency: demo for debounce by</h2>
+<blockquote>
+<p>count 让回调函数知道在防抖期间事件被触发了多少次, 而不仅仅是知道事件发生了. NewDebounceBy creates a debounced instance for each distinct key, that delays invoking functions given until sed, until cancel is called.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+键 &#39;C&#39; 被按下 1 次
+键 &#39;B&#39; 被按下 2 次
+键 &#39;A&#39; 被按下 4 次
+Result:
+done
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/concurrency/debounce.go:85
+</code></pre><hr>
+<h2 id="demo-for-concurrency-demo-for-synchronize">Demo for concurrency: demo for synchronize</h2>
+<blockquote>
+<p>Wraps the underlying callback in a mutex. It receives an optional mutex.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+true
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/concurrency/sync.go:37
+</code></pre><hr>
+<h2 id="demo-for-concurrency-demo-for-async">Demo for concurrency: demo for async</h2>
+<blockquote>
+<p>Executes a function in a goroutine and returns the result in a channel.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+work2
+work0
+work1
+work1
+Result:
+{}
+1
+1
+{2 &lt;nil&gt;}
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/concurrency/sync.go:74
+</code></pre><hr>
+<h2 id="demo-for-concurrency-demo-for-transact">Demo for concurrency: demo for transact</h2>
+<blockquote>
+<p>Executes multiple functions in a single goroutine and returns the results in a channel.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+step 1
+step 2
+step 3
+rollback 2
+rollback 1
+step 1
+step 2
+step 3
+Result:
+-5
+too small
+167
+&lt;nil&gt;
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/concurrency/sync.go:133
+</code></pre><hr>
+<h2 id="demo-for-concurrency-demo-for-wait-for">Demo for concurrency: demo for wait for</h2>
+<blockquote>
+<p>Runs periodically until a condition is validated.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+1 2.263417ms true
+10 10.138917ms false
+7 7.126834ms true
+2 10.605459ms false
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/concurrency/wait_for.go:27
+</code></pre><hr>
+<h2 id="demo-for-concurrency-demo-for-wait-for-with-context">Demo for concurrency: demo for wait for with context</h2>
+<blockquote>
+<p>Runs periodically until a condition is validated or context is done.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+iterations: 1, duration: 2.256917ms, ok: true
+iterations: 10, duration: 10.003792ms, ok: false
+iterations: 6, duration: 6.1255ms, ok: true
+iterations: 2, duration: 10.53075ms, ok: false
+iterations: 7, duration: 31.317ms, ok: true
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/concurrency/wait_for.go:72
+</code></pre><hr>
+<h2 id="demo-for-error-handling-validate">Demo for error handling: Validate</h2>
+<blockquote>
+<p>Helper function that creates an error when a condition is not met.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+Slice should be empty but contains [a]
+&lt;nil&gt;
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/error_handling/validate.go:22
+</code></pre><hr>
+<h2 id="demo-for-error-handling-erroras">Demo for error handling: ErrorAs</h2>
+<blockquote>
+<p>A shortcut for:</p>
+</blockquote>
+<p>err := doSomething()
+var rateLimitErr *RateLimitError
+if ok := errors.As(err, &amp;rateLimitErr); ok {
+// retry later
+}</p>
+<pre tabindex="0"><code>Running example:
+Result:
+my error true
+ false
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/error_handling/validate.go:60
+</code></pre><hr>
+<h2 id="demo-for-error-handling-must">Demo for error handling: Must</h2>
+<blockquote>
+<p>Wraps a function call to panics if second argument is error or false, returns the value otherwise.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+2022-01-15 00:00:00 +0000 UTC
+1 2 3
+2022-01-15 00:00:00 +0000 UTC
+1 2 3
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/error_handling/must.go:31
+</code></pre><hr>
+<h2 id="demo-for-error-handling-try">Demo for error handling: Try</h2>
+<blockquote>
+<p>Calls the function and returns false in case of error and panic.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+Result:
+false
+true
+false
+false
+true
+false
+8848 false
+1 true
+8848 false
+1 2 3 false
+1 2 3 true
+1 2 3 false
+errorfalse
+&lt;nil&gt; true
+error false
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/error_handling/try.go:20
+</code></pre><hr>
+<h2 id="demo-for-error-handling-trycatch">Demo for error handling: TryCatch</h2>
+<blockquote>
+<p>Calls the function and returns the error in case of error.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+catch: error
+Result:
+done
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/error_handling/try.go:62
+</code></pre><hr>
+<h2 id="demo-for-error-handling-trycatchwitherrorvalue">Demo for error handling: TryCatchWithErrorValue</h2>
+<blockquote>
+<p>The same behavior as TryWithErrorValue, but calls the catch function in case of error.</p>
+</blockquote>
+<pre tabindex="0"><code>Running example:
+catch: trigger an error
+Result:
+done
+Source: /Users/bytedance/Desktop/Projects/2024/q3/lo-learn/error_handling/try.go:84
+</code></pre>
+      </div>
+    </article>
+
+    <hr />
+
+    <div class="post-info">
+      
+    <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg>
+
+        <span class="tag"><a href="https://Greenery-S.github.io/zh-cn/tags/go/">go</a></span>
+        <span class="tag"><a href="https://Greenery-S.github.io/zh-cn/tags/lo/">lo</a></span>
+        
+    </p>
+
+      
+    <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder meta-icon"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+
+        <span class="tag"><a href="https://Greenery-S.github.io/zh-cn/categories/go/">go</a></span>
+        <span class="tag"><a href="https://Greenery-S.github.io/zh-cn/categories/go-lo/">go-lo</a></span>
+        
+    </p>
+
+
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+          <polyline points="10 9 9 9 8 9"></polyline>
+        </svg>
+        6027字
+      </p>
+
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
+        
+          2024-08-15 17:46
+        
+
+         
+          
+        
+      </p>
+    </div>
+      <hr />
+      <div class="sharing-buttons">
+        
+<a class="resp-sharing-button__link" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2fgo%2fawsome-go%2flo-all-examples%2f" target="_blank" rel="noopener" aria-label="" title="Share on facebook">
+  <div class="resp-sharing-button resp-sharing-button--facebook resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://twitter.com/intent/tweet/?url=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2fgo%2fawsome-go%2flo-all-examples%2f" target="_blank" rel="noopener" aria-label="" title="Share on twitter">
+  <div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--small">
+      <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://www.tumblr.com/widgets/share/tool?posttype=link&amp;title=Lo%20All%20Examples&amp;caption=Lo%20All%20Examples&amp;canonicalUrl=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2fgo%2fawsome-go%2flo-all-examples%2f" target="_blank" rel="noopener" aria-label="" title="Share on tumblr">
+  <div class="resp-sharing-button resp-sharing-button--tumblr resp-sharing-button--small">
+    <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.563 24c-5.093 0-7.031-3.756-7.031-6.411V9.747H5.116V6.648c3.63-1.313 4.512-4.596 4.71-6.469C9.84.051 9.941 0 9.999 0h3.517v6.114h4.801v3.633h-4.82v7.47c.016 1.001.375 2.371 2.207 2.371h.09c.631-.02 1.486-.205 1.936-.419l1.156 3.425c-.436.636-2.4 1.374-4.156 1.404h-.178l.011.002z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="mailto:?subject=Lo%20All%20Examples&amp;body=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2fgo%2fawsome-go%2flo-all-examples%2f" target="_self" rel="noopener" aria-label="" title="Share via email">
+  <div class="resp-sharing-button resp-sharing-button--email resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://pinterest.com/pin/create/button/?url=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2fgo%2fawsome-go%2flo-all-examples%2f&amp;media=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2fgo%2fawsome-go%2flo-all-examples%2f;description=Lo%20All%20Examples" target="_blank" rel="noopener" aria-label="" title="Share on pinterest">
+  <div class="resp-sharing-button resp-sharing-button--pinterest resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2fgo%2fawsome-go%2flo-all-examples%2f&amp;title=Lo%20All%20Examples&amp;summary=Lo%20All%20Examples&amp;source=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2fgo%2fawsome-go%2flo-all-examples%2f" target="_blank" rel="noopener" aria-label="" title="Share on linkedin">
+  <div class="resp-sharing-button resp-sharing-button--linkedin resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://reddit.com/submit/?url=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2fgo%2fawsome-go%2flo-all-examples%2f&amp;resubmit=true&amp;title=Lo%20All%20Examples" target="_blank" rel="noopener" aria-label="" title="Share on reddit">
+  <div class="resp-sharing-button resp-sharing-button--reddit resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://www.xing.com/app/user?op=share;url=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2fgo%2fawsome-go%2flo-all-examples%2f;title=Lo%20All%20Examples" target="_blank" rel="noopener" aria-label="" title="Share on xing">
+  <div class="resp-sharing-button resp-sharing-button--xing resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M18.188 0c-.517 0-.741.325-.927.66 0 0-7.455 13.224-7.702 13.657.015.024 4.919 9.023 4.919 9.023.17.308.436.66.967.66h3.454c.211 0 .375-.078.463-.22.089-.151.089-.346-.009-.536l-4.879-8.916c-.004-.006-.004-.016 0-.022L22.139.756c.095-.191.097-.387.006-.535C22.056.078 21.894 0 21.686 0h-3.498zM3.648 4.74c-.211 0-.385.074-.473.216-.09.149-.078.339.02.531l2.34 4.05c.004.01.004.016 0 .021L1.86 16.051c-.099.188-.093.381 0 .529.085.142.239.234.45.234h3.461c.518 0 .766-.348.945-.667l3.734-6.609-2.378-4.155c-.172-.315-.434-.659-.962-.659H3.648v.016z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="whatsapp://send?text=Lo%20All%20Examples%20https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2fgo%2fawsome-go%2flo-all-examples%2f" target="_blank" rel="noopener" aria-label="" title="Share on whatsapp">
+  <div class="resp-sharing-button resp-sharing-button--whatsapp resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://news.ycombinator.com/submitlink?u=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2fgo%2fawsome-go%2flo-all-examples%2f&amp;t=Lo%20All%20Examples" target="_blank" rel="noopener" aria-label="" title="Share on hacker news">
+  <div class="resp-sharing-button resp-sharing-button--hackernews resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M0 24V0h24v24H0zM6.951 5.896l4.112 7.708v5.064h1.583v-4.972l4.148-7.799h-1.749l-2.457 4.875c-.372.745-.688 1.434-.688 1.434s-.297-.708-.651-1.434L8.831 5.896h-1.88z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://telegram.me/share/url?text=Lo%20All%20Examples&amp;url=https%3a%2f%2fGreenery-S.github.io%2fzh-cn%2fposts%2fgo%2fawsome-go%2flo-all-examples%2f" target="_blank" rel="noopener" aria-label="" title="Share on telegram">
+  <div class="resp-sharing-button resp-sharing-button--telegram resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+    </div>
+  </div>
+</a>
+
+      </div>
+
+    
+    <div class="pagination">
+        
+
+        <div class="pagination__buttons">
+            
+
+            
+            <span class="button next">
+                <a href="https://Greenery-S.github.io/zh-cn/posts/go/awsome-go/lo-is-an-efficient-toolbox-for-go/">
+                    <span class="button__text">Lo Is an Efficient Toolbox for Go</span>
+                    <span class="button__icon">→</span>
+                </a>
+            </span>
+            
+        </div>
+    </div>
+
+
+    
+
+    
+
+    
+    <script src="https://utteranc.es/client.js"
+            repo="Greenery-S/Greenery-S.github.io"
+            label="comments"
+            issue-term="pathname"
+            theme="boxy-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+    
+
+  </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2023</span>
+            <span><a href="https://Greenery-S.github.io/"></a></span>
+            <span><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></span>
+            <span><a href="https://Greenery-S.github.io/zh-cn/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+            
+        </div>
+    </div>
+    
+    
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Powered by <a href="http://gohugo.io">Hugo</a></span><span>Made with &#10084; by <a href="https://github.com/Greenery-S">Sam, Keyu Yan</a></span>
+        </div>
+    </div>
+    
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+<script type="text/javascript" src="https://Greenery-S.github.io/bundle.min.85fad2de4f13fec3bcb3b3cb10430cdb44a7b4a9749b32938241a5c6e77718df7624f1002b880521fdc26e24ec1077fda214bf1cb36ee3045510760d09638cae.js" integrity="sha512-hfrS3k8T/sO8s7PLEEMM20SntKl0mzKTgkGlxud3GN92JPEAK4gFIf3CbiTsEHf9ohS/HLNu4wRVEHYNCWOMrg=="></script>
+
+
+
+
+    </body>
+</html>

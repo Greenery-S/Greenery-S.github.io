@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://Greenery-S.github.io/zh-cn/categories/</loc>
-    <lastmod>2024-08-15T16:39:29+08:00</lastmod>
+    <lastmod>2024-08-15T17:46:09+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -16,7 +16,7 @@
                 />
   </url><url>
     <loc>https://Greenery-S.github.io/zh-cn/tags/go/</loc>
-    <lastmod>2024-08-15T16:39:29+08:00</lastmod>
+    <lastmod>2024-08-15T17:46:09+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -29,7 +29,7 @@
                 />
   </url><url>
     <loc>https://Greenery-S.github.io/zh-cn/categories/go/</loc>
-    <lastmod>2024-08-15T16:39:29+08:00</lastmod>
+    <lastmod>2024-08-15T17:46:09+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -42,10 +42,10 @@
                 />
   </url><url>
     <loc>https://Greenery-S.github.io/zh-cn/categories/go-lo/</loc>
-    <lastmod>2024-08-15T16:39:29+08:00</lastmod>
+    <lastmod>2024-08-15T17:46:09+08:00</lastmod>
   </url><url>
     <loc>https://Greenery-S.github.io/zh-cn/</loc>
-    <lastmod>2024-08-15T16:39:29+08:00</lastmod>
+    <lastmod>2024-08-15T17:46:09+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -58,13 +58,13 @@
                 />
   </url><url>
     <loc>https://Greenery-S.github.io/zh-cn/tags/lo/</loc>
-    <lastmod>2024-08-15T16:39:29+08:00</lastmod>
+    <lastmod>2024-08-15T17:46:09+08:00</lastmod>
   </url><url>
-    <loc>https://Greenery-S.github.io/zh-cn/posts/go/awsome-go/lo-is-an-efficient-toolbox-for-go/</loc>
-    <lastmod>2024-08-15T16:39:29+08:00</lastmod>
+    <loc>https://Greenery-S.github.io/zh-cn/posts/go/awsome-go/lo-all-examples/</loc>
+    <lastmod>2024-08-15T17:46:09+08:00</lastmod>
   </url><url>
     <loc>https://Greenery-S.github.io/zh-cn/posts/</loc>
-    <lastmod>2024-08-15T16:39:29+08:00</lastmod>
+    <lastmod>2024-08-15T17:46:09+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -77,7 +77,7 @@
                 />
   </url><url>
     <loc>https://Greenery-S.github.io/zh-cn/tags/</loc>
-    <lastmod>2024-08-15T16:39:29+08:00</lastmod>
+    <lastmod>2024-08-15T17:46:09+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -88,6 +88,9 @@
                 hreflang="zh-cn"
                 href="https://Greenery-S.github.io/zh-cn/tags/"
                 />
+  </url><url>
+    <loc>https://Greenery-S.github.io/zh-cn/posts/go/awsome-go/lo-is-an-efficient-toolbox-for-go/</loc>
+    <lastmod>2024-08-15T16:39:29+08:00</lastmod>
   </url><url>
     <loc>https://Greenery-S.github.io/zh-cn/tags/design-pattern/</loc>
     <lastmod>2024-06-07T17:37:02+08:00</lastmod>
